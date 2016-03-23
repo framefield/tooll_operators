@@ -1,0 +1,163 @@
+{
+  "Name": "Shear",
+  "_id": "b3084bb1-3eb9-4cdb-9a16-a1cee7910787",
+  "Namespace": "lib.3d.modify",
+  "Description": "Moves, scales and rotates the incoming geometry.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "6c116215-6cbf-46fa-a162-758591e24bd4",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Shear.X",
+      "MetaInstanceID": "eb92f416-0e43-4828-973b-e9123647c8d9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Shear.Y",
+      "MetaInstanceID": "3d6e7b5d-a34f-4564-8399-9dcb68a273dd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Shear.Z",
+      "MetaInstanceID": "819a4ae0-9d73-4b34-affa-94a0ac999ef1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "a437ef3f-786f-43fb-ba06-bc577bf789ab",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3",
+      "MetaID": "6c4f1407-27bf-47cd-a833-c962c48293b8",
+      "Name": "ShearFunc",
+      "Version": "3067736d-bf7a-4741-a4f9-71ddda9422e8",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID6c4f1407_27bf_47cd_a833_c962c48293b8",
+        "{",
+        "    public class Class_Shear : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            var SceneInput = inputs[0]; ",
+        "            var ShearX = (float) inputs[1].Eval(context).Value;",
+        "            var ShearY = (float) inputs[2].Eval(context).Value;",
+        "            var ShearZ = (float) inputs[3].Eval(context).Value;",
+        "",
+        "            Matrix m = Matrix.Identity;",
+        "            ",
+        "            m.M12=(float)(ShearX); ",
+        "            m.M13=(float)(ShearY); ",
+        "            m.M14=(float)(ShearZ); ",
+        "",
+        "            var prevTransform = context.ObjectTWorld;",
+        "            context.ObjectTWorld = m * prevTransform;",
+        "            var result = SceneInput.Eval(context);",
+        "            context.ObjectTWorld = prevTransform;",
+        "",
+        "            return context;",
+        "",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6c116215-6cbf-46fa-a162-758591e24bd4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb92f416-0e43-4828-973b-e9123647c8d9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d6e7b5d-a34f-4564-8399-9dcb68a273dd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "819a4ae0-9d73-4b34-affa-94a0ac999ef1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb6d5002-a5da-4f09-9b27-b0983d39a2b3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a437ef3f-786f-43fb-ba06-bc577bf789ab"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "Name": "GlobalTime",
+  "_id": "10293f99-b374-4b20-add6-844f10e333db",
+  "Namespace": "lib.basic",
+  "Description": "Returns the the current composition time.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "48100e59-088d-4308-acff-dbf5b53c885a",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "508095b7-f6dc-4334-9a2e-976b700264db",
+      "MetaID": "e3db583a-27c4-48a5-a1fe-679eda456a1c",
+      "Name": "GlobalTimeFunc",
+      "Version": "85ce1d8a-c474-4549-b8c4-08aac6ef13ff",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDe3db583a_27c4_48a5_a1fe_679eda456a1c",
+        "{",
+        "    public class Class_GlobalTime : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> function",
+        "",
+        "            context.Value = context.GlobalTime;",
+        "            return context;",
+        "            //<<< function",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "508095b7-f6dc-4334-9a2e-976b700264db",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "48100e59-088d-4308-acff-dbf5b53c885a"
+    }
+  ]
+}

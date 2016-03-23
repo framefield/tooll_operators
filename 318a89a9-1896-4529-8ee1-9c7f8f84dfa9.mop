@@ -1,0 +1,110 @@
+{
+  "Name": "Pow",
+  "_id": "318a89a9-1896-4529-8ee1-9c7f8f84dfa9",
+  "Namespace": "lib.math",
+  "Description": "Returns a specified number raised to the specified power.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Exp",
+      "MetaInstanceID": "29b2c469-14a1-4bb6-aaa5-9dd53c7fffa3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "MetaID": "0c8e5cd5-c2e0-4acb-acda-f61d908f7b79",
+      "Name": "PowFunc",
+      "Version": "a965e1ee-cd39-461e-87f0-78303a5a3768",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID0c8e5cd5_c2e0_4acb_acda_f61d908f7b79",
+        "{",
+        "    public class Class_Pow : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            var Exp = (float) inputs[1].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            if (Value <= 0) {",
+        "                context.Value = 0.0f;",
+        "            }",
+        "            else {",
+        "                context.Value= (float) Math.Pow(Value, Exp);",
+        "            }",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "29b2c469-14a1-4bb6-aaa5-9dd53c7fffa3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66"
+    }
+  ]
+}

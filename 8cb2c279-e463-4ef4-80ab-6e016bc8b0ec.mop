@@ -1,0 +1,140 @@
+{
+  "Name": "Switch",
+  "_id": "8cb2c279-e463-4ef4-80ab-6e016bc8b0ec",
+  "Namespace": "lib.basic",
+  "Description": "Selects one input by using index of the given inputs.\r\nIndex 0 selects the first given input.",
+  "Inputs": [
+    {
+      "Name": "Inputs",
+      "MetaInstanceID": "baa01e67-eaf1-4794-a296-f402814837fc",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Index",
+      "MetaInstanceID": "be3165cf-08da-4832-ad70-c9e8f1b59d2f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "92069550-a785-4ec0-9b82-278563dd17d5",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "ad1c7bd7-a12d-43d7-a235-29b4377a9952",
+      "MetaID": "59241dda-5ff5-485d-aaa1-3ad4177aab21",
+      "Name": "SwitchFunc",
+      "Version": "5a82f704-ccac-449f-8ae7-9480168f882e",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID59241dda_5ff5_485d_aaa1_3ad4177aab21",
+        "{",
+        "    public class Class_Switch : OperatorPart.Function,",
+        "                                Framefield.Core.OperatorPartTraits.ITraverseModifier",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Inputs = 0,",
+        "            Index = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public IEnumerable<OperatorPart> GetRelevantConnections()",
+        "        {",
+        "            List<OperatorPart> connections = new List<OperatorPart>();",
+        "",
+        "            var inputs = OperatorPart.Connections[(int)InputId.Inputs];",
+        "            if (_currentIndex >= 0 && inputs.Connections.Count > 0)",
+        "                connections.Add(inputs.Connections[_currentIndex % inputs.Connections.Count]);",
+        "",
+        "            connections.Add(OperatorPart.Connections[(int)InputId.Index]);",
+        "",
+        "            return connections;",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Inputs = inputs[(int)InputId.Inputs];",
+        "            var Index = inputs[(int)InputId.Index].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            _currentIndex = (int)Index;",
+        "",
+        "            if (_currentIndex >= 0 && Inputs.Connections.Count > 0)",
+        "            {",
+        "                var selectedInput = Inputs.Connections[_currentIndex % Inputs.Connections.Count];",
+        "                selectedInput.Eval(context);",
+        "            }",
+        "            return context;",
+        "        }",
+        "",
+        "        int _currentIndex;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ad1c7bd7-a12d-43d7-a235-29b4377a9952",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "92069550-a785-4ec0-9b82-278563dd17d5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "baa01e67-eaf1-4794-a296-f402814837fc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ad1c7bd7-a12d-43d7-a235-29b4377a9952"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "be3165cf-08da-4832-ad70-c9e8f1b59d2f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ad1c7bd7-a12d-43d7-a235-29b4377a9952"
+    }
+  ]
+}

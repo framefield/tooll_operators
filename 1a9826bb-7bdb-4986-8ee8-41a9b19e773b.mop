@@ -1,0 +1,282 @@
+{
+  "Name": "UpDownStepper",
+  "_id": "1a9826bb-7bdb-4986-8ee8-41a9b19e773b",
+  "Namespace": "lib.math.helper",
+  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Inputs": [
+    {
+      "Name": "StartValue",
+      "MetaInstanceID": "5eeeb76e-2236-4b2f-b9b2-c2310e4bda30",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "13db5994-0844-4d15-95cb-12b873c7d08f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpTrigger",
+      "MetaInstanceID": "8fc7d1c5-0ce1-4ab6-bd91-4fbca88fa720",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "DownTrigger",
+      "MetaInstanceID": "1415d02c-6d78-44ec-a20c-f343a1cfd914",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "StepSize",
+      "MetaInstanceID": "6ed8c8c1-c1b9-42a7-baaf-97c9590eae7d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Duration",
+      "MetaInstanceID": "2bb3f33e-b19b-4158-b39d-22892973860d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "7fbe1996-d3ae-4e4f-ba82-b81cdaafacda",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "fd91f458-b8db-496d-87b6-6f4f917fdd0c",
+      "MetaID": "9e3a5422-699e-4c1b-8627-32fd817c1ade",
+      "Name": "UpDownStepperFunc",
+      "Version": "4772000d-886e-41b7-a0a1-31f36dd7afca",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "namespace Framefield.Core.ID9e3a5422_699e_4c1b_8627_32fd817c1ade",
+        "{",
+        "",
+        "    public class Class_UpDownStepper : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StartValue = 0,",
+        "            ResetTrigger = 1,",
+        "            UpTrigger = 2,",
+        "            DownTrigger = 3,",
+        "            StepSize = 4,",
+        "            Duration = 5",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var StartValue = inputs[(int)InputId.StartValue].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var UpTrigger = inputs[(int)InputId.UpTrigger].Eval(context).Value;",
+        "            var DownTrigger = inputs[(int)InputId.DownTrigger].Eval(context).Value;",
+        "            var StepSize = inputs[(int)InputId.StepSize].Eval(context).Value;",
+        "            var Duration = inputs[(int)InputId.Duration].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            _duration = Duration;",
+        "            _time = context.GlobalTime;",
+        "            ",
+        "            if(float.IsNaN(_targetValue)) {",
+        "                _targetValue = StartValue;",
+        "            }",
+        "            ",
+        "            if( ResetTrigger > 0.5f) {",
+        "                _V = StartValue;",
+        "                _frozenValue = StartValue;",
+        "            }",
+        "            ",
+        "            bool flankUpDetected = UpTrigger >= 0.5 && _oldUpTrigger <= 0.5;",
+        "            _oldUpTrigger = UpTrigger;",
+        "                        ",
+        "            if( flankUpDetected ) {",
+        "                if(!_upActive) {",
+        "                    _lastValue = _V;",
+        "                    _V = _targetValue + StepSize;",
+        "                 }",
+        "                _upActive= true;",
+        "            }",
+        "            else {",
+        "                _upActive = false;",
+        "            }",
+        "            ",
+        "            if( DownTrigger > 0.5f) {",
+        "                if(!_downActive) {",
+        "                    _lastValue = _V;",
+        "                    _V = _targetValue - StepSize;",
+        "                }",
+        "                _downActive = true;                ",
+        "            }",
+        "            else {",
+        "                _downActive = false;",
+        "            }",
+        "            ",
+        "            context.Value = _V;            ",
+        "            return context;",
+        "        }",
+        "        ",
+        "        float _V {",
+        "            get{",
+        "                if( _duration == 0 ){",
+        "                    return _targetValue;",
+        "                }    ",
+        "                float d= Math.Min(1, Math.Max(0, _time - _startTime) / _duration) ;",
+        "                ",
+        "                float d2= d * d * d * (d * (d * 6 - 15) + 10); //SmoothStep",
+        "                return _lastValue +(_targetValue - _lastValue) * d2;                ",
+        "            }",
+        "            set {",
+        "                _lastValue= _V;",
+        "                _startTime = _time;",
+        "                _targetValue = value;",
+        "            }",
+        "        }",
+        "        ",
+        "        private float _oldUpTrigger;",
+        "        private float _duration;",
+        "        private float _time =0;",
+        "        private float _frozenValue=0;",
+        "        private bool _upActive = false;",
+        "        private bool _downActive = false;",
+        "        private float _lastValue = 0f;",
+        "        private float _targetValue = float.NaN;",
+        "        private float _startTime = 0;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5eeeb76e-2236-4b2f-b9b2-c2310e4bda30",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "13db5994-0844-4d15-95cb-12b873c7d08f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8fc7d1c5-0ce1-4ab6-bd91-4fbca88fa720",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1415d02c-6d78-44ec-a20c-f343a1cfd914",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6ed8c8c1-c1b9-42a7-baaf-97c9590eae7d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2bb3f33e-b19b-4158-b39d-22892973860d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fd91f458-b8db-496d-87b6-6f4f917fdd0c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7fbe1996-d3ae-4e4f-ba82-b81cdaafacda"
+    }
+  ]
+}

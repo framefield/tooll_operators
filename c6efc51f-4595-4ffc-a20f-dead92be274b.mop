@@ -1,0 +1,72 @@
+{
+  "Name": "BothSided",
+  "_id": "c6efc51f-4595-4ffc-a20f-dead92be274b",
+  "Namespace": "lib.3d.material",
+  "Description": "Sets the [RasterizerState] to both-sided render, so that you can also see the backsides of faces.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "f3d75fe2-5e36-4e82-aa0c-f5b016ad99ef",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "21bf2402-7a47-4427-8e3c-aebd3cdfa11a",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "RasterizerState",
+      "MetaInstanceID": "66f938fb-1c3c-4c5c-9e0e-762d7af95cda",
+      "MetaID": "62b35be8-a620-4a2a-a3d9-8d42392e79f3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1926.2851174192",
+        "PosY": "-333.411204395562",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "8bec1ec1-6364-40bd-b4e8-c2f20a53fcf0",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "66f938fb-1c3c-4c5c-9e0e-762d7af95cda",
+      "SourceOpPart": "c399025b-e505-403b-a8d6-de0ce5440108",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "21bf2402-7a47-4427-8e3c-aebd3cdfa11a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f3d75fe2-5e36-4e82-aa0c-f5b016ad99ef",
+      "TargetOp": "66f938fb-1c3c-4c5c-9e0e-762d7af95cda",
+      "TargetOpPart": "c17be31a-912e-4e88-b2a4-da04465f5d35"
+    }
+  ]
+}

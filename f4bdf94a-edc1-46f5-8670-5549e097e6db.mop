@@ -1,0 +1,125 @@
+{
+  "Name": "ValueToString",
+  "_id": "f4bdf94a-edc1-46f5-8670-5549e097e6db",
+  "Namespace": "lib.basic",
+  "Description": "Extracts the Nth Element of an incoming generic String List\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "8232f28d-c11a-492b-9dca-a394437a094e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "9fc24226-ce64-4107-8230-ca8c7b73a65d",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "{0}"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "e2435b32-87ff-43f9-ac3e-8aa88c751611",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3284ee60-bd4d-4db4-af9b-5d724ddfeb94",
+      "MetaID": "7f89bf98-7b97-4347-b1af-7280f0e784e7",
+      "Name": "ValueToStringFunc",
+      "Version": "588f6434-a8c6-4f02-8b3b-5a26182bb3f4",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID7f89bf98_7b97_4347_b1af_7280f0e784e7",
+        "{",
+        "    public class Class_ValueToString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Format = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            string s=\"?\";",
+        "            try {",
+        "                s= String.Format(Format, Value);",
+        "            }",
+        "            catch {",
+        "                //Logger.Info(this,\"Can't convert value to string.\");",
+        "            }",
+        "            context.Text= s;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8232f28d-c11a-492b-9dca-a394437a094e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3284ee60-bd4d-4db4-af9b-5d724ddfeb94"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9fc24226-ce64-4107-8230-ca8c7b73a65d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3284ee60-bd4d-4db4-af9b-5d724ddfeb94"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3284ee60-bd4d-4db4-af9b-5d724ddfeb94",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e2435b32-87ff-43f9-ac3e-8aa88c751611"
+    }
+  ]
+}

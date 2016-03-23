@@ -1,0 +1,93 @@
+{
+  "Name": "Multiply Values",
+  "_id": "d7d484ad-c39e-4718-b5d0-01984967291e",
+  "Namespace": "lib.math",
+  "Description": "Multiplies any number of float values. If you only want to Multiply 2 Float values use the [Multiply] Operator.",
+  "Inputs": [
+    {
+      "Name": "Values",
+      "MetaInstanceID": "739993cc-ce22-4070-8914-da6008c79357",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "MultiplyOut",
+      "MetaInstanceID": "6d090348-b67e-4203-acba-43611af0395d",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "MetaID": "7d6cd829-8124-47da-aff4-560c161f766b",
+      "Name": "Multiply ValuesFunc",
+      "Version": "48065183-87f4-4d61-8ad0-628a822005d3",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID7d6cd829_8124_47da_aff4_560c161f766b",
+        "{",
+        "    public class Class_Multiply_Values : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Values = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Values = inputs[(int)InputId.Values].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            float value = 1.0f;",
+        "            foreach (var input in inputs[0].Connections) {",
+        "                value *= input.Eval(context).Value;",
+        "            }",
+        "            context.Value = value;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "739993cc-ce22-4070-8914-da6008c79357",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6d090348-b67e-4203-acba-43611af0395d"
+    }
+  ]
+}

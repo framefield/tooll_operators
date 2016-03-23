@@ -1,0 +1,169 @@
+{
+  "Name": "ParamRangeSelector",
+  "_id": "cb236217-8d0e-49b5-b6f8-3069477108f4",
+  "Namespace": "projects.square.helpers",
+  "Description": "This Operators helps to review LEAP Controller parameter ranges\r\n",
+  "Inputs": [
+    {
+      "Name": "Min",
+      "MetaInstanceID": "84d7d187-6b99-4af0-a777-91a303de9c5b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Default",
+      "MetaInstanceID": "4098c56f-3161-462a-9bd8-54b66de97a28",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Max",
+      "MetaInstanceID": "9e9f7b8d-876d-40f4-9aba-f0f9f4a89774",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Select",
+      "MetaInstanceID": "a7480f2e-1835-432d-a96e-73be143fff95",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-1",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "88655063-dfa1-4e49-88ec-c12bbc3513d2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "fa1c358d-9f33-4070-b92b-41fb9995e5a4",
+      "MetaID": "10824da0-7062-4ad5-aad6-cdd187796b07",
+      "Name": "ParamRangeSelectorFunc",
+      "Version": "3d4bca69-24de-44bc-9f11-9a4683823357",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID10824da0_7062_4ad5_aad6_cdd187796b07",
+        "{",
+        "    public class Class_ParamRangeSelector : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Min = 0,",
+        "            Default = 1,",
+        "            Max = 2,",
+        "            Select = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Min = inputs[(int)InputId.Min].Eval(context).Value;",
+        "            var Default = inputs[(int)InputId.Default].Eval(context).Value;",
+        "            var Max = inputs[(int)InputId.Max].Eval(context).Value;",
+        "            var Select = inputs[(int)InputId.Select].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if(Select <= 0) {",
+        "                context.Value = Default+(Default-Min) * Select;",
+        "            }",
+        "            else {",
+        "                context.Value = Default+(Max-Default) * Select;            ",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "84d7d187-6b99-4af0-a777-91a303de9c5b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fa1c358d-9f33-4070-b92b-41fb9995e5a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4098c56f-3161-462a-9bd8-54b66de97a28",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fa1c358d-9f33-4070-b92b-41fb9995e5a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9e9f7b8d-876d-40f4-9aba-f0f9f4a89774",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fa1c358d-9f33-4070-b92b-41fb9995e5a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a7480f2e-1835-432d-a96e-73be143fff95",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fa1c358d-9f33-4070-b92b-41fb9995e5a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fa1c358d-9f33-4070-b92b-41fb9995e5a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "88655063-dfa1-4e49-88ec-c12bbc3513d2"
+    }
+  ]
+}

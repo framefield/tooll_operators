@@ -1,0 +1,86 @@
+{
+  "Name": "Sqrt",
+  "_id": "f41b1d85-3db7-441a-a900-4d0a050e7187",
+  "Namespace": "lib.math",
+  "Description": "Returns the square root of a number. If the number is smaller than 0, it returns 0.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "MetaID": "85aea967-8103-4c8d-bee4-94ddf7f8226e",
+      "Name": "SqrtFunc",
+      "Version": "66b6b720-7702-460d-8898-591d8e7ab8ee",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID85aea967_8103_4c8d_bee4_94ddf7f8226e",
+        "{",
+        "    public class Class_Sqrt : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            if (Value <= 0) { ",
+        "                context.Value = 0.0f;",
+        "            }",
+        "            else {",
+        "                context.Value= (float) Math.Sqrt(Value);",
+        "            }",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66"
+    }
+  ]
+}

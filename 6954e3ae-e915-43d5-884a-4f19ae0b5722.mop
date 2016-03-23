@@ -1,0 +1,183 @@
+{
+  "Name": "Point",
+  "_id": "6954e3ae-e915-43d5-884a-4f19ae0b5722",
+  "Namespace": "lib.basic.curve",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "1d3d3e72-5855-42d0-ba54-a44122ddab76",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "4af25792-ef4e-4011-9a19-48d2b64c41f0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Z",
+      "MetaInstanceID": "f4d4da4a-6809-43a0-ae1b-e54931500c9f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "56ec2f5e-6a0e-49af-9055-edb563717b20",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "PointHandle",
+      "MetaInstanceID": "564c5119-5607-4f3d-ab1c-4805e662e366",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "02113980-00ba-4257-aa83-988feff72d2d",
+      "MetaID": "9d7c1faf-9417-410d-8ca5-a3028d1c143f",
+      "Name": "PointFunc",
+      "Version": "2b8b8b06-bf33-477e-a178-bc0ce52fd7c5",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID9d7c1faf_9417_410d_8ca5_a3028d1c143f",
+        "{",
+        "    public class Class_Point : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            PositionX = 0,",
+        "            PositionY = 1,",
+        "            PositionZ = 2,",
+        "            Radius = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var PositionX = inputs[(int)InputId.PositionX].Eval(context).Value;",
+        "            var PositionY = inputs[(int)InputId.PositionY].Eval(context).Value;",
+        "            var PositionZ = inputs[(int)InputId.PositionZ].Eval(context).Value;",
+        "            var Position = new Vector3(PositionX, PositionY, PositionZ);",
+        "            var Radius = inputs[(int)InputId.Radius].Eval(context).Value;",
+        "            //<<< _params",
+        "                        ",
+        "            if(  Math.Abs(Position.X - _positionWithRadius.X) > EPSILON ",
+        "              || Math.Abs(Position.Y - _positionWithRadius.Y) > EPSILON ",
+        "              || Math.Abs(Position.Z - _positionWithRadius.Z) > EPSILON",
+        "              || Math.Abs(Radius - _positionWithRadius.W) > EPSILON",
+        "              ) {",
+        "              //Changed = true;",
+        "              _positionWithRadius = new Vector4( PositionX, PositionY, PositionZ, Radius);",
+        "            } ",
+        "            else {",
+        "                Changed = false;",
+        "            }",
+        "            ",
+        "            context.Dynamic = _positionWithRadius;",
+        "            return context;",
+        "        }",
+        "        Vector4 _positionWithRadius = Vector4.Zero;",
+        "        const float EPSILON = 0.001f;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1d3d3e72-5855-42d0-ba54-a44122ddab76",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "02113980-00ba-4257-aa83-988feff72d2d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4af25792-ef4e-4011-9a19-48d2b64c41f0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "02113980-00ba-4257-aa83-988feff72d2d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f4d4da4a-6809-43a0-ae1b-e54931500c9f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "02113980-00ba-4257-aa83-988feff72d2d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "56ec2f5e-6a0e-49af-9055-edb563717b20",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "02113980-00ba-4257-aa83-988feff72d2d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "02113980-00ba-4257-aa83-988feff72d2d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "564c5119-5607-4f3d-ab1c-4805e662e366"
+    }
+  ]
+}

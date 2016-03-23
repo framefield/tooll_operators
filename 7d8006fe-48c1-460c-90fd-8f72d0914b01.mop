@@ -1,0 +1,172 @@
+{
+  "Name": "DaysSince",
+  "_id": "7d8006fe-48c1-460c-90fd-8f72d0914b01",
+  "Namespace": "projects.glitch.helpers",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Year",
+      "MetaInstanceID": "21da5116-8576-42cf-ae6a-ff7b54d8bade",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1970"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1900",
+      "Max": "2400",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Month",
+      "MetaInstanceID": "6d672b8f-0c30-4f58-b5df-8e459eae262b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "12",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Day",
+      "MetaInstanceID": "4fc2195d-e857-4688-9dab-edfbb2a33018",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "31",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "7b4ced67-68eb-4d78-8a4a-4b7947129b00",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "{0:dd\\.hh\\:mm\\:ss\\.ff} days"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "1ef2bf04-effc-42cd-b194-59b524bce8ce",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b33d9323-a3a8-4d82-a395-a46ee159660a",
+      "MetaID": "0f819599-9a9a-4c62-962e-d1fd54fc5509",
+      "Name": "DaysSinceFunc",
+      "Version": "4a094f65-d9c1-459d-8419-c669cb3492c2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "using System.Globalization;",
+        "",
+        "namespace Framefield.Core.ID0f819599_9a9a_4c62_962e_d1fd54fc5509",
+        "{",
+        "",
+        "    public class Class_DaysSince : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Year = 0,",
+        "            Month = 1,",
+        "            Day = 2,",
+        "            Format = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Year = inputs[(int)InputId.Year].Eval(context).Value;",
+        "            var Month = inputs[(int)InputId.Month].Eval(context).Value;",
+        "            var Day = inputs[(int)InputId.Day].Eval(context).Value;",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            DateTime startDate = new DateTime((int)Math.Floor(Year),(int)Math.Round(Month),(int)Math.Round(Day));",
+        "            ",
+        "            TimeSpan duration = DateTime.Now - startDate;            ",
+        "            context.Value = duration.Days;",
+        "                        ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b33d9323-a3a8-4d82-a395-a46ee159660a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1ef2bf04-effc-42cd-b194-59b524bce8ce"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "21da5116-8576-42cf-ae6a-ff7b54d8bade",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b33d9323-a3a8-4d82-a395-a46ee159660a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6d672b8f-0c30-4f58-b5df-8e459eae262b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b33d9323-a3a8-4d82-a395-a46ee159660a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4fc2195d-e857-4688-9dab-edfbb2a33018",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b33d9323-a3a8-4d82-a395-a46ee159660a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7b4ced67-68eb-4d78-8a4a-4b7947129b00",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b33d9323-a3a8-4d82-a395-a46ee159660a"
+    }
+  ]
+}

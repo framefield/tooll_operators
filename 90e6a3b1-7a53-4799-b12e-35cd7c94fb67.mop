@@ -1,0 +1,125 @@
+{
+  "Name": "Add",
+  "_id": "90e6a3b1-7a53-4799-b12e-35cd7c94fb67",
+  "Namespace": "lib.math",
+  "Description": "Adds two Values. \r\n\r\nIf you want to sum up more values, use the [Sum Values] operator.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "19159331-0274-42c6-b32f-3f6e38073769",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "5ca98249-3d6a-42f7-81aa-1cf02ba374e0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "0792c63b-adf5-4880-a5e7-bb6b60e139da",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f44b676a-68a2-43c7-b66d-36266a986a5e",
+      "MetaID": "e05f9a6a-e4fe-4fe0-a034-f6f88c7b7c4d",
+      "Name": "AddFunc",
+      "Version": "a81c8ba4-0bf1-4b68-95fd-b74a956c632b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDe05f9a6a_e4fe_4fe0_a034_f6f88c7b7c4d",
+        "{",
+        "    public class Class_Add : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value1 = 0,",
+        "            Value2 = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var Value1 = inputs[(int)InputId.Value1].Eval(context).Value;",
+        "                var Value2 = inputs[(int)InputId.Value2].Eval(context).Value;",
+        "                //<<< _params",
+        "                _sum = Value1 + Value2;",
+        "                Changed = false;",
+        "            }",
+        "            ",
+        "            context.Value = _sum;",
+        "            return context;",
+        "        }",
+        "        float _sum;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "19159331-0274-42c6-b32f-3f6e38073769",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f44b676a-68a2-43c7-b66d-36266a986a5e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5ca98249-3d6a-42f7-81aa-1cf02ba374e0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f44b676a-68a2-43c7-b66d-36266a986a5e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f44b676a-68a2-43c7-b66d-36266a986a5e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0792c63b-adf5-4880-a5e7-bb6b60e139da"
+    }
+  ]
+}

@@ -1,0 +1,428 @@
+{
+  "Name": "TransformQuat",
+  "_id": "7762715e-0846-4369-9132-bd423f73ca7d",
+  "Namespace": "lib.3d.modify",
+  "Description": "Moves, scales and rotates the incoming geometry.\r\nIt uses quaternian rotation that is provided by the KinectBody Operator.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "0cfae335-3059-41b5-b90d-3e2eb4ea3b8a",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.X",
+      "MetaInstanceID": "1d87a706-9484-4355-9dca-e6ae4a554ef9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.Y",
+      "MetaInstanceID": "8c516b92-ad05-4ac6-83c4-5893e9798a63",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.Z",
+      "MetaInstanceID": "4c9e5474-194c-4d06-ada9-c5dd0ff50fe4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.X",
+      "MetaInstanceID": "e58744a4-3668-42c3-b46e-bcfb7cad276b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Y",
+      "MetaInstanceID": "35378d85-9e29-4a2d-854e-b9833c6a5a2e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Z",
+      "MetaInstanceID": "c59635c7-2a8a-47f8-a8a6-86b68101486d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.W",
+      "MetaInstanceID": "5f3a766b-a316-4a45-a50f-60f53fec6430",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.X",
+      "MetaInstanceID": "a48ecca4-a72a-48b8-8283-4090019dc349",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Y",
+      "MetaInstanceID": "4b4fa1e8-3b0d-4b6e-9ea5-92e1864c982b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Z",
+      "MetaInstanceID": "06f1854b-aa3b-4603-bf4f-0cf2d957b9ca",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.X",
+      "MetaInstanceID": "7768b6fd-d454-4d97-9958-965d7fd9a501",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.Y",
+      "MetaInstanceID": "48025802-f615-4e6e-9e8c-2423a0ab7bad",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.Z",
+      "MetaInstanceID": "cfd21e6c-afcc-4918-97c3-a9c7cb436bef",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "5173fe21-beb3-4317-ade9-cfb61e9dd752",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5281936a-4f51-4f7a-99b1-e8fae0724819",
+      "MetaID": "e9e1a314-8192-4072-bf10-351aaa5b3ec2",
+      "Name": "TransformQuatFunc",
+      "Version": "9f0d4c5f-fea5-4659-9731-76112793cba5",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDe9e1a314_8192_4072_bf10_351aaa5b3ec2",
+        "{",
+        "    public class Class_TransformQuat : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            TranslateX = 1,",
+        "            TranslateY = 2,",
+        "            TranslateZ = 3,",
+        "            RotateX = 4,",
+        "            RotateY = 5,",
+        "            RotateZ = 6,",
+        "            RotateW = 7,",
+        "            ScaleX = 8,",
+        "            ScaleY = 9,",
+        "            ScaleZ = 10,",
+        "            PivotX = 11,",
+        "            PivotY = 12,",
+        "            PivotZ = 13",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var TranslateX = inputs[(int)InputId.TranslateX].Eval(context).Value;",
+        "            var TranslateY = inputs[(int)InputId.TranslateY].Eval(context).Value;",
+        "            var TranslateZ = inputs[(int)InputId.TranslateZ].Eval(context).Value;",
+        "            var Translate = new Vector3(TranslateX, TranslateY, TranslateZ);",
+        "            var RotateX = inputs[(int)InputId.RotateX].Eval(context).Value;",
+        "            var RotateY = inputs[(int)InputId.RotateY].Eval(context).Value;",
+        "            var RotateZ = inputs[(int)InputId.RotateZ].Eval(context).Value;",
+        "            var RotateW = inputs[(int)InputId.RotateW].Eval(context).Value;",
+        "            var Rotate = new Vector4(RotateX, RotateY, RotateZ, RotateW);",
+        "            var ScaleX = inputs[(int)InputId.ScaleX].Eval(context).Value;",
+        "            var ScaleY = inputs[(int)InputId.ScaleY].Eval(context).Value;",
+        "            var ScaleZ = inputs[(int)InputId.ScaleZ].Eval(context).Value;",
+        "            var Scale = new Vector3(ScaleX, ScaleY, ScaleZ);",
+        "            var PivotX = inputs[(int)InputId.PivotX].Eval(context).Value;",
+        "            var PivotY = inputs[(int)InputId.PivotY].Eval(context).Value;",
+        "            var PivotZ = inputs[(int)InputId.PivotZ].Eval(context).Value;",
+        "            var Pivot = new Vector3(PivotX, PivotY, PivotZ);",
+        "            //<<< _params",
+        "",
+        "            var transform = Matrix.Transformation(new Vector3(), new Quaternion(), Scale, new Vector3(), new Quaternion(Rotate), Translate);",
+        "            var prevTransform = context.ObjectTWorld;",
+        "            context.ObjectTWorld = transform * prevTransform;",
+        "",
+        "            SceneInput.Eval(context);",
+        "",
+        "            context.ObjectTWorld = prevTransform;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0cfae335-3059-41b5-b90d-3e2eb4ea3b8a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1d87a706-9484-4355-9dca-e6ae4a554ef9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8c516b92-ad05-4ac6-83c4-5893e9798a63",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4c9e5474-194c-4d06-ada9-c5dd0ff50fe4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e58744a4-3668-42c3-b46e-bcfb7cad276b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "35378d85-9e29-4a2d-854e-b9833c6a5a2e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c59635c7-2a8a-47f8-a8a6-86b68101486d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5f3a766b-a316-4a45-a50f-60f53fec6430",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a48ecca4-a72a-48b8-8283-4090019dc349",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4b4fa1e8-3b0d-4b6e-9ea5-92e1864c982b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06f1854b-aa3b-4603-bf4f-0cf2d957b9ca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7768b6fd-d454-4d97-9958-965d7fd9a501",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "48025802-f615-4e6e-9e8c-2423a0ab7bad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cfd21e6c-afcc-4918-97c3-a9c7cb436bef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5281936a-4f51-4f7a-99b1-e8fae0724819",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5173fe21-beb3-4317-ade9-cfb61e9dd752"
+    }
+  ]
+}

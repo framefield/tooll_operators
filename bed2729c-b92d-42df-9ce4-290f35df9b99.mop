@@ -1,0 +1,318 @@
+{
+  "Name": "HighlightFX",
+  "_id": "bed2729c-b92d-42df-9ce4-290f35df9b99",
+  "Namespace": "lib.3d.experimental",
+  "Description": "Renders the textured geometry with a flat shading and modifies the color, e.g. for highlight effects. \r\n\r\nIs used by [Bling] operator.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "d5aac05e-9fae-423d-be03-3890c556730b",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorA.R",
+      "MetaInstanceID": "a309c000-54ae-4528-931f-99c4991171b4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorA.G",
+      "MetaInstanceID": "6f6205e5-0f2a-44af-b290-7084a1ea2646",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorA.B",
+      "MetaInstanceID": "898fbf1e-5e94-4a99-8e28-0faddab21536",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorA.A",
+      "MetaInstanceID": "8045c7bd-71e6-4c48-b52f-76e1dd9f098c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorB.R",
+      "MetaInstanceID": "78324cf2-1d86-4b23-9455-5581eb3c2a11",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorB.G",
+      "MetaInstanceID": "215a0175-e8b9-4af2-bedc-f825df19844a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorB.B",
+      "MetaInstanceID": "05851063-1120-412f-9b1b-642e0c8119fe",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ColorB.A",
+      "MetaInstanceID": "d5d93f80-3098-4ee6-b944-0f24ff41de48",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "689fd92f-b6c8-4000-99ee-24b517fba943",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "76fd4529-67e2-4532-bf2c-262dc9f32f50",
+      "MetaID": "d1c777ae-8ba3-4d47-aebb-6346df9d607a",
+      "Name": "HighlightFXFunc",
+      "Version": "f837c90e-7edd-4220-81d9-917b37d73e9b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Runtime.InteropServices;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.D3DCompiler;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.Rendering;",
+        "",
+        "namespace Framefield.Core.IDd1c777ae_8ba3_4d47_aebb_6346df9d607a",
+        "{",
+        "    public class Class_HighlightFX : OperatorPart.Function",
+        "    {",
+        "        public class Renderer : BaseRenderer",
+        "        {",
+        "            public override void SetupEffect(OperatorPartContext context) {",
+        "                base.SetupEffect(context);",
+        "                context.Effect.GetVariableByName(\"multiplyColor\").AsVector().Set(_colorA);",
+        "                context.Effect.GetVariableByName(\"offsetColor\").AsVector().Set(_colorB);",
+        "            }",
+        "            public SharpDX.Vector4 _colorA;",
+        "            public SharpDX.Vector4 _colorB;",
+        "        }",
+        "",
+        "        public Class_HighlightFX() {",
+        "            using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/FlatHighlightShader.fx\", \"fx_5_0\", ShaderFlags.None, EffectFlags.None, null, null))",
+        "                _effect = new Effect(D3DDevice.Device, bytecode);",
+        "            _renderer = new Renderer();",
+        "        }",
+        "",
+        "        public override void Dispose() {",
+        "            Utilities.DisposeObj(ref _effect);",
+        "            Utilities.DisposeObj(ref _renderer);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];//.Eval(context);",
+        "            var ColorAR = inputs[1].Eval(context).Value;",
+        "            var ColorAG = inputs[2].Eval(context).Value;",
+        "            var ColorAB = inputs[3].Eval(context).Value;",
+        "            var ColorAA = inputs[4].Eval(context).Value;",
+        "            var ColorBR = inputs[5].Eval(context).Value;",
+        "            var ColorBG = inputs[6].Eval(context).Value;",
+        "            var ColorBB = inputs[7].Eval(context).Value;",
+        "            var ColorBA = inputs[8].Eval(context).Value;",
+        "",
+        "            _renderer._colorA = new SharpDX.Vector4(ColorAR, ColorAG, ColorAB, ColorAA);",
+        "            _renderer._colorB = new SharpDX.Vector4(ColorBR, ColorBG, ColorBB, ColorBA);            ",
+        "",
+        "            var D3DDevice = context.D3DDevice;",
+        "            var subContext = new OperatorPartContext(context);",
+        "            try {",
+        "                subContext.Effect = _effect;",
+        "                subContext.InputLayout = context.Renderer.SceneDefaultInputLayout;",
+        "                subContext.Renderer = _renderer;",
+        "",
+        "                Scene.Eval(subContext);",
+        "            }",
+        "            catch (Exception exception) {",
+        "                Logger.Error(this,\"Load Effect error: {0}\", exception.Message);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Effect _effect;",
+        "        Renderer _renderer;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "689fd92f-b6c8-4000-99ee-24b517fba943"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d5aac05e-9fae-423d-be03-3890c556730b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a309c000-54ae-4528-931f-99c4991171b4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6f6205e5-0f2a-44af-b290-7084a1ea2646",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "898fbf1e-5e94-4a99-8e28-0faddab21536",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8045c7bd-71e6-4c48-b52f-76e1dd9f098c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "78324cf2-1d86-4b23-9455-5581eb3c2a11",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "215a0175-e8b9-4af2-bedc-f825df19844a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "05851063-1120-412f-9b1b-642e0c8119fe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d5d93f80-3098-4ee6-b944-0f24ff41de48",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76fd4529-67e2-4532-bf2c-262dc9f32f50"
+    }
+  ]
+}

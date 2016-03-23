@@ -1,0 +1,77 @@
+{
+  "Name": "TimeSinceLastFrame",
+  "_id": "8fb09bb7-baf6-4381-b0e1-1d3795a95012",
+  "Namespace": "lib.basic",
+  "Description": "Returns the frame duration in seconds",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "b1a86b2e-0251-47ea-8869-50e121c9c8d3",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c2b4d9c9-5fb2-4502-9825-1c7ffd3ae264",
+      "MetaID": "a17fdcdf-9216-46c2-b3fc-13c3e7acb95d",
+      "Name": "TimeSinceLastFrameFunc",
+      "Version": "d519a68d-0c12-41b2-9d67-5e00bfedbd18",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Profiling;",
+        "",
+        "namespace Framefield.Core.IDa17fdcdf_9216_46c2_b3fc_13c3e7acb95d",
+        "{",
+        "    public class Class_TimeSinceLastFrame : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            ",
+        "            //<<< _params",
+        "            ",
+        "            ",
+        "            if(context.Time != _lastTime) {",
+        "                _lastDuration = (float)(context.Time - _lastTime);",
+        "                _lastTime = context.Time;",
+        "            }",
+        "            context.Value = _lastDuration;",
+        "            return context;",
+        "        }",
+        "        private float _lastDuration;",
+        "        private double _lastTime; ",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c2b4d9c9-5fb2-4502-9825-1c7ffd3ae264",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b1a86b2e-0251-47ea-8869-50e121c9c8d3"
+    }
+  ]
+}

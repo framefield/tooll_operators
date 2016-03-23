@@ -1,0 +1,117 @@
+{
+  "Name": "FileExists",
+  "_id": "c33935ad-00ec-430d-97f7-df2383fe2e6c",
+  "Namespace": "lib.basic",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "ImagePath",
+      "MetaInstanceID": "0b7a0478-6d36-4d16-8fe6-549ac0c12a25",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "assets/test/image/chipmunk.jpg"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Exists",
+      "MetaInstanceID": "e5692389-5f89-4b5e-b991-d26c10b8c376",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "8c855147-071a-4d1c-9b1a-cc0758462eb0",
+      "MetaID": "c7b7d191-2cdf-47aa-9795-f84931103cec",
+      "Name": "FileExistsFunc",
+      "Version": "2a9e79b1-7401-4b19-a41d-8f55c7e29084",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDc7b7d191_2cdf_47aa_9795_f84931103cec",
+        "{",
+        "    public class Class_FileExists : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            ImagePath = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Exists = 0",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var ImagePath = inputs[(int)InputId.ImagePath].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            if (ImagePath == _lastImage)",
+        "                Changed = false;",
+        "",
+        "            _lastImage = ImagePath;",
+        "",
+        "            if (Changed)",
+        "            {",
+        "                _exists = File.Exists(ImagePath);",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Value = _exists ? 1.0f : 0.0f;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        bool _exists;",
+        "        String _lastImage = String.Empty;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8c855147-071a-4d1c-9b1a-cc0758462eb0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5692389-5f89-4b5e-b991-d26c10b8c376"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b7a0478-6d36-4d16-8fe6-549ac0c12a25",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8c855147-071a-4d1c-9b1a-cc0758462eb0"
+    }
+  ]
+}

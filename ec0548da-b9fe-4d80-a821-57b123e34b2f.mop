@@ -1,0 +1,135 @@
+{
+  "Name": "Counter",
+  "_id": "ec0548da-b9fe-4d80-a821-57b123e34b2f",
+  "Namespace": "lib.math.helper",
+  "Description": "Counts the number of time trigger has been changed. \r\n\r\nA more advanced version of this Operator is the [UpAndDownStepper] which can be used for animations.\r\n\r\n\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "CountTrigger",
+      "MetaInstanceID": "b16773c8-9ed4-4910-a51f-0550b28a895e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "d4f141db-198e-458a-a6c8-df0f0f2c6900",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "7ce00262-ac22-44bd-b3e7-6fdc29718228",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3f6faf27-76cf-4992-8af8-cd1956845bbd",
+      "MetaID": "f478436d-3c85-4469-b8a1-10900bbfa061",
+      "Name": "CounterFunc",
+      "Version": "9a738b40-9e31-4a5a-889a-3420e37fe35c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDf478436d_3c85_4469_b8a1_10900bbfa061",
+        "{",
+        "    public class Class_Counter : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            CountTrigger = 0,",
+        "            ResetTrigger = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var CountTrigger = inputs[(int)InputId.CountTrigger].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            ",
+        "            bool flankDetected = CountTrigger >= 0.5 && _oldTrigger <= 0.5;",
+        "            _oldTrigger = CountTrigger;",
+        "            ",
+        "            if( flankDetected) {",
+        "            //if( CountTrigger != _lastValue && CountTrigger == 1.0) {",
+        "                _count++;",
+        "            }",
+        "            ",
+        "            if( ResetTrigger == 1.0) {",
+        "                _count = 0;",
+        "            }",
+        "            _lastValue= CountTrigger;",
+        "            context.Value= _count;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        int _count = 0;",
+        "        float _lastValue= float.NaN;",
+        "        float _oldTrigger;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b16773c8-9ed4-4910-a51f-0550b28a895e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3f6faf27-76cf-4992-8af8-cd1956845bbd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d4f141db-198e-458a-a6c8-df0f0f2c6900",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3f6faf27-76cf-4992-8af8-cd1956845bbd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3f6faf27-76cf-4992-8af8-cd1956845bbd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7ce00262-ac22-44bd-b3e7-6fdc29718228"
+    }
+  ]
+}

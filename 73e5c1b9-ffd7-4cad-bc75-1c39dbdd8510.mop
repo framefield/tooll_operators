@@ -1,0 +1,215 @@
+{
+  "Name": "FXAA",
+  "_id": "73e5c1b9-ffd7-4cad-bc75-1c39dbdd8510",
+  "Namespace": "lib.image.adjust",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "562f7f1f-8a76-422e-8f1c-90660dab3ddb",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "a6fd0dc5-25bc-443a-bf9f-19dc47fdc66e",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Strength",
+      "MetaInstanceID": "0811f61d-4bcc-44c4-933b-95b270709c5f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.06"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size",
+      "MetaInstanceID": "a42734c8-d4d3-4948-8154-6c2da1d346e9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Contrast",
+      "MetaInstanceID": "c1c9e6cc-6f76-43c7-a55d-d5386f5f616a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "93dcb667-3689-43fb-8dd9-0091fa0f1b67",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "30157eae-90d9-4180-8a50-167d2b2d8da8",
+      "MetaID": "2e1906e3-12cd-4831-b770-c71dc4bb2873",
+      "Name": "FXAAFunc",
+      "Version": "0e6afee4-ada9-4483-9b5e-225bbec11e4c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID2e1906e3_12cd_4831_b770_c71dc4bb2873",
+        "{",
+        "    public class Class_FXAA : FXImageFunction",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Code = 0,",
+        "            Image = 1,",
+        "            Strength = 2,",
+        "            Size = 3,",
+        "            Contrast = 4",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; if (Image == null) return context;",
+        "            var Strength = inputs[(int)InputId.Strength].Eval(context).Value;",
+        "            var Size = inputs[(int)InputId.Size].Eval(context).Value;",
+        "            var Contrast = inputs[(int)InputId.Contrast].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            return PrepareAndEvalOnChange(context, () => {",
+        "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 1));",
+        "",
+        "                //>>> _setup",
+        "                using (var ImageView = new ShaderResourceView(context.D3DDevice, Image))",
+        "                {",
+        "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
+        "                    _effect.GetVariableByName(\"Image\").AsShaderResource().SetResource(ImageView);",
+        "                    _effect.GetVariableByName(\"Strength\").AsScalar().Set(Strength);",
+        "                    _effect.GetVariableByName(\"Size\").AsScalar().Set(Size);",
+        "                    _effect.GetVariableByName(\"Contrast\").AsScalar().Set(Contrast);",
+        "                //<<< _setup",
+        "                var worldToView = context.WorldToCamera*context.CameraProjection;",
+        "                var viewToWorld = Matrix.Invert(worldToView);",
+        "                _effect.GetVariableByName(\"ViewToWorld\").AsMatrix().SetMatrix(viewToWorld);",
+        "",
+        "                Render(context);",
+        "",
+        "                //>>> _cleanup",
+        "                }",
+        "                //<<< _cleanup",
+        "            });",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93dcb667-3689-43fb-8dd9-0091fa0f1b67"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "562f7f1f-8a76-422e-8f1c-90660dab3ddb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a6fd0dc5-25bc-443a-bf9f-19dc47fdc66e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0811f61d-4bcc-44c4-933b-95b270709c5f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a42734c8-d4d3-4948-8154-6c2da1d346e9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c1c9e6cc-6f76-43c7-a55d-d5386f5f616a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30157eae-90d9-4180-8a50-167d2b2d8da8"
+    }
+  ]
+}

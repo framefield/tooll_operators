@@ -1,0 +1,108 @@
+{
+  "Name": "VariableValue",
+  "_id": "6e197eb7-db88-446e-a97f-18714ab25a10",
+  "Namespace": "lib.basic",
+  "Description": "This references a Variable that has been defined further up the tree with a \"Set Variable\" operator.\r\n\r\nThe output of this operator is of generic type and will be casted into the respective parameter type like Value or Text.\r\n",
+  "Inputs": [
+    {
+      "Name": "Name",
+      "MetaInstanceID": "1e5dbf21-9037-4c34-af03-bf5aa197b0ef",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "VariableValueOut",
+      "MetaInstanceID": "3a993249-ffdd-4d8d-8410-5c32895eb01b",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "9d651be7-9b74-4ed0-81b2-77422aa7002c",
+      "MetaID": "d88e4cc3-d3bd-47b3-8bfa-4334843e51a8",
+      "Name": "VariableValueFunc",
+      "Version": "57268b98-1633-4c8f-83fc-9c83c37a2df2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDd88e4cc3_d3bd_47b3_8bfa_4334843e51a8",
+        "{",
+        "    public class Class_VariableValue : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IVariableAccessor, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Name = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public string VariableName",
+        "        {",
+        "            get",
+        "            {",
+        "                return OperatorPartUtilities.GetInputTextValue(OperatorPart.Connections[(int)InputId.Name]);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Name = inputs[(int)InputId.Name].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "",
+        "",
+        "            float v;",
+        "            if (context.Variables.TryGetValue(Name, out v))",
+        "                context.Value = v;",
+        "            else",
+        "                context.Value = float.NaN;",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1e5dbf21-9037-4c34-af03-bf5aa197b0ef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9d651be7-9b74-4ed0-81b2-77422aa7002c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9d651be7-9b74-4ed0-81b2-77422aa7002c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3a993249-ffdd-4d8d-8410-5c32895eb01b"
+    }
+  ]
+}

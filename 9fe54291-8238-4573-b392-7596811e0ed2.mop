@@ -1,0 +1,200 @@
+{
+  "Name": "SampleCurve",
+  "_id": "9fe54291-8238-4573-b392-7596811e0ed2",
+  "Namespace": "lib.basic.curve",
+  "Description": "Returns the four values on the incoming curve at a U.",
+  "Inputs": [
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "7ae3ae35-b157-4da9-8d11-b6d67e39497d",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "U",
+      "MetaInstanceID": "31f3b07e-9e86-4fa5-8d26-2bea7fe5f3e2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "X",
+      "MetaInstanceID": "de74a9d8-dd80-44bb-8439-4647022397ec",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Y",
+      "MetaInstanceID": "c8f46adf-23e0-4160-bf82-ce020c708ba1",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Z",
+      "MetaInstanceID": "8c5f8a39-4467-46b9-92c2-0af8f5094b1e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "4aee9828-3359-4503-ab71-3b433a27c3c2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e720f274-7ca4-4974-9770-b8992efe31bc",
+      "MetaID": "f7986d49-0fa6-455a-bae3-f0bd159cb849",
+      "Name": "SampleCurveFunc",
+      "Version": "318bd4df-f940-4b42-bf53-03c5c460a635",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.IDb03022e3_8b4f_4d33_b749_ef30a03ef098; // CurveProviderFunc",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDf7986d49_0fa6_455a_bae3_f0bd159cb849",
+        "{",
+        "    public class Class_SampleCurve : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Curve = 0,",
+        "            U = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            X = 0,",
+        "            Y = 1,",
+        "            Z = 2,",
+        "            Radius = 3",
+        "        }",
+        "        //<<< _outputids",
+        "                        ",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Curve = inputs[(int)InputId.Curve].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "            var U = inputs[(int)InputId.U].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            _curve = Curve as ICurveProvider;",
+        "            if( _curve == null) {            ",
+        "                Logger.Warn(this, \"Can't render because curve is not connected or invalid\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            if(Changed) ",
+        "            {",
+        "                _p = _curve.SampleAt(U);",
+        "            }",
+        "            ",
+        "            switch( (int)outputIdx) {",
+        "                case (int)OutputId.X: context.Value = _p.X; break;",
+        "                case (int)OutputId.Y: context.Value = _p.Y; break;",
+        "                case (int)OutputId.Z: context.Value = _p.Z; break;",
+        "                case (int)OutputId.Radius: context.Value = _p.W; break;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "        ",
+        "        ICurveProvider _curve;",
+        "        Vector4 _p;",
+        "    }        ",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [
+    {
+      "Name": "CurveProvider",
+      "MetaInstanceID": "7304677d-25b7-405f-902a-493fc09efbbe",
+      "MetaID": "6a030fc7-b200-478e-84a1-dd4825b8d5cc",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7ae3ae35-b157-4da9-8d11-b6d67e39497d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "31f3b07e-9e86-4fa5-8d26-2bea7fe5f3e2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "de74a9d8-dd80-44bb-8439-4647022397ec"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c8f46adf-23e0-4160-bf82-ce020c708ba1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8c5f8a39-4467-46b9-92c2-0af8f5094b1e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e720f274-7ca4-4974-9770-b8992efe31bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4aee9828-3359-4503-ab71-3b433a27c3c2"
+    }
+  ]
+}

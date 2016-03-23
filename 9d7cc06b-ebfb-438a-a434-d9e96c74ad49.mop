@@ -1,0 +1,160 @@
+{
+  "Name": "Glow",
+  "_id": "9d7cc06b-ebfb-438a-a434-d9e96c74ad49",
+  "Namespace": "lib.image.blur",
+  "Description": "Simple Helper that combines [GaussBlur] with [BlendImagesAdd].",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "b6a75de9-c1a0-4523-bbe6-e158add93e26",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size",
+      "MetaInstanceID": "5593e1f2-a620-4b7b-963e-7285355c47f0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GlowStrength",
+      "MetaInstanceID": "b414ddd3-0e33-42f9-9d28-51b75b17b7f1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0.001",
+      "Max": "10",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset",
+      "MetaInstanceID": "21e58fee-2e86-4f59-93ab-efa509b42179",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10",
+      "Max": "10",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "2770c76d-ca93-4d99-8d35-8692588241a0",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "GaussBlur",
+      "MetaInstanceID": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "MetaID": "61560c16-3643-426a-ade5-f8e33ef51e78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "614.259478987515",
+        "PosY": "-291.690005032126",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendImagesAdd",
+      "MetaInstanceID": "c9a8d501-25ea-47a7-a5fe-91d932a25abe",
+      "MetaID": "65ef8dd3-1075-4e0e-b83f-8e083e027099",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "688.259478987515",
+        "PosY": "-393.690005032126",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b6a75de9-c1a0-4523-bbe6-e158add93e26",
+      "TargetOp": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "TargetOpPart": "1944a8ac-41ce-4d96-9406-fe49d814d719"
+    },
+    {
+      "SourceOp": "c9a8d501-25ea-47a7-a5fe-91d932a25abe",
+      "SourceOpPart": "93b119c0-4467-428d-91be-32ebdeed0a07",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2770c76d-ca93-4d99-8d35-8692588241a0"
+    },
+    {
+      "SourceOp": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "SourceOpPart": "cae7b4ea-ca40-4033-9819-904e99638eb8",
+      "TargetOp": "c9a8d501-25ea-47a7-a5fe-91d932a25abe",
+      "TargetOpPart": "155e09d4-8fa1-4ea7-b7b6-dd3810328f4c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b6a75de9-c1a0-4523-bbe6-e158add93e26",
+      "TargetOp": "c9a8d501-25ea-47a7-a5fe-91d932a25abe",
+      "TargetOpPart": "3b4927be-6a67-4872-aeb7-b1dee2136f29"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5593e1f2-a620-4b7b-963e-7285355c47f0",
+      "TargetOp": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "TargetOpPart": "a4d48e86-c687-4533-8d09-5fb5682a3456"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b414ddd3-0e33-42f9-9d28-51b75b17b7f1",
+      "TargetOp": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "TargetOpPart": "1c992df9-496b-4d87-a43f-de5702aef102"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "21e58fee-2e86-4f59-93ab-efa509b42179",
+      "TargetOp": "f3dc7300-4961-4db7-814a-75c50044061c",
+      "TargetOpPart": "08a555a3-b28d-4830-aeb3-eaac33c50e69"
+    }
+  ]
+}

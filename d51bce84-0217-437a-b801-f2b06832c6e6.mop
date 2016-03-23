@@ -1,0 +1,258 @@
+{
+  "Name": "RecordableCurve",
+  "_id": "d51bce84-0217-437a-b801-f2b06832c6e6",
+  "Namespace": "lib.math",
+  "Description": "Returns the mapped float value v regarding the input u.",
+  "Inputs": [
+    {
+      "Name": "U",
+      "MetaInstanceID": "a670f119-40b1-48f8-bd87-047e0b4cb519",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Float value to be mapped.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "V",
+      "MetaInstanceID": "6229c358-0e71-4c0e-ba8e-e646a752e373",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RecordEnabled",
+      "MetaInstanceID": "bf4d01e9-64cd-4a0d-a183-2c2f03a247a1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Disabled",
+          "Value": "0"
+        },
+        {
+          "Name": "Enabled",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "EqualAngleThreshold",
+      "MetaInstanceID": "a0868ceb-9031-4b61-bdb1-98710677f326",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "180",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "51595048-4c21-4b02-a73b-60ae79907797",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "V",
+      "MetaInstanceID": "59503419-b406-4f9c-a9f8-367a2268d2fd",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "214e361a-d429-4ccf-83e6-b0bb34d6564c",
+      "MetaID": "94f2295a-ea64-4050-a9ea-b59bb959863c",
+      "Name": "RecordableCurveFunc",
+      "Version": "4161a49e-6775-4a39-94ac-72fba9e2fc68",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Curve;",
+        "",
+        "namespace Framefield.Core.ID94f2295a_ea64_4050_a9ea_b59bb959863c",
+        "{",
+        "    public class Class_RecordableCurve : Curve.Curve",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            U = 0,",
+        "            V = 1,",
+        "            RecordEnabled = 2,",
+        "            EqualAngleThreshold = 3,",
+        "            ResetTrigger = 4",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var U = inputs[(int)InputId.U].Eval(context).Value;",
+        "            var V = inputs[(int)InputId.V].Eval(context).Value;",
+        "            var RecordEnabled = (int) inputs[(int)InputId.RecordEnabled].Eval(context).Value;",
+        "            var EqualAngleThreshold = inputs[(int)InputId.EqualAngleThreshold].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if( ResetTrigger > 0.5)",
+        "                State.Table.Clear();",
+        "",
+        "            if (RecordEnabled > 0.5)",
+        "            {",
+        "            ",
+        "                if(V == _lastV) {",
+        "                    context.Value = V;",
+        "                    return context;",
+        "                }",
+        "                _lastV = V;",
+        "            ",
+        "                var state = State;",
+        "                var table = state.Table.ToList();",
+        "                //remove points 'right' from new U",
+        "                foreach (var e in table)",
+        "                {",
+        "                    if (e.Key > U)",
+        "                        state.Table.Remove(e.Key);",
+        "                }",
+        "",
+        "                var lastPoint = state.Table.LastOrDefault(e => e.Key < U - Constants.Epsilon);",
+        "                var onePriorLastPoint = state.Table.LastOrDefault(e => e.Key < lastPoint.Key);",
+        "                double deviationAngle = 99999.9;",
+        "                if (lastPoint.Value != null && onePriorLastPoint.Value != null)",
+        "                {",
+        "                    var oldDir = new Vector2((float)(lastPoint.Key - onePriorLastPoint.Key), (float)(lastPoint.Value.Value - onePriorLastPoint.Value.Value));",
+        "                    oldDir.Normalize();",
+        "                    var newDir = new Vector2((float)(U - lastPoint.Key), (float)(V - lastPoint.Value.Value));",
+        "                    newDir.Normalize();",
+        "                    deviationAngle = Math.Acos((double)Vector2.Dot(oldDir, newDir))*180.0/Math.PI;",
+        "                }",
+        "",
+        "                if (deviationAngle < EqualAngleThreshold)",
+        "                {",
+        "                    state.Table.Remove(lastPoint.Key);",
+        "                }",
+        "                ",
+        "                state.Table[U] = new VDefinition() { Value = V };",
+        "                SplineInterpolator.UpdateTangents(state.Table.ToList());",
+        "",
+        "                TriggerChangedEventIfEnabled();",
+        "                context.Value = V;",
+        "            }",
+        "            else",
+        "            {",
+        "                context.Value = (float)GetSampledValue(U);",
+        "            }",
+        "            return context;",
+        "        }",
+        "    private float _lastV=-1;",
+        "        ",
+        "    }",
+        "",
+        "    //only here so that an operatorpartstate can be found",
+        "    //and created",
+        "    public class CurveState : Curve.CurveState",
+        "    {",
+        "    }",
+        "} ",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a670f119-40b1-48f8-bd87-047e0b4cb519",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6229c358-0e71-4c0e-ba8e-e646a752e373",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bf4d01e9-64cd-4a0d-a183-2c2f03a247a1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a0868ceb-9031-4b61-bdb1-98710677f326",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "51595048-4c21-4b02-a73b-60ae79907797",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "214e361a-d429-4ccf-83e6-b0bb34d6564c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "59503419-b406-4f9c-a9f8-367a2268d2fd"
+    }
+  ]
+}

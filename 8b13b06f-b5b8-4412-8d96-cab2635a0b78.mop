@@ -1,0 +1,108 @@
+{
+  "Name": "Noise",
+  "_id": "8b13b06f-b5b8-4412-8d96-cab2635a0b78",
+  "Namespace": "lib.math",
+  "Description": "Returns a noise value for an input seed value. \r\n\r\nUse [PerlineNoise1D] if you want to smoothly interpolate between noise values.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "a1e847b5-d0d1-496f-9737-f74a5ec2072d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Seed",
+      "MetaInstanceID": "4cb27427-1693-465a-ab14-8f106f506fd9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "ffa85f11-bb6c-4a27-aea7-9b61593cbf5e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f088723f-cb56-4f44-9e9f-d024d0e94154",
+      "MetaID": "4e20da39-dc5b-4f7f-a45b-55973e7e905c",
+      "Name": "NoiseFunc",
+      "Version": "2a4f3228-951b-495a-b7b0-9950bb5239dd",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID4e20da39_dc5b_4f7f_a45b_55973e7e905c",
+        "{",
+        "    public class Class_Noise : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            var Seed = (float) inputs[1].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            int n = (int)Value + (int)Seed*137;",
+        "            n = (n << 13) ^ n;",
+        "            ",
+        "            context.Value= (1.0f - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0f);",
+        "            ",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a1e847b5-d0d1-496f-9737-f74a5ec2072d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f088723f-cb56-4f44-9e9f-d024d0e94154"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4cb27427-1693-465a-ab14-8f106f506fd9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f088723f-cb56-4f44-9e9f-d024d0e94154"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f088723f-cb56-4f44-9e9f-d024d0e94154",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ffa85f11-bb6c-4a27-aea7-9b61593cbf5e"
+    }
+  ]
+}

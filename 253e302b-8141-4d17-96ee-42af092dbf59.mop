@@ -1,0 +1,58 @@
+{
+  "Name": "Time",
+  "_id": "253e302b-8141-4d17-96ee-42af092dbf59",
+  "Namespace": "lib.basic",
+  "Description": "Returns the the current composition time.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "MetaID": "559a5d57-6473-401c-8eb3-ed0931d77172",
+      "Name": "TimeFunc",
+      "Version": "dd276554-59fb-4d17-bcf5-b9955517874c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID559a5d57_6473_401c_8eb3_ed0931d77172",
+        "{",
+        "    public class Class_Time : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> function",
+        "            context.Value = context.Time;",
+        "            return context;",
+        "            //<<< function",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66"
+    }
+  ]
+}

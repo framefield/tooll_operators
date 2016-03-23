@@ -1,0 +1,123 @@
+{
+  "Name": "FreezeValue",
+  "_id": "b7c28bff-229a-46dc-8e86-de7ace0cf6e7",
+  "Namespace": "lib.math.helper",
+  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "6583df0c-3b9c-4362-92db-fa721af71e6b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Trigger",
+      "MetaInstanceID": "e1b66d56-c17b-412d-9e4d-0a019872c5d9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "27c8e5ff-bed8-4477-9609-8102d21606af",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5f53983f-7106-4138-8b42-3289e3ef354c",
+      "MetaID": "96d13284-51ef-439f-839b-296562cdb3e3",
+      "Name": "FreezeValueFunc",
+      "Version": "72657284-b325-40fc-8ebb-10702f37ac4a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "namespace Framefield.Core.ID96d13284_51ef_439f_839b_296562cdb3e3",
+        "{",
+        "",
+        "    public class Class_Multiply : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Trigger = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Trigger = inputs[(int)InputId.Trigger].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if( Trigger != 0) {",
+        "                _frozenValue = Value;",
+        "            }",
+        "            context.Value = _frozenValue;",
+        "            ",
+        "            return context;",
+        "        }",
+        "        private float _frozenValue=0;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6583df0c-3b9c-4362-92db-fa721af71e6b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5f53983f-7106-4138-8b42-3289e3ef354c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e1b66d56-c17b-412d-9e4d-0a019872c5d9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5f53983f-7106-4138-8b42-3289e3ef354c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5f53983f-7106-4138-8b42-3289e3ef354c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "27c8e5ff-bed8-4477-9609-8102d21606af"
+    }
+  ]
+}

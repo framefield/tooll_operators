@@ -1,0 +1,180 @@
+{
+  "Name": "ValueGate",
+  "_id": "ec4684e0-1bdb-45f1-9a8d-b8af967e0600",
+  "Namespace": "lib.math.helper",
+  "Description": "This Operator only returns the incomming Value, if a condiftion is met. Otherwise it returns the fallback value.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "ca9b4925-e9d7-43df-9863-01e3215b9f43",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Threshold",
+      "MetaInstanceID": "e5df8302-f70a-4c1e-926b-3fa41ae0822e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Mode",
+      "MetaInstanceID": "a7f7c2c2-ebd5-45d5-87a4-3197dad729ad",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Smaller",
+          "Value": "0"
+        },
+        {
+          "Name": "Larger",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "FallbackValue",
+      "MetaInstanceID": "3c112166-d982-4964-ac5f-99feb11ab1c4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "d32d6169-37dd-45ec-ab01-128f21828c82",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f5ad212b-cebb-4124-80a1-33f14384b29e",
+      "MetaID": "69643dc6-84e6-4d36-95f4-e08eb6819287",
+      "Name": "ValueGateFunc",
+      "Version": "6f11eb3f-e2b0-4f12-86fa-5bdcf480320a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID69643dc6_84e6_4d36_95f4_e08eb6819287",
+        "{",
+        "    public class Class_TestValue : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Threshold = 1,",
+        "            Mode = 2,",
+        "            FallbackValue = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Threshold = inputs[(int)InputId.Threshold].Eval(context).Value;",
+        "            var Mode = (int) inputs[(int)InputId.Mode].Eval(context).Value;",
+        "            var FallbackValue = inputs[(int)InputId.FallbackValue].Eval(context).Value;",
+        "            //<<< _params",
+        "                               ",
+        "            switch ((int)Mode)",
+        "            {",
+        "                case 0: context.Value = Value < Threshold ? Value : FallbackValue; break;",
+        "                case 1: context.Value = Value > Threshold ? Value : FallbackValue; break;",
+        "            }",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ca9b4925-e9d7-43df-9863-01e3215b9f43",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f5ad212b-cebb-4124-80a1-33f14384b29e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e5df8302-f70a-4c1e-926b-3fa41ae0822e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f5ad212b-cebb-4124-80a1-33f14384b29e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a7f7c2c2-ebd5-45d5-87a4-3197dad729ad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f5ad212b-cebb-4124-80a1-33f14384b29e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3c112166-d982-4964-ac5f-99feb11ab1c4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f5ad212b-cebb-4124-80a1-33f14384b29e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f5ad212b-cebb-4124-80a1-33f14384b29e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d32d6169-37dd-45ec-ab01-128f21828c82"
+    }
+  ]
+}

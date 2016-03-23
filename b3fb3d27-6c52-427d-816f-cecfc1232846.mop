@@ -1,0 +1,140 @@
+{
+  "Name": "DestroyImage Example",
+  "_id": "b3fb3d27-6c52-427d-816f-cecfc1232846",
+  "Namespace": "projects.glitch.research",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "a1639206-07e4-4e1d-a7af-f192e27b070a",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "MemoryAsImage",
+      "MetaInstanceID": "27b34382-072d-49f2-92fb-cd7b86e24fb8",
+      "MetaID": "7a98905a-8d01-44ef-952d-bdbff26501f3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "512.062797140974",
+        "PosY": "1065.35197215725",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadToMemory",
+      "MetaInstanceID": "97687e60-cec6-4cc4-b87e-95248d608272",
+      "MetaID": "cf371860-c74e-4646-a8c4-3077d733e9a2",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "522.735024650202",
+        "PosY": "1206.21275488365",
+        "Width": "300",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "4ad99687-dac8-4cd6-acea-b4f916a40a55",
+            "Type": "Text",
+            "Value": [
+              "assets-common/image/frog.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ManipulateMemory",
+      "MetaInstanceID": "7295cd37-92b2-4574-bfea-28817ef5eb7b",
+      "MetaID": "e6cbe1a2-d1e6-457a-b846-c2be1f5470d8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "512.062797140974",
+        "PosY": "1090.35197215725",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "95e51f65-fba3-4f65-a5b8-95db3b0e6c89",
+            "Type": "Float",
+            "Value": [
+              "124"
+            ]
+          },
+          {
+            "ID": "b63226e2-b9b3-40e2-a4da-db4470e95933",
+            "Type": "Float",
+            "Value": [
+              "1.05"
+            ]
+          },
+          {
+            "ID": "a746c66a-68d4-40f2-b293-17f66adcd021",
+            "Type": "Float",
+            "Value": [
+              "1.476999"
+            ]
+          },
+          {
+            "ID": "cdec332e-a59e-4aba-a440-292f0606ad7a",
+            "Type": "Float",
+            "Value": [
+              "156.9"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "MemoryAsImage",
+      "MetaInstanceID": "6a25d441-1e8d-4523-b996-0ee36cf477f9",
+      "MetaID": "7a98905a-8d01-44ef-952d-bdbff26501f3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "712.062797140976",
+        "PosY": "1090.35197215725",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "7295cd37-92b2-4574-bfea-28817ef5eb7b",
+      "SourceOpPart": "721cfab1-d204-4908-a164-90495ea1946f",
+      "TargetOp": "27b34382-072d-49f2-92fb-cd7b86e24fb8",
+      "TargetOpPart": "044a7b68-f880-49a8-afe4-e90be5044783"
+    },
+    {
+      "SourceOp": "97687e60-cec6-4cc4-b87e-95248d608272",
+      "SourceOpPart": "4b766381-e5b5-48c4-b96b-6b316452f1bf",
+      "TargetOp": "6a25d441-1e8d-4523-b996-0ee36cf477f9",
+      "TargetOpPart": "044a7b68-f880-49a8-afe4-e90be5044783"
+    },
+    {
+      "SourceOp": "97687e60-cec6-4cc4-b87e-95248d608272",
+      "SourceOpPart": "4b766381-e5b5-48c4-b96b-6b316452f1bf",
+      "TargetOp": "7295cd37-92b2-4574-bfea-28817ef5eb7b",
+      "TargetOpPart": "043fc39e-4350-42b6-bdf4-7676a5b5db60"
+    },
+    {
+      "SourceOp": "27b34382-072d-49f2-92fb-cd7b86e24fb8",
+      "SourceOpPart": "1114a725-bb91-4c86-ac9d-e9e2674adeaa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1639206-07e4-4e1d-a7af-f192e27b070a"
+    }
+  ]
+}

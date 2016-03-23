@@ -1,0 +1,96 @@
+{
+  "Name": "CreateDynamic",
+  "_id": "48b2bb6d-14cf-4588-a5dd-679379f50b0b",
+  "Namespace": "lib.basic.helper",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "f753b921-fb52-48a2-9052-4747a86295e3",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "test.txt"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Dynamic",
+      "MetaInstanceID": "57eb6571-e449-499a-99a8-0fa6c8c0e389",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "8993c505-6191-4cde-a5cd-b231661c1eb8",
+      "MetaID": "0e126dce-f311-471e-aa05-a0daea725b2d",
+      "Name": "CreateDynamicFunc",
+      "Version": "a247da64-64fc-4c62-84e7-fcbd3754826b",
+      "Type": "Dynamic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Dynamic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using System.Xml;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID0e126dce_f311_471e_aa05_a0daea725b2d",
+        "{",
+        "    public class Class_CreateDynamic : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var FileName = (string) inputs[0].Eval(context).Text;",
+        "",
+        "            dynamic obj = new ExpandoObject();",
+        "",
+        "            XmlDocument doc = new XmlDocument();",
+        "            doc.Load(FileName);",
+        "            XmlElement root = doc.DocumentElement;",
+        "",
+        "            obj.Title = \"bla\";",
+        "            obj.Items = new List<dynamic>();",
+        "",
+        "            foreach (XmlNode item in root.GetElementsByTagName(\"item\")) {",
+        "                var value = item[\"title\"].InnerText;",
+        "                obj.Items.Add(value);",
+        "            }",
+        "",
+        "            context.Dynamic = obj;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f753b921-fb52-48a2-9052-4747a86295e3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8993c505-6191-4cde-a5cd-b231661c1eb8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8993c505-6191-4cde-a5cd-b231661c1eb8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "57eb6571-e449-499a-99a8-0fa6c8c0e389"
+    }
+  ]
+}

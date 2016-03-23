@@ -1,0 +1,166 @@
+{
+  "Name": "SwitchGizmoUI",
+  "_id": "3433daaf-1c6b-44f4-ae35-a4fbfcd9d73f",
+  "Namespace": "lib.basic.helpers",
+  "Description": "This is a small helper that renders in the incoming geometry only if the SelectionView has enabled Gizmo-Elements or it's explictly enabled of disabled.",
+  "Inputs": [
+    {
+      "Name": "ShowGizmos",
+      "MetaInstanceID": "05b66198-7c32-4ba3-94dc-7038f24c5e66",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Inherit",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        },
+        {
+          "Name": "Off",
+          "Value": "2"
+        }
+      ]
+    },
+    {
+      "Name": "GizmoGeometry",
+      "MetaInstanceID": "3d9515ad-7b73-4183-ab31-8f864c540a92",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "cc850a59-705c-46c6-a892-9669d8ae701b",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "56def392-9471-4289-984d-32135c71c5cf",
+      "MetaID": "7cfc7245-e0ba-4718-831b-490c032fc835",
+      "Name": "SwitchGizmoUIFunc",
+      "Version": "d1e40321-f428-46d9-9506-96cc1de941fb",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID7cfc7245_e0ba_4718_831b_490c032fc835",
+        "{",
+        "    public class Class_SwitchGizmoUI : OperatorPart.Function,",
+        "                                Framefield.Core.OperatorPartTraits.ITraverseModifier",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            ShowGizmos = 0,",
+        "            GizmoGeometry = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public IEnumerable<OperatorPart> GetRelevantConnections()",
+        "        {",
+        "            List<OperatorPart> connections = new List<OperatorPart>();",
+        "            ",
+        "            if( _gizmosAreVisible ) {",
+        "                var inputs = OperatorPart.Connections[(int)InputId.GizmoGeometry];",
+        "                connections = inputs.Connections.ToList();",
+        "            }            ",
+        "            return connections;",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var ShowGizmos = (int) inputs[(int)InputId.ShowGizmos].Eval(context).Value;",
+        "            var GizmoGeometry = inputs[(int)InputId.GizmoGeometry];",
+        "            //<<< _params",
+        "",
+        "            var mode = (int)ShowGizmos;",
+        "            ",
+        "            float currentSetting;",
+        "            context.Variables.TryGetValue(\"ShowDebugOverlays\", out currentSetting);",
+        "            if(float.IsNaN( currentSetting) ) {",
+        "                currentSetting = 0;",
+        "            }            ",
+        "            ",
+        "            if( mode == 2 || GizmoGeometry.Connections.Count == 0) {",
+        "                _gizmosAreVisible = false;",
+        "                return context;",
+        "            }",
+        "                            ",
+        "            if( mode == 0 && currentSetting == 0) {",
+        "                _gizmosAreVisible = false;",
+        "                return context;",
+        "            }",
+        "            _gizmosAreVisible = true;",
+        "            ",
+        "            foreach(var input in GizmoGeometry.Connections) {",
+        "                input.Eval(context);",
+        "            }",
+        "            return context;",
+        "        }",
+        "        ",
+        "        bool _gizmosAreVisible;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "05b66198-7c32-4ba3-94dc-7038f24c5e66",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "56def392-9471-4289-984d-32135c71c5cf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d9515ad-7b73-4183-ab31-8f864c540a92",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "56def392-9471-4289-984d-32135c71c5cf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "56def392-9471-4289-984d-32135c71c5cf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cc850a59-705c-46c6-a892-9669d8ae701b"
+    }
+  ]
+}

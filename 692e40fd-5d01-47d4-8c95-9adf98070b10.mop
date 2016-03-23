@@ -1,0 +1,125 @@
+{
+  "Name": "SubTextValues",
+  "_id": "692e40fd-5d01-47d4-8c95-9adf98070b10",
+  "Namespace": "lib.math.experimental",
+  "Description": "For precise large number compution, we convert numbers to Texts. This Operator takes two text inputs and substract them.",
+  "Inputs": [
+    {
+      "Name": "TextValue1",
+      "MetaInstanceID": "1dd586b0-3775-4a30-ba56-3568f059e67a",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextValue2",
+      "MetaInstanceID": "888766ed-1928-430c-bcc3-5ff6bd00e23a",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "a7e7d14b-2467-4c9b-a725-8d976bbaa08c",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "931486ca-a80d-49ae-a97d-285f665ecbe0",
+      "MetaID": "1fa6aa8d-59da-4ecc-b9d3-9c428f3c6e53",
+      "Name": "SubTextValuesFunc",
+      "Version": "bc94ee92-4e90-42b4-9987-517d45c46f64",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID1fa6aa8d_59da_4ecc_b9d3_9c428f3c6e53",
+        "{",
+        "    public class Class_Sub : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            TextValue1 = 0,",
+        "            TextValue2 = 1",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>>_params",
+        "            var TextValue1 = inputs[(int)InputId.TextValue1].Eval(context).Text;",
+        "            var TextValue2 = inputs[(int)InputId.TextValue2].Eval(context).Text;",
+        "            //<<<_params",
+        "            ",
+        "            double v1=0;",
+        "            double v2=0;",
+        "            ",
+        "            try {",
+        "                v1= Double.Parse(TextValue1);",
+        "                v2= Double.Parse(TextValue2);",
+        "            }",
+        "            catch(FormatException) {",
+        "                Logger.Warn(this,\"Invalid Number formats: '{0}', '{1}'\", TextValue1, TextValue2);",
+        "            }",
+        "            ",
+        "            context.Text = String.Format(\"{0}\", v1 - v2);",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "931486ca-a80d-49ae-a97d-285f665ecbe0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a7e7d14b-2467-4c9b-a725-8d976bbaa08c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1dd586b0-3775-4a30-ba56-3568f059e67a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "931486ca-a80d-49ae-a97d-285f665ecbe0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "888766ed-1928-430c-bcc3-5ff6bd00e23a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "931486ca-a80d-49ae-a97d-285f665ecbe0"
+    }
+  ]
+}

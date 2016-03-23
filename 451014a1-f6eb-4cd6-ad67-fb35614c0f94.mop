@@ -1,0 +1,120 @@
+{
+  "Name": "Timer",
+  "_id": "451014a1-f6eb-4cd6-ad67-fb35614c0f94",
+  "Namespace": "lib.basic",
+  "Description": "Stops time in seconds. This was formalerly called [StopWatch].",
+  "Inputs": [
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "424741f8-752c-4809-9314-91ed448739ad",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Time",
+      "MetaInstanceID": "567e88cd-2c3d-4a7f-a791-a2d5961f503d",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7f81ae46-a3d5-46bc-96ba-a2bb26055251",
+      "MetaID": "7e2cb820-7a49-4904-a65a-3aa7749d2aa0",
+      "Name": "TimerFunc",
+      "Version": "42601489-3044-4397-b496-42626833dc50",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core;",
+        "",
+        "namespace Framefield.Core.ID7e2cb820_7a49_4904_a65a_3aa7749d2aa0",
+        "{",
+        "    public class Class_Timer : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            ResetTrigger = 0",
+        "        }",
+        "        //<<< _inputids        ",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if (_lastTime == float.NaN)",
+        "            {",
+        "                _lastTime = context.Time;",
+        "            }",
+        "            if (_lastTime != context.Time)",
+        "            {",
+        "                _duration += context.Time - _lastTime;",
+        "                _lastTime = context.Time;",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            bool resetTriggerUp = _oldResetTrigger < 0.5f && ResetTrigger > 0.5f;",
+        "            bool resetTriggerDown = _oldResetTrigger > 0.5f && ResetTrigger < 0.5f;",
+        "            _oldResetTrigger = ResetTrigger;",
+        "            if (ResetTrigger > 0.5f)//resetTriggerUp)",
+        "            {",
+        "                //Logger.Warn(this,\"Reset\");",
+        "                _duration = 0;",
+        "            }",
+        "",
+        "            context.Value = _duration;",
+        "            return context;",
+        "        }",
+        "",
+        "        float _oldResetTrigger;",
+        "        float _lastTime = 0;",
+        "        float _duration = 0;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7f81ae46-a3d5-46bc-96ba-a2bb26055251",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "567e88cd-2c3d-4a7f-a791-a2d5961f503d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "424741f8-752c-4809-9314-91ed448739ad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7f81ae46-a3d5-46bc-96ba-a2bb26055251"
+    }
+  ]
+}

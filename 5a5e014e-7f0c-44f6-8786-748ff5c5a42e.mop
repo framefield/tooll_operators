@@ -1,0 +1,215 @@
+{
+  "Name": "SkypeMessages",
+  "_id": "5a5e014e-7f0c-44f6-8786-748ff5c5a42e",
+  "Namespace": "projects.glitch.helpers",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "ChatId",
+      "MetaInstanceID": "dc942665-7fd3-4d91-951f-7fc53e126f6b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MessageID",
+      "MetaInstanceID": "451c309d-1315-4ceb-8d2a-995b7a6388e8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "37323374-4e9c-4b88-958d-4fbfbb034f28",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "NthMessage",
+      "MetaInstanceID": "8f99525f-97eb-4d5b-bd1d-447086b2fbc9",
+      "MetaID": "ed6f55e1-1a5b-4104-ae05-5113996a2f8a",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "310.86070027434",
+        "PosY": "937.064870968736",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "d06053d2-bb5f-4d4b-b51c-29b9524dc41e",
+      "MetaID": "7424a910-d647-4049-9fda-78189bcaa964",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "530.887578757644",
+        "PosY": "1039.19773842264",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "97e2fdc6-c6bd-4613-9050-622ae146a914",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "NthString",
+      "MetaInstanceID": "883a76c4-0102-4dfd-a79c-8766384bde13",
+      "MetaID": "9e3c055e-8c04-4e3d-9c03-21a6c8026435",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "304.537286720618",
+        "PosY": "1039.4257001219",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SkypeChatLogFiles",
+      "MetaInstanceID": "f2cb2bac-afba-4262-bcc0-2296207ed86a",
+      "MetaID": "fb6cfc7c-a004-4fbf-9065-d1182aaf70bb",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "285.74785372015",
+        "PosY": "1146.44049681094",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ec707ef-ea66-4858-969c-82ba3ee016e2",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "d5ad6bf1-4180-42a4-a130-67f74452682e",
+            "Type": "Float",
+            "Value": [
+              "100000"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "82558e4d-4da8-4b60-9842-094018d86e72",
+      "MetaID": "7424a910-d647-4049-9fda-78189bcaa964",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "521.969106649169",
+        "PosY": "803.607127716657",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Modulo",
+      "MetaInstanceID": "cddedd09-6e96-4469-92b9-d70dac508946",
+      "MetaID": "51a42080-36e5-4e8e-ae4f-0a9d60fe2aaa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "370.787411328598",
+        "PosY": "1076.8956540434",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "8f99525f-97eb-4d5b-bd1d-447086b2fbc9",
+      "SourceOpPart": "15fe1f55-df85-4dcb-905b-a40b4634d336",
+      "TargetOp": "82558e4d-4da8-4b60-9842-094018d86e72",
+      "TargetOpPart": "97e2fdc6-c6bd-4613-9050-622ae146a914"
+    },
+    {
+      "SourceOp": "8f99525f-97eb-4d5b-bd1d-447086b2fbc9",
+      "SourceOpPart": "7e855819-b4cc-4b49-8f78-6e11bd8f411c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "37323374-4e9c-4b88-958d-4fbfbb034f28"
+    },
+    {
+      "SourceOp": "f2cb2bac-afba-4262-bcc0-2296207ed86a",
+      "SourceOpPart": "ed4a7cab-5b6c-4dc8-921b-ccf409a8e106",
+      "TargetOp": "cddedd09-6e96-4469-92b9-d70dac508946",
+      "TargetOpPart": "39629cf3-af7c-4022-9494-0705275080c7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dc942665-7fd3-4d91-951f-7fc53e126f6b",
+      "TargetOp": "cddedd09-6e96-4469-92b9-d70dac508946",
+      "TargetOpPart": "f641b755-6f8d-454e-a6ac-60d518e53f31"
+    },
+    {
+      "SourceOp": "883a76c4-0102-4dfd-a79c-8766384bde13",
+      "SourceOpPart": "5eded8ac-d5fc-4340-8ce2-02dd8f987d97",
+      "TargetOp": "8f99525f-97eb-4d5b-bd1d-447086b2fbc9",
+      "TargetOpPart": "7590856a-bc5d-4f16-a2e4-75b8ab234455"
+    },
+    {
+      "SourceOp": "f2cb2bac-afba-4262-bcc0-2296207ed86a",
+      "SourceOpPart": "347977c8-5292-449e-a094-1d71b02aa300",
+      "TargetOp": "883a76c4-0102-4dfd-a79c-8766384bde13",
+      "TargetOpPart": "01f33e48-2afd-42c6-bd56-e1fc3aba479a"
+    },
+    {
+      "SourceOp": "cddedd09-6e96-4469-92b9-d70dac508946",
+      "SourceOpPart": "da95a32f-fde6-4d06-a053-5394db6f46bf",
+      "TargetOp": "883a76c4-0102-4dfd-a79c-8766384bde13",
+      "TargetOpPart": "af8beea3-abb5-42f1-91f4-518e784689b8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "451c309d-1315-4ceb-8d2a-995b7a6388e8",
+      "TargetOp": "8f99525f-97eb-4d5b-bd1d-447086b2fbc9",
+      "TargetOpPart": "ca9c4088-33a0-4ab5-a7f8-d7f9229b58bf"
+    }
+  ]
+}

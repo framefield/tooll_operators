@@ -1,0 +1,56 @@
+{
+  "Name": "NumLockedPressed",
+  "_id": "ef96a180-88d2-4777-b6e8-2b355afd4a07",
+  "Namespace": "lib.basic",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "47ca6279-86d0-4297-a5a2-0b806ac240d1",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "435fe6c2-5264-42a6-85d2-535255170bdb",
+      "MetaID": "093d4344-b67f-41ca-9306-0de805b12468",
+      "Name": "NumLockedPressedFunc",
+      "Version": "2be905ba-154e-4278-8134-f5d83a547ccf",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using System.Windows.Forms;",
+        "",
+        "namespace Framefield.Core.ID093d4344_b67f_41ca_9306_0de805b12468",
+        "{",
+        "    public class Class_CapsLockedPressed : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            context.Value = Control.IsKeyLocked(Keys.NumLock) ? 1f : 0f;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "435fe6c2-5264-42a6-85d2-535255170bdb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "47ca6279-86d0-4297-a5a2-0b806ac240d1"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "Name": "BlendValues",
+  "_id": "3bc79e0e-9dfd-4d9a-8493-c488d9b636cc",
+  "Namespace": "lib.math",
+  "Description": "Adds two Values. \r\n\r\nIf you want to sum up more values, use the [Sum Values] operator.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "1bf9b9e3-593d-4fe8-a0f5-b2bc57337978",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "9132d738-e7b5-4b4c-b49b-756c2104c689",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Blend",
+      "MetaInstanceID": "4f3b0ec1-3a73-4e36-9783-02dc01f39ee8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "633ec4f7-271c-4951-8963-18557b0d8322",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "53bb7a0a-f4c9-4ff8-8d55-77531e759b8d",
+      "MetaID": "6bacb69d-7e54-4ca4-b101-2f9a3b83bb73",
+      "Name": "BlendValuesFunc",
+      "Version": "6a026dfc-53bf-4d78-8705-99aeaa932311",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID6bacb69d_7e54_4ca4_b101_2f9a3b83bb73",
+        "{",
+        "    public class Class_Add : OperatorPart.Function",
+        "    {",
+        "       //>>> _inputids",
+        "       private enum InputId",
+        "       {",
+        "           Value1 = 0,",
+        "           Value2 = 1,",
+        "           Blend = 2",
+        "       }",
+        "       //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "        //>>> _params",
+        "        var Value1 = (float) inputs[(int)InputId.Value1].Eval(context).Value;",
+        "        var Value2 = (float) inputs[(int)InputId.Value2].Eval(context).Value;",
+        "        var Blend = (float) inputs[(int)InputId.Blend].Eval(context).Value;",
+        "        //<<< _params",
+        "            ",
+        "            context.Value=  (1-Blend)*Value1 + Blend*Value2;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1bf9b9e3-593d-4fe8-a0f5-b2bc57337978",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "53bb7a0a-f4c9-4ff8-8d55-77531e759b8d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9132d738-e7b5-4b4c-b49b-756c2104c689",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "53bb7a0a-f4c9-4ff8-8d55-77531e759b8d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f3b0ec1-3a73-4e36-9783-02dc01f39ee8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "53bb7a0a-f4c9-4ff8-8d55-77531e759b8d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "53bb7a0a-f4c9-4ff8-8d55-77531e759b8d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "633ec4f7-271c-4951-8963-18557b0d8322"
+    }
+  ]
+}

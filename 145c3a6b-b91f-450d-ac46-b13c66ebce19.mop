@@ -1,0 +1,120 @@
+{
+  "Name": "Curve",
+  "_id": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+  "Namespace": "lib.math",
+  "Description": "Returns the mapped float value v regarding the input u.",
+  "Inputs": [
+    {
+      "Name": "U",
+      "MetaInstanceID": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Float value to be mapped.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "V",
+      "MetaInstanceID": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "MetaID": "49163ffa-f4e9-406f-8b5c-602c6adc276f",
+      "Name": "CurveFunc",
+      "Version": "cc3d1131-4962-4c7d-95ce-7e77fb0cd22b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Curve;",
+        "",
+        "namespace Framefield.Core.ID49163ffa_f4e9_406f_8b5c_602c6adc276f",
+        "{",
+        "    public class Class_Curve : Curve.Curve",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            U = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var U = inputs[(int)InputId.U].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            context.Value = (float)GetSampledValue(U);",
+        "            return context;",
+        "        }",
+        "",
+        "        public Class_Curve() {",
+        "            ChangedEventEnabled = true;",
+        "        }",
+        "",
+        "        private CurveState State",
+        "        {",
+        "            get",
+        "            {",
+        "                try",
+        "                {",
+        "                    return OperatorPart.Parent.GetOperatorPartState(OperatorPart.ID) as CurveState;",
+        "                }",
+        "                catch (Exception ex)",
+        "                {",
+        "                    Logger.Error(this,\"could not get the CurveState for this Curve op: {0}\", ex.Message);",
+        "                }",
+        "                return null;",
+        "            }",
+        "        }",
+        "    }",
+        "",
+        "    //only here so that an operatorpartstate can be found",
+        "    //and created",
+        "    public class CurveState : Curve.CurveState",
+        "    {",
+        "    }",
+        "} ",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66"
+    }
+  ]
+}

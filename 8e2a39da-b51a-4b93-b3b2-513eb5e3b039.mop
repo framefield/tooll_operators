@@ -1,0 +1,106 @@
+{
+  "Name": "ConsoleWriter",
+  "_id": "8e2a39da-b51a-4b93-b3b2-513eb5e3b039",
+  "Namespace": "lib.text.more",
+  "Description": "Group any number of scenes .",
+  "Inputs": [
+    {
+      "Name": "Inputs",
+      "MetaInstanceID": "cb5bacfd-c884-4e41-b6fb-7ba696ddb3e4",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "36a9e99e-511b-41df-9729-cc83919775eb",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "output"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Ouput",
+      "MetaInstanceID": "8ec2ae8d-752f-473f-9dfe-9cd642dae5f0",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e6ae55a0-e048-4847-9d52-bcc0a79312ca",
+      "MetaID": "75c97a25-aa0d-4438-b350-1174ad6b9cca",
+      "Name": "ConsoleWriterFunc",
+      "Version": "b4de0924-5719-441b-a463-4e0f61b3be80",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID75c97a25_aa0d_4438_b350_1174ad6b9cca",
+        "{",
+        "    public class Class_ConsoleWriter : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Input = inputs[0];",
+        "            var Text = inputs[1].Eval(context).Text;",
+        "",
+        "            Logger.Info(this,\"{0}\", Text);",
+        "            Input.Eval(context);",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e6ae55a0-e048-4847-9d52-bcc0a79312ca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8ec2ae8d-752f-473f-9dfe-9cd642dae5f0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cb5bacfd-c884-4e41-b6fb-7ba696ddb3e4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e6ae55a0-e048-4847-9d52-bcc0a79312ca"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "36a9e99e-511b-41df-9729-cc83919775eb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e6ae55a0-e048-4847-9d52-bcc0a79312ca"
+    }
+  ]
+}

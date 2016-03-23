@@ -1,0 +1,217 @@
+{
+  "Name": "ValueTester",
+  "_id": "9e879765-430f-48a5-8085-50a8aa92f72a",
+  "Namespace": "lib.testing",
+  "Description": "Tests a value.\r\n\r\nhttps://streber.framefield.com/933",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "aa27bb04-47a7-4303-977b-f6a844acd446",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Counter",
+      "MetaInstanceID": "8b321281-1c6d-4adf-83c8-7d31f621b768",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Count",
+      "MetaInstanceID": "dc955320-7900-442b-a278-9797779b800a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Threshold",
+      "MetaInstanceID": "57e6af48-ed4f-4aee-b693-832c88cb7e3d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.001"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "eb21b8a0-62e4-4cc8-a7ac-2e7461829882",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278",
+      "MetaID": "8d75be40-3e11-47a0-b398-c270a85225cf",
+      "Name": "ValueTesterFunc",
+      "Version": "de9fedad-c431-49d6-80b2-74b32563f48d",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "using Framefield.Core.Testing;",
+        "",
+        "namespace Framefield.Core.ID8d75be40_3e11_47a0_b398_c270a85225cf",
+        "{",
+        "    public class Class_ValueTester : TesterFunction",
+        "    {",
+        "        public override void SetupTestCase(OperatorPart subtree)",
+        "        {",
+        "            _subTree = subtree;",
+        "        }",
+        "",
+        "        public override bool GenerateData(OperatorPartContext context)",
+        "        {",
+        "            _currentValue = _subTree.Eval(context).Value;",
+        "            return true;",
+        "        }",
+        "",
+        "        public override void StoreAsReferenceData(int index, int count)",
+        "        {",
+        "            SetReferenceValue(index, count, _currentValue);",
+        "        }",
+        "",
+        "        public override bool CompareData(int index, int count, float threshold, out string compareResultString)",
+        "        {",
+        "            compareResultString = String.Empty;",
+        "            bool result = false;",
+        "            float referenceValue = 0;",
+        "            try",
+        "            {",
+        "                referenceValue = GetReferenceValue(index, count);",
+        "            }",
+        "            catch (IOException ex)",
+        "            {",
+        "                compareResultString = String.Format(\"reference not loaded: {0}\", ex.Message);",
+        "                return false;",
+        "            }",
+        "",
+        "            double deviation = Math.Abs(_currentValue - referenceValue);",
+        "            if (deviation < threshold)",
+        "            {",
+        "                result = true;",
+        "            }",
+        "            else",
+        "            {",
+        "                result = false;",
+        "                compareResultString = String.Format(\"{0} != {1}, \", _currentValue, referenceValue);",
+        "            }",
+        "            compareResultString += String.Format(\"{0}\", deviation);",
+        "            return result;",
+        "        }",
+        "",
+        "        string GetReferenceFilename(int index, int count)",
+        "        {",
+        "            return GetReferenceFilename(index, count, \".Value\");",
+        "        }",
+        "",
+        "        float GetReferenceValue(int index, int count)",
+        "        {",
+        "            return (float)Convert.ToDouble(File.ReadAllText(GetReferenceFilename(index, count)));",
+        "        }",
+        "",
+        "        void SetReferenceValue(int index, int count, float value)",
+        "        {",
+        "            FileInfo fi = new FileInfo(GetReferenceFilename(index, count));",
+        "            if (!Directory.Exists(fi.DirectoryName))",
+        "                Directory.CreateDirectory(fi.DirectoryName);",
+        "            using (StreamWriter outfile = new StreamWriter(fi.FullName))",
+        "            {",
+        "                outfile.Write(value);",
+        "            }",
+        "        }",
+        "",
+        "        OperatorPart _subTree;",
+        "        float _currentValue;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa27bb04-47a7-4303-977b-f6a844acd446",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8b321281-1c6d-4adf-83c8-7d31f621b768",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dc955320-7900-442b-a278-9797779b800a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "57e6af48-ed4f-4aee-b693-832c88cb7e3d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e4bce2a0-f5f8-447d-a1f8-b699a45f1278",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb21b8a0-62e4-4cc8-a7ac-2e7461829882"
+    }
+  ]
+}

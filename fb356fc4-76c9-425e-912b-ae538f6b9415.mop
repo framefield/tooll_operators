@@ -1,0 +1,85 @@
+{
+  "Name": "SumNValues",
+  "_id": "fb356fc4-76c9-425e-912b-ae538f6b9415",
+  "Namespace": "lib.math",
+  "Description": "Add any number of float values. If you only want to add 2 values use [Add].",
+  "Inputs": [
+    {
+      "Name": "Values",
+      "MetaInstanceID": "739993cc-ce22-4070-8914-da6008c79357",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "MultiplyOut",
+      "MetaInstanceID": "6d090348-b67e-4203-acba-43611af0395d",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "MetaID": "64d67fdd-8c08-4914-9518-0776b639e44b",
+      "Name": "SumNValuesFunc",
+      "Version": "934bb890-21f7-4a94-9958-ee5fff0bc46a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID64d67fdd_8c08_4914_9518_0776b639e44b",
+        "{",
+        "    public class Class_Sum_Values : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Values = (float) inputs[0].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            float value = 0.0f;",
+        "            foreach (var input in inputs[0].Connections) {",
+        "                value += input.Eval(context).Value;",
+        "            }",
+        "            context.Value = value;",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "739993cc-ce22-4070-8914-da6008c79357",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6d090348-b67e-4203-acba-43611af0395d"
+    }
+  ]
+}

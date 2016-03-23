@@ -1,0 +1,126 @@
+{
+  "Name": "TextToValue",
+  "_id": "14beaadf-6469-416c-818c-84bb67790000",
+  "Namespace": "lib.math.helper",
+  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Inputs": [
+    {
+      "Name": "Text",
+      "MetaInstanceID": "2e32ba78-b423-4100-a5ac-afbffdb0ebee",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Multiply",
+      "MetaInstanceID": "d76265f0-dfaf-494c-890d-816326eba019",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "25ff939b-5c58-44b7-8e6d-e4e1606a14f2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b507642f-a9d0-4c1c-a8ec-7e8c1222bc9a",
+      "MetaID": "66b7c9b7-4fdf-4193-96d0-6c9640debe1a",
+      "Name": "TextToValueFunc",
+      "Version": "243c45c6-e049-4116-8b31-b252dfa4b0b5",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID66b7c9b7_4fdf_4193_96d0_6c9640debe1a",
+        "{",
+        "",
+        "    public class Class_Multiply : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Text = 0,",
+        "            Multiply = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Text = inputs[(int)InputId.Text].Eval(context).Text;",
+        "            var Multiply = inputs[(int)InputId.Multiply].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            try {",
+        "                context.Value = (float)( Double.Parse(Text) * Multiply);",
+        "            }",
+        "            catch(FormatException) {",
+        "                //Logger.Warn(this,\"Can't convert '{0}' to number\", Text);",
+        "                context.Value=0;",
+        "            }",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b507642f-a9d0-4c1c-a8ec-7e8c1222bc9a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "25ff939b-5c58-44b7-8e6d-e4e1606a14f2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2e32ba78-b423-4100-a5ac-afbffdb0ebee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b507642f-a9d0-4c1c-a8ec-7e8c1222bc9a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d76265f0-dfaf-494c-890d-816326eba019",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b507642f-a9d0-4c1c-a8ec-7e8c1222bc9a"
+    }
+  ]
+}

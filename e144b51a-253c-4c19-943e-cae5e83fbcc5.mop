@@ -1,0 +1,186 @@
+{
+  "Name": "TypeWriter",
+  "_id": "e144b51a-253c-4c19-943e-cae5e83fbcc5",
+  "Namespace": "lib.text.experimental",
+  "Description": "\t\r\n",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "57a2767a-7a20-4328-aa98-6947c138e9b2",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos.Start",
+      "MetaInstanceID": "1309891d-1250-461d-b787-8f5b4558c523",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos.End",
+      "MetaInstanceID": "d8a050d1-2f3b-4ea5-b1cc-ed377b094707",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10000"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineWrap",
+      "MetaInstanceID": "fb430a05-a9be-43bf-91fd-38555d0ba43f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "40"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Text",
+      "MetaInstanceID": "d148cab7-5f9a-4a53-b70d-4ae514c52707",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6",
+      "MetaID": "316147b8-ca6c-4f8c-8140-835cb58e0c76",
+      "Name": "TypeWriterFunc",
+      "Version": "774d0196-9fb0-413b-b289-31cb68c97a6e",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID316147b8_ca6c_4f8c_8140_835cb58e0c76",
+        "{",
+        "    public class Class_TypeWriter : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0,",
+        "            PosStart = 1,",
+        "            PosEnd = 2,",
+        "            LineWrap = 3",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            var PosStart = inputs[(int)InputId.PosStart].Eval(context).Value;",
+        "            var PosEnd = inputs[(int)InputId.PosEnd].Eval(context).Value;",
+        "            var Pos = new Vector2(PosStart, PosEnd);",
+        "            var LineWrap = inputs[(int)InputId.LineWrap].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            string segment = String.Substring((int)PosStart, Math.Min(Math.Max(0, ((int)PosEnd - (int)PosStart)), String.Length - (int)PosStart));",
+        "            string line = string.Empty;",
+        "            string result = string.Empty;",
+        "            ",
+        "            foreach (var word in segment.Split(' '))",
+        "            {",
+        "                line += word + \" \";",
+        "                if (line.Length > (int) LineWrap)",
+        "                {",
+        "                    result += line + \"\\n\";",
+        "                    line = string.Empty;",
+        "                }",
+        "            }",
+        "            result += line;",
+        "            context.Text = result;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d148cab7-5f9a-4a53-b70d-4ae514c52707"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "57a2767a-7a20-4328-aa98-6947c138e9b2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1309891d-1250-461d-b787-8f5b4558c523",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d8a050d1-2f3b-4ea5-b1cc-ed377b094707",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fb430a05-a9be-43bf-91fd-38555d0ba43f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1f4ab168-004b-4f97-8fc4-fccddfa9f9f6"
+    }
+  ]
+}

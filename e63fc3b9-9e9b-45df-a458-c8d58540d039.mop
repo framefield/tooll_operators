@@ -1,0 +1,650 @@
+{
+  "Name": "KinectBodyFor1",
+  "_id": "e63fc3b9-9e9b-45df-a458-c8d58540d039",
+  "Namespace": "lib.basic",
+  "Description": "Returns the player hand coordinates in world space...\r\n\r\nroughy \r\nx: -2m ... 2m   \r\ny: 1.2m .. 2.4m \r\nz: 3.4m .. 4m\r\n\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "Skeletons",
+      "MetaInstanceID": "4013ded0-cc07-474c-a51d-937bf0dfd897",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Joint",
+      "MetaInstanceID": "43839c85-0d87-426a-9d1a-bc41383b4444",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "11"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "19",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "HipCenter",
+          "Value": "0"
+        },
+        {
+          "Name": "Spine",
+          "Value": "1"
+        },
+        {
+          "Name": "ShoulderCenter",
+          "Value": "2"
+        },
+        {
+          "Name": "Head",
+          "Value": "3"
+        },
+        {
+          "Name": "ShoulderLeft",
+          "Value": "4"
+        },
+        {
+          "Name": "ElbowLeft",
+          "Value": "5"
+        },
+        {
+          "Name": "WristLeft",
+          "Value": "6"
+        },
+        {
+          "Name": "HandLeft",
+          "Value": "7"
+        },
+        {
+          "Name": "ShoulderRight",
+          "Value": "8"
+        },
+        {
+          "Name": "ElbowRight",
+          "Value": "9"
+        },
+        {
+          "Name": "WristRight",
+          "Value": "10"
+        },
+        {
+          "Name": "HandRight",
+          "Value": "11"
+        },
+        {
+          "Name": "HipLeft",
+          "Value": "12"
+        },
+        {
+          "Name": "KneeLeft",
+          "Value": "13"
+        },
+        {
+          "Name": "AnkleLeft",
+          "Value": "14"
+        },
+        {
+          "Name": "FootLeft",
+          "Value": "15"
+        },
+        {
+          "Name": "HipRight",
+          "Value": "16"
+        },
+        {
+          "Name": "KneeRight",
+          "Value": "17"
+        },
+        {
+          "Name": "AnkleRight",
+          "Value": "18"
+        },
+        {
+          "Name": "FootRight",
+          "Value": "19"
+        }
+      ]
+    },
+    {
+      "Name": "InputRangeX.Min",
+      "MetaInstanceID": "050b1b09-924d-40a9-8183-729914c2784c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRangeX.Max",
+      "MetaInstanceID": "e9bb9712-aa88-438b-88f7-1305d9d95d58",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRangeY.Min",
+      "MetaInstanceID": "c8eaa314-ec04-444e-bc90-0943a724a6ab",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRangeY.Max",
+      "MetaInstanceID": "0ab01abc-6296-4b89-9210-af294e6d4680",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRangeZ.Min",
+      "MetaInstanceID": "5c1d2c08-2a70-4270-ac19-52e9210abbe7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRangeZ.Max",
+      "MetaInstanceID": "310a9f6c-de68-4a6e-b571-89fdcce91786",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FallbackPosition.X",
+      "MetaInstanceID": "fac6fa69-fbc8-4d14-afb2-3c5fbf0b7da2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FallbackPosition.Y",
+      "MetaInstanceID": "9244740b-6035-4559-9792-2e28c8502ce1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FallbackPosition.Z",
+      "MetaInstanceID": "4c74e2e4-f3d9-434b-8cbf-8e57c39b2fc1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "EnableMouse",
+      "MetaInstanceID": "6dc3aa4d-305e-4949-ad1b-04ce167836f7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "66b79631-d5d9-41d2-a552-f24586cb8ccd",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "139fe4eb-01a4-4fe5-9fa4-80804e3cdd5e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Z",
+      "MetaInstanceID": "55b192d2-8124-45f0-91e1-bde620d47f21",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Rotation.X",
+      "MetaInstanceID": "4a4a2f6e-81c8-4231-bfd2-b72cff2b7c30",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Rotation.Y",
+      "MetaInstanceID": "a3087103-6b74-4ddb-b10f-b9afc1bfdaf9",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Rotation.Z",
+      "MetaInstanceID": "5398d102-0bd7-488e-9b93-990bb5bdb077",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Rotation.W",
+      "MetaInstanceID": "585529e9-2db5-426e-950a-a105cc4cec6c",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Tracked",
+      "MetaInstanceID": "eddbc3ee-c5fd-477f-9a17-61d2ae11c4be",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "MetaID": "17235625-8f38-49ab-be49-f564cbb5bcfa",
+      "Name": "KinectBodyFor1Func",
+      "Version": "e6ae7519-d932-4e2a-8fe0-0cff098df527",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Dynamic;",
+        "using Microsoft.Kinect;",
+        "using Framefield.Core.Inputs;",
+        "",
+        "namespace Framefield.Core.ID17235625_8f38_49ab_be49_f564cbb5bcfa",
+        "{",
+        "    public class Class_KinectBodyFor1 : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IAsyncDependend",
+        "    {",
+        "        public bool AsyncChanged { get { return _asyncChanged; } }",
+        "",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            PositionX = 0,",
+        "            PositionY = 1,",
+        "            PositionZ = 2,",
+        "            RotationX = 3,",
+        "            RotationY = 4,",
+        "            RotationZ = 5,",
+        "            RotationW = 6,",
+        "            Tracked = 7",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Skeletons = 0,",
+        "            Joint = 1,",
+        "            InputRangeXMin = 2,",
+        "            InputRangeXMax = 3,",
+        "            InputRangeYMin = 4,",
+        "            InputRangeYMax = 5,",
+        "            InputRangeZMin = 6,",
+        "            InputRangeZMax = 7,",
+        "            FallbackPositionX = 8,",
+        "            FallbackPositionY = 9,",
+        "            FallbackPositionZ = 10,",
+        "            EnableMouse = 11",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Input.Mouse.MouseInputEvent -= HandleMouseInputEvent;",
+        "        }",
+        "",
+        "        void HandleMouseInputEvent(object o, MouseInput.MouseEventArgs e)",
+        "        {",
+        "            _lastEventArgs = e;",
+        "            _asyncChanged = true;",
+        "",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.MiddleButtonDown))",
+        "            {",
+        "                _dragX = 0;",
+        "                _dragY = 0;",
+        "            }",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonDown))",
+        "            {",
+        "                _pressed = true;",
+        "            }",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonUp))",
+        "            {",
+        "                _pressed = false;",
+        "                _dragX = 0;",
+        "                _dragY = 0;",
+        "            }",
+        "            if (_pressed)",
+        "            {",
+        "                _dragX += e.X;",
+        "                _dragY += e.Y;",
+        "            }            ",
+        "        }",
+        "",
+        "        public Class_KinectBodyFor1()",
+        "        {",
+        "            Input.Mouse.MouseInputEvent += HandleMouseInputEvent;   ",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            // params",
+        "            var Skeletons = inputs[(int)InputId.Skeletons].Eval(context).Dynamic; ",
+        "            var Joint = (int) inputs[(int)InputId.Joint].Eval(context).Value;",
+        "            var InputRangeXMin = inputs[(int)InputId.InputRangeXMin].Eval(context).Value;",
+        "            var InputRangeXMax = inputs[(int)InputId.InputRangeXMax].Eval(context).Value;",
+        "            var InputRangeX = new Vector2(InputRangeXMin, InputRangeXMax);",
+        "            var InputRangeYMin = inputs[(int)InputId.InputRangeYMin].Eval(context).Value;",
+        "            var InputRangeYMax = inputs[(int)InputId.InputRangeYMax].Eval(context).Value;",
+        "            var InputRangeY = new Vector2(InputRangeYMin, InputRangeYMax);",
+        "            var InputRangeZMin = inputs[(int)InputId.InputRangeZMin].Eval(context).Value;",
+        "            var InputRangeZMax = inputs[(int)InputId.InputRangeZMax].Eval(context).Value;",
+        "            var InputRangeZ = new Vector2(InputRangeZMin, InputRangeZMax);",
+        "            var FallbackPositionX = inputs[(int)InputId.FallbackPositionX].Eval(context).Value;",
+        "            var FallbackPositionY = inputs[(int)InputId.FallbackPositionY].Eval(context).Value;",
+        "            var FallbackPositionZ = inputs[(int)InputId.FallbackPositionZ].Eval(context).Value;",
+        "            var FallbackPosition = new Vector3(FallbackPositionX, FallbackPositionY, FallbackPositionZ);",
+        "            var EnableMouse = inputs[(int)InputId.EnableMouse].Eval(context).Value;",
+        "            // params",
+        "",
+        "            SkeletonPoint position = new SkeletonPoint {X = FallbackPosition.X, Y = FallbackPosition.Y, Z = FallbackPosition.Z};",
+        "            Microsoft.Kinect.Vector4 rotation = new Microsoft.Kinect.Vector4 {X = 0.0f, Y = 0.0f, Z = 0.0f, W = 1.0f};",
+        "            bool isTracked = false;",
+        "",
+        "            var skeletonMembers = Skeletons as IDictionary<String, object>;",
+        "            if (skeletonMembers != null && skeletonMembers.ContainsKey(\"TrackedSkeletons\"))",
+        "            {",
+        "                Skeleton skeleton = null;",
+        "                float minSkeletonValue = 99999;",
+        "                foreach (var s in Skeletons.TrackedSkeletons)",
+        "                {",
+        "                    float skeletonValue = s.Position.Z + Math.Abs(s.Position.X);",
+        "                    if (s.TrackingState == SkeletonTrackingState.Tracked && skeletonValue < minSkeletonValue)",
+        "                    {",
+        "                        skeleton = s;",
+        "                        minSkeletonValue = skeletonValue;",
+        "                    }",
+        "                }",
+        "",
+        "                if (skeleton != null)",
+        "                {",
+        "                    BoneOrientation orientation = skeleton.BoneOrientations[(JointType)Joint];",
+        "                    Joint startJoint = skeleton.Joints[orientation.StartJoint];",
+        "                    Joint endJoint = skeleton.Joints[orientation.EndJoint];",
+        "    ",
+        "                    //uncomment the lines to only use position and orientation if at least on joint",
+        "                    //was tracked.",
+        "                    if (startJoint.TrackingState != JointTrackingState.NotTracked && endJoint.TrackingState != JointTrackingState.NotTracked)// &&",
+        "                        //(startJoint.TrackingState != JointTrackingState.Inferred || endJoint.TrackingState != JointTrackingState.Inferred))",
+        "                    {",
+        "                        position = endJoint.Position;",
+        "                        rotation = orientation.AbsoluteRotation.Quaternion;",
+        "                        isTracked = true;",
+        "                    }",
+        "                }",
+        "            }",
+        "",
+        "            context.Value = 0;",
+        "            if (EnableMouse < 0.5)",
+        "            {",
+        "                _dragX = 0.0;",
+        "                _dragY = 0.0;",
+        "            }",
+        "            ",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.PositionX: context.Value = ((position.X + (float)_dragX*0.002f) - InputRangeXMin) / (InputRangeXMax-InputRangeXMin); break;",
+        "                case (int)OutputId.PositionY: context.Value = ((position.Y - (float)_dragY*0.002f) - InputRangeYMin) / (InputRangeYMax-InputRangeYMin); break;",
+        "                case (int)OutputId.PositionZ: context.Value = ( position.Z                         - InputRangeZMin) / (InputRangeZMax-InputRangeZMin); break;",
+        "                case (int)OutputId.RotationX: context.Value = rotation.X; break;",
+        "                case (int)OutputId.RotationY: context.Value = rotation.Y; break;",
+        "                case (int)OutputId.RotationZ: context.Value = rotation.Z; break;",
+        "                case (int)OutputId.RotationW: context.Value = rotation.W; break;",
+        "                case (int)OutputId.Tracked: context.Value = isTracked ? 1.0f : 0.0f; break;",
+        "            }",
+        "",
+        "            _asyncChanged = false;",
+        "            return context;",
+        "        }",
+        "",
+        "        MouseInput.MouseEventArgs _lastEventArgs;",
+        "        bool _pressed = false;",
+        "        double _dragX;",
+        "        double _dragY;",
+        "        bool _asyncChanged = false;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": [
+        "Libs/Microsoft.Kinect.dll"
+      ]
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4013ded0-cc07-474c-a51d-937bf0dfd897",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "43839c85-0d87-426a-9d1a-bc41383b4444",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "050b1b09-924d-40a9-8183-729914c2784c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e9bb9712-aa88-438b-88f7-1305d9d95d58",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c8eaa314-ec04-444e-bc90-0943a724a6ab",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0ab01abc-6296-4b89-9210-af294e6d4680",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5c1d2c08-2a70-4270-ac19-52e9210abbe7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "310a9f6c-de68-4a6e-b571-89fdcce91786",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fac6fa69-fbc8-4d14-afb2-3c5fbf0b7da2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9244740b-6035-4559-9792-2e28c8502ce1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4c74e2e4-f3d9-434b-8cbf-8e57c39b2fc1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6dc3aa4d-305e-4949-ad1b-04ce167836f7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "66b79631-d5d9-41d2-a552-f24586cb8ccd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "139fe4eb-01a4-4fe5-9fa4-80804e3cdd5e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "55b192d2-8124-45f0-91e1-bde620d47f21"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a4a2f6e-81c8-4231-bfd2-b72cff2b7c30"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a3087103-6b74-4ddb-b10f-b9afc1bfdaf9"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5398d102-0bd7-488e-9b93-990bb5bdb077"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "585529e9-2db5-426e-950a-a105cc4cec6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5edc7ad-3557-4a98-8d3a-55475448c0c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eddbc3ee-c5fd-477f-9a17-61d2ae11c4be"
+    }
+  ]
+}

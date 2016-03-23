@@ -1,0 +1,163 @@
+{
+  "Name": "Hold",
+  "_id": "b6608769-8267-4de9-863f-f064d9b5d6be",
+  "Namespace": "lib.math.helper",
+  "Description": "holds a value",
+  "Inputs": [
+    {
+      "Name": "HoldTrigger",
+      "MetaInstanceID": "f213dfc3-d6cf-4b19-b0e7-67d3c691ee32",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClearTrigger",
+      "MetaInstanceID": "8b7b0559-af77-4078-ba1a-bc027815f2cb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "e24c207f-04ea-4d30-a1c4-c7ab4a9ee3c9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "8a07f390-92a9-4f5b-94db-71f87a1d8ca1",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "d70150c2-b94a-4784-8d7e-b05074af071e",
+      "MetaID": "49aedb82-a569-407c-98ec-acaf5dfb0164",
+      "Name": "HoldFunc",
+      "Version": "8114788b-30e8-4a83-8552-f7f1c21c50b1",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID49aedb82_a569_407c_98ec_acaf5dfb0164",
+        "{",
+        "    public class Class_Hold : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            HoldTrigger = 0,",
+        "            ClearTrigger = 1,",
+        "            Value = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var HoldTrigger = inputs[(int)InputId.HoldTrigger].Eval(context).Value;",
+        "            var ClearTrigger = inputs[(int)InputId.ClearTrigger].Eval(context).Value;",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            bool holdTriggerUp = _oldHoldTrigger < 0.5f && HoldTrigger > 0.5f;",
+        "            _oldHoldTrigger = HoldTrigger;",
+        "            bool clearTriggerUp = _oldClearTrigger < 0.5f && ClearTrigger > 0.5f;",
+        "            _oldClearTrigger = ClearTrigger;",
+        "            if (holdTriggerUp)",
+        "            {",
+        "                _holdValue = Value;",
+        "                _holdValueSet = true;",
+        "            }",
+        "            if (clearTriggerUp)",
+        "            {",
+        "                _holdValueSet = false;",
+        "            }",
+        "",
+        "            context.Value = _holdValueSet ? _holdValue : Value;",
+        "            return context;",
+        "        }",
+        "",
+        "        float _oldHoldTrigger;",
+        "        float _oldClearTrigger;",
+        "        float _holdValue;",
+        "        bool _holdValueSet = false;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f213dfc3-d6cf-4b19-b0e7-67d3c691ee32",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d70150c2-b94a-4784-8d7e-b05074af071e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8b7b0559-af77-4078-ba1a-bc027815f2cb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d70150c2-b94a-4784-8d7e-b05074af071e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e24c207f-04ea-4d30-a1c4-c7ab4a9ee3c9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d70150c2-b94a-4784-8d7e-b05074af071e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d70150c2-b94a-4784-8d7e-b05074af071e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a07f390-92a9-4f5b-94db-71f87a1d8ca1"
+    }
+  ]
+}

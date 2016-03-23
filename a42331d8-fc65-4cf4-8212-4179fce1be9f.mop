@@ -1,0 +1,248 @@
+{
+  "Name": "CompareValue",
+  "_id": "a42331d8-fc65-4cf4-8212-4179fce1be9f",
+  "Namespace": "lib.math.helper",
+  "Description": "Tests if Value  fullfills condition and returns \r\nthe defined Return Values.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "4e2e2a56-aa80-4906-9db1-a544f7738bfb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Condition",
+      "MetaInstanceID": "bf1e054b-e8cf-4aa5-8dcc-923be698afa7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "SmallerA",
+          "Value": "0"
+        },
+        {
+          "Name": "GreaterA",
+          "Value": "1"
+        },
+        {
+          "Name": "BetweenAandB",
+          "Value": "2"
+        },
+        {
+          "Name": "EqualsA",
+          "Value": "3"
+        }
+      ]
+    },
+    {
+      "Name": "A",
+      "MetaInstanceID": "955e7eef-4002-4e4a-ab8f-668cfac9eeea",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "B",
+      "MetaInstanceID": "f47b92fe-4d32-4d8b-8ac0-e7be3a7f9325",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ValueIfTrue",
+      "MetaInstanceID": "ec41a15c-6f8d-4ef1-9318-6fd4c0d9235b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ValueIfFalse",
+      "MetaInstanceID": "1f94389a-f650-45fd-aab2-b74581b3f8c7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "a82c6da5-2ce2-4129-9a2c-25ca2270c415",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "687462d2-e7a2-4042-bc52-14c938f79a85",
+      "MetaID": "12f7617a-4fd3-428a-892e-0899084c0635",
+      "Name": "CompareValueFunc",
+      "Version": "9110a761-54d3-414a-86d0-aac3458052af",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID12f7617a_4fd3_428a_892e_0899084c0635",
+        "{",
+        "    public class Class_CompareValue : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Condition = 1,",
+        "            A = 2,",
+        "            B = 3,",
+        "            ValueIfTrue = 4,",
+        "            ValueIfFalse = 5",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Condition = (int) inputs[(int)InputId.Condition].Eval(context).Value;",
+        "            var A = inputs[(int)InputId.A].Eval(context).Value;",
+        "            var B = inputs[(int)InputId.B].Eval(context).Value;",
+        "            var ValueIfTrue = inputs[(int)InputId.ValueIfTrue].Eval(context).Value;",
+        "            var ValueIfFalse = inputs[(int)InputId.ValueIfFalse].Eval(context).Value;",
+        "            //<<< _params",
+        "                               ",
+        "            if( Condition == 0) {",
+        "                context.Value = (Value < A)? ValueIfTrue:ValueIfFalse;",
+        "            }",
+        "            else if ( Condition == 1) {",
+        "                context.Value = Value > A ? ValueIfTrue:ValueIfFalse;",
+        "            }",
+        "            else if (Condition == 2) {",
+        "                if (A > B) {",
+        "                    var t= A;",
+        "                    A=B;",
+        "                    B=t;",
+        "                }",
+        "            ",
+        "                context.Value = (Value > A && Value < B) ? ValueIfTrue:ValueIfFalse;",
+        "            }",
+        "            else {",
+        "                context.Value = Value == A ? ValueIfTrue:ValueIfFalse;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4e2e2a56-aa80-4906-9db1-a544f7738bfb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bf1e054b-e8cf-4aa5-8dcc-923be698afa7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "955e7eef-4002-4e4a-ab8f-668cfac9eeea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f47b92fe-4d32-4d8b-8ac0-e7be3a7f9325",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ec41a15c-6f8d-4ef1-9318-6fd4c0d9235b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1f94389a-f650-45fd-aab2-b74581b3f8c7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "687462d2-e7a2-4042-bc52-14c938f79a85",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a82c6da5-2ce2-4129-9a2c-25ca2270c415"
+    }
+  ]
+}

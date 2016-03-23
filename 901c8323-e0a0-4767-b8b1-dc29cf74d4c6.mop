@@ -1,0 +1,122 @@
+{
+  "Name": "Atan2",
+  "_id": "901c8323-e0a0-4767-b8b1-dc29cf74d4c6",
+  "Namespace": "lib.math",
+  "Description": "Divides two values. ",
+  "Inputs": [
+    {
+      "Name": "Vector.X",
+      "MetaInstanceID": "a75bbe99-e8fa-4d11-95f2-867c711d177c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Vector.Y",
+      "MetaInstanceID": "5e962fde-caba-4261-9f40-25aec8cc4040",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "7c9a89ca-0dee-441c-9043-07a143c7202c",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a00af959-b940-4b61-969f-db1b22db6b81",
+      "MetaID": "b696ebc2-e67b-4ab2-8945-aeb1c888b5a3",
+      "Name": "Atan2Func",
+      "Version": "f115e4c6-cdf9-449e-9d06-d2b3c0b570fd",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDb696ebc2_e67b_4ab2_8945_aeb1c888b5a3",
+        "{",
+        "    ",
+        "    public class Class_Atan2 : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            VectorX = 0,",
+        "            VectorY = 1",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var VectorX = inputs[(int)InputId.VectorX].Eval(context).Value;",
+        "            var VectorY = inputs[(int)InputId.VectorY].Eval(context).Value;",
+        "            var Vector = new Vector2(VectorX, VectorY);",
+        "            //<<< _params",
+        "            ",
+        "            try {",
+        "                context.Value = (float)(Math.Atan2( Vector.X, Vector.Y));",
+        "            }",
+        "            catch {",
+        "                context.Value= 0.0f;",
+        "            }",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a75bbe99-e8fa-4d11-95f2-867c711d177c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a00af959-b940-4b61-969f-db1b22db6b81"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5e962fde-caba-4261-9f40-25aec8cc4040",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a00af959-b940-4b61-969f-db1b22db6b81"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a00af959-b940-4b61-969f-db1b22db6b81",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7c9a89ca-0dee-441c-9043-07a143c7202c"
+    }
+  ]
+}

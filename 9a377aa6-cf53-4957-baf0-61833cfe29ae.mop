@@ -1,0 +1,180 @@
+{
+  "Name": "ValueChanged",
+  "_id": "9a377aa6-cf53-4957-baf0-61833cfe29ae",
+  "Namespace": "lib.math.helper",
+  "Description": "Returns 1 if the incoming value changed (e.g. increased of decreased by the given threshold. This can be used to detect up- or down-flanks and trigger events like a [StopWatch].",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "06e1e741-13e0-4d9c-a831-795451a1f76f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Threshold",
+      "MetaInstanceID": "8ae7788b-3a2a-4fb0-a2f1-5a721f898346",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Mode",
+      "MetaInstanceID": "df9bdf93-da98-4a06-ae4b-057c9c12d61f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Increased",
+          "Value": "0"
+        },
+        {
+          "Name": "Decreased",
+          "Value": "1"
+        },
+        {
+          "Name": "Changed",
+          "Value": "2"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "74080f97-4127-4047-9431-73224ce4c915",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3e08dfc0-68a9-4ca6-add4-b9b728c61507",
+      "MetaID": "f8104746-0a67-46d8-aa4e-eb334ea52520",
+      "Name": "ValueChangedFunc",
+      "Version": "bcb86e0b-d3c5-47d6-b903-155204c686be",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDf8104746_0a67_46d8_aa4e_eb334ea52520",
+        "{",
+        "    public class Class_ValueChanged : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Threshold = 1,",
+        "            Mode = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Threshold = inputs[(int)InputId.Threshold].Eval(context).Value;",
+        "            var Mode = (int) inputs[(int)InputId.Mode].Eval(context).Value;",
+        "            //<<< _params",
+        "             ",
+        "            if(!_initialized) {",
+        "                _initialized = true;",
+        "                _lastValue = Value;",
+        "                context.Value = 0;",
+        "                return context;",
+        "            }",
+        "            ",
+        "            if( Changed || context.Time != _lastTime) {",
+        "                _lastTime = context.Time;",
+        "                _lastValue = _value;",
+        "                _value = Value;",
+        "            }",
+        "            ",
+        "            switch ((int)Mode)",
+        "            {                ",
+        "                case 0: context.Value = _value > _lastValue + Threshold ? 1 : 0; break;",
+        "                case 1: context.Value = _value < _lastValue - Threshold ? 1 : 0; break;",
+        "                case 2: context.Value = (_value < _lastValue - Threshold  ||  _value > _lastValue + Threshold)  ",
+        "                                      ? 1 ",
+        "                                      : 0; break;",
+        "            }",
+        "                       ",
+        "            return context;",
+        "        }",
+        "        float _value;",
+        "        float _lastValue = 0;",
+        "        double _lastTime;",
+        "        bool _initialized = false;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06e1e741-13e0-4d9c-a831-795451a1f76f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3e08dfc0-68a9-4ca6-add4-b9b728c61507"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8ae7788b-3a2a-4fb0-a2f1-5a721f898346",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3e08dfc0-68a9-4ca6-add4-b9b728c61507"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df9bdf93-da98-4a06-ae4b-057c9c12d61f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3e08dfc0-68a9-4ca6-add4-b9b728c61507"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3e08dfc0-68a9-4ca6-add4-b9b728c61507",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "74080f97-4127-4047-9431-73224ce4c915"
+    }
+  ]
+}

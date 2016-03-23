@@ -1,0 +1,84 @@
+{
+  "Name": "Ceiling",
+  "_id": "d81e63b4-86e0-4105-8333-9dcdbba0456d",
+  "Namespace": "lib.math",
+  "Description": "Rounds up the incoming value.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "472954f7-c5d4-4b27-a28f-1fe21a05964d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "cf8a40c9-ca93-4bd3-b035-5b43438b80b2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5829f3be-a3a9-4dad-9a51-7f70e14f3554",
+      "MetaID": "099f5274-8f99-4cdd-9ef3-6fb64b23d01b",
+      "Name": "CeilingFunc",
+      "Version": "20355cd5-90d8-4341-b149-232136f4ebc2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID099f5274_8f99_4cdd_9ef3_6fb64b23d01b",
+        "{",
+        "    public class Class_Ceiling : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "",
+        "            // params >>> ",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            // <<< params",
+        "",
+        "            ",
+        "            // Function >>> ",
+        "            context.Value = (float) Math.Ceiling(Value);",
+        "            // <<< Function",
+        "            return context;",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "472954f7-c5d4-4b27-a28f-1fe21a05964d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5829f3be-a3a9-4dad-9a51-7f70e14f3554"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5829f3be-a3a9-4dad-9a51-7f70e14f3554",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cf8a40c9-ca93-4bd3-b035-5b43438b80b2"
+    }
+  ]
+}

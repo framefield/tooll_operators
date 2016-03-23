@@ -1,0 +1,150 @@
+{
+  "Name": "AddLineBreaks",
+  "_id": "16f69c5c-0e64-4858-8a12-8c73fbbf2ff0",
+  "Namespace": "lib.basic",
+  "Description": "Looks for \\\\n characters and replaces them with \\n\r\n",
+  "Inputs": [
+    {
+      "Name": "Text",
+      "MetaInstanceID": "d36ba4c5-f881-4d3f-8baa-68625dab0bcf",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Search",
+      "MetaInstanceID": "6173050f-e5df-4463-b74c-ded767b974a0",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "\\n"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Replace",
+      "MetaInstanceID": "6929fc14-c264-4218-8a2f-9078b6a02fdf",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "\\n"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "86df923f-fbf3-4635-ac02-7b2cb0d114bb",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "8f4f5a49-b102-435e-936f-0111be0bf99a",
+      "MetaID": "f86cc363-6556-49db-a17d-c23a3e68183c",
+      "Name": "AddLineBreaksFunc",
+      "Version": "6bd627f1-b96e-4778-b663-100cc57dbdb1",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.IDf86cc363_6556_49db_a17d_c23a3e68183c",
+        "{",
+        "    public class Class_AddLineBreaks : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Text = 0,",
+        "            Search = 1,",
+        "            Replace = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Text = inputs[(int)InputId.Text].Eval(context).Text;",
+        "            var Search = inputs[(int)InputId.Search].Eval(context).Text;",
+        "            var Replace = inputs[(int)InputId.Replace].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            if(Replace.Length == 0)",
+        "                Replace= \"\\n\";",
+        "            ",
+        "            if(Search.Length > 0)            ",
+        "                context.Text= Text.Replace( Search, Replace);",
+        "            else",
+        "                context.Text= Text;",
+        "                ",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8f4f5a49-b102-435e-936f-0111be0bf99a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86df923f-fbf3-4635-ac02-7b2cb0d114bb"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d36ba4c5-f881-4d3f-8baa-68625dab0bcf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f4f5a49-b102-435e-936f-0111be0bf99a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6173050f-e5df-4463-b74c-ded767b974a0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f4f5a49-b102-435e-936f-0111be0bf99a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6929fc14-c264-4218-8a2f-9078b6a02fdf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f4f5a49-b102-435e-936f-0111be0bf99a"
+    }
+  ]
+}

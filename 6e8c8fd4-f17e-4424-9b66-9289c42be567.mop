@@ -1,0 +1,103 @@
+{
+  "Name": "DefaultNearest",
+  "_id": "6e8c8fd4-f17e-4424-9b66-9289c42be567",
+  "Namespace": "lib.3d.experimental",
+  "Description": "Draws an image fitting into current view.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "158c0b15-32e2-466c-ac06-59ebe19f08d6",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "4ac8a211-225f-42e1-8a81-663dbc5fa822",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "2a15e5cb-ef63-4cbf-9d75-3ac666014c10",
+      "MetaID": "9b732a2b-0313-4ab2-9a39-463f6c78e812",
+      "Name": "DefaultNearestFunc",
+      "Version": "1b65feec-ed6b-499a-91e1-b09b4477dd81",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.D3DCompiler;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.ID9b732a2b_0313_4ab2_9a39_463f6c78e812",
+        "{",
+        "    public class Class_DefaultNearest : OperatorPart.Function",
+        "    {",
+        "        public Class_DefaultNearest() {",
+        "            try {",
+        "                using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/DefaultNearest.fx\", \"fx_5_0\", ShaderFlags.None, EffectFlags.None, null, null))",
+        "                    _effect = new Effect(D3DDevice.Device, bytecode);",
+        "            }",
+        "            catch (Exception e) {",
+        "                Logger.Error(this,\"error loading laye2d fx: {0} \", e.Message);",
+        "            }",
+        "        }",
+        "",
+        "        public override void  Dispose() {",
+        "            Utilities.DisposeObj(ref _effect);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];",
+        "",
+        "            using (new PropertyStasher<OperatorPartContext>(context, \"Effect\")) {",
+        "                context.Effect = _effect;",
+        "                Scene.Eval(context);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Effect _effect = null;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2a15e5cb-ef63-4cbf-9d75-3ac666014c10",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4ac8a211-225f-42e1-8a81-663dbc5fa822"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "158c0b15-32e2-466c-ac06-59ebe19f08d6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2a15e5cb-ef63-4cbf-9d75-3ac666014c10"
+    }
+  ]
+}

@@ -1,0 +1,739 @@
+{
+  "Name": "MagneticFieldsEffect",
+  "_id": "472e0142-657b-4018-a853-a692f1c1379c",
+  "Namespace": "projects.vaserely.shader",
+  "Description": "Very basic test shader that can be used as a template for own shaders.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "9626a50e-1437-4e4e-a695-6c23496815d7",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color1.R",
+      "MetaInstanceID": "b9fe860f-886a-4c56-a9f3-2d85c5609c27",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.1496308"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color1.G",
+      "MetaInstanceID": "c34b5b70-5274-4433-af15-3cd46c9b5e13",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.2329352"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color1.B",
+      "MetaInstanceID": "a389d5bb-004a-409d-9d5d-5f3d2d2beed0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.8556744"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color1.A",
+      "MetaInstanceID": "2477106d-dacd-4ccf-a6df-f503f477250c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color2.R",
+      "MetaInstanceID": "f2f46f21-cb08-4651-8ad4-6bcd61db92f0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5383688"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color2.G",
+      "MetaInstanceID": "c2a6d25c-1473-4117-a298-585b0099f77c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.3377121"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color2.B",
+      "MetaInstanceID": "ab68366d-d5fd-4801-9973-b9b3b042ed42",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color2.A",
+      "MetaInstanceID": "af36f7a3-4d28-4fbf-87e3-f09e1495912f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineColor.R",
+      "MetaInstanceID": "ddd92f87-cb3a-4dbb-ab64-036c76ca1b1d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.9205458"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineColor.G",
+      "MetaInstanceID": "f7fc6546-2f7e-4dd5-b2df-0b851290cca2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.9755878"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineColor.B",
+      "MetaInstanceID": "64740c0c-c9e0-4894-b45a-1e05be59d0cb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineColor.A",
+      "MetaInstanceID": "9b7e6d40-cfbc-46ec-96fa-ef39ec657d11",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GridSize",
+      "MetaInstanceID": "aee4f30e-e0aa-4409-ba51-a488746b7200",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineWidth",
+      "MetaInstanceID": "5584fa26-22c6-475c-8af6-3171d9376d4a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "rotate.scale",
+      "MetaInstanceID": "39e3389c-67d4-4193-abc0-ef358cf900e0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2.02"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0.01",
+      "Max": "100",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "rotate.add",
+      "MetaInstanceID": "ac2e9628-a0de-4280-b3d3-b851a4468721",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "3.7"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color3.R",
+      "MetaInstanceID": "4bb2dc5a-49ef-42ac-9843-3196f89dbc06",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color3.G",
+      "MetaInstanceID": "09f4fa26-98be-42c5-ac00-07ee40ba5bdf",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5722073"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color3.B",
+      "MetaInstanceID": "732f22ca-f28c-4bb1-8f65-6eba8d1929cd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.8823529"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color3.A",
+      "MetaInstanceID": "d757744d-0e43-4904-a05f-1159faf6f297",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color4.R",
+      "MetaInstanceID": "6aaed46b-328b-43d2-97fa-bd0a883382fd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color4.G",
+      "MetaInstanceID": "e90ad198-228d-449b-93af-36e1437c8f0c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.2068687"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color4.B",
+      "MetaInstanceID": "5b8ffe1d-3f87-47d0-a094-60f5ba1b03ea",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color4.A",
+      "MetaInstanceID": "90702ec3-013b-4335-84e3-7d6415be5c83",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "padding",
+      "MetaInstanceID": "0cf60be2-3d12-4675-8c76-afb21ac36901",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.015"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "0.5",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "d31e28e4-6eec-42d6-a9cf-58c621f5490f",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0b59239c-cf69-439f-8c55-407be7804993",
+      "MetaID": "57a27055-e2c1-44ea-a501-0e6b6ee1ede2",
+      "Name": "MagneticFieldsEffectFunc",
+      "Version": "4f9eeb0e-1203-4ad0-aa3e-c35b0104e605",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Runtime.InteropServices;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.D3DCompiler;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.Rendering;",
+        "",
+        "namespace Framefield.Core.ID57a27055_e2c1_44ea_a501_0e6b6ee1ede2",
+        "{",
+        "    public class Class_MagneticFieldsEffect : OperatorPart.Function",
+        "    {",
+        "        public class Renderer : BaseRenderer",
+        "        {",
+        "            public override void SetupEffect(OperatorPartContext context) {",
+        "                base.SetupEffect(context);",
+        "                context.Effect.GetVariableByName(\"color1\").AsVector().Set(_color1);",
+        "                context.Effect.GetVariableByName(\"color2\").AsVector().Set(_color2);",
+        "                context.Effect.GetVariableByName(\"color3\").AsVector().Set(_color3);",
+        "                context.Effect.GetVariableByName(\"color4\").AsVector().Set(_color4);",
+        "                context.Effect.GetVariableByName(\"lineColor\").AsVector().Set(_lineColor);",
+        "                context.Effect.GetVariableByName(\"gridSize\").AsScalar().Set(_gridSize);",
+        "                context.Effect.GetVariableByName(\"lineWeight\").AsScalar().Set(_lineWeight);",
+        "",
+        "                context.Effect.GetVariableByName(\"rotateScale\").AsScalar().Set(_rotateScale);",
+        "                context.Effect.GetVariableByName(\"rotateAdd\").AsScalar().Set(_rotateAdd);",
+        "                context.Effect.GetVariableByName(\"padding\").AsScalar().Set(_padding);",
+        "            }",
+        "",
+        "            public SharpDX.Vector4 _color1;",
+        "            public SharpDX.Vector4 _color2;",
+        "            public SharpDX.Vector4 _color3;",
+        "            public SharpDX.Vector4 _color4;",
+        "            public SharpDX.Vector4 _lineColor;",
+        "            public float _gridSize;",
+        "            public float _lineWeight;",
+        "            public float _rotateScale;",
+        "            public float _rotateAdd;",
+        "            public float _padding;",
+        "        }",
+        "",
+        "        public Class_MagneticFieldsEffect() {",
+        "            try {",
+        "                using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/MagneticFields.fx\", \"fx_5_0\", ShaderFlags.None, EffectFlags.None, null, null))",
+        "                    _effect = new Effect(D3DDevice.Device, bytecode);",
+        "                _renderer = new Renderer();",
+        "            }",
+        "            catch (Exception ex) {",
+        "                Logger.Error(this,\"error creating effect: {0}\", ex.Message);",
+        "            }",
+        "        }",
+        "",
+        "",
+        "",
+        "        public override void Dispose() {",
+        "            Utilities.DisposeObj(ref _effect);",
+        "            Utilities.DisposeObj(ref _renderer);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];//.Eval(context);",
+        "",
+        "            _renderer._color1 = Utilities.EvaluateVector4(context, inputs, 1);",
+        "",
+        "            _renderer._color2 = Utilities.EvaluateVector4(context, inputs, 5);",
+        "",
+        "            _renderer._lineColor = Utilities.EvaluateVector4(context, inputs, 9);",
+        "            _renderer._gridSize = inputs[13].Eval(context).Value;",
+        "            _renderer._lineWeight = inputs[14].Eval(context).Value;",
+        "            _renderer._rotateScale = inputs[15].Eval(context).Value;",
+        "            _renderer._rotateAdd = inputs[16].Eval(context).Value;",
+        "",
+        "            _renderer._color3 = Utilities.EvaluateVector4(context, inputs, 17);",
+        "",
+        "            _renderer._color4 = Utilities.EvaluateVector4(context, inputs, 21);",
+        "            _renderer._padding = inputs[25].Eval(context).Value;",
+        "",
+        "            var D3DDevice = context.D3DDevice;",
+        "            var subContext = new OperatorPartContext(context);",
+        "            try {",
+        "                subContext.Effect = _effect;",
+        "                subContext.InputLayout = context.Renderer.SceneDefaultInputLayout;",
+        "                subContext.Renderer = _renderer;",
+        "",
+        "                Scene.Eval(subContext);",
+        "            }",
+        "            catch (Exception exception) {",
+        "                Logger.Error(this,\"Load Effect error: {0}\", exception.Message);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "",
+        "        Effect _effect;",
+        "        Renderer _renderer;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b59239c-cf69-439f-8c55-407be7804993",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d31e28e4-6eec-42d6-a9cf-58c621f5490f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9626a50e-1437-4e4e-a695-6c23496815d7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b9fe860f-886a-4c56-a9f3-2d85c5609c27",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c34b5b70-5274-4433-af15-3cd46c9b5e13",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a389d5bb-004a-409d-9d5d-5f3d2d2beed0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2477106d-dacd-4ccf-a6df-f503f477250c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f2f46f21-cb08-4651-8ad4-6bcd61db92f0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c2a6d25c-1473-4117-a298-585b0099f77c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ab68366d-d5fd-4801-9973-b9b3b042ed42",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "af36f7a3-4d28-4fbf-87e3-f09e1495912f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ddd92f87-cb3a-4dbb-ab64-036c76ca1b1d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f7fc6546-2f7e-4dd5-b2df-0b851290cca2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "64740c0c-c9e0-4894-b45a-1e05be59d0cb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9b7e6d40-cfbc-46ec-96fa-ef39ec657d11",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aee4f30e-e0aa-4409-ba51-a488746b7200",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5584fa26-22c6-475c-8af6-3171d9376d4a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "39e3389c-67d4-4193-abc0-ef358cf900e0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ac2e9628-a0de-4280-b3d3-b851a4468721",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4bb2dc5a-49ef-42ac-9843-3196f89dbc06",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "09f4fa26-98be-42c5-ac00-07ee40ba5bdf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "732f22ca-f28c-4bb1-8f65-6eba8d1929cd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d757744d-0e43-4904-a05f-1159faf6f297",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6aaed46b-328b-43d2-97fa-bd0a883382fd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e90ad198-228d-449b-93af-36e1437c8f0c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5b8ffe1d-3f87-47d0-a094-60f5ba1b03ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "90702ec3-013b-4335-84e3-7d6415be5c83",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0cf60be2-3d12-4675-8c76-afb21ac36901",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b59239c-cf69-439f-8c55-407be7804993"
+    }
+  ]
+}

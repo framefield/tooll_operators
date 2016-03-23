@@ -1,0 +1,246 @@
+{
+  "Name": "For i",
+  "_id": "83650b78-7e0f-4e99-9052-d8b280125f5a",
+  "Namespace": "lib.basic",
+  "Description": "Iterate over a subtree for the defined range.\r\nUse [VariableValue] to read the index variable further down the subtree.",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "7957cf5f-3299-459d-80f4-1e8101e87324",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Connection to the subtree to iterate over.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Counter",
+      "MetaInstanceID": "303b709f-58a5-4e95-8d81-2b9f2b878de1",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "Name of the index counter variable. Use [VariableValue] to read it further down the subtree.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Start",
+      "MetaInstanceID": "8f4f365f-cb46-416e-a9c7-1bf6670d85e3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "Value for the first iteration.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Stop",
+      "MetaInstanceID": "a85844ba-ced6-4eed-8cc4-61dceedfd7a7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "Iteration end when current index is less or equal than the Stop.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Step",
+      "MetaInstanceID": "0a88bd51-00be-4556-92b2-1255377830fa",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "IteratorOut",
+      "MetaInstanceID": "6079fa33-743d-45c8-98d6-490cfbbb16a4",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c27baff3-63ac-4a43-b929-52fe0d725704",
+      "MetaID": "4afa253d-e97b-4e80-9896-2f28d9e71675",
+      "Name": "For iFunc",
+      "Version": "a475b064-2eac-464f-a82e-2472d0c303d0",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID4afa253d_e97b_4e80_9896_2f28d9e71675",
+        "{",
+        "    public class Class_For_i : OperatorPart.Function",
+        "    {",
+        "        OperatorPart.CollectOpPartFunctionsOfType<Framefield.Core.OperatorPartTraits.IVariableAccessor> _collector = new OperatorPart.CollectOpPartFunctionsOfType<Framefield.Core.OperatorPartTraits.IVariableAccessor>();",
+        "        List<OperatorPart.Function> _variableAccessorOpPartFunctions = new List<OperatorPart.Function>();",
+        "    ",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Subtree = 0,",
+        "            Counter = 1,",
+        "            Start = 2,",
+        "            Stop = 3,",
+        "            Step = 4",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            // >>> _params",
+        "            var Subtree = inputs[(int)InputId.Subtree];",
+        "            var Counter = inputs[(int)InputId.Counter].Eval(context).Text;",
+        "            var Start = inputs[(int)InputId.Start].Eval(context).Value;",
+        "            var Stop = inputs[(int)InputId.Stop].Eval(context).Value;",
+        "            var Step = inputs[(int)InputId.Step].Eval(context).Value;",
+        "            // <<< _params",
+        "",
+        "            if (Step == 0)",
+        "                return context;",
+        "            ",
+        "            if (Start > Stop && Step > 0)",
+        "            {",
+        "                //Utilities.Swap(ref Start, ref Stop);",
+        "                Step *= -1.0f;",
+        "            }",
+        "",
+        "            OperatorPart.ChangedPropagationEnabled = false;",
+        "",
+        "            //collect all ops within the Subtree that access the Counter variable",
+        "            ",
+        "            /*",
+        "            _collector.Clear();",
+        "            Subtree.TraverseWithFunction(_collector, null);",
+        "            _variableAccessorOpPartFunctions.Clear();",
+        "            ",
+        "            foreach (var possibleOpPartFunction in _collector.CollectedOpPartFunctions) {",
+        "                if (possibleOpPartFunction.VariableName == Counter)",
+        "                    _variableAccessorOpPartFunctions.Add(possibleOpPartFunction as OperatorPart.Function);",
+        "            }",
+        "            */",
+        "            ",
+        "",
+        "            var invalidator = new OperatorPart.InvalidateVariableAccessors(Counter);",
+        "            var loopCounter = 0;",
+        "            for (var i = Start; i <= Math.Max(Start,Stop) && i >= Math.Min(Start,Stop); i += Step)",
+        "            {",
+        "                if (context.Variables.ContainsKey(Counter))",
+        "                    context.Variables[Counter] = i;",
+        "                else",
+        "                    context.Variables.Add(Counter, i);",
+        "",
+        "                //foreach (var opPartFunc in _variableAccessorOpPartFunctions)",
+        "                //    opPartFunc.OperatorPart.EmitChangedEvent();",
+        "                    ",
+        "                //invalidate all variable accessors",
+        "                invalidator.Clear();",
+        "                Subtree.TraverseWithFunctionUseSpecificBehavior(null, invalidator);",
+        "                ",
+        "                //Subtree.TraverseWithFunction(invalidator, null);",
+        "                //Subtree.TraverseWithFunctionUseSpecificBehavior(invalidator, null);",
+        "",
+        "                Subtree.Eval(context);",
+        "                ",
+        "                if (loopCounter++ > 10000)",
+        "                {",
+        "                    Logger.Warn(\"Stopped interaction over For i after 10000 loops.\");",
+        "                    break;",
+        "                }                ",
+        "            }",
+        "            ",
+        "            OperatorPart.ChangedPropagationEnabled = true;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7957cf5f-3299-459d-80f4-1e8101e87324",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "303b709f-58a5-4e95-8d81-2b9f2b878de1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8f4f365f-cb46-416e-a9c7-1bf6670d85e3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a85844ba-ced6-4eed-8cc4-61dceedfd7a7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0a88bd51-00be-4556-92b2-1255377830fa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c27baff3-63ac-4a43-b929-52fe0d725704",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6079fa33-743d-45c8-98d6-490cfbbb16a4"
+    }
+  ]
+}

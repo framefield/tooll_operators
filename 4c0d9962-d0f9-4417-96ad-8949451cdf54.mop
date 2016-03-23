@@ -1,0 +1,299 @@
+{
+  "Name": "LookAt",
+  "_id": "4c0d9962-d0f9-4417-96ad-8949451cdf54",
+  "Namespace": "lib.3d.modify",
+  "Description": "Rotates the incoming geometry towards a point. ",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "429115f4-e351-4b3f-aa99-2cc2434f2abe",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Target.X",
+      "MetaInstanceID": "d88df1d0-1117-4444-af99-f7f8206a7761",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Target.Y",
+      "MetaInstanceID": "f4ac3fdd-ef45-45ab-91aa-a8242ebd63e9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Target.Z",
+      "MetaInstanceID": "a89077cd-4ecf-46dd-8f4a-d84c77e72853",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpVector.X",
+      "MetaInstanceID": "4ecf0377-8e56-4572-b5a7-287e508643c6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpVector.Y",
+      "MetaInstanceID": "bcc52207-bce1-43df-839f-f3e628a2aa6f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpVector.Z",
+      "MetaInstanceID": "efc59bf0-e017-4ffd-b8fc-7f128ea98a4d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "156230bd-0108-4a0b-9f33-321e5543f308",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "bec8d318-d481-46b8-940a-dc9e84d81a84",
+      "MetaID": "b15c950b-832f-4079-be7c-305aa579f9ff",
+      "Name": "LookAtFunc",
+      "Version": "a6b096a3-fe95-464e-9639-4bfb4f0734b1",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System.Collections.Generic;",
+        "using SharpDX;",
+        "using Framefield.Core.OperatorPartTraits;",
+        "using System;",
+        "",
+        "namespace Framefield.Core.IDb15c950b_832f_4079_be7c_305aa579f9ff",
+        "{",
+        "    public class Class_LookAt : OperatorPart.Function, ISceneTransform",
+        "    {",
+        "        // ISceneTransform",
+        "        public Matrix Transform",
+        "        {",
+        "            get",
+        "            {",
+        "                UpdateTransform(new OperatorPartContext(), OperatorPart.Connections);",
+        "                return _transform;",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var SceneInput = inputs[0];",
+        "            ",
+        "            UpdateTransform(context, inputs);",
+        "            var prevTransform = context.ObjectTWorld;",
+        "",
+        "            context.ObjectTWorld = _transform * prevTransform;",
+        "            SceneInput.Eval(context);",
+        "            context.ObjectTWorld = prevTransform;",
+        "",
+        "            return context;",
+        "        }",
+        "        ",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            TargetX = 1,",
+        "            TargetY = 2,",
+        "            TargetZ = 3,",
+        "            UpVectorX = 4,",
+        "            UpVectorY = 5,",
+        "            UpVectorZ = 6",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        private void UpdateTransform(OperatorPartContext context, List<OperatorPart> inputs)",
+        "        {",
+        "            if (!Changed)",
+        "                return;",
+        "                ",
+        "            // >>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var TargetX = inputs[(int)InputId.TargetX].Eval(context).Value;",
+        "            var TargetY = inputs[(int)InputId.TargetY].Eval(context).Value;",
+        "            var TargetZ = inputs[(int)InputId.TargetZ].Eval(context).Value;",
+        "            var Target = new Vector3(TargetX, TargetY, TargetZ);",
+        "            var UpVectorX = inputs[(int)InputId.UpVectorX].Eval(context).Value;",
+        "            var UpVectorY = inputs[(int)InputId.UpVectorY].Eval(context).Value;",
+        "            var UpVectorZ = inputs[(int)InputId.UpVectorZ].Eval(context).Value;",
+        "            var UpVector = new Vector3(UpVectorX, UpVectorY, UpVectorZ);",
+        "            // <<< _params",
+        "",
+        "            //var translation = new Vector3(TranslateX, TranslateY, TranslateZ);",
+        "            //var rotation = Quaternion.RotationYawPitchRoll(MathUtil.DegreesToRadians(RotateY),",
+        "            //                                               MathUtil.DegreesToRadians(RotateX),",
+        "            //                                               MathUtil.DegreesToRadians(RotateZ));",
+        "            //var scale = new Vector3(ScaleX, ScaleY, ScaleZ);",
+        "            Vector3 scale, position;",
+        "            Quaternion rotation;",
+        "            context.ObjectTWorld.Decompose(out scale, out rotation, out position);",
+        "",
+        "            var transform = Matrix.Identity;",
+        "            var t = position - Target;",
+        "            if (t.Length() > 0)",
+        "            {",
+        "                var dir = -t;",
+        "                dir.Normalize();",
+        "                var helperDir = new Vector3(1, 0, 0);",
+        "                if (Math.Abs(dir.Y) < 0.1 && Math.Abs(dir.Z) < 0.1)",
+        "                    helperDir = new Vector3(0, 1, 0);",
+        "                var yAxis = Vector3.Cross(dir, helperDir);",
+        "                yAxis.Normalize();",
+        "                var xAxis = Vector3.Cross(yAxis, dir);",
+        "                xAxis.Normalize();",
+        "                var m = Matrix.Identity;",
+        "                m.Row1 = new Vector4(xAxis, 0);",
+        "                m.Row2 = new Vector4(yAxis, 0);",
+        "                m.Row3 = new Vector4(dir, 0);",
+        "                transform *= m;",
+        "            }",
+        "            ",
+        "            _transform = transform;",
+        "",
+        "",
+        "            //_transform = Matrix.Transformation(Pivot, Quaternion.Zero, scale, Pivot, rotation, translation);",
+        "        }",
+        "",
+        "        private Matrix _transform;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "429115f4-e351-4b3f-aa99-2cc2434f2abe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d88df1d0-1117-4444-af99-f7f8206a7761",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f4ac3fdd-ef45-45ab-91aa-a8242ebd63e9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a89077cd-4ecf-46dd-8f4a-d84c77e72853",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4ecf0377-8e56-4572-b5a7-287e508643c6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bcc52207-bce1-43df-839f-f3e628a2aa6f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "efc59bf0-e017-4ffd-b8fc-7f128ea98a4d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bec8d318-d481-46b8-940a-dc9e84d81a84",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "156230bd-0108-4a0b-9f33-321e5543f308"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "Name": "SetTime (2)",
+  "_id": "fe8fe0f8-dd6e-4f95-86aa-4e03a6ba9fca",
+  "Namespace": "lib.basic",
+  "Description": "Invalidates all animated Operators that implement ITimeAccesor below.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "af518af1-95e9-4375-8d38-40a686cd37a9",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "7a909e94-525a-4f67-8ef5-aa58ef064c9a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "50fd2aa5-de1c-40e3-87c4-be9dcd08d277",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "20beae5a-0797-490d-a635-16f8e7a9c24a",
+      "MetaID": "813441ae-4dfd-4676-bf5a-498da0b7a3cc",
+      "Name": "SetTime (2)Func",
+      "Version": "1ba9d638-04b0-411c-9897-24667f68e61c",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID813441ae_4dfd_4676_bf5a_498da0b7a3cc",
+        "{",
+        "    public class Class_SetTime__2_ : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            Time = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params ",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var Time = inputs[(int)InputId.Time].Eval(context).Value;",
+        "            //<<< _params ",
+        "",
+        "            var oldTime = context.Time;",
+        "            context.Time = Time;",
+        "",
+        "            var invalidator = new OperatorPart.InvalidateTimeAccessors();",
+        "            Input.TraverseWithFunction(null, invalidator);",
+        "            Input.Eval(context);",
+        "",
+        "            context.Time = oldTime;",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "af518af1-95e9-4375-8d38-40a686cd37a9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "20beae5a-0797-490d-a635-16f8e7a9c24a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7a909e94-525a-4f67-8ef5-aa58ef064c9a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "20beae5a-0797-490d-a635-16f8e7a9c24a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "20beae5a-0797-490d-a635-16f8e7a9c24a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "50fd2aa5-de1c-40e3-87c4-be9dcd08d277"
+    }
+  ]
+}

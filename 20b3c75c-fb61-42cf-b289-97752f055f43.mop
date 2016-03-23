@@ -1,0 +1,159 @@
+{
+  "Name": "FXImageTemplate",
+  "_id": "20b3c75c-fb61-42cf-b289-97752f055f43",
+  "Namespace": "lib.image.generate",
+  "Description": "Loads an image.",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "0b8f6626-28ab-4796-970f-71453096bbd3",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "b673a692-54c7-42b7-97f1-aca7576ad69e",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "94d60e09-cdcc-420e-ba57-38c19b34566a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "77ec308e-b61d-4ba7-9229-7f634899fef6",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "d8bf647b-b701-421d-a9f3-3213a76f23ff",
+      "MetaID": "3306941a-f0b8-4da1-8116-872485afd136",
+      "Name": "FXImageTemplateFunc",
+      "Version": "b81ec8ec-3fd2-4d47-bebd-d8d4e0a57317",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID3306941a_f0b8_4da1_8116_872485afd136",
+        "{",
+        "    public class Class_FXImageTemplate : FXImageFunction",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Code = 0,",
+        "            Image = 1,",
+        "            Value = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; if (Image == null) return context;",
+        "            var Value = (float) inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            return PrepareAndEvalOnChange(context, () => {",
+        "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 1));",
+        "",
+        "                //>>> _setup",
+        "                using (var ImageView = new ShaderResourceView(context.D3DDevice, Image))",
+        "                {",
+        "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
+        "                    _effect.GetVariableByName(\"Image\").AsShaderResource().SetResource(ImageView);",
+        "                    _effect.GetVariableByName(\"Value\").AsScalar().Set(Value);",
+        "                //<<< _setup",
+        "",
+        "                Render(context);",
+        "",
+        "                //>>> _cleanup",
+        "                }",
+        "                //<<< _cleanup",
+        "            });",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d8bf647b-b701-421d-a9f3-3213a76f23ff",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "77ec308e-b61d-4ba7-9229-7f634899fef6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b8f6626-28ab-4796-970f-71453096bbd3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d8bf647b-b701-421d-a9f3-3213a76f23ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b673a692-54c7-42b7-97f1-aca7576ad69e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d8bf647b-b701-421d-a9f3-3213a76f23ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "94d60e09-cdcc-420e-ba57-38c19b34566a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d8bf647b-b701-421d-a9f3-3213a76f23ff"
+    }
+  ]
+}

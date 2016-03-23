@@ -1,0 +1,156 @@
+{
+  "Name": "SetImageBufferFormat",
+  "_id": "cbf3a88f-286f-43c4-94a7-d8abed369adb",
+  "Namespace": "lib.image.adjust",
+  "Description": "Overrides the requested image format imageOperators. This can be used to encourage 16bit image buffers for HDR rendering.\r\n",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "d0c029fe-2d23-476b-9d33-21a9c0691a7f",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ImageFormat",
+      "MetaInstanceID": "f0855e20-fd38-4e71-ad0f-52f790b859be",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "87"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "8bit RGBA",
+          "Value": "87"
+        },
+        {
+          "Name": "16bit RGBA ",
+          "Value": "10"
+        },
+        {
+          "Name": "16bit RGBA (0 ... 1)",
+          "Value": "11"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "c030e522-e25a-4c46-ac9e-9b6b4831f491",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "105c4ed5-4d62-470f-9b1e-05298fd6709c",
+      "MetaID": "d37a6247-6d99-4567-b7d3-651b2757fefd",
+      "Name": "SetImageBufferFormatFunc",
+      "Version": "00dffb22-656b-41c0-92c8-c9d5c169baca",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.IDd37a6247_6d99_4567_b7d3_651b2757fefd",
+        "{",
+        "    public class Class_SetImageBufferFormat : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            ImageFormat = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var ImageFormat = (int) inputs[(int)InputId.ImageFormat].Eval(context).Value;",
+        "            //<<< _params",
+        "            //var Scene = inputs[2];",
+        "            //int SizeX = (int) inputs[0].Eval(context).Value;",
+        "            //int SizeY = (int) inputs[1].Eval(context).Value;",
+        "            /*",
+        "            if (SizeX == 0 || SizeY == 0) {",
+        "                SizeX = context.Viewport.Width * (SampleCount > 1 ? 2 : 1);",
+        "                SizeY = context.Viewport.Height * (SampleCount > 1 ? 2 : 1);",
+        "                //if ((_renderTargetResource != null) && ",
+        "                //    (SizeX != _renderTargetResource.Texture.Description.Width || SizeY != _renderTargetResource.Texture.Description.Height)) {",
+        "                //    rebuildTarget = true;",
+        "                //}",
+        "            }*/",
+        "            //context.Viewport.Width = 10; //SizeX;",
+        "            //context.Viewport.Height = 10; //SizeY;",
+        "            ",
+        "            var oldImageBufferFormat = context.ImageBufferFormat;",
+        "            context.ImageBufferFormat = (SharpDX.DXGI.Format)ImageFormat;",
+        "",
+        "            Input.Eval(context);",
+        "            context.ImageBufferFormat = oldImageBufferFormat;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "//        Resource _renderTargetResource;",
+        "//        RenderTargetView _renderTargetView;",
+        "//        Resource _renderDepthResource;",
+        "//        DepthStencilView _renderTargetDepthView;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d0c029fe-2d23-476b-9d33-21a9c0691a7f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "105c4ed5-4d62-470f-9b1e-05298fd6709c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f0855e20-fd38-4e71-ad0f-52f790b859be",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "105c4ed5-4d62-470f-9b1e-05298fd6709c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "105c4ed5-4d62-470f-9b1e-05298fd6709c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c030e522-e25a-4c46-ac9e-9b6b4831f491"
+    }
+  ]
+}

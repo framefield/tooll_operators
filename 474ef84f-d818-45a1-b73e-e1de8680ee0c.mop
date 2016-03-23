@@ -1,0 +1,56 @@
+{
+  "Name": "CapsLockedPressed",
+  "_id": "474ef84f-d818-45a1-b73e-e1de8680ee0c",
+  "Namespace": "lib.basic",
+  "Description": "Returns 1 if the CapsLocked is active. This can be used to toggle debug-information.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "788e2b7f-0740-436f-8724-26c08d94f03f",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a060ff44-be29-48ac-8edc-e2dff734c22c",
+      "MetaID": "d76a5747-c4c7-4784-9427-3bad7b5b261b",
+      "Name": "CapsLockedPressedFunc",
+      "Version": "85025f28-331f-49da-863d-9af200eb0046",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using System.Windows.Forms;",
+        "",
+        "namespace Framefield.Core.IDd76a5747_c4c7_4784_9427_3bad7b5b261b",
+        "{",
+        "    public class Class_CapsLockedPressed : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            context.Value = Control.IsKeyLocked(Keys.CapsLock) ? 1f : 0f;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a060ff44-be29-48ac-8edc-e2dff734c22c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "788e2b7f-0740-436f-8724-26c08d94f03f"
+    }
+  ]
+}

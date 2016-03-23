@@ -1,0 +1,667 @@
+{
+  "Name": "RoundedRect",
+  "_id": "94505b48-247b-4202-a2be-756c2dd03b5d",
+  "Namespace": "lib.image.generate",
+  "Description": "Generate a box with rounded corners.",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "e3f7a9af-2c5c-46d5-a4bf-03dd9e8dda3c",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": [
+          "//>>> _common parameters\r",
+          "float4x4 objectToWorldMatrix;",
+          "float4x4 worldToCameraMatrix;",
+          "float4x4 projMatrix;",
+          "Texture2D txDiffuse;",
+          "float2 RenderTargetSize;",
+          "//<<< _common parameters\r",
+          "\r",
+          "//>>> _parameters\r",
+          "float Radius;",
+          "float Feather;",
+          "float2 Center;",
+          "float2 Scale;",
+          "float4 Inside;",
+          "float4 Outside;",
+          "float2 Iris;",
+          "float2 IrisShape;",
+          "//<<< _parameters\r",
+          "\r",
+          "//>>> _setup\r",
+          "SamplerState samLinear",
+          "{",
+          "    Filter = MIN_MAG_MIP_LINEAR;",
+          "    AddressU = Clamp;",
+          "    AddressV = Clamp;",
+          "};",
+          "//<<< _setup\r",
+          "\r",
+          "//>>> _declarations\r",
+          "struct VS_IN",
+          "{",
+          "    float4 pos : POSITION;",
+          "    float2 texCoord : TEXCOORD;",
+          "};",
+          "",
+          "struct PS_IN",
+          "{",
+          "    float4 pos : SV_POSITION;",
+          "    float2 texCoord: TEXCOORD0;",
+          "};",
+          "//<<< _declarations\r",
+          "\r",
+          "//>>> _GS\r",
+          "",
+          "//<<< _GS\r",
+          "\r",
+          "//>>> _VS \r",
+          "PS_IN VS( VS_IN input )",
+          "{",
+          "    PS_IN output = (PS_IN)0;",
+          "",
+          "    output.pos = mul(input.pos, worldToCameraMatrix);",
+          "    output.pos = mul(output.pos, projMatrix);",
+          "    output.texCoord = input.texCoord;",
+          "",
+          "    return output;",
+          "}",
+          "//<<< _VS\r",
+          "\r",
+          "//>>> PS\r",
+          "float4 PS(PS_IN input) : SV_Target\r",
+          "{\r",
+          "    float aspectRatio = RenderTargetSize.x/RenderTargetSize.y;\r",
+          "\r",
+          "    float2 p= input.pos/RenderTargetSize - float2(0.5,0.5) + 0.5*float2(-Center.x, Center.y);\r",
+          "    p.x *=  aspectRatio;\r",
+          "    p/=  Scale;\r",
+          "    \r",
+          "\r",
+          "    float angle = atan2(p.x, p.y)/2;    \r",
+          "    float irisOffset = pow(  abs(  cos(angle * Iris.x + Iris.y)),  IrisShape.y);\r",
+          "    float r = Radius * (1+ irisOffset * IrisShape.x);\r",
+          "    float d = clamp(  (length(p) - r + Feather/2) / Feather, 0, 1) ;\r",
+          "\r",
+          "    float d2= d * d * d * (d * (d * 6 - 15) + 10); //SmoothStep\r",
+          "    \r",
+          "    float4 c = lerp( Inside, Outside, d2);\r",
+          "    \r",
+          "    return c;    \r",
+          "}\r",
+          "//<<< PS\r",
+          "\r",
+          "//>>> _technique\r",
+          "technique10 Render",
+          "{",
+          "    pass P0",
+          "    {",
+          "        SetGeometryShader( 0 );",
+          "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+          "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+          "    }",
+          "}",
+          "//<<< _technique\r",
+          ""
+        ]
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "2b5f1b7a-b134-4ea9-84da-80f5e2eddcfe",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Feather",
+      "MetaInstanceID": "e8a3f720-63d8-498a-bd63-3c0d0fe55ab1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.X",
+      "MetaInstanceID": "44d5911c-127d-46ee-a208-ba7f1be547e8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.Y",
+      "MetaInstanceID": "d1774991-2223-44ea-963e-cfbb9afe2150",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.X",
+      "MetaInstanceID": "1a2bfe07-ad36-48db-a97f-77bde50d6596",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Y",
+      "MetaInstanceID": "823cfd57-43e1-4cea-ad24-2a472aad41f1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.R",
+      "MetaInstanceID": "d8e3b658-edb3-47c6-a19b-e9ac7896d58c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.G",
+      "MetaInstanceID": "c097aac0-4f3e-401a-a642-1b4d158aa36d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.B",
+      "MetaInstanceID": "3ae6c5b2-d4e2-4525-8800-472ae01455a9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.A",
+      "MetaInstanceID": "002aeb78-fedf-4528-a055-fff922fc9cf2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.R",
+      "MetaInstanceID": "56ac5e50-0f78-410f-bb2e-f367bd431d6a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.G",
+      "MetaInstanceID": "47654fa1-997c-4011-b3fb-9e14d4b2fc4d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.B",
+      "MetaInstanceID": "77be5620-a962-4f26-b2a1-1b553e85aa9c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.A",
+      "MetaInstanceID": "b5206bf5-7063-4884-bc75-f250a5ca09fd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Iris.Sides",
+      "MetaInstanceID": "abfe569c-2f13-461e-9794-b132078a0b1d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "6"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Iris.Rotate",
+      "MetaInstanceID": "952cf4e3-47ee-4873-95fb-334585398e24",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "IrisShape.Strength",
+      "MetaInstanceID": "cde22872-98af-4375-8392-89d893cb584f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "IrisShape.Warp",
+      "MetaInstanceID": "2a2dbf70-07fe-469b-a9aa-4a0da57baa96",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.688"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "29d07315-012f-4d0c-b39e-47aa95c8355e",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "d5a73049-79c6-41fe-b315-202f5d3c61cd",
+      "MetaID": "fd8e7a29-0d14-4e41-ab8b-6866fcdbf775",
+      "Name": "RoundedRectFunc",
+      "Version": "1ce61ed0-3c28-4993-80ab-c35c47858427",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDfd8e7a29_0d14_4e41_ab8b_6866fcdbf775",
+        "{",
+        "    public class Class_RoundedRect : FXImageFunction",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Code = 0,",
+        "            Radius = 1,",
+        "            Feather = 2,",
+        "            CenterX = 3,",
+        "            CenterY = 4,",
+        "            ScaleX = 5,",
+        "            ScaleY = 6,",
+        "            InsideR = 7,",
+        "            InsideG = 8,",
+        "            InsideB = 9,",
+        "            InsideA = 10,",
+        "            OutsideR = 11,",
+        "            OutsideG = 12,",
+        "            OutsideB = 13,",
+        "            OutsideA = 14,",
+        "            IrisSides = 15,",
+        "            IrisRotate = 16,",
+        "            IrisShapeStrength = 17,",
+        "            IrisShapeWarp = 18",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
+        "            var Radius = inputs[(int)InputId.Radius].Eval(context).Value;",
+        "            var Feather = inputs[(int)InputId.Feather].Eval(context).Value;",
+        "            var CenterX = inputs[(int)InputId.CenterX].Eval(context).Value;",
+        "            var CenterY = inputs[(int)InputId.CenterY].Eval(context).Value;",
+        "            var Center = new Vector2(CenterX, CenterY);",
+        "            var ScaleX = inputs[(int)InputId.ScaleX].Eval(context).Value;",
+        "            var ScaleY = inputs[(int)InputId.ScaleY].Eval(context).Value;",
+        "            var Scale = new Vector2(ScaleX, ScaleY);",
+        "            var InsideR = inputs[(int)InputId.InsideR].Eval(context).Value;",
+        "            var InsideG = inputs[(int)InputId.InsideG].Eval(context).Value;",
+        "            var InsideB = inputs[(int)InputId.InsideB].Eval(context).Value;",
+        "            var InsideA = inputs[(int)InputId.InsideA].Eval(context).Value;",
+        "            var Inside = new Color4(InsideR, InsideG, InsideB, InsideA);",
+        "            var OutsideR = inputs[(int)InputId.OutsideR].Eval(context).Value;",
+        "            var OutsideG = inputs[(int)InputId.OutsideG].Eval(context).Value;",
+        "            var OutsideB = inputs[(int)InputId.OutsideB].Eval(context).Value;",
+        "            var OutsideA = inputs[(int)InputId.OutsideA].Eval(context).Value;",
+        "            var Outside = new Color4(OutsideR, OutsideG, OutsideB, OutsideA);",
+        "            var IrisSides = inputs[(int)InputId.IrisSides].Eval(context).Value;",
+        "            var IrisRotate = inputs[(int)InputId.IrisRotate].Eval(context).Value;",
+        "            var Iris = new Vector2(IrisSides, IrisRotate);",
+        "            var IrisShapeStrength = inputs[(int)InputId.IrisShapeStrength].Eval(context).Value;",
+        "            var IrisShapeWarp = inputs[(int)InputId.IrisShapeWarp].Eval(context).Value;",
+        "            var IrisShape = new Vector2(IrisShapeStrength, IrisShapeWarp);",
+        "            //<<< _params",
+        "",
+        "            return PrepareAndEvalOnChange(context, () => {",
+        "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 0));",
+        "",
+        "                //>>> _setup",
+        "                {",
+        "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
+        "                    _effect.GetVariableByName(\"Radius\").AsScalar().Set(Radius);",
+        "                    _effect.GetVariableByName(\"Feather\").AsScalar().Set(Feather);",
+        "                    _effect.GetVariableByName(\"Center\").AsVector().Set(new Vector2(CenterX, CenterY));",
+        "                    _effect.GetVariableByName(\"Scale\").AsVector().Set(new Vector2(ScaleX, ScaleY));",
+        "                    _effect.GetVariableByName(\"Inside\").AsVector().Set(new Vector4(InsideR, InsideG, InsideB, InsideA));",
+        "                    _effect.GetVariableByName(\"Outside\").AsVector().Set(new Vector4(OutsideR, OutsideG, OutsideB, OutsideA));",
+        "                    _effect.GetVariableByName(\"Iris\").AsVector().Set(new Vector2(IrisSides, IrisRotate));",
+        "                    _effect.GetVariableByName(\"IrisShape\").AsVector().Set(new Vector2(IrisShapeStrength, IrisShapeWarp));",
+        "                //<<< _setup",
+        "",
+        "                Render(context);",
+        "",
+        "                //>>> _cleanup",
+        "                }",
+        "                //<<< _cleanup",
+        "            });",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29d07315-012f-4d0c-b39e-47aa95c8355e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e3f7a9af-2c5c-46d5-a4bf-03dd9e8dda3c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2b5f1b7a-b134-4ea9-84da-80f5e2eddcfe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e8a3f720-63d8-498a-bd63-3c0d0fe55ab1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "44d5911c-127d-46ee-a208-ba7f1be547e8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d1774991-2223-44ea-963e-cfbb9afe2150",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1a2bfe07-ad36-48db-a97f-77bde50d6596",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "823cfd57-43e1-4cea-ad24-2a472aad41f1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d8e3b658-edb3-47c6-a19b-e9ac7896d58c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c097aac0-4f3e-401a-a642-1b4d158aa36d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3ae6c5b2-d4e2-4525-8800-472ae01455a9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "002aeb78-fedf-4528-a055-fff922fc9cf2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "56ac5e50-0f78-410f-bb2e-f367bd431d6a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "47654fa1-997c-4011-b3fb-9e14d4b2fc4d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "77be5620-a962-4f26-b2a1-1b553e85aa9c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5206bf5-7063-4884-bc75-f250a5ca09fd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "abfe569c-2f13-461e-9794-b132078a0b1d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "952cf4e3-47ee-4873-95fb-334585398e24",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cde22872-98af-4375-8392-89d893cb584f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2a2dbf70-07fe-469b-a9aa-4a0da57baa96",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d5a73049-79c6-41fe-b315-202f5d3c61cd"
+    }
+  ]
+}

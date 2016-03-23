@@ -1,0 +1,191 @@
+{
+  "Name": "TimeMarker",
+  "_id": "3a680e24-4ac1-4e95-8784-efa048af24a8",
+  "Namespace": "lib.basic",
+  "Description": "Represents a marker in the time view.",
+  "Inputs": [
+    {
+      "Name": "Time",
+      "MetaInstanceID": "7abf7ef2-c1a9-4bbc-9034-f67f1df2bc32",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "a8ed40b1-2fca-444f-91fb-f6e324cf0d12",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "359b1522-bd44-4edd-a224-8adcd224d560",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "26a4cc66-9f01-4937-89ee-14a672df806c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "4a2f9eab-2d47-4ae1-bfd6-d7a02d262571",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "9466d3d1-2c64-4312-817d-5a8f03467345",
+      "MetaID": "a4daff2b-6e24-45cc-8c91-57c953f61740",
+      "Name": "TimeMarkerFunc",
+      "Version": "4e175ba4-7cfa-4d3f-9dd7-6f67d41f2eeb",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDa4daff2b_6e24_45cc_8c91_57c953f61740",
+        "{",
+        "    public class Class_TimeMarker : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeMarker",
+        "    {",
+        "        public double Time {",
+        "            get { return GetInputValue(0); }",
+        "            set { SetInputValue(0, value); }",
+        "        }",
+        "",
+        "",
+        "        public Color4 Color {",
+        "            get {",
+        "                return new Color4((float)GetInputValue(4),",
+        "                                  (float)GetInputValue(1),",
+        "                                  (float)GetInputValue(2),",
+        "                                  (float)GetInputValue(3));",
+        "            }",
+        "            set {",
+        "                SetInputValue(1, (double)value.Alpha);",
+        "                SetInputValue(2, (double)value.Red);",
+        "                SetInputValue(3, (double)value.Green);",
+        "                SetInputValue(4, (double)value.Blue);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            foreach (var input in inputs)",
+        "                input.Eval(context);",
+        "            return context;",
+        "        }",
+        "",
+        "        private double GetInputValue(int index) {",
+        "            return OperatorPartUtilities.GetInputFloatValue(OperatorPart.Connections[index]);",
+        "        }",
+        "",
+        "        private void SetInputValue(int index, double val) {",
+        "            OperatorPart opPart = OperatorPart.Connections[index];",
+        "            if (opPart.Connections.Count == 0) {",
+        "                opPart.Func = Utilities.CreateValueFunction(new Float((float)val));",
+        "            }",
+        "        }",
+        "",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7abf7ef2-c1a9-4bbc-9034-f67f1df2bc32",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9466d3d1-2c64-4312-817d-5a8f03467345"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a8ed40b1-2fca-444f-91fb-f6e324cf0d12",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9466d3d1-2c64-4312-817d-5a8f03467345"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "359b1522-bd44-4edd-a224-8adcd224d560",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9466d3d1-2c64-4312-817d-5a8f03467345"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "26a4cc66-9f01-4937-89ee-14a672df806c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9466d3d1-2c64-4312-817d-5a8f03467345"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4a2f9eab-2d47-4ae1-bfd6-d7a02d262571",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9466d3d1-2c64-4312-817d-5a8f03467345"
+    }
+  ]
+}

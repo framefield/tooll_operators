@@ -1,0 +1,135 @@
+{
+  "Name": "ChangeDepth",
+  "_id": "dd94c4c4-0e03-4578-bbad-83bb67e705df",
+  "Namespace": "lib.image.adjust",
+  "Description": "Combines the color from Image and the depth from Depth.\r\n",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "6ac05cc1-1a53-43a2-8a73-ba2477be7e11",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Depth",
+      "MetaInstanceID": "67b31dd9-8812-4da1-8d74-5d4d411ecf03",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "21456a20-8c9b-4154-a5f2-ef21beb3e79f",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7c47219c-6d6c-46a9-8245-fb45ad153d41",
+      "MetaID": "13fb3188-e438-47aa-a144-316a080f6bff",
+      "Name": "ChangeDepthFunc",
+      "Version": "066894f9-fe5d-4ea0-baf6-075cc674c8de",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID13fb3188_e438_47aa_a144_316a080f6bff",
+        "{",
+        "    public class Class_ChangeDepth : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0,",
+        "            Depth = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> __params",
+        "            var ImageInput = inputs[(int)InputId.Image];",
+        "            var DepthInput = inputs[(int)InputId.Depth];",
+        "            //<<< __params",
+        "",
+        "            var image = ImageInput.Eval(context).Image;",
+        "            var depth = DepthInput.Eval(context).DepthImage;",
+        "            if (image == null || depth == null)",
+        "            {",
+        "                context.Image = null;",
+        "                context.DepthImage = null;",
+        "                return context;",
+        "            }",
+        "",
+        "            context.Image = image;",
+        "            context.DepthImage = depth;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c47219c-6d6c-46a9-8245-fb45ad153d41",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "21456a20-8c9b-4154-a5f2-ef21beb3e79f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6ac05cc1-1a53-43a2-8a73-ba2477be7e11",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7c47219c-6d6c-46a9-8245-fb45ad153d41"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "67b31dd9-8812-4da1-8d74-5d4d411ecf03",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7c47219c-6d6c-46a9-8245-fb45ad153d41"
+    }
+  ]
+}

@@ -1,0 +1,380 @@
+{
+  "Name": "TransformUV",
+  "_id": "03c9a2c3-7df5-42a9-a52a-1603699124e0",
+  "Namespace": "lib.3d.modify",
+  "Description": "Moves, scales and rotates the uv coordinates.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "b77afe53-eb89-4406-984f-1c4fb229df20",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.X",
+      "MetaInstanceID": "3f469592-3b4e-401b-9210-56c57cc38dac",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.Y",
+      "MetaInstanceID": "39140c21-6207-419d-8230-8d451b46fc19",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Translate.Z",
+      "MetaInstanceID": "aa1d1df5-c05d-4f6b-ba9b-4693679bc881",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.X",
+      "MetaInstanceID": "40ff836d-a060-46e8-a7ab-c9ff28cb8b16",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Y",
+      "MetaInstanceID": "7b775467-1ced-468d-a70f-d6ed41a1f92c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Z",
+      "MetaInstanceID": "6e45a620-21cd-443f-bb5c-25832572f0d3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.X",
+      "MetaInstanceID": "70f812be-5c0c-42dd-9da4-05de83250b55",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Y",
+      "MetaInstanceID": "8df979d9-d36a-42dd-baf9-0ac7d04f4776",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Z",
+      "MetaInstanceID": "354c1801-6b00-4db6-8210-daf90c094bea",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.X",
+      "MetaInstanceID": "8bd4c3e4-2504-4708-b0a6-581361fac06c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.Y",
+      "MetaInstanceID": "b1b81434-480f-46f7-b1ba-099ef1ca1a82",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.Z",
+      "MetaInstanceID": "59632709-f125-43f9-88e8-4981703d6089",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "741b8a04-490f-471a-9934-c48eb8ee894c",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051",
+      "MetaID": "71c69cbd-8afd-4eb1-8c67-9046ca16f7a2",
+      "Name": "TransformUVFunc",
+      "Version": "e93bd39f-2f12-407b-accc-ae2b27213932",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID71c69cbd_8afd_4eb1_8c67_9046ca16f7a2",
+        "{",
+        "    public class Class_TransformUV : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var SceneInput = inputs[0];",
+        "            var TranslateX = (float) inputs[1].Eval(context).Value;",
+        "            var TranslateY = (float) inputs[2].Eval(context).Value;",
+        "            var TranslateZ = (float) inputs[3].Eval(context).Value;",
+        "            var RotateX = (float) inputs[4].Eval(context).Value;",
+        "            var RotateY = (float) inputs[5].Eval(context).Value;",
+        "            var RotateZ = (float) inputs[6].Eval(context).Value;",
+        "            var ScaleX = (float) inputs[7].Eval(context).Value;",
+        "            var ScaleY = (float) inputs[8].Eval(context).Value;",
+        "            var ScaleZ = (float) inputs[9].Eval(context).Value;",
+        "            var PivotX = (float) inputs[10].Eval(context).Value;",
+        "            var PivotY = (float) inputs[11].Eval(context).Value;",
+        "            var PivotZ = (float) inputs[12].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            var translation = new Vector3(TranslateX, TranslateY, TranslateZ);",
+        "            var rotation = Quaternion.RotationYawPitchRoll(RotateX / 360.0f * (float)(2.0 * Math.PI),",
+        "                                                           RotateY / 360.0f * (float)(2.0 * Math.PI),",
+        "                                                           RotateZ / 360.0f * (float)(2.0 * Math.PI));",
+        "            var scale = new Vector3(ScaleX, ScaleY, ScaleZ);",
+        "            var pivot = new Vector3(PivotX, PivotY, PivotZ);",
+        "            ",
+        "            var transform = Matrix.Transformation(pivot, new Quaternion(), scale, pivot, rotation, translation);",
+        "            var prevTransform = context.TextureMatrix;",
+        "            context.TextureMatrix = transform * prevTransform;",
+        "            var result = SceneInput.Eval(context);",
+        "            context.TextureMatrix = prevTransform;",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b77afe53-eb89-4406-984f-1c4fb229df20",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3f469592-3b4e-401b-9210-56c57cc38dac",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "39140c21-6207-419d-8230-8d451b46fc19",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa1d1df5-c05d-4f6b-ba9b-4693679bc881",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "40ff836d-a060-46e8-a7ab-c9ff28cb8b16",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7b775467-1ced-468d-a70f-d6ed41a1f92c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6e45a620-21cd-443f-bb5c-25832572f0d3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "70f812be-5c0c-42dd-9da4-05de83250b55",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8df979d9-d36a-42dd-baf9-0ac7d04f4776",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "354c1801-6b00-4db6-8210-daf90c094bea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8bd4c3e4-2504-4708-b0a6-581361fac06c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b1b81434-480f-46f7-b1ba-099ef1ca1a82",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "59632709-f125-43f9-88e8-4981703d6089",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0e40b2b3-efc7-4f3e-a2aa-68a3ddf24051",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "741b8a04-490f-471a-9934-c48eb8ee894c"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "Name": "FilterTestResults",
+  "_id": "01c09070-5705-4ec1-b59e-eb1b47329ea6",
+  "Namespace": "lib.text",
+  "Description": "Reformats an incoming test result and extracts only failed tests for better readability.\r\n\r\nIt also keeps the last test-result so you don't have to rerun the tests.",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "547a90f5-7ed3-4c3c-9625-916ebc0aea51",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "538c4921-ca1a-4066-8d86-7cc2c34ed767",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "2ff7545a-4d5a-4143-b8b1-0e0b4b8f8ead",
+      "MetaID": "c393d6c6-0b9a-45f2-85c2-32f92b2435d4",
+      "Name": "FilterTestResultsFunc",
+      "Version": "4cbdb30d-51ea-42ff-89e3-f05e0b769238",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "using System.Text.RegularExpressions;",
+        "",
+        "",
+        "namespace Framefield.Core.IDc393d6c6_0b9a_45f2_85c2_32f92b2435d4",
+        "{",
+        "    public class Class_FilterTestResults : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            if(String == String.Empty) {",
+        "                String = _lastResult;",
+        "            }",
+        "            else {",
+        "                _lastResult = String;",
+        "            }             ",
+        "            ",
+        "            int failCount = 0;",
+        "            string result = string.Empty;",
+        "            foreach( var line in  String.Split('\\n')) {",
+        "                if( new Regex(@\"(passed)\").Match(line).Success )",
+        "                    continue;",
+        "                    ",
+        "                if( new Regex(@\"\\(.*\\<.*\\)\").Match(line).Success )",
+        "                    failCount++;",
+        "                    ",
+        "                result+= line.Replace(\"Tests\", \"\").Replace(\": FAILED\",\"\") + \"\\n\";",
+        "            }",
+        "            ",
+        "            context.Text = String.Format( \"{0} TESTS FAILED\\n\\n\", failCount) + result;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        String _lastResult = String.Empty;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2ff7545a-4d5a-4143-b8b1-0e0b4b8f8ead",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "538c4921-ca1a-4066-8d86-7cc2c34ed767"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "547a90f5-7ed3-4c3c-9625-916ebc0aea51",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2ff7545a-4d5a-4143-b8b1-0e0b4b8f8ead"
+    }
+  ]
+}

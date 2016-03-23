@@ -1,0 +1,169 @@
+{
+  "Name": "FrameDropPeriod",
+  "_id": "3cda2a75-0b8b-4c54-abb1-96f5b3de1362",
+  "Namespace": "lib.basic",
+  "Description": "Returns the time since last framedrop.",
+  "Inputs": [
+    {
+      "Name": "Threshold",
+      "MetaInstanceID": "d2ad556c-d62f-4b32-b443-a23f38b43b2b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.02"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "9cdae327-d8c5-4ff0-adad-c731bb7d7201",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MaxCount",
+      "MetaInstanceID": "d0fd39fa-a930-4610-9428-e98c15de2ce2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "20",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "4410b085-5c2a-43be-8ea4-d05ad771210b",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "2c6f1c86-0081-4a6e-a8af-bf3540401d84",
+      "MetaID": "0e253ab5-b38e-4619-b6ab-e7c12fdb78e5",
+      "Name": "FrameDropPeriodFunc",
+      "Version": "59c94da4-3a6f-441c-a7a9-324db0ff651a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Profiling;",
+        "",
+        "namespace Framefield.Core.ID0e253ab5_b38e_4619_b6ab_e7c12fdb78e5",
+        "{",
+        "    public class Class_FrameDropPeriod : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Threshold = 0,",
+        "            ResetTrigger = 1,",
+        "            MaxCount = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Threshold = inputs[(int)InputId.Threshold].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var MaxCount = inputs[(int)InputId.MaxCount].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if(ResetTrigger > 0.5 || context.Time < _lastTime) {",
+        "                _lastTime = context.Time;",
+        "                _lastFrameDropTime = context.Time;                ",
+        "                _outputString = \"\";",
+        "                _count = 0;",
+        "            }",
+        "                        ",
+        "            if(context.Time != _lastTime) {",
+        "                var lastDuration = (float)(context.Time - _lastTime);",
+        "                if(lastDuration > Threshold && _count < MaxCount) {",
+        "                    _lastFrameDropPeriod = context.Time - _lastFrameDropTime;",
+        "                    _outputString += String.Format(\"{0,6:0.00} {1,6:0.00}\\n\", context.Time, _lastFrameDropPeriod);",
+        "                    _lastFrameDropTime = context.Time;",
+        "                    _count++;",
+        "                }",
+        "                _lastTime = context.Time;",
+        "            }",
+        "            context.Value = (float)_lastFrameDropPeriod;",
+        "            context.Text = _outputString;",
+        "            return context;",
+        "        }",
+        "        private float _lastDuration;",
+        "        private double _lastTime; ",
+        "        private double _lastFrameDropTime;",
+        "        private double _lastFrameDropPeriod;",
+        "        private string _outputString;",
+        "        private int _count;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2c6f1c86-0081-4a6e-a8af-bf3540401d84",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4410b085-5c2a-43be-8ea4-d05ad771210b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d2ad556c-d62f-4b32-b443-a23f38b43b2b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2c6f1c86-0081-4a6e-a8af-bf3540401d84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9cdae327-d8c5-4ff0-adad-c731bb7d7201",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2c6f1c86-0081-4a6e-a8af-bf3540401d84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d0fd39fa-a930-4610-9428-e98c15de2ce2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2c6f1c86-0081-4a6e-a8af-bf3540401d84"
+    }
+  ]
+}

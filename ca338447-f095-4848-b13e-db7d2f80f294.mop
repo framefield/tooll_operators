@@ -1,0 +1,158 @@
+{
+  "Name": "Locator",
+  "_id": "ca338447-f095-4848-b13e-db7d2f80f294",
+  "Namespace": "lib.basic",
+  "Description": "Special operator that works in conjunction with [LocatorScreen] and [PickDepth]",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "eac84577-492b-4911-bf1d-da6fc90189dc",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "1dc9c42a-204b-4c09-a6b2-524432ba4b1f",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    },
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "bef729b6-94f8-4f4c-b6fa-3dd7461ac489",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "3aefd85a-879c-4faf-9c7d-13b137a3886b",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Z",
+      "MetaInstanceID": "48032b5b-44ec-4f87-9829-5d119563d940",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e",
+      "MetaID": "69e2f46c-0599-4ac2-a3f0-a3edca0e6ebd",
+      "Name": "LocatorFunc",
+      "Version": "fc870811-bf05-4af8-a5b7-18e851d92a1b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID69e2f46c_0599_4ac2_a3f0_a3edca0e6ebd",
+        "{",
+        "    public class Class_Locator : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Output = 0,",
+        "            PositionX = 1,",
+        "            PositionY = 2,",
+        "            PositionZ = 3",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            //<<< _params",
+        "           ",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.Output:",
+        "                {",
+        "                    context.ObjectTWorld.Decompose(out _scale, out _rotation, out _position);",
+        "                    Input.Eval(context);",
+        "",
+        "                    //because these outputs are dependent on this evaluation, we need to invalidate them here",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionX);",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionY);",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionZ);",
+        "                    break;",
+        "                }",
+        "                case (int)OutputId.PositionX: context.Value = _position.X; break;",
+        "                case (int)OutputId.PositionY: context.Value = _position.Y; break;",
+        "                case (int)OutputId.PositionZ: context.Value = _position.Z; break;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Vector3 _scale;",
+        "        Quaternion _rotation;",
+        "        Vector3 _position;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1dc9c42a-204b-4c09-a6b2-524432ba4b1f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bef729b6-94f8-4f4c-b6fa-3dd7461ac489"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3aefd85a-879c-4faf-9c7d-13b137a3886b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "48032b5b-44ec-4f87-9829-5d119563d940"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eac84577-492b-4911-bf1d-da6fc90189dc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7c8cfdc5-a57d-4d07-a1e4-d0587826f97e"
+    }
+  ]
+}

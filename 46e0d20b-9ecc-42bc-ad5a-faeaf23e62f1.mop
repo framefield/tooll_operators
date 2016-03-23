@@ -1,0 +1,94 @@
+{
+  "Name": "Group",
+  "_id": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+  "Namespace": "lib.3d.generate",
+  "Description": "Group any number of scenes .",
+  "Inputs": [
+    {
+      "Name": "Scenes",
+      "MetaInstanceID": "739993cc-ce22-4070-8914-da6008c79357",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "6d090348-b67e-4203-acba-43611af0395d",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "MetaID": "ca9a3a0e-c1c7-42b6-a0e5-cdb4c61d0b18",
+      "Name": "GroupFunc",
+      "Version": "bb1f3066-aaac-480c-9385-b56a422b2cb0",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDca9a3a0e_c1c7_42b6_a0e5_cdb4c61d0b18",
+        "{",
+        "    public class Class_Group : OperatorPart.Function",
+        "    {",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Scenes = 0",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            // >>> _params",
+        "            var Scenes = inputs[(int)InputId.Scenes];",
+        "            // <<< _params",
+        "",
+        "            foreach (var input in Scenes.Connections)",
+        "            {",
+        "                input.Eval(context);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6d090348-b67e-4203-acba-43611af0395d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "739993cc-ce22-4070-8914-da6008c79357",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3b3abb47-346f-4af6-b18d-62bfe9248b3e"
+    }
+  ]
+}

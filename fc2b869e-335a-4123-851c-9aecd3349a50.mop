@@ -1,0 +1,233 @@
+{
+  "Name": "LoadFBX",
+  "_id": "fc2b869e-335a-4123-851c-9aecd3349a50",
+  "Namespace": "lib.3d.generate",
+  "Description": "supported formats: FBX 5/6/7 Binary & ASCII, Collada, DXF, OBJ, 3DS",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "b2cf082c-93d0-45ea-ba59-6645ad609561",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "./assets/test/fbx/cube_with_one_smooth_corner.fbx"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ChildID",
+      "MetaInstanceID": "a4a3cf2d-1d7b-435f-b0c5-ab2f3c8e7ea0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UnitScale",
+      "MetaInstanceID": "f74619c8-dfcf-420b-a7ca-ba1293ef1410",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "IncludeTransform",
+      "MetaInstanceID": "3abb9c36-313f-4fe2-b221-36200a58b93d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "This basically loads a single node or a complete baked set of a tree. \r\n\r\nFor importing complete scenes, please use File->Import FBX Scene.\r\n",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Include",
+          "Value": "0"
+        },
+        {
+          "Name": "Exclude",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Out",
+      "MetaInstanceID": "4712177a-30a3-4de1-94dd-f6159cc92a36",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6",
+      "MetaID": "a501a86c-40b2-4574-a660-757025b9b5ee",
+      "Name": "LoadFBXFunc",
+      "Version": "902255a2-4864-4f97-9436-7e0e1ea2fbb6",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDa501a86c_40b2_4574_a660_757025b9b5ee",
+        "{",
+        "    public class Class_LoadFBX : OperatorPart.Function,",
+        "                                 Framefield.Core.OperatorPartTraits.IMeshSupplier",
+        "    {",
+        "        // IMeshSupplier",
+        "        public void AddMeshesTo(ICollection<Mesh> meshes)",
+        "        {",
+        "            UpdateMesh(new OperatorPartContext(), OperatorPart.Connections);",
+        "            meshes.Add(_mesh);",
+        "        }",
+        "",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            FilePath = 0,",
+        "            ChildID = 1,",
+        "            UnitScale = 2,",
+        "            IncludeTransform = 3",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _fbxResource);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            UpdateMesh(context, inputs);",
+        "",
+        "            if (_mesh != null)",
+        "            {",
+        "                context.Renderer.SetupEffect(context);",
+        "                context.Renderer.Render(_mesh, context);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        private void UpdateMesh(OperatorPartContext context, IList<OperatorPart> inputs)",
+        "        {",
+        "            if (!Changed) ",
+        "                return;",
+        "",
+        "            //>>> _params",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            var ChildID = inputs[(int)InputId.ChildID].Eval(context).Value;",
+        "            var UnitScale = inputs[(int)InputId.UnitScale].Eval(context).Value;",
+        "            var IncludeTransform = (int) inputs[(int)InputId.IncludeTransform].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            var includeTransformMatrix = IncludeTransform < 0.5f ? true : false;",
+        "",
+        "            if (File.Exists(FilePath))",
+        "            {",
+        "                if (_fbxResource == null || FilePath != _filePath || includeTransformMatrix != _includeTransformMatrix)",
+        "                {",
+        "                    _includeTransformMatrix = includeTransformMatrix; ",
+        "                    _fbxResource = ResourceManager.ReadFbx(FilePath, includeTransformMatrix);",
+        "                    _filePath = FilePath;",
+        "                }",
+        "            }",
+        "            else",
+        "            {",
+        "                Logger.Error(this,\"Fbxfile not found '{0}'\", FilePath);",
+        "                _filePath = String.Empty;",
+        "            }",
+        "",
+        "            if (_fbxResource != null)",
+        "            {",
+        "                _mesh = _fbxResource.GetChild((int)ChildID, UnitScale);",
+        "            }",
+        "",
+        "            Changed = false;",
+        "        }",
+        "",
+        "        private FbxResource _fbxResource;",
+        "        private string _filePath;",
+        "        private Mesh _mesh;",
+        "        private bool _includeTransformMatrix = false;",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4712177a-30a3-4de1-94dd-f6159cc92a36"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b2cf082c-93d0-45ea-ba59-6645ad609561",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a4a3cf2d-1d7b-435f-b0c5-ab2f3c8e7ea0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f74619c8-dfcf-420b-a7ca-ba1293ef1410",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3abb9c36-313f-4fe2-b221-36200a58b93d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6c337e6a-1d18-4e02-9f56-bdef4d6a66b6"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "Name": "EnableDebug",
+  "_id": "429a0eb4-535d-4cc2-a544-e7b593c599a0",
+  "Namespace": "lib.basic",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "6626acc5-8a27-45f7-aa18-67cfe5cbb8ec",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Debug",
+      "MetaInstanceID": "07ce86e4-97e6-433f-8910-6dff77636b4d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "On",
+          "Value": "1"
+        },
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "Inherit",
+          "Value": "2"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SetVariableOut",
+      "MetaInstanceID": "2a403e4a-ff20-41d5-8518-9f73f6e3de64",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Set Variable",
+      "MetaInstanceID": "45ad5c29-d501-44c3-8ef5-4ff3b9bf4e9b",
+      "MetaID": "179408c5-d7d7-4ecf-af60-95242c7b6be6",
+      "OperatorProperties": {
+        "Name": "DEBUG ON",
+        "PosX": "4273.18680115634",
+        "PosY": "2905.0760172498",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "eac68012-9a8c-4f07-ac08-23a2f83c3eee",
+            "Type": "Text",
+            "Value": [
+              "ShowDebugOverlays"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Switch",
+      "MetaInstanceID": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "MetaID": "8cb2c279-e463-4ef4-80ab-6e016bc8b0ec",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4451.28696954069",
+        "PosY": "2973.20451705909",
+        "Width": "250",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "0f5980d2-c6ee-479c-a462-006dcacb7ac8",
+      "MetaID": "7424a910-d647-4049-9fda-78189bcaa964",
+      "OperatorProperties": {
+        "Name": "0",
+        "PosX": "4319.6896378122",
+        "PosY": "3072.3433275409",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Get i",
+      "MetaInstanceID": "b5f45a84-ca47-40c1-9ee0-5dcebc3ef676",
+      "MetaID": "b27b23d8-64db-4027-9e0f-2dd24e784ead",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4432.87169464165",
+        "PosY": "3074.53897189283",
+        "Width": "75",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+            "Type": "Text",
+            "Value": [
+              "ShowDebugOverlays"
+            ]
+          },
+          {
+            "ID": "ffc92c9c-bd1c-4899-9755-e3c15c33bb49",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "bbcd117c-3503-467a-ba67-79010caef22a",
+      "MetaID": "7424a910-d647-4049-9fda-78189bcaa964",
+      "OperatorProperties": {
+        "Name": "1",
+        "PosX": "4376.18454894439",
+        "PosY": "3074.6603839258",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "97e2fdc6-c6bd-4613-9050-622ae146a914",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6626acc5-8a27-45f7-aa18-67cfe5cbb8ec",
+      "TargetOp": "45ad5c29-d501-44c3-8ef5-4ff3b9bf4e9b",
+      "TargetOpPart": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b"
+    },
+    {
+      "SourceOp": "45ad5c29-d501-44c3-8ef5-4ff3b9bf4e9b",
+      "SourceOpPart": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2a403e4a-ff20-41d5-8518-9f73f6e3de64"
+    },
+    {
+      "SourceOp": "0f5980d2-c6ee-479c-a462-006dcacb7ac8",
+      "SourceOpPart": "63476cd2-802c-4c65-a2b5-9c6f1380f8e3",
+      "TargetOp": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    },
+    {
+      "SourceOp": "bbcd117c-3503-467a-ba67-79010caef22a",
+      "SourceOpPart": "63476cd2-802c-4c65-a2b5-9c6f1380f8e3",
+      "TargetOp": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    },
+    {
+      "SourceOp": "b5f45a84-ca47-40c1-9ee0-5dcebc3ef676",
+      "SourceOpPart": "978f4979-ac0c-4424-9304-3785cb6a7ae4",
+      "TargetOp": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    },
+    {
+      "SourceOp": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "SourceOpPart": "92069550-a785-4ec0-9b82-278563dd17d5",
+      "TargetOp": "45ad5c29-d501-44c3-8ef5-4ff3b9bf4e9b",
+      "TargetOpPart": "982f6a23-dca4-48ab-b6cc-a87d60f44e8b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "07ce86e4-97e6-433f-8910-6dff77636b4d",
+      "TargetOp": "b118cb29-935d-41c0-acfc-adaaf27f9e04",
+      "TargetOpPart": "be3165cf-08da-4832-ad70-c9e8f1b59d2f"
+    }
+  ]
+}

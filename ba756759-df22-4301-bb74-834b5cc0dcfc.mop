@@ -1,0 +1,118 @@
+{
+  "Name": "CompareTexts",
+  "_id": "ba756759-df22-4301-bb74-834b5cc0dcfc",
+  "Namespace": "lib.text.helper",
+  "Description": "Checks if two strings are idendical.",
+  "Inputs": [
+    {
+      "Name": "TextA",
+      "MetaInstanceID": "7b284034-8fcf-48b7-b16d-6ab7ebac5f6e",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextB",
+      "MetaInstanceID": "7ae514bf-8faf-407b-a0d0-537df53d2926",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "b0a3bcb7-8254-4711-958e-1f1c815780dc",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e77534d9-1270-49ef-821d-c0003070f311",
+      "MetaID": "ac72e5d2-8b31-4406-9216-598816c03008",
+      "Name": "CompareTextsFunc",
+      "Version": "570254ca-2518-4231-b2bd-489ff7bd5bed",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDac72e5d2_8b31_4406_9216_598816c03008",
+        "{",
+        "    public class Class_CompareTexts : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            TextA = 0,",
+        "            TextB = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var TextA = inputs[(int)InputId.TextA].Eval(context).Text;",
+        "            var TextB = inputs[(int)InputId.TextB].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            ",
+        "            context.Value = TextA == TextB ? 1 : 0;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e77534d9-1270-49ef-821d-c0003070f311",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b0a3bcb7-8254-4711-958e-1f1c815780dc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7b284034-8fcf-48b7-b16d-6ab7ebac5f6e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e77534d9-1270-49ef-821d-c0003070f311"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7ae514bf-8faf-407b-a0d0-537df53d2926",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e77534d9-1270-49ef-821d-c0003070f311"
+    }
+  ]
+}

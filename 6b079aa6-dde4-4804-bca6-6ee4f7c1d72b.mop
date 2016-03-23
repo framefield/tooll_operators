@@ -1,0 +1,1147 @@
+{
+  "Name": "3dCompass",
+  "_id": "6b079aa6-dde4-4804-bca6-6ee4f7c1d72b",
+  "Namespace": "user.pixtur.examples.FutureUICompass",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "ArcRange.Min",
+      "MetaInstanceID": "df930a68-00a4-4014-a5ff-6b6f6c11c65c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-130"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ArcRange.Max",
+      "MetaInstanceID": "5311ac5c-e9ce-4bfd-a575-60b91d0d08e9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "130"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TickCount",
+      "MetaInstanceID": "1bf963f0-994a-49dc-a8e6-b1bd4c0f2000",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "15"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TickIncrement",
+      "MetaInstanceID": "b2a71eef-ecfa-41ed-bb73-088976502bd7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "076fd816-b580-4fb0-bbeb-f656f1233734",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RotateBall.X",
+      "MetaInstanceID": "e62d9bfe-c009-4d7d-a2e6-52b4cf0b2987",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RotateBall.Y",
+      "MetaInstanceID": "2ce64cf2-534e-4ee6-a2fd-58934e2039c1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Speed",
+      "MetaInstanceID": "21890f7b-fd52-49c4-949b-8f121c7ede06",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FontSize",
+      "MetaInstanceID": "20d0df59-017e-4254-bce5-e179844e7c5b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "5ba9b017-82b3-46df-8cca-cbde79e35947",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Disable Z-Test",
+      "MetaInstanceID": "5fe91479-42eb-4551-a05c-f80b066ae004",
+      "MetaID": "1c5247fc-f9d8-451f-91cd-83294ff79974",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "961.1022176093",
+        "PosY": "-394.041114289933",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "40022ef4-344f-4651-82da-064a1060b920",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "961.1022176093",
+        "PosY": "-369.041114289933",
+        "Width": "1350",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "BillboardFile",
+      "MetaInstanceID": "73676817-546c-4d90-95ac-ab936fa37c0e",
+      "MetaID": "988bdfaf-343c-4ad2-9421-0433cf38fa78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2204.33479526575",
+        "PosY": "-242.519527864357",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1ca93617-ccd1-4354-a763-2188fed7ddaf",
+            "Type": "Text",
+            "Value": [
+              "assets/project/future-ui/3d/mock-compass.png"
+            ]
+          },
+          {
+            "ID": "82ad5d9d-5ac1-4201-9a0a-dad3e340c4c7",
+            "Type": "Float",
+            "Value": [
+              "63.9"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "c9f7eb05-c15b-448e-ace5-83535ff72bc9",
+      "MetaID": "45d21f0c-7341-4448-bc64-ac494916e4ce",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2057.27934190317",
+        "PosY": "-276.935367554705",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "25b66fc7-cc39-4ca8-8554-f4e6e9e4bfbc",
+            "Type": "Float",
+            "Value": [
+              "1.21"
+            ]
+          },
+          {
+            "ID": "a37ea6c7-fa9f-4008-9d6e-503a31824430",
+            "Type": "Float",
+            "Value": [
+              "-3.34"
+            ]
+          },
+          {
+            "ID": "86975ef0-490f-4be1-bfd0-f60e8333d963",
+            "Type": "Float",
+            "Value": [
+              "-12.42"
+            ]
+          },
+          {
+            "ID": "5c182c7e-57d8-433e-96c9-6299136d280c",
+            "Type": "Text",
+            "Value": [
+              "assets-common/bmfont/segoe_light.fnt"
+            ]
+          },
+          {
+            "ID": "195046c9-27bb-451f-8d47-d170fff11b86",
+            "Type": "Float",
+            "Value": [
+              "0.11"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Needle",
+      "MetaInstanceID": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "MetaID": "325f0885-f4df-482b-9290-0080dcbfc151",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1502.23895145786",
+        "PosY": "-290.467287730065",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "NumberTicks",
+      "MetaInstanceID": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "MetaID": "4f11d23c-14f0-4c44-bfa5-8310775d074a",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1371.88801102093",
+        "PosY": "-289.570393655442",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "OuterRingTicks",
+      "MetaInstanceID": "fb2b5b1c-ff32-4edc-bdfb-8fb00e123acf",
+      "MetaID": "bd74cb86-f37c-4494-a718-70795daa45a4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1242.7703851065",
+        "PosY": "-291.766300148517",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9f117aa2-6c6b-488c-b238-ad8aee5813c4",
+            "Type": "Float",
+            "Value": [
+              "4"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Blob",
+      "MetaInstanceID": "96fe6c04-ad0f-488e-9c9c-113cc8a9a3c8",
+      "MetaID": "bcddd13a-2f9d-4dd5-8622-5ba979502c08",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "870.892175712984",
+        "PosY": "-168.256725609328",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1ac16763-2f96-4fac-9306-8ebcf08c1a3b",
+            "Type": "Float",
+            "Value": [
+              "0.28"
+            ]
+          },
+          {
+            "ID": "e1207d30-b7ec-4457-a012-619f36b7ef9a",
+            "Type": "Float",
+            "Value": [
+              "0.4"
+            ]
+          },
+          {
+            "ID": "e0ccffbb-953b-4e6e-b96f-6e89c6ab4f3d",
+            "Type": "Float",
+            "Value": [
+              "-0.07"
+            ]
+          },
+          {
+            "ID": "2c35bb07-a87a-4364-99a3-a542654c8f31",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "c465a4ac-0d36-417d-bd10-3b8c0099bbe0",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4e7d91d1-b437-4386-b822-f0ddadb25930",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "58943582-f104-4af5-8488-831357f00d61",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "0be39f9c-92e9-4be1-8578-1d855210e64d",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e98f7e47-4260-4dbb-8ff0-2c5433c05eb9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "c92735bd-25b6-4c2d-9e3c-ffb9daa4320d",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f1b8fdf3-5dc4-4f19-b7d5-d734f380826e",
+            "Type": "Float",
+            "Value": [
+              "0.9"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Blob",
+      "MetaInstanceID": "842f1bdb-71da-4bf3-a866-7cbbd4044581",
+      "MetaID": "bcddd13a-2f9d-4dd5-8622-5ba979502c08",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "970.892175712994",
+        "PosY": "-168.256725609328",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1ac16763-2f96-4fac-9306-8ebcf08c1a3b",
+            "Type": "Float",
+            "Value": [
+              "0.41"
+            ]
+          },
+          {
+            "ID": "e1207d30-b7ec-4457-a012-619f36b7ef9a",
+            "Type": "Float",
+            "Value": [
+              "2.980232E-08"
+            ]
+          },
+          {
+            "ID": "58943582-f104-4af5-8488-831357f00d61",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "0be39f9c-92e9-4be1-8578-1d855210e64d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e98f7e47-4260-4dbb-8ff0-2c5433c05eb9",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "c92735bd-25b6-4c2d-9e3c-ffb9daa4320d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "f1b8fdf3-5dc4-4f19-b7d5-d734f380826e",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetResolution",
+      "MetaInstanceID": "36e58eaa-542d-4b5f-8324-af64b33713be",
+      "MetaID": "c6d02108-2f1f-41ca-9a91-96f297ea55a1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "970.892175712984",
+        "PosY": "-218.256725609329",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Billboard",
+      "MetaInstanceID": "a0705556-a267-4a14-ad5f-23e9bf6e8369",
+      "MetaID": "000c3499-9419-4b7a-8e8f-ddc802e8c0a5",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "970.892175712984",
+        "PosY": "-243.25672560933",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "21aa5b4c-2d86-4460-acf3-5981aed45f13",
+            "Type": "Float",
+            "Value": [
+              "24.3"
+            ]
+          },
+          {
+            "ID": "c2d61f9f-327d-4018-94bf-e52fb76a9f01",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "MultiplyAlpha",
+      "MetaInstanceID": "97704cb0-eaeb-456d-b0fa-ea9a343dc69b",
+      "MetaID": "f168564c-8327-46fb-b697-56eda902bfd4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "870.892175712984",
+        "PosY": "-193.256725609329",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Clamp",
+      "MetaInstanceID": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "MetaID": "24929321-07b0-4c57-a175-765bccf0661b",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1764.50526764066",
+        "PosY": "4.02786790091579",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "GlassBall",
+      "MetaInstanceID": "7accfa51-5010-49b6-9a00-156461d4ac89",
+      "MetaID": "39a35ed5-9504-49d2-97fe-ddf646d37ffe",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1813.67747208212",
+        "PosY": "-218.726900930125",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "ValueToString",
+      "MetaInstanceID": "695bed68-a747-4858-89bf-80ab7be54faa",
+      "MetaID": "f4bdf94a-edc1-46f5-8670-5549e097e6db",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2057.27934190317",
+        "PosY": "-251.935367554705",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9fc24226-ce64-4107-8230-ca8c7b73a65d",
+            "Type": "Text",
+            "Value": [
+              "{0:0}"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "FlatShader",
+      "MetaInstanceID": "ce8e9b50-7fff-4624-b999-35065757ae20",
+      "MetaID": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2204.33479526575",
+        "PosY": "-267.519527864358",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "True",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "OuterRing",
+      "MetaInstanceID": "77ffa97a-ade5-4afc-9775-aec96d5bb950",
+      "MetaID": "101dc4c1-fcf3-4e15-a6d6-73a0b2c11ff3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1106.01736744519",
+        "PosY": "-296.243010746618",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "GlowOnTop",
+      "MetaInstanceID": "c830655d-8177-4d09-bb5a-b68960457fe2",
+      "MetaID": "358f4d3d-9baa-4973-8f6f-052b1d46137f",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1736.1022176093",
+        "PosY": "-344.041114289933",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "1bea4a27-6803-43d7-9f24-511b29e4bdeb",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "+ InnerShade",
+        "PosX": "970.892175712984",
+        "PosY": "-268.25672560933",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Multiply",
+      "MetaInstanceID": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "MetaID": "f35f6533-1b97-4c8f-af4d-806456259dc3",
+      "OperatorProperties": {
+        "Name": "= MaxSpeed",
+        "PosX": "1814.50526764067",
+        "PosY": "29.0278679009181",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "46f9431b-e1d4-4b2d-9777-f2f1b10162e5",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1863.67747208212",
+        "PosY": "-268.726900930124",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "48484017-b813-478e-b47a-56f3cb2375dc",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1863.67747208212",
+        "PosY": "-243.726900930125",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "OuterRingValueGlow",
+      "MetaInstanceID": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "MetaID": "3d0e9ffa-9453-4b94-8190-4e493ec88aec",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1639.84832498611",
+        "PosY": "-285.929245545992",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Remap",
+      "MetaInstanceID": "c32a03ed-c81c-45de-87d6-34c3a93e20fd",
+      "MetaID": "0224a539-b443-455e-b426-3106bb2879ef",
+      "OperatorProperties": {
+        "Name": "-> rotY",
+        "PosX": "2068.12926416228",
+        "PosY": "31.3947555086146",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "e47556d1-0954-4336-86b9-26b9f05c5924",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "a7cf5cdd-80ab-47cc-b60f-e332b7cf4c9f",
+            "Type": "Float",
+            "Value": [
+              "-264.4"
+            ]
+          },
+          {
+            "ID": "3d1b280b-6f37-4c53-ab66-ad24603db387",
+            "Type": "Float",
+            "Value": [
+              "249.3"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Remap",
+      "MetaInstanceID": "3f957006-e9a1-4b23-94a6-861b38a020df",
+      "MetaID": "0224a539-b443-455e-b426-3106bb2879ef",
+      "OperatorProperties": {
+        "Name": "-> rotX",
+        "PosX": "1948.67791207293",
+        "PosY": "-8.17471171359284",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "e47556d1-0954-4336-86b9-26b9f05c5924",
+            "Type": "Float",
+            "Value": [
+              "-0.3"
+            ]
+          },
+          {
+            "ID": "c5955e65-44d4-476b-9def-e4501a8edfb7",
+            "Type": "Float",
+            "Value": [
+              "0.3"
+            ]
+          },
+          {
+            "ID": "a7cf5cdd-80ab-47cc-b60f-e332b7cf4c9f",
+            "Type": "Float",
+            "Value": [
+              "-41"
+            ]
+          },
+          {
+            "ID": "3d1b280b-6f37-4c53-ab66-ad24603db387",
+            "Type": "Float",
+            "Value": [
+              "17.8"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Canvas",
+      "MetaInstanceID": "039f8b08-b2bf-4939-9eb7-9f513d2b7761",
+      "MetaID": "65ee8537-143f-44f1-a167-b9339fdf551e",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1852.04832460953",
+        "PosY": "-156.268840462713",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "caf5144d-7da7-482a-8c8b-ea35c88509cc",
+            "Type": "Float",
+            "Value": [
+              "0.1673302"
+            ]
+          },
+          {
+            "ID": "daa22902-6de3-4146-bb07-0c6964872336",
+            "Type": "Float",
+            "Value": [
+              "0.2196078"
+            ]
+          },
+          {
+            "ID": "2f3b6b5e-99f8-4e3e-b115-427313d507db",
+            "Type": "Float",
+            "Value": [
+              "0.2108247"
+            ]
+          },
+          {
+            "ID": "a82fb75a-f132-4ea6-8050-ae94f586577b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "1bea4a27-6803-43d7-9f24-511b29e4bdeb",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "77ffa97a-ade5-4afc-9775-aec96d5bb950",
+      "SourceOpPart": "10867c2b-8882-46e8-acf1-c6c87ce2431c",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "fb2b5b1c-ff32-4edc-bdfb-8fb00e123acf",
+      "SourceOpPart": "57ea0151-a231-4286-ab0f-d5a563f0c6d0",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "SourceOpPart": "deab83c7-9ea6-45fc-bb13-abd2d2738788",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "SourceOpPart": "0d2ce99c-b026-4a3f-95e6-3cd3c37df894",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "SourceOpPart": "644a28ee-89e3-439f-8ff4-7ff84cb08a01",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "c830655d-8177-4d09-bb5a-b68960457fe2",
+      "SourceOpPart": "91ce46dd-5754-447a-a6ee-3cdbde1019c9",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "46f9431b-e1d4-4b2d-9777-f2f1b10162e5",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "c9f7eb05-c15b-448e-ace5-83535ff72bc9",
+      "SourceOpPart": "be6eba3a-90cd-4820-b5c5-0a65b2a77cb7",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "ce8e9b50-7fff-4624-b999-35065757ae20",
+      "SourceOpPart": "bdf97c80-3750-4c02-90c7-5e2d30e4782a",
+      "TargetOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "40022ef4-344f-4651-82da-064a1060b920",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "5fe91479-42eb-4551-a05c-f80b066ae004",
+      "TargetOpPart": "3ac02d74-c136-4d8e-ab18-ac069267a903"
+    },
+    {
+      "SourceOp": "36e58eaa-542d-4b5f-8324-af64b33713be",
+      "SourceOpPart": "3893f28d-7734-40bb-9858-9b853dc00cd6",
+      "TargetOp": "a0705556-a267-4a14-ad5f-23e9bf6e8369",
+      "TargetOpPart": "d592f5cd-d8d7-4b7b-80d9-aed9ad9d03f0"
+    },
+    {
+      "SourceOp": "97704cb0-eaeb-456d-b0fa-ea9a343dc69b",
+      "SourceOpPart": "5be9ab13-c521-48ec-be1f-c6904b961adc",
+      "TargetOp": "36e58eaa-542d-4b5f-8324-af64b33713be",
+      "TargetOpPart": "a5cc5c73-a109-453e-b2dc-2d2bc8b2800c"
+    },
+    {
+      "SourceOp": "96fe6c04-ad0f-488e-9c9c-113cc8a9a3c8",
+      "SourceOpPart": "6843c72b-ff3c-4f4b-a875-d4cae7be8475",
+      "TargetOp": "97704cb0-eaeb-456d-b0fa-ea9a343dc69b",
+      "TargetOpPart": "7ccf0058-d223-458d-aac4-06c2f2db4f48"
+    },
+    {
+      "SourceOp": "842f1bdb-71da-4bf3-a866-7cbbd4044581",
+      "SourceOpPart": "6843c72b-ff3c-4f4b-a875-d4cae7be8475",
+      "TargetOp": "97704cb0-eaeb-456d-b0fa-ea9a343dc69b",
+      "TargetOpPart": "8fc02e00-a121-4ce7-9685-5b8f190060b1"
+    },
+    {
+      "SourceOp": "73676817-546c-4d90-95ac-ab936fa37c0e",
+      "SourceOpPart": "4e9e0165-9d0e-4f5d-9f1b-9866ef266ff8",
+      "TargetOp": "ce8e9b50-7fff-4624-b999-35065757ae20",
+      "TargetOpPart": "df4db8cd-470f-4398-b82e-e4190e2bd577"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df930a68-00a4-4014-a5ff-6b6f6c11c65c",
+      "TargetOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "TargetOpPart": "49223fae-2135-4b59-80fa-5326846b7cf2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5311ac5c-e9ce-4bfd-a575-60b91d0d08e9",
+      "TargetOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "TargetOpPart": "4c46fdc4-ec30-41ad-b7c5-1dbb456d3c1e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5311ac5c-e9ce-4bfd-a575-60b91d0d08e9",
+      "TargetOp": "fb2b5b1c-ff32-4edc-bdfb-8fb00e123acf",
+      "TargetOpPart": "39d5c8d0-8b4e-4a25-8c07-14efd33f5fb7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1bf963f0-994a-49dc-a8e6-b1bd4c0f2000",
+      "TargetOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "TargetOpPart": "d6f170b2-a21a-4aec-b593-960d357daaaa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b2a71eef-ecfa-41ed-bb73-088976502bd7",
+      "TargetOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "TargetOpPart": "ef8de703-51b9-4081-8744-ee54d569e1cf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1bf963f0-994a-49dc-a8e6-b1bd4c0f2000",
+      "TargetOp": "fb2b5b1c-ff32-4edc-bdfb-8fb00e123acf",
+      "TargetOpPart": "a64d79f7-9081-4348-9c6e-8f15f69da604"
+    },
+    {
+      "SourceOp": "695bed68-a747-4858-89bf-80ab7be54faa",
+      "SourceOpPart": "e2435b32-87ff-43f9-ac3e-8aa88c751611",
+      "TargetOp": "c9f7eb05-c15b-448e-ace5-83535ff72bc9",
+      "TargetOpPart": "f5acd9de-809a-4cca-99c0-4aa3ecb0651a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1bf963f0-994a-49dc-a8e6-b1bd4c0f2000",
+      "TargetOp": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "TargetOpPart": "4529ed34-754a-48da-8772-4ea14d59c567"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df930a68-00a4-4014-a5ff-6b6f6c11c65c",
+      "TargetOp": "fb2b5b1c-ff32-4edc-bdfb-8fb00e123acf",
+      "TargetOpPart": "fc42713e-e6be-4f15-bf75-b4df62bb1a36"
+    },
+    {
+      "SourceOp": "5fe91479-42eb-4551-a05c-f80b066ae004",
+      "SourceOpPart": "406baddd-54fb-46a3-a3fd-4b27129ca57e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5ba9b017-82b3-46df-8cca-cbde79e35947"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b2a71eef-ecfa-41ed-bb73-088976502bd7",
+      "TargetOp": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "TargetOpPart": "6d55fd01-765b-4b44-831e-a5c52bbbec94"
+    },
+    {
+      "SourceOp": "a0705556-a267-4a14-ad5f-23e9bf6e8369",
+      "SourceOpPart": "8d0455d2-bdcc-4198-8a29-616a4dcfa635",
+      "TargetOp": "1bea4a27-6803-43d7-9f24-511b29e4bdeb",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "7accfa51-5010-49b6-9a00-156461d4ac89",
+      "SourceOpPart": "7c044822-6e1a-4db8-863c-3f724190979d",
+      "TargetOp": "48484017-b813-478e-b47a-56f3cb2375dc",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "48484017-b813-478e-b47a-56f3cb2375dc",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "46f9431b-e1d4-4b2d-9777-f2f1b10162e5",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df930a68-00a4-4014-a5ff-6b6f6c11c65c",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "ea04f9f1-5a6d-4fc8-84d1-6227873a386f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5311ac5c-e9ce-4bfd-a575-60b91d0d08e9",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "5c648e50-75d3-4c94-bfdc-10eb53f1124e"
+    },
+    {
+      "SourceOp": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "SourceOpPart": "f25b1ce2-b251-4f1e-8714-652e91b23570",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "2b85699e-eed1-43a6-829f-a7b9dde6c2e0"
+    },
+    {
+      "SourceOp": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "SourceOpPart": "f25b1ce2-b251-4f1e-8714-652e91b23570",
+      "TargetOp": "695bed68-a747-4858-89bf-80ab7be54faa",
+      "TargetOpPart": "8232f28d-c11a-492b-9dca-a394437a094e"
+    },
+    {
+      "SourceOp": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "SourceOpPart": "766805e8-b9a1-4b39-905e-9a09fcbce793",
+      "TargetOp": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "TargetOpPart": "2eeeeb39-f55f-4b28-b23f-6aa48e612fb2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df930a68-00a4-4014-a5ff-6b6f6c11c65c",
+      "TargetOp": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "TargetOpPart": "220e9105-49c7-47bd-b50d-74294e3402a2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5311ac5c-e9ce-4bfd-a575-60b91d0d08e9",
+      "TargetOp": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "TargetOpPart": "b35ebdb4-7786-4676-811e-3ee7c49ed58a"
+    },
+    {
+      "SourceOp": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "SourceOpPart": "766805e8-b9a1-4b39-905e-9a09fcbce793",
+      "TargetOp": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "TargetOpPart": "ccb5ad01-6375-4146-81dd-6639f6602b2c"
+    },
+    {
+      "SourceOp": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "SourceOpPart": "f25b1ce2-b251-4f1e-8714-652e91b23570",
+      "TargetOp": "68ec0446-8cba-4dbe-8a88-f7503faaca7c",
+      "TargetOpPart": "251900ef-853a-4c34-a0ea-51827758118e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e62d9bfe-c009-4d7d-a2e6-52b4cf0b2987",
+      "TargetOp": "3f957006-e9a1-4b23-94a6-861b38a020df",
+      "TargetOpPart": "5fa1199d-166e-42ed-9013-13b3dc238a75"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2ce64cf2-534e-4ee6-a2fd-58934e2039c1",
+      "TargetOp": "c32a03ed-c81c-45de-87d6-34c3a93e20fd",
+      "TargetOpPart": "5fa1199d-166e-42ed-9013-13b3dc238a75"
+    },
+    {
+      "SourceOp": "3f957006-e9a1-4b23-94a6-861b38a020df",
+      "SourceOpPart": "fb40ef14-6cc7-43dd-95b1-65b2cbcc43e8",
+      "TargetOp": "46f9431b-e1d4-4b2d-9777-f2f1b10162e5",
+      "TargetOpPart": "2343bec5-a0f6-4be1-86a3-269b903c30cb"
+    },
+    {
+      "SourceOp": "c32a03ed-c81c-45de-87d6-34c3a93e20fd",
+      "SourceOpPart": "fb40ef14-6cc7-43dd-95b1-65b2cbcc43e8",
+      "TargetOp": "48484017-b813-478e-b47a-56f3cb2375dc",
+      "TargetOpPart": "e0d14c7f-5f6c-4739-9e91-93504480bc35"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "21890f7b-fd52-49c4-949b-8f121c7ede06",
+      "TargetOp": "e93ba251-3e5c-441f-9029-25e4ef66cd53",
+      "TargetOpPart": "bd264e86-8f2c-4b8a-94f0-3661d1ac1b28"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b2a71eef-ecfa-41ed-bb73-088976502bd7",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "4d3a7c72-f26a-4cb8-93d4-57e293a983e1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b2a71eef-ecfa-41ed-bb73-088976502bd7",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "11c09759-b60e-4f40-b040-e8b53ae0870d"
+    },
+    {
+      "SourceOp": "0a2671f0-1362-45d2-a336-56b5c5767821",
+      "SourceOpPart": "766805e8-b9a1-4b39-905e-9a09fcbce793",
+      "TargetOp": "7f7de3e1-985f-479e-9fe5-717b79727fda",
+      "TargetOpPart": "f58462e9-da88-4b6b-9277-c2d3861ad1a0"
+    },
+    {
+      "SourceOp": "039f8b08-b2bf-4939-9eb7-9f513d2b7761",
+      "SourceOpPart": "b8881370-4312-4973-9aff-d9caa5002c5c",
+      "TargetOp": "7accfa51-5010-49b6-9a00-156461d4ac89",
+      "TargetOpPart": "50119767-ed54-4a88-bb7d-07a91387c999"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "20d0df59-017e-4254-bce5-e179844e7c5b",
+      "TargetOp": "cd339465-b4ee-4f32-beb4-0245fe05233b",
+      "TargetOpPart": "70dff851-8525-4069-8c95-1dcc38bfbe09"
+    }
+  ]
+}

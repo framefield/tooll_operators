@@ -1,0 +1,167 @@
+{
+  "Name": "VideoTextureTest",
+  "_id": "62ac632e-5eda-4464-b5d0-1c9fc4becfcd",
+  "Namespace": "projects.scene-org.research",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "863deb75-db4b-4244-ae98-02dc264d0864",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "cd5b2553-7560-43bd-98fb-da417d7fdbcf",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "94.1862559922392",
+        "PosY": "-20.5171698765845",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Cube (Dep.)",
+      "MetaInstanceID": "135a5eef-a07f-46b6-b850-95e545a8cc31",
+      "MetaID": "61ab8b9e-0b3b-4e94-9e95-a481dc51dadc",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "94.1862559922392",
+        "PosY": "54.4828301234155",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "31bf80d7-8eda-4505-b418-2b013d3a2e74",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "94.1862559922392",
+        "PosY": "29.4828301234155",
+        "Width": "225",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SceneRepeat",
+      "MetaInstanceID": "92ebabd6-1c6a-4f43-8c75-47db3dc6eb8b",
+      "MetaID": "50735cb2-86ef-47cd-8bee-e897157e05cf",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "94.1862559922392",
+        "PosY": "4.48283012341545",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "d07042d9-262e-4927-a0a6-b82fa9ea5f38",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "70650fcb-3d2c-4d12-8d6f-617a6c55b7a7",
+            "Type": "Float",
+            "Value": [
+              "25"
+            ]
+          },
+          {
+            "ID": "663f62ff-f348-4f81-9326-3f596ad18a34",
+            "Type": "Float",
+            "Value": [
+              "16"
+            ]
+          },
+          {
+            "ID": "ab33ed3f-430a-491f-8613-ea83c2b87d33",
+            "Type": "Float",
+            "Value": [
+              "1.23"
+            ]
+          },
+          {
+            "ID": "e3be34aa-f839-4d6d-928d-c07091b75e7f",
+            "Type": "Float",
+            "Value": [
+              "1.1"
+            ]
+          },
+          {
+            "ID": "95828319-c454-4090-a5d3-c88964c3c93b",
+            "Type": "Float",
+            "Value": [
+              "20"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadVideoWrapper",
+      "MetaInstanceID": "d0b9716f-e2fc-488a-b5bb-3b966f7a02a5",
+      "MetaID": "a3b7d67b-9667-401d-92c1-364dfc64eadc",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "289.186255992239",
+        "PosY": "134.482830123416",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "135a5eef-a07f-46b6-b850-95e545a8cc31",
+      "SourceOpPart": "47e7fa71-e911-4393-a88f-99b4c29505ba",
+      "TargetOp": "31bf80d7-8eda-4505-b418-2b013d3a2e74",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "31bf80d7-8eda-4505-b418-2b013d3a2e74",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "92ebabd6-1c6a-4f43-8c75-47db3dc6eb8b",
+      "TargetOpPart": "60dcdcb4-17da-4524-ae36-cfdf005ff114"
+    },
+    {
+      "SourceOp": "92ebabd6-1c6a-4f43-8c75-47db3dc6eb8b",
+      "SourceOpPart": "1a0f9a44-d771-4071-8149-ea7386a13746",
+      "TargetOp": "cd5b2553-7560-43bd-98fb-da417d7fdbcf",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "cd5b2553-7560-43bd-98fb-da417d7fdbcf",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "863deb75-db4b-4244-ae98-02dc264d0864"
+    },
+    {
+      "SourceOp": "d0b9716f-e2fc-488a-b5bb-3b966f7a02a5",
+      "SourceOpPart": "9fc78bb8-81ca-4547-9431-3ec625505536",
+      "TargetOp": "31bf80d7-8eda-4505-b418-2b013d3a2e74",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "Name": "ReadDynamic",
+  "_id": "e6e25688-3993-4cb8-9998-532953b9ca77",
+  "Namespace": "lib.basic",
+  "Description": "\t\r\n",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "debd4be2-28db-4926-bcea-7384397472e9",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "8423720f-ea36-44bb-82ad-5bcdba2d9878",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7a540f43-22d8-42af-8c36-5de13b95f261",
+      "MetaID": "97676d40-b6b2-45d0-86b6-979cffd6c2b1",
+      "Name": "ReadDynamicFunc",
+      "Version": "c4036099-8f66-4538-b9d0-ab9c325180cd",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID97676d40_b6b2_45d0_86b6_979cffd6c2b1",
+        "{",
+        "    public class Class_ReadDynamic : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            dynamic obj = inputs[0].Eval(context).Dynamic;",
+        "",
+        "            Logger.Info(this,\"Title {0}\", obj.Title);",
+        "            foreach (var item in obj.Items) {",
+        "                Logger.Info(this,\"{0}\", item);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "debd4be2-28db-4926-bcea-7384397472e9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7a540f43-22d8-42af-8c36-5de13b95f261"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7a540f43-22d8-42af-8c36-5de13b95f261",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8423720f-ea36-44bb-82ad-5bcdba2d9878"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "Name": "OverrideTime",
+  "_id": "d2ecff60-8d2f-463f-a5dc-658f0678b9f8",
+  "Namespace": "lib.testing",
+  "Description": "Overrides the time within the subtree by the given value.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "e7f954c0-87d0-469d-821b-4ddd419f7ae2",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "8d554da1-4e56-403e-a873-8b729f560b74",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "744ed4c8-70da-42b5-8680-64fb94625bc6",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "1bbe022b-f13a-4808-998c-4068f1da4998",
+      "MetaID": "61383656-2268-46b8-b785-1b803c8b8681",
+      "Name": "OverrideTimeFunc",
+      "Version": "e6dc35a2-f3c8-4171-942d-b73139253207",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID61383656_2268_46b8_b785_1b803c8b8681",
+        "{",
+        "    public class Class_OverrideTime : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            Time = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params ",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var Time = inputs[(int)InputId.Time].Eval(context).Value;",
+        "            //<<< _params ",
+        "",
+        "            var oldTime = context.Time;",
+        "            context.Time = Time;",
+        "",
+        "            var invalidator = new OperatorPart.InvalidateTimeAccessors();",
+        "            Input.TraverseWithFunction(null, invalidator);",
+        "            Input.Eval(context);",
+        "",
+        "            context.Time = oldTime;",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e7f954c0-87d0-469d-821b-4ddd419f7ae2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1bbe022b-f13a-4808-998c-4068f1da4998"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8d554da1-4e56-403e-a873-8b729f560b74",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1bbe022b-f13a-4808-998c-4068f1da4998"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1bbe022b-f13a-4808-998c-4068f1da4998",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "744ed4c8-70da-42b5-8680-64fb94625bc6"
+    }
+  ]
+}

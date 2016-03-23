@@ -1,0 +1,332 @@
+{
+  "Name": "DepthStencilState",
+  "_id": "1d26967e-8334-4a3a-950c-8dd99e1e83b2",
+  "Namespace": "lib.3d.material",
+  "Description": "Sets a new depth state.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "0f2e7649-f88c-4567-8f5a-71fbe1fb82dd",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "DepthEnabled",
+      "MetaInstanceID": "ca62ba5e-1128-4f9f-8d73-600b55b29abe",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "DepthWriteMask",
+      "MetaInstanceID": "e071f0de-6f65-4b43-8f71-a402979fe647",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Zero",
+          "Value": "0"
+        },
+        {
+          "Name": "All",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Comparison",
+      "MetaInstanceID": "0bcb8428-22a2-4851-928c-4b69f1bd8963",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "8",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Never",
+          "Value": "1"
+        },
+        {
+          "Name": "Less",
+          "Value": "2"
+        },
+        {
+          "Name": "Equal",
+          "Value": "3"
+        },
+        {
+          "Name": "Less Equal",
+          "Value": "4"
+        },
+        {
+          "Name": "Greater",
+          "Value": "5"
+        },
+        {
+          "Name": "Not Equal",
+          "Value": "6"
+        },
+        {
+          "Name": "Greater Equal",
+          "Value": "7"
+        },
+        {
+          "Name": "Always",
+          "Value": "8"
+        }
+      ]
+    },
+    {
+      "Name": "StencilEnabled",
+      "MetaInstanceID": "dd1f3232-9fe2-4c82-bdf7-a566099c607b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "StencilReadMask",
+      "MetaInstanceID": "b7ecaa60-9d44-4d5b-8d03-9d1b29ca5588",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "255"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "255",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "StencilWriteMask",
+      "MetaInstanceID": "0be13da1-d1ce-410c-b6c7-574fbf82a830",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "255"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "255",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "2aba35a1-077a-4ebe-8c82-ae84f3ce6e59",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "03459cab-1690-4cf2-99e9-251b24103374",
+      "MetaID": "fda84d27-f278-440b-baf9-4a41fcd7e929",
+      "Name": "DepthStencilStateFunc",
+      "Version": "678ff946-dc2f-426d-94ea-ea69e6fe3404",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDfda84d27_f278_440b_baf9_4a41fcd7e929",
+        "{",
+        "    public class Class_DepthStencilState : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            DepthEnabled = 1,",
+        "            DepthWriteMask = 2,",
+        "            Comparison = 3,",
+        "            StencilEnabled = 4,",
+        "            StencilReadMask = 5,",
+        "            StencilWriteMask = 6",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _depthStencilState);",
+        "            base.Dispose();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var DepthEnabled = (int) inputs[(int)InputId.DepthEnabled].Eval(context).Value;",
+        "            var DepthWriteMask = (int) inputs[(int)InputId.DepthWriteMask].Eval(context).Value;",
+        "            var Comparison = (int) inputs[(int)InputId.Comparison].Eval(context).Value;",
+        "            var StencilEnabled = (int) inputs[(int)InputId.StencilEnabled].Eval(context).Value;",
+        "            var StencilReadMask = inputs[(int)InputId.StencilReadMask].Eval(context).Value;",
+        "            var StencilWriteMask = inputs[(int)InputId.StencilWriteMask].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if (Changed)",
+        "            {",
+        "                var depthStencilDescription = new DepthStencilStateDescription();",
+        "                depthStencilDescription.DepthComparison = (Comparison) Comparison;",
+        "                depthStencilDescription.DepthWriteMask = (DepthWriteMask) DepthWriteMask;",
+        "                depthStencilDescription.IsDepthEnabled = DepthEnabled == 1.0f ? true : false;",
+        "                depthStencilDescription.IsStencilEnabled = StencilEnabled == 1.0f ? true : false;",
+        "                depthStencilDescription.StencilReadMask = (byte) StencilReadMask;",
+        "                depthStencilDescription.StencilWriteMask = (byte) StencilWriteMask;",
+        "                //depthStencilDescription.BackFace = ;",
+        "                //depthStencilDescription.FrontFace = ;",
+        "    ",
+        "                Utilities.DisposeObj(ref _depthStencilState);",
+        "                _depthStencilState = new DepthStencilState(context.D3DDevice, depthStencilDescription);",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            var prevDepthState = context.DepthStencilState;",
+        "            context.DepthStencilState = _depthStencilState;",
+        "            SceneInput.Eval(context);",
+        "            context.DepthStencilState = prevDepthState;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        private DepthStencilState _depthStencilState;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0f2e7649-f88c-4567-8f5a-71fbe1fb82dd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ca62ba5e-1128-4f9f-8d73-600b55b29abe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e071f0de-6f65-4b43-8f71-a402979fe647",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0bcb8428-22a2-4851-928c-4b69f1bd8963",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dd1f3232-9fe2-4c82-bdf7-a566099c607b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b7ecaa60-9d44-4d5b-8d03-9d1b29ca5588",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0be13da1-d1ce-410c-b6c7-574fbf82a830",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03459cab-1690-4cf2-99e9-251b24103374"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "03459cab-1690-4cf2-99e9-251b24103374",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2aba35a1-077a-4ebe-8c82-ae84f3ce6e59"
+    }
+  ]
+}

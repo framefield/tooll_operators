@@ -1,0 +1,332 @@
+{
+  "Name": "SunFlower",
+  "_id": "ad8fc41d-8d8e-490f-bbb7-6d51531a72f6",
+  "Namespace": "examples.basic",
+  "Description": "A simple example how to use [For i] to create a sunflower pattern by instanciating [Spheres]. It uses the simple formula...\r\n\r\nr=c*sqrt( n );\r\nphi= n x 137.508°\r\n\r\n...to rotate and offset the geometry.",
+  "Inputs": [
+    {
+      "Name": "Scale",
+      "MetaInstanceID": "c5649d82-4b10-4946-8929-33a42c3a7f0d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Count",
+      "MetaInstanceID": "17bd129b-5146-4044-88d6-3ca660b0d261",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "200"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ItemScale",
+      "MetaInstanceID": "997753cd-6ceb-4b98-8a5e-128b8b4f884f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.6"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.001",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "c70aceea-89ad-4c75-ad63-99a62f24c124",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "6e9ce3f5-a681-460a-881e-794863135989",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> Offset",
+        "PosX": "-23.3333333333329",
+        "PosY": "84.9609523442299",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Sqrt",
+      "MetaInstanceID": "9fa784a6-7bed-462c-bad4-e414537f436e",
+      "MetaID": "f41b1d85-3db7-441a-a900-4d0a050e7187",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "26.6666666666669",
+        "PosY": "159.96095234423",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "For i",
+      "MetaInstanceID": "527124d7-f492-4e0c-badc-ada646b79506",
+      "MetaID": "83650b78-7e0f-4e99-9052-d8b280125f5a",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-23.3333333333329",
+        "PosY": "59.9609523442299",
+        "Width": "300",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "303b709f-58a5-4e95-8d81-2b9f2b878de1",
+            "Type": "Text",
+            "Value": [
+              "i"
+            ]
+          },
+          {
+            "ID": "8f4f365f-cb46-416e-a9c7-1bf6670d85e3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "0a88bd51-00be-4556-92b2-1255377830fa",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "VariableValue",
+      "MetaInstanceID": "015adaa6-7655-4d7b-b996-20fe92618d3c",
+      "MetaID": "6e197eb7-db88-446e-a97f-18714ab25a10",
+      "OperatorProperties": {
+        "Name": "i",
+        "PosX": "76.666666666667",
+        "PosY": "134.96095234423",
+        "Width": "75",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1e5dbf21-9037-4c34-af03-bf5aa197b0ef",
+            "Type": "Text",
+            "Value": [
+              "i"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "VariableValue",
+      "MetaInstanceID": "26910f73-ad9a-4d31-b3d3-d1d3113c11ec",
+      "MetaID": "6e197eb7-db88-446e-a97f-18714ab25a10",
+      "OperatorProperties": {
+        "Name": "i",
+        "PosX": "26.6666666666669",
+        "PosY": "184.96095234423",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1e5dbf21-9037-4c34-af03-bf5aa197b0ef",
+            "Type": "Text",
+            "Value": [
+              "i"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "ba1944f5-930f-4735-8309-8a41b749b611",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> Rotate",
+        "PosX": "-73.3333333333329",
+        "PosY": "109.96095234423",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Sphere",
+      "MetaInstanceID": "7072a86f-12be-41d5-bc1c-0c54a595b0ec",
+      "MetaID": "a18d300e-150f-4935-817e-2499881f6173",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-73.333333333333",
+        "PosY": "134.96095234423",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "39d345e9-77a6-4b91-95e7-e5a1f4c6e5fd",
+            "Type": "Float",
+            "Value": [
+              "3.8"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Multiply",
+      "MetaInstanceID": "faef9749-1a24-4e03-95e2-3080be1ce594",
+      "MetaID": "f35f6533-1b97-4c8f-af4d-806456259dc3",
+      "OperatorProperties": {
+        "Name": "*= 137.5",
+        "PosX": "76.6666666666671",
+        "PosY": "109.96095234423",
+        "Width": "75",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "6d55fd01-765b-4b44-831e-a5c52bbbec94",
+            "Type": "Float",
+            "Value": [
+              "137.5"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Multiply",
+      "MetaInstanceID": "d1bb8c14-e175-4998-a5c8-24fed09d59d2",
+      "MetaID": "f35f6533-1b97-4c8f-af4d-806456259dc3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-23.333333333333",
+        "PosY": "134.96095234423",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "17bd129b-5146-4044-88d6-3ca660b0d261",
+      "TargetOp": "527124d7-f492-4e0c-badc-ada646b79506",
+      "TargetOpPart": "a85844ba-ced6-4eed-8cc4-61dceedfd7a7"
+    },
+    {
+      "SourceOp": "527124d7-f492-4e0c-badc-ada646b79506",
+      "SourceOpPart": "6079fa33-743d-45c8-98d6-490cfbbb16a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c70aceea-89ad-4c75-ad63-99a62f24c124"
+    },
+    {
+      "SourceOp": "26910f73-ad9a-4d31-b3d3-d1d3113c11ec",
+      "SourceOpPart": "3a993249-ffdd-4d8d-8410-5c32895eb01b",
+      "TargetOp": "9fa784a6-7bed-462c-bad4-e414537f436e",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "ba1944f5-930f-4735-8309-8a41b749b611",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "6e9ce3f5-a681-460a-881e-794863135989",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "015adaa6-7655-4d7b-b996-20fe92618d3c",
+      "SourceOpPart": "3a993249-ffdd-4d8d-8410-5c32895eb01b",
+      "TargetOp": "faef9749-1a24-4e03-95e2-3080be1ce594",
+      "TargetOpPart": "4529ed34-754a-48da-8772-4ea14d59c567"
+    },
+    {
+      "SourceOp": "faef9749-1a24-4e03-95e2-3080be1ce594",
+      "SourceOpPart": "766805e8-b9a1-4b39-905e-9a09fcbce793",
+      "TargetOp": "6e9ce3f5-a681-460a-881e-794863135989",
+      "TargetOpPart": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c5649d82-4b10-4946-8929-33a42c3a7f0d",
+      "TargetOp": "d1bb8c14-e175-4998-a5c8-24fed09d59d2",
+      "TargetOpPart": "4529ed34-754a-48da-8772-4ea14d59c567"
+    },
+    {
+      "SourceOp": "9fa784a6-7bed-462c-bad4-e414537f436e",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "d1bb8c14-e175-4998-a5c8-24fed09d59d2",
+      "TargetOpPart": "6d55fd01-765b-4b44-831e-a5c52bbbec94"
+    },
+    {
+      "SourceOp": "d1bb8c14-e175-4998-a5c8-24fed09d59d2",
+      "SourceOpPart": "766805e8-b9a1-4b39-905e-9a09fcbce793",
+      "TargetOp": "ba1944f5-930f-4735-8309-8a41b749b611",
+      "TargetOpPart": "7c9d6eed-8407-4342-ae4a-3163fd5d0659"
+    },
+    {
+      "SourceOp": "6e9ce3f5-a681-460a-881e-794863135989",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "527124d7-f492-4e0c-badc-ada646b79506",
+      "TargetOpPart": "7957cf5f-3299-459d-80f4-1e8101e87324"
+    },
+    {
+      "SourceOp": "7072a86f-12be-41d5-bc1c-0c54a595b0ec",
+      "SourceOpPart": "35bdb602-3da9-49a3-b711-5ee0a0639a5e",
+      "TargetOp": "ba1944f5-930f-4735-8309-8a41b749b611",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "997753cd-6ceb-4b98-8a5e-128b8b4f884f",
+      "TargetOp": "7072a86f-12be-41d5-bc1c-0c54a595b0ec",
+      "TargetOpPart": "0655dcfd-6c8b-4599-a884-ed88848c2258"
+    }
+  ]
+}

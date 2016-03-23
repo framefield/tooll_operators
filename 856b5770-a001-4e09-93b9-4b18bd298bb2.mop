@@ -1,0 +1,95 @@
+{
+  "Name": "StringListLength",
+  "_id": "856b5770-a001-4e09-93b9-4b18bd298bb2",
+  "Namespace": "lib.text.experimental",
+  "Description": "Gets the length of a Generic String List.\r\n",
+  "Inputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "f598323e-7705-473b-9c35-0a4bbc0365ad",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "78aa597f-23b0-485f-a2d3-3cc8031253b7",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "93280407-5447-4b98-9bd2-e1814f7e22ba",
+      "MetaID": "b1f7a9a9-f309-48dc-89ee-b11932cd4053",
+      "Name": "StringListLengthFunc",
+      "Version": "4710d867-1c8f-432d-beed-fd99a19b435c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.IDb1f7a9a9_f309_48dc_89ee_b11932cd4053",
+        "{",
+        "    public class Class_ReadDynamic : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StringList = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            dynamic StringList = inputs[(int)InputId.StringList].Eval(context).Dynamic;",
+        "            if(StringList == null) {",
+        "                Logger.Info(this,\"Can't convert incoming structure to Dynamic\");",
+        "                context.Value= -1;",
+        "                return context;",
+        "            }",
+        "            ",
+        "            context.Value= StringList.Count;            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f598323e-7705-473b-9c35-0a4bbc0365ad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93280407-5447-4b98-9bd2-e1814f7e22ba"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "93280407-5447-4b98-9bd2-e1814f7e22ba",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "78aa597f-23b0-485f-a2d3-3cc8031253b7"
+    }
+  ]
+}

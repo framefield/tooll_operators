@@ -1,0 +1,219 @@
+{
+  "Name": "HSB2RGB",
+  "_id": "ee6f22a1-a3bb-462d-b5b5-7f4ce52ef5bd",
+  "Namespace": "lib.math.experimental",
+  "Description": "Converts Hue, Saturation, Brightness to RGB values to compose a new color.",
+  "Inputs": [
+    {
+      "Name": "Hue",
+      "MetaInstanceID": "a505a52e-61d6-411f-9e7f-2869a1fcc542",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "360",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Saturation",
+      "MetaInstanceID": "57e6a7aa-b7b6-4f12-aca5-1c6faf4e4c5d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Brightness",
+      "MetaInstanceID": "aaedb5ad-00e6-4cbc-9884-72b8e1811a40",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "4a0813b8-ceee-49ed-af15-d22b5c5784dc",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "40d65696-c139-4267-9891-09d6bdc83d21",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "d30f0b08-9e6f-4c65-ad71-abc0a8dae4b4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "0615c9d3-b969-4e94-99e4-98b8c0f536fc",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e53eb68d-eee8-4244-9145-d1747ad602b5",
+      "MetaID": "624d15ea-de05-4913-8b76-3279ca4f1652",
+      "Name": "HSB2RGBFunc",
+      "Version": "a68e5fed-7471-4589-af80-5cd9424369f4",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID624d15ea_de05_4913_8b76_3279ca4f1652",
+        "{",
+        "    public class Class_HSB2RGB : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Hue = (float) inputs[0].Eval(context).Value;",
+        "            var Saturation = (float) inputs[1].Eval(context).Value;",
+        "            var Brightness = (float) inputs[2].Eval(context).Value;",
+        "            ",
+        "            ",
+        "            // Need to add something here...",
+        "            ",
+        "                // Calculate HSL (c2) from RGB Colour c1 (pSrc)",
+        "                // Hue is in degrees",
+        "                // Lightness is between 0 and 1",
+        "                // Saturation is between 0 and 1",
+        "            ",
+        "                var colors = new List<float>(2);",
+        "                //Logger.Debug(this,\"HSB: {0} {1} {2}\", Hue, Saturation, Brightness);",
+        "            ",
+        "                  float fSatR, fSatG, fSatB;",
+        "                  if (Hue < 120.0f) ",
+        "                  {",
+        "                    fSatR = (120.0f - Hue) / 60.0f;",
+        "                    fSatG = Hue / 60.0f;",
+        "                    fSatB = 0.0f;",
+        "                  } ",
+        "                  else if (Hue < 240.0f) ",
+        "                  {",
+        "                    fSatR = 0.0f;",
+        "                    fSatG = (240.0f - Hue) / 60.0f;",
+        "                    fSatB = (Hue - 120.0f) / 60.0f;",
+        "                  } ",
+        "                  else ",
+        "                  {",
+        "                    fSatR = (Hue - 240.0f) / 60.0f;",
+        "                    fSatG = 0.0f;",
+        "                    fSatB = (360.0f - Hue) / 60.0f;",
+        "                  }",
+        "                  fSatR = (fSatR < 1.0f) ? fSatR : 1.0f;",
+        "                  fSatG = (fSatG < 1.0f) ? fSatG : 1.0f;",
+        "                  fSatB = (fSatB < 1.0f) ? fSatB : 1.0f;",
+        "            ",
+        "                  float fTmpR = 2.0f * Saturation * fSatR + (1.0f - Saturation);",
+        "                  float fTmpG = 2.0f * Saturation * fSatG + (1.0f - Saturation);",
+        "                  float fTmpB = 2.0f * Saturation * fSatB + (1.0f - Saturation);",
+        "            ",
+        "                  float fR, fG, fB;",
+        "                  if (Brightness < 0.5f) ",
+        "                  {",
+        "                    fR = Brightness * fTmpR;",
+        "                    fG = Brightness * fTmpG;",
+        "                    fB = Brightness * fTmpB;",
+        "                  } ",
+        "                  else ",
+        "                  {",
+        "                    fR = (1.0f - Brightness) * fTmpR + 2.0f * Brightness - 1.0f;",
+        "                    fG = (1.0f - Brightness) * fTmpG + 2.0f * Brightness - 1.0f;",
+        "                    fB = (1.0f - Brightness) * fTmpB + 2.0f * Brightness - 1.0f;",
+        "                  }",
+        "                  ",
+        "                  colors.Add(fR);",
+        "                  colors.Add(fG);",
+        "                  colors.Add(fB);",
+        "                  ",
+        "                int index= (int)(outputIdx) % 3;",
+        "                context.Value = colors[index];",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a505a52e-61d6-411f-9e7f-2869a1fcc542",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "57e6a7aa-b7b6-4f12-aca5-1c6faf4e4c5d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aaedb5ad-00e6-4cbc-9884-72b8e1811a40",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a0813b8-ceee-49ed-af15-d22b5c5784dc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "40d65696-c139-4267-9891-09d6bdc83d21"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d30f0b08-9e6f-4c65-ad71-abc0a8dae4b4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e53eb68d-eee8-4244-9145-d1747ad602b5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0615c9d3-b969-4e94-99e4-98b8c0f536fc"
+    }
+  ]
+}

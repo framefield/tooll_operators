@@ -1,0 +1,153 @@
+{
+  "Name": "OSCMessageString",
+  "_id": "065d41d3-0ceb-4ae8-8bd9-75d41d5ce384",
+  "Namespace": "lib.user.lev",
+  "Description": "An OSC message containing a string value (s)",
+  "Inputs": [
+    {
+      "Name": "OSC Path",
+      "MetaInstanceID": "93bd3dfc-2b75-485e-b6eb-262e76a33003",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "/exampleString"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FrameMessages",
+      "MetaInstanceID": "f6d005ee-4b5c-4def-b73c-cfd36e6b8aae",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "e5647088-93f6-4c5c-9626-002739f96f60",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f8a809b1-7a63-4cd7-b75e-54f6d7e109c3",
+      "MetaID": "8a5fa784-ee95-4424-9274-d84f9d0c3b51",
+      "Name": "OSCMessageStringFunc",
+      "Version": "8ebe2e3c-cfed-4d64-9503-ce968632167a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "using System.Collections;",
+        "using OSC;",
+        "",
+        "namespace Framefield.Core.ID8a5fa784_ee95_4424_9274_d84f9d0c3b51",
+        "{",
+        "    public class Class_OSCMessageString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            OSCPath = 0,",
+        "            FrameMessages = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var OSCPath = inputs[(int)InputId.OSCPath].Eval(context).Text;",
+        "                var FrameMessages = inputs[(int)InputId.FrameMessages].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "                //<<< _params",
+        "                ",
+        "                if (FrameMessages != null)",
+        "                {",
+        "                    var dict = (IDictionary<string, OSCMessage>)FrameMessages;",
+        "                    OSCMessage msg;",
+        "                    ",
+        "                    if (dict.TryGetValue(OSCPath, out msg))",
+        "                    {",
+        "                        if (msg.Values.Count != 1)",
+        "                        {",
+        "                            Logger.Error(this, \"Expected 1 param, got \" + msg.Values.Count);",
+        "                            return context;",
+        "                        }",
+        "                        ",
+        "                        // This will convert anything to string, i.e. if the message",
+        "                        // contains a float value 1.0, the result will be \"1.0\"",
+        "                        // I think it may be useful in some cases, although it's not that strict as it could be",
+        "                        // if the check of the message type was performed (s).",
+        "                        _lastValue = Convert.ToString(msg.Values[0]);",
+        "                    }",
+        "                }",
+        "            ",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Text = _lastValue;",
+        "            return context;",
+        "        }",
+        "\t\t",
+        "\t\tprivate string _path;",
+        "\t\tprivate string _lastValue; ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": [
+        "Libs/OSC.dll"
+      ]
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "93bd3dfc-2b75-485e-b6eb-262e76a33003",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f8a809b1-7a63-4cd7-b75e-54f6d7e109c3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f6d005ee-4b5c-4def-b73c-cfd36e6b8aae",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f8a809b1-7a63-4cd7-b75e-54f6d7e109c3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f8a809b1-7a63-4cd7-b75e-54f6d7e109c3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5647088-93f6-4c5c-9626-002739f96f60"
+    }
+  ]
+}

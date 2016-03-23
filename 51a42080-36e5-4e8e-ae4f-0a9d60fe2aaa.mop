@@ -1,0 +1,125 @@
+{
+  "Name": "Modulo",
+  "_id": "51a42080-36e5-4e8e-ae4f-0a9d60fe2aaa",
+  "Namespace": "lib.math",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "f641b755-6f8d-454e-a6ac-60d518e53f31",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "39629cf3-af7c-4022-9494-0705275080c7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "da95a32f-fde6-4d06-a053-5394db6f46bf",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "060057d1-2593-421e-aaae-16b17a5d0495",
+      "MetaID": "f7d14553-613a-41b8-b356-73b4c53ce39f",
+      "Name": "ModuloFunc",
+      "Version": "6c57376d-a7ec-4d59-a5ac-ff520877ef1b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDf7d14553_613a_41b8_b356_73b4c53ce39f",
+        "{",
+        "    public class Class_Modulo : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value1 = 0,",
+        "            Value2 = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Value1 = inputs[(int)InputId.Value1].Eval(context).Value;",
+        "            var Value2 = inputs[(int)InputId.Value2].Eval(context).Value;",
+        "            //<<< _params",
+        "            //>>> function",
+        "            if (Value2 != 0) {",
+        "                context.Value= Value1 % Value2;",
+        "            }",
+        "            else {",
+        "                context.Value= 0.0f;",
+        "            }",
+        "            //<<< function",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f641b755-6f8d-454e-a6ac-60d518e53f31",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "060057d1-2593-421e-aaae-16b17a5d0495"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "39629cf3-af7c-4022-9494-0705275080c7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "060057d1-2593-421e-aaae-16b17a5d0495"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "060057d1-2593-421e-aaae-16b17a5d0495",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "da95a32f-fde6-4d06-a053-5394db6f46bf"
+    }
+  ]
+}

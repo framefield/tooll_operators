@@ -1,0 +1,244 @@
+{
+  "Name": "Remap",
+  "_id": "0224a539-b443-455e-b426-3106bb2879ef",
+  "Namespace": "lib.math",
+  "Description": "Maps a value from an input range to an output range.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "5fa1199d-166e-42ed-9013-13b3dc238a75",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RangeIn.Min",
+      "MetaInstanceID": "e47556d1-0954-4336-86b9-26b9f05c5924",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RangeIn.Max",
+      "MetaInstanceID": "c5955e65-44d4-476b-9def-e4501a8edfb7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RangeOut.Min",
+      "MetaInstanceID": "a7cf5cdd-80ab-47cc-b60f-e332b7cf4c9f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-1000000",
+      "Max": "1000000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RangeOut.Max",
+      "MetaInstanceID": "3d1b280b-6f37-4c53-ab66-ad24603db387",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-1000000",
+      "Max": "1000000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Clamp",
+      "MetaInstanceID": "ff7b4a77-3037-48db-9cde-d2cf2a720f68",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "fb40ef14-6cc7-43dd-95b1-65b2cbcc43e8",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "637752b3-0675-4ef3-871c-876a47d1efbc",
+      "MetaID": "c23d5528-0970-4a95-9513-17211324a213",
+      "Name": "RemapFunc",
+      "Version": "c551f363-7e5f-4c81-bc02-e0248e26643d",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDc23d5528_0970_4a95_9513_17211324a213",
+        "{",
+        "    public class Class_Remap : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            RangeInMin = 1,",
+        "            RangeInMax = 2,",
+        "            RangeOutMin = 3,",
+        "            RangeOutMax = 4,",
+        "            Clamp = 5",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var RangeInMin = inputs[(int)InputId.RangeInMin].Eval(context).Value;",
+        "            var RangeInMax = inputs[(int)InputId.RangeInMax].Eval(context).Value;",
+        "            var RangeIn = new Vector2(RangeInMin, RangeInMax);",
+        "            var RangeOutMin = inputs[(int)InputId.RangeOutMin].Eval(context).Value;",
+        "            var RangeOutMax = inputs[(int)InputId.RangeOutMax].Eval(context).Value;",
+        "            var RangeOut = new Vector2(RangeOutMin, RangeOutMax);",
+        "            var Clamp = (int) inputs[(int)InputId.Clamp].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            float factor = (Value - RangeInMin)/(RangeInMax - RangeInMin);",
+        "            var v =factor*(RangeOutMax - RangeOutMin) + RangeOutMin;",
+        "            ",
+        "            ",
+        "            if( RangeOutMin > RangeOutMax) {",
+        "                var t = RangeOutMin;",
+        "                RangeOutMin = RangeOutMax;",
+        "                RangeOutMax = t;",
+        "            }",
+        "            ",
+        "            if( Clamp > 0.5f) ",
+        "                v = Utilities.Clamp(v, RangeOutMin, RangeOutMax);",
+        "            ",
+        "            context.Value = v;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5fa1199d-166e-42ed-9013-13b3dc238a75",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e47556d1-0954-4336-86b9-26b9f05c5924",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c5955e65-44d4-476b-9def-e4501a8edfb7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a7cf5cdd-80ab-47cc-b60f-e332b7cf4c9f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d1b280b-6f37-4c53-ab66-ad24603db387",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ff7b4a77-3037-48db-9cde-d2cf2a720f68",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "637752b3-0675-4ef3-871c-876a47d1efbc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fb40ef14-6cc7-43dd-95b1-65b2cbcc43e8"
+    }
+  ]
+}

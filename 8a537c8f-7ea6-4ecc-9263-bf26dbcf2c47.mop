@@ -1,0 +1,172 @@
+{
+  "Name": "OSCMessageFloat",
+  "_id": "8a537c8f-7ea6-4ecc-9263-bf26dbcf2c47",
+  "Namespace": "lib.user.lev",
+  "Description": "An OSC message containing a single float value (f)",
+  "Inputs": [
+    {
+      "Name": "OSC Path",
+      "MetaInstanceID": "ee78be04-0f41-43bc-9582-3d385015d08c",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "/example"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FrameMessages",
+      "MetaInstanceID": "06838271-9da5-4f52-a7e5-58ba9f5cbd75",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "716a02fa-a59f-4a73-b1c1-76a52392acd4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "05ad9f8b-6a84-442a-84a6-fe201a1c2aa1",
+      "MetaID": "1913dbfc-3a00-4798-a6e2-91d6a5feee94",
+      "Name": "OSCMessageFloatFunc",
+      "Version": "3a64bb8b-6638-47c1-b92b-e029b80a34cf",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "using System.Collections;",
+        "using OSC;",
+        "",
+        "namespace Framefield.Core.ID1913dbfc_3a00_4798_a6e2_91d6a5feee94",
+        "{",
+        "    public class Class_OSCMessageFloat : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            OSCPath = 0,",
+        "            FrameMessages = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var OSCPath = inputs[(int)InputId.OSCPath].Eval(context).Text;",
+        "                var FrameMessages = inputs[(int)InputId.FrameMessages].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "                //<<< _params",
+        "                ",
+        "                if (FrameMessages != null)",
+        "                {",
+        "                    var dict = (IDictionary<string, OSCMessage>)FrameMessages;",
+        "                    OSCMessage msg;",
+        "                    ",
+        "                    if (dict.TryGetValue(OSCPath, out msg))",
+        "                    {",
+        "                        if (msg.Values.Count != 1)",
+        "                        {",
+        "                            Logger.Error(this, \"Expected 1 param, got \" + msg.Values.Count);",
+        "                            return context;",
+        "                        }",
+        "                        ",
+        "                        var val = msg.Values[0];",
+        "                        float v0 = 0;",
+        "                        ",
+        "                        try",
+        "                        {",
+        "                            v0 = Convert.ToSingle(val);",
+        "                        }",
+        "                        catch (FormatException)",
+        "                        {",
+        "                           Logger.Error(this, \"The {0} value {1} is not recognized as a valid Single value.\",",
+        "                                             val.GetType().Name, val);",
+        "                        }                     ",
+        "                        catch (OverflowException)",
+        "                        {",
+        "                           Logger.Error(this, \"The {0} value {1} is outside the range of the Single type.\",",
+        "                                             val.GetType().Name, val);",
+        "                        }",
+        "                        catch (InvalidCastException)",
+        "                        {",
+        "                           Logger.Error(this, \"Conversion of the {0} value {1} to a Single is not supported.\",",
+        "                                             val.GetType().Name, val);",
+        "                        }    ",
+        "",
+        "                        _lastValue = v0;",
+        "                    }",
+        "                }",
+        "            ",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Value = _lastValue;",
+        "            return context;",
+        "        }",
+        "\t\t",
+        "\t\tprivate string _path;",
+        "\t\tprivate float _lastValue; ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": [
+        "Libs/OSC.dll"
+      ]
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ee78be04-0f41-43bc-9582-3d385015d08c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05ad9f8b-6a84-442a-84a6-fe201a1c2aa1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06838271-9da5-4f52-a7e5-58ba9f5cbd75",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05ad9f8b-6a84-442a-84a6-fe201a1c2aa1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "05ad9f8b-6a84-442a-84a6-fe201a1c2aa1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "716a02fa-a59f-4a73-b1c1-76a52392acd4"
+    }
+  ]
+}

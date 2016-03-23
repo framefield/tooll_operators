@@ -1,0 +1,5886 @@
+{
+  "Name": "Displacing",
+  "_id": "37aae9e9-b1fa-42be-aee6-d640500c691c",
+  "Namespace": "projects.vaserely.scenes",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "GridSize",
+      "MetaInstanceID": "76ab66c5-5473-4eec-88e6-3830dc34a292",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RotateOffset.Offset",
+      "MetaInstanceID": "ada33aec-407a-4d25-a1e4-68d503c3c9d9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextureScale",
+      "MetaInstanceID": "002859c9-33f9-4b13-99e9-dbe6cd36f23f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.01"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ScaleWhite",
+      "MetaInstanceID": "36504251-6548-4adc-b008-62fa150c5f95",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ScaleDark",
+      "MetaInstanceID": "c9395a0d-f0cf-40db-9f1e-7e45ada5bd67",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "b93daf63-a67d-45d1-8a77-3bdbc16c4cdb",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "15938ebe-b5fb-4aff-9b2f-65f8779825f3",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "392.544785311564",
+        "PosY": "965.880053294802",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "28827d15-597c-4214-8be9-72762d229578",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7dcec0b7-d396-406c-9291-c6a82a371e47",
+            "Type": "Float",
+            "Value": [
+              "42.43982"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "90"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "DepthStencilState",
+      "MetaInstanceID": "55c7b73d-0e1f-4b9e-b0b8-fa193c3782f5",
+      "MetaID": "1d26967e-8334-4a3a-950c-8dd99e1e83b2",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "617.544785311564",
+        "PosY": "1065.88005329481",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "ca62ba5e-1128-4f9f-8d73-600b55b29abe",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e071f0de-6f65-4b43-8f71-a402979fe647",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "0bcb8428-22a2-4851-928c-4b69f1bd8963",
+            "Type": "Float",
+            "Value": [
+              "8"
+            ]
+          },
+          {
+            "ID": "dd1f3232-9fe2-4c82-bdf7-a566099c607b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "b7ecaa60-9d44-4d5b-8d03-9d1b29ca5588",
+            "Type": "Float",
+            "Value": [
+              "255"
+            ]
+          },
+          {
+            "ID": "0be13da1-d1ce-410c-b6c7-574fbf82a830",
+            "Type": "Float",
+            "Value": [
+              "255"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "8e05dd86-0b73-4e9d-879e-da7167b391c4",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "137.603970540866": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.888004683995042,
+                  "OutTangentAngle": 4.02959733758483,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "139.523332554119": {
+                  "Value": 3.35999989509583,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.888004683995042,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "dd6ff3c3-345b-42d2-b153-2ba664d94091",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "18b391b3-ae93-4e56-bb87-12211f118aa0",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "342.544785311564",
+        "PosY": "1090.88005329481",
+        "Width": "225",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "5a1f64fe-1572-41b5-a7cc-f3c56b663956",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "706.78882922522",
+        "PosY": "1333.64364497412",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5",
+            "Type": "Float",
+            "Value": [
+              "-9"
+            ]
+          },
+          {
+            "ID": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "28827d15-597c-4214-8be9-72762d229578",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7dcec0b7-d396-406c-9291-c6a82a371e47",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "97"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "6356f9de-a47a-4ead-bc9e-1e711951ca8e",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1819.14478531156",
+        "PosY": "1602.88005329493",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "5.6"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "8.5"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "854fbb46-7f89-49e1-85be-55966092af68",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "670.94478531156",
+        "PosY": "1244.08005329496",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "256"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "256"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "4a5b20d8-e67e-4dbc-905b-1e60a1c22aca",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1819.14478531156",
+        "PosY": "1577.88005329495",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "4756c632-be23-4818-9c1a-1c3fde0083d9",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1919.14478531156",
+        "PosY": "1602.88005329495",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/test/image/frog.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ChannelMixer",
+      "MetaInstanceID": "58cb3f77-7fa9-480d-8c0f-38260c5932dd",
+      "MetaID": "d18c4dd5-41b7-4b21-a23b-8b711c124eb8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "467.544785311563",
+        "PosY": "1115.88005329484",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "6539e55c-15c3-454e-9a02-53013b27490e",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e00c7d52-e012-4f17-93c2-6d08e3708a59",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4a8a6485-dd61-43ff-9a39-730e6c6a9545",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e3483e4d-2875-4e03-9d6d-160224b01df7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3f95edff-005f-479d-b1a0-c85bdb0fe6a4",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "b07cb0ba-647a-4f0e-942d-7d1107b0bf90",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "1333a7c7-5855-4b8b-abfb-310418ec50da",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "996b4e3c-7182-4394-9b3a-019fabf71c13",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1cb17929-e72b-4ec1-9567-beb9a6ce7e67",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "edf88db7-665e-42d6-89c1-4ab95d4ee09a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "555e6e93-f4e2-4fc8-a71f-3ec42c155272",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "617a0b1d-d2b1-4a67-8037-6087ee907db9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "6e9b29db-8da9-4762-b51d-15dba6e359e7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "212a747d-17e7-4318-a589-6a8a3a3fdef7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3d4bb1c4-882e-427f-ac6e-db61560a58a0",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "c3ffc190-45fd-4616-be32-61d88f3ddc31",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "fc57f8b7-0df9-4c72-a2ba-ef604e9206dd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d08d264-aca0-45a5-94cf-b5d59763b4b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d45236e-99a4-4e8c-b2ba-7d79f5f2daae",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "280b3505-b285-4f12-ad19-97b872fa1991",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "ec135e1f-94f5-4cf2-920e-4ad87b569bc3",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1819.14478531156",
+        "PosY": "1552.88005329496",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "-0.03"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0.05"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "0.59"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "0.51"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "891bbc7c-9a55-4e01-8c8f-ef1b0531d0ce",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "18.7112653846154": {
+                  "Value": 626.900268554688,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.45380474955413,
+                  "OutTangentAngle": 4.59539740314393,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.936225": {
+                  "Value": 713.900268554688,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.45380474955413,
+                  "OutTangentAngle": 4.59125919097986,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 2,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "88f8b59c-8d5c-4f4b-8a2f-08a60349b12a",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "b371a4a4-ce9e-4f4c-93c1-90f2b4ec84dd",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "364.624634975353",
+        "PosY": "896.542673760156",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ObjectDisplace",
+      "MetaInstanceID": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "MetaID": "edbc2342-7a4f-4a9d-a6e5-9c597bde94f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "392.544785311564",
+        "PosY": "1040.88005329482",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendState",
+      "MetaInstanceID": "04135ce2-2cb1-4ac2-9e73-b2a428b6ad05",
+      "MetaID": "37779055-d9d9-479f-9e81-51fd35ad0a40",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "139.344785311562",
+        "PosY": "885.280053294807",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2a146001-0a5e-4636-8c74-4fc9151da7a9",
+            "Type": "Scene",
+            "Value": [
+              ""
+            ]
+          },
+          {
+            "ID": "2a94a9ca-b8b0-4c11-8073-d2999c925ec2",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "5c972ca3-966e-4a7c-96ae-55e936d8ce84",
+            "Type": "Float",
+            "Value": [
+              "5"
+            ]
+          },
+          {
+            "ID": "0cbf38c6-d0c2-4c23-a8c3-1aa3a0376da8",
+            "Type": "Float",
+            "Value": [
+              "6"
+            ]
+          },
+          {
+            "ID": "8a55b94d-cb79-457f-bf22-e6b3870abefa",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "f86e07d8-8788-4576-99c0-be46c1340b05",
+            "Type": "Float",
+            "Value": [
+              "5"
+            ]
+          },
+          {
+            "ID": "b4c35183-d299-4009-808e-36c739acb5bb",
+            "Type": "Float",
+            "Value": [
+              "6"
+            ]
+          },
+          {
+            "ID": "d3a4486c-6af7-449e-b449-ac88b3cf6a7e",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "fb38d0b7-896f-4a94-a1d4-a48ec24c2c99",
+            "Type": "Float",
+            "Value": [
+              "15"
+            ]
+          },
+          {
+            "ID": "17dbcc19-40a2-4fb1-b25e-37959e1a9dd0",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "29e7a9e8-6f3a-4d86-85ea-de1aa92e53ae",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "392.544785311564",
+        "PosY": "1065.88005329482",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "PlaneGrid",
+      "MetaInstanceID": "270f985b-9ee6-45e4-a72e-b13439f6be9b",
+      "MetaID": "d34d4462-f186-4ebc-a82b-534f4365e2f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "313.578478650791",
+        "PosY": "1170.41676988044",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "45a33b96-68ed-44dc-9ebe-f409385e21f8",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "59a06cdc-98f5-41ce-aad2-434049ce2035",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "09d4a49f-62e9-473f-939c-23059ef9b9d7",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9182d301-07c6-4cac-8710-15cc40b156e1",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "240a342f-f0ff-40dd-b022-63c839de2c4e",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "392.544785311564",
+        "PosY": "1015.88005329481",
+        "Width": "350",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "22a9b044-4b4e-4836-a2f1-54eabd693c44",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "195.41090237142": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "efa518f8-aa47-414c-a7c7-406a852ff24f",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "469e4ca5-2e04-4ca9-b333-a5da2c2d82f8",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "195.41090237142": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "ChannelMixer",
+      "MetaInstanceID": "a5684f56-af85-4d1d-84e3-c2f82aacaeac",
+      "MetaID": "d18c4dd5-41b7-4b21-a23b-8b711c124eb8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "692.544785311562",
+        "PosY": "1140.88005329484",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "6539e55c-15c3-454e-9a02-53013b27490e",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e00c7d52-e012-4f17-93c2-6d08e3708a59",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4a8a6485-dd61-43ff-9a39-730e6c6a9545",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e3483e4d-2875-4e03-9d6d-160224b01df7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3f95edff-005f-479d-b1a0-c85bdb0fe6a4",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "b07cb0ba-647a-4f0e-942d-7d1107b0bf90",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "1333a7c7-5855-4b8b-abfb-310418ec50da",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "996b4e3c-7182-4394-9b3a-019fabf71c13",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1cb17929-e72b-4ec1-9567-beb9a6ce7e67",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "edf88db7-665e-42d6-89c1-4ab95d4ee09a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "555e6e93-f4e2-4fc8-a71f-3ec42c155272",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "617a0b1d-d2b1-4a67-8037-6087ee907db9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "6e9b29db-8da9-4762-b51d-15dba6e359e7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "212a747d-17e7-4318-a589-6a8a3a3fdef7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3d4bb1c4-882e-427f-ac6e-db61560a58a0",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "c3ffc190-45fd-4616-be32-61d88f3ddc31",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "fc57f8b7-0df9-4c72-a2ba-ef604e9206dd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d08d264-aca0-45a5-94cf-b5d59763b4b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d45236e-99a4-4e8c-b2ba-7d79f5f2daae",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "280b3505-b285-4f12-ad19-97b872fa1991",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "3de1bab2-f0f2-41ec-acd7-3929dd199604",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "094c3529-6858-4e72-aa0f-eba492b61586",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1978.14478531156",
+        "PosY": "1750.88005329506",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/test/image/frog.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "5e512a01-3bf1-40c6-ba53-3937a0b2b186",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1878.14478531156",
+        "PosY": "1725.88005329506",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "b74b2394-9d8d-4b7c-85ae-fbe696573d4c",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1878.14478531156",
+        "PosY": "1650.88005329506",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "256"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "256"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "919081c9-c882-45cb-aa5f-91dde5d8418f",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "567.544785311563",
+        "PosY": "1115.88005329481",
+        "Width": "225",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "9c4843da-1d9d-4eab-aba2-078264fca42b",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "617.544785311564",
+        "PosY": "1090.88005329481",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "bfd4dd72-26ac-4613-9c29-16edf7da49e0",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "4e308292-a43b-4694-ab6b-7ae05053b01f",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "172": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "9828c19c-85b4-4808-b035-25d92bdfacb2",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "172": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "ObjectDisplace",
+      "MetaInstanceID": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "MetaID": "edbc2342-7a4f-4a9d-a6e5-9c597bde94f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "617.544785311564",
+        "PosY": "1040.88005329481",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "62eb3b67-432f-4598-92b5-e30ceb92271e",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "857ded62-8a6b-439f-84c6-d1b18b6563a1",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "f96492d7-9861-4f08-9fb7-b22b782c6f52",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "400.800167618331",
+        "PosY": "760.132103807495",
+        "Width": "400",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "833d34b0-1ac2-4a1e-bb0a-9640bb4ca59e",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "160": {
+                  "Value": 785.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1888171966972587,
+                  "OutTangentAngle": 4.3304098502870518,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "170.846153846154": {
+                  "Value": 812.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1888171966972585,
+                  "OutTangentAngle": 4.2354531170307617,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "194.615384615385": {
+                  "Value": 858.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0938604634409688,
+                  "OutTangentAngle": 4.1762223606258519,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "1bb05ee2-ef25-48b0-abb6-3d679c937a4a",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "0d3df231-73e8-4026-8693-ed7a9588cbe9",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "396.987502090582",
+        "PosY": "823.744769335261",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "558a0362-3802-4278-82b5-c5149223034b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "00edfeb2-e957-4aae-b31e-02e855933669",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "338288cf-ed05-4316-9444-bf58077dc42b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlackSideborders",
+      "MetaInstanceID": "17bc0b97-91f5-4bcf-ac44-582f0ef18e0b",
+      "MetaID": "f4927bac-bb02-47d2-a3ff-b8310e02fa29",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "575.800167618329",
+        "PosY": "785.132103807504",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "0d01f548-cc8a-464a-9c92-58aefe53e4da",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1878.14478531156",
+        "PosY": "1750.88005329504",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "adee9a24-2e7a-4403-b493-a25c04b315e3",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1878.14478531156",
+        "PosY": "1675.88005329507",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5",
+            "Type": "Float",
+            "Value": [
+              "-9"
+            ]
+          },
+          {
+            "ID": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "28827d15-597c-4214-8be9-72762d229578",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7dcec0b7-d396-406c-9291-c6a82a371e47",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "1.666"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "97"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "PlaneGrid",
+      "MetaInstanceID": "3688f80d-09d1-4636-8501-57be272b5181",
+      "MetaID": "d34d4462-f186-4ebc-a82b-534f4365e2f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "566.55320864637",
+        "PosY": "1199.38307654121",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "45a33b96-68ed-44dc-9ebe-f409385e21f8",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "59a06cdc-98f5-41ce-aad2-434049ce2035",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "09d4a49f-62e9-473f-939c-23059ef9b9d7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9182d301-07c6-4cac-8710-15cc40b156e1",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "096fd185-3650-4329-bc72-a9b0f932ade2",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1878.14478531156",
+        "PosY": "1700.88005329507",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "-0.03"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0.05"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "-8.880002"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "0.41"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "0.46"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "9f5d59af-e795-49f5-9fb1-c4e2a288cd0c",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "160": {
+                  "Value": 785.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1888171966972587,
+                  "OutTangentAngle": 4.3304098502870518,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "170.846153846154": {
+                  "Value": 812.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1888171966972585,
+                  "OutTangentAngle": 4.2354531170307617,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "194.615384615385": {
+                  "Value": 858.1640625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0938604634409688,
+                  "OutTangentAngle": 4.1762223606258519,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "b0f64705-fd98-4b50-8b04-8f36e68dd592",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "548.999999999998",
+        "PosY": "81.00000000006",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "6f324dd5-1c3e-4647-9fa5-84391cca6f89",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "172": {
+                  "Value": -1.6874579191207886,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "186.47038799153": {
+                  "Value": -6.8818246749483505,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0273213819361278,
+                  "OutTangentAngle": 2.8857287283463342,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "196": {
+                  "Value": -7.9658005548249138,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "ab937f2e-1f59-4a0a-8525-e3a5d82a98e7",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "706.78882922522",
+        "PosY": "1383.64364497413",
+        "Width": "650",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "60222d90-a0fa-495d-8a58-bfa7e7b59b01",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "BackPlane",
+        "PosX": "706.78882922522",
+        "PosY": "1408.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0.4972407"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "100"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "100"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Disable Z-Test",
+      "MetaInstanceID": "f3bd2c92-f727-4c66-9ed3-a1ac917de1e3",
+      "MetaID": "1c5247fc-f9d8-451f-91cd-83294ff79974",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "706.78882922522",
+        "PosY": "1358.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "27302e9d-a83a-4c68-a4db-91ba655a6196",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "Center1Plane",
+        "PosX": "1006.78882922522",
+        "PosY": "1433.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0.4079999"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0.4069995"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0.4619997"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "0.8200002"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "0.7999999"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "f6667c74-a403-42b4-a4e0-079949b5648b",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> BottomLeft",
+        "PosX": "1006.78882922522",
+        "PosY": "1408.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "-0.6800001"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0.7500001"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "3fb267d3-0e80-433b-bc5e-2dbb9b394265",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "174.345919310132": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "178.897358940965": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "179.998812723056": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 3,
+                  "OutEditMode": 3,
+                  "InTangentAngle": 1.1444718743393361,
+                  "OutTangentAngle": 4.2860645279291294,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "cd25b1a4-1aad-438a-aaaa-b42756115958",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "50c1b030-ab23-4132-a995-f5db216f4add",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "186": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.74592747424573069,
+                  "OutTangentAngle": 3.8875201278355238,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "187.082229750539": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.74592747424573091,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "189.423837388358": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 2.0935039011491687,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "190": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.2350965547389618,
+                  "OutTangentAngle": 2.0935039011491687,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "d312fd31-25bb-499a-989e-8731912aa6dd",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "5b4e7c1b-1fd7-43bf-a4c6-bf1540b32e1f",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "831.788829225221",
+        "PosY": "1458.64364497409",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0.452"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0.4564122"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0.5857105"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "5.6"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "8.5"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "e3c358f8-624c-4c7c-bb4c-660bc6bc1cd3",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "831.788829225221",
+        "PosY": "1433.64364497412",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "c37d83a9-2719-4f68-9119-aad70e470a80",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "931.78882922522",
+        "PosY": "1458.64364497412",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/project/vasarely/tex/gradient.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "4da208c3-a840-41ea-99d0-e1fc675c3371",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> Gradient",
+        "PosX": "831.788829225221",
+        "PosY": "1408.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "1.47"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "8.57"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "3.22"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "f6706789-895a-4406-9e39-c9ddbb588f9f",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "5a2093ee-3198-436f-b3a9-7afba7f9f5f8",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "180": {
+                  "Value": -5.380000114440918,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0964749394480835,
+                  "OutTangentAngle": 4.2380675930378766,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "182.608478802993": {
+                  "Value": -0.29934948682785034,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0964749394480835,
+                  "OutTangentAngle": 4.3294780800788182,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "185.234420322219": {
+                  "Value": 6.2200002670288086,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1878854264890251,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "194": {
+                  "Value": 6.2200002670288086,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 1.7871369793795748,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "196": {
+                  "Value": -2.880000114440918,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.9287296329693682,
+                  "OutTangentAngle": 1.6745453419268255,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "2908300a-1f6d-4641-8953-d410c463fa7d",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> TopRight",
+        "PosX": "1131.78882922522",
+        "PosY": "1408.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "0.66"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "-0.7"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "3ab9b33e-c0fe-4107-85af-e51682437578",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "Center1Plane",
+        "PosX": "1131.78882922522",
+        "PosY": "1433.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0.5009997"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0.9060001"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "0.8200002"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "0.7899999"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "2577d561-6dcd-48ec-8a3d-8c36c9f2a272",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "200",
+        "PosY": "200",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "174.345919310132": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "180": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "181.102641059035": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.73662158024467161,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "186.885468687553": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "188": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 3,
+                  "OutEditMode": 3,
+                  "InTangentAngle": 5.1169290298755374,
+                  "OutTangentAngle": 8.25852168346533,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "3ba1ad40-ae12-4bdb-bb80-a2a35b45d879",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "200",
+        "PosY": "200",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "GaussBlur",
+      "MetaInstanceID": "36027df3-b252-43b5-a894-3b484981cc82",
+      "MetaID": "61560c16-3643-426a-ade5-f8e33ef51e78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "670.94478531156",
+        "PosY": "1219.08005329496",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c992df9-496b-4d87-a43f-de5702aef102",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "08a555a3-b28d-4830-aeb3-eaac33c50e69",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9d6b3b96-87f8-4959-9786-3da31b481a0f",
+            "Type": "Float",
+            "Value": [
+              "9"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "36c4d8bc-d3c3-4056-9f29-3c98f7cd9416",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "190": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0966627677111616,
+                  "OutTangentAngle": 4.2382554213009547,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "191.436895595935": {
+                  "Value": 2.7999999523162842,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.0966627677111616,
+                  "OutTangentAngle": 3.7011624954174915,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "192.394825993225": {
+                  "Value": 3.4000000953674316,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.55956984182769842,
+                  "OutTangentAngle": 3.7011624954174915,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "cbe44683-e3a3-4e5f-bf05-43927ed889eb",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "ab436e82-2ed0-4f7d-a9c6-1d3328eb5a26",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "192": {
+                  "Value": 99.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "196": {
+                  "Value": 399.49858395979112,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "57d39843-fc1f-4047-afeb-b635b14a6983",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> Center",
+        "PosX": "1256.78882922519",
+        "PosY": "1408.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "c92c3610-34dd-43b5-baf8-020f5406d4b6",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "Center1Plane",
+        "PosX": "1256.78882922519",
+        "PosY": "1433.64364497413",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0.9060001"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "3.62"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "0.59"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "3291b711-71b0-4971-a95c-1acdf6ae758f",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "311.666666666665",
+        "PosY": "273.333333333335",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "186": {
+                  "Value": 0.012527903056809286,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.46364760900080615,
+                  "OutTangentAngle": 3.6052402625905993,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "188": {
+                  "Value": 1.0125279030568093,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.46364760900080609,
+                  "OutTangentAngle": 3.7495918105844774,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "79684f1d-68b4-41c0-9ce8-1c02577a0fdf",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "311.666666666665",
+        "PosY": "273.333333333335",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "a0b30307-63d6-48cd-82a8-aecb1e081d3f",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "186": {
+                  "Value": 190.72479613685019,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.5253730473733196,
+                  "OutTangentAngle": 4.6669657009631127,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "188": {
+                  "Value": 234.72479613685007,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.5253730473733196,
+                  "OutTangentAngle": 4.6679737651377788,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "e77d2dc4-de76-4396-85d9-1e56dc32ddeb",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "2c4c0a09-a9ea-43e3-9852-e120bb3d2c66",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "186": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "188": {
+                  "Value": 1.6399999856948853,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.68681764548182311,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "195.581880023094": {
+                  "Value": 1.6399999856948853,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.814021517732443,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "7fd0612c-fe0b-458c-9bfd-9e9a159df31d",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "79ff3dd2-d682-453f-8996-9f323796e347",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "186": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "188": {
+                  "Value": 1.4800000190734863,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.63707033543796265,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "195.581880023094": {
+                  "Value": 1.4800000190734863,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 1.8136758500087549,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "195.946103121339": {
+                  "Value": 0.010000109672546387,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.955268503598548,
+                  "OutTangentAngle": 1.8201949907658885,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "b03edd83-60a3-42b8-8162-89ee1cd7881f",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "e04d23e8-6a64-4343-998d-4dfe399d369f",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "188": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "195.581880023094": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 0.0,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "9e7fad99-dc60-4cef-b0b3-cc57e6a8a167",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "MotionBlur",
+      "MetaInstanceID": "605fe25b-5f96-497e-a931-da140001a567",
+      "MetaID": "9bc662e6-9346-4bd3-9a81-bbe173205ab3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "396.987502090582",
+        "PosY": "848.744769335254",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "8fff9174-f632-4be0-a780-1d06d0f5e90e",
+            "Type": "Float",
+            "Value": [
+              "1.07"
+            ]
+          },
+          {
+            "ID": "3e5e3181-8052-4ae9-9272-d7de1c1bb419",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "b500817e-853a-4dd3-84b8-06bc8fab11d9",
+            "Type": "Float",
+            "Value": [
+              "10"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ImageLabel",
+      "MetaInstanceID": "179e3892-6b68-4ba8-a1d5-049f2709c059",
+      "MetaID": "d1a85a9e-627e-4fb7-b1ee-0dda21b1368e",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "700.800167618328",
+        "PosY": "785.132103807504",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "f8ee52b5-d85f-479c-bbbc-04a10d579ec3",
+            "Type": "Text",
+            "Value": [
+              "TINKO"
+            ]
+          },
+          {
+            "ID": "4951882d-ae7f-41ac-bd44-07bc92a24f7a",
+            "Type": "Text",
+            "Value": [
+              "1956"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "297435c4-9e02-4f96-8058-d6fcbd9b2fca",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "180": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.820943702069524,
+                  "OutTangentAngle": 3.9625363556593172,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "180.931321219587": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.82094370206952394,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "182.687526947952": {
+                  "Value": 1.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 2.4873254867934609,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "183.991376655374": {
+                  "Value": 0.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.628918140383254,
+                  "OutTangentAngle": 2.4873254867934609,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "cbb954ab-8339-4189-a027-01c5dac638f6",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Disable Z-Test",
+      "MetaInstanceID": "ca79860c-cbd0-4b2a-82fe-4382e006c2e0",
+      "MetaID": "1c5247fc-f9d8-451f-91cd-83294ff79974",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "392.544785311564",
+        "PosY": "990.88005329481",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "3c43a38a-e5ca-4f9c-b9da-34edbab7791c",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "895.944785311561",
+        "PosY": "1519.08005329493",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "f652135b-5393-404e-a088-f310d6647f26",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "995.94478531156",
+        "PosY": "1519.08005329495",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/test/image/frog.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "e19a1043-c680-4491-a53a-669978913c82",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "895.944785311561",
+        "PosY": "1494.08005329495",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "87aa48f4-6624-43e8-8677-1c47e45dead5",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1132.94478531156",
+        "PosY": "1545.08005329493",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0.436"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0.4379995"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0.4570002"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "5.6"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "8.5"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "f2c24129-1e32-4a6b-bec9-51532c4cf923",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1232.94478531156",
+        "PosY": "1545.08005329495",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/project/vasarely/tex/gradient.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "c72cc66c-1efb-46ca-807d-fe1780c16015",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1132.94478531156",
+        "PosY": "1520.08005329495",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "3616b35e-e6e4-4721-96d1-61aff2d3d8e9",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": ">> Gradient",
+        "PosX": "1132.94478531156",
+        "PosY": "1495.08005329496",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "23dc2289-3a40-4d5b-ac5a-0967b0baea4a",
+            "Type": "Float",
+            "Value": [
+              "1.47"
+            ]
+          },
+          {
+            "ID": "932007b3-5bc4-4850-962f-840637c0bea3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2343bec5-a0f6-4be1-86a3-269b903c30cb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e0d14c7f-5f6c-4739-9e91-93504480bc35",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "8.57"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "3.22"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7a435818-15e9-4bfb-9720-884017f4cedd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "132a57a5-c73b-47f2-a9d6-9b5f50d6c597",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "92a65a58-50ad-463e-ac8c-dc85f5e0f5f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "631fa18b-8fd4-40af-bfef-34e867e58512",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "437.000000000001",
+        "PosY": "226",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "180": {
+                  "Value": -5.380000114440918,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.1469091050976452,
+                  "OutTangentAngle": 4.2885017586874383,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "185.234420322219": {
+                  "Value": 6.2200002670288086,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.146909105097645,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "194": {
+                  "Value": 6.2200002670288086,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 1.7871369793795748,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "196": {
+                  "Value": -2.880000114440918,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.9287296329693682,
+                  "OutTangentAngle": 1.6745453419268255,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "e1bcdddf-3a09-45fd-ae7b-13d91140f5f4",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "437.000000000001",
+        "PosY": "226",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendState",
+      "MetaInstanceID": "cd8393b2-5a02-4a00-98c3-e5c5f21063a2",
+      "MetaID": "37779055-d9d9-479f-9e81-51fd35ad0a40",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "706.78882922522",
+        "PosY": "1308.64364497412",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2a94a9ca-b8b0-4c11-8073-d2999c925ec2",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "5c972ca3-966e-4a7c-96ae-55e936d8ce84",
+            "Type": "Float",
+            "Value": [
+              "5"
+            ]
+          },
+          {
+            "ID": "0cbf38c6-d0c2-4c23-a8c3-1aa3a0376da8",
+            "Type": "Float",
+            "Value": [
+              "6"
+            ]
+          },
+          {
+            "ID": "8a55b94d-cb79-457f-bf22-e6b3870abefa",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "f86e07d8-8788-4576-99c0-be46c1340b05",
+            "Type": "Float",
+            "Value": [
+              "5"
+            ]
+          },
+          {
+            "ID": "b4c35183-d299-4009-808e-36c739acb5bb",
+            "Type": "Float",
+            "Value": [
+              "7"
+            ]
+          },
+          {
+            "ID": "d3a4486c-6af7-449e-b449-ac88b3cf6a7e",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "fb38d0b7-896f-4a94-a1d4-a48ec24c2c99",
+            "Type": "Float",
+            "Value": [
+              "15"
+            ]
+          },
+          {
+            "ID": "17dbcc19-40a2-4fb1-b25e-37959e1a9dd0",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Measure",
+      "MetaInstanceID": "35415114-6482-41a3-8d0a-42f9e03c4b6b",
+      "MetaID": "86580803-34fe-40a8-8dbf-9197dedb889c",
+      "OperatorProperties": {
+        "Name": "?Grid1",
+        "PosX": "313.578478650791",
+        "PosY": "1145.41676988044",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "868fb6ad-ddd9-4d31-b28d-2f8c597af146",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ef61d929-7a61-435c-aa18-3927f8cbd903",
+            "Type": "Float",
+            "Value": [
+              "0.02355016"
+            ]
+          },
+          {
+            "ID": "60b7da67-677b-4b1a-a694-a526ba9df3f9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "60e1f370-8e87-4859-af38-0e3bc11d5155",
+            "Type": "Float",
+            "Value": [
+              "0.4892972"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Measure",
+      "MetaInstanceID": "b84b80f8-2e9f-4e5b-8a8a-6e2bb5536433",
+      "MetaID": "86580803-34fe-40a8-8dbf-9197dedb889c",
+      "OperatorProperties": {
+        "Name": "?Grid2",
+        "PosX": "566.55320864637",
+        "PosY": "1174.38307654121",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "868fb6ad-ddd9-4d31-b28d-2f8c597af146",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "ef61d929-7a61-435c-aa18-3927f8cbd903",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "60b7da67-677b-4b1a-a694-a526ba9df3f9",
+            "Type": "Float",
+            "Value": [
+              "0.2303462"
+            ]
+          },
+          {
+            "ID": "60e1f370-8e87-4859-af38-0e3bc11d5155",
+            "Type": "Float",
+            "Value": [
+              "0.4692972"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Measure",
+      "MetaInstanceID": "97ba202f-f92b-446f-98e9-451f58c59f43",
+      "MetaID": "86580803-34fe-40a8-8dbf-9197dedb889c",
+      "OperatorProperties": {
+        "Name": "?Texture",
+        "PosX": "670.94478531156",
+        "PosY": "1194.08005329496",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "868fb6ad-ddd9-4d31-b28d-2f8c597af146",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "ef61d929-7a61-435c-aa18-3927f8cbd903",
+            "Type": "Float",
+            "Value": [
+              "0.002550811"
+            ]
+          },
+          {
+            "ID": "60b7da67-677b-4b1a-a694-a526ba9df3f9",
+            "Type": "Float",
+            "Value": [
+              "0.2689564"
+            ]
+          },
+          {
+            "ID": "60e1f370-8e87-4859-af38-0e3bc11d5155",
+            "Type": "Float",
+            "Value": [
+              "0.9239457"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Measure",
+      "MetaInstanceID": "01e54c42-08d2-4491-898a-22bc84adba81",
+      "MetaID": "86580803-34fe-40a8-8dbf-9197dedb889c",
+      "OperatorProperties": {
+        "Name": "?TotalDisplace",
+        "PosX": "396.987502090582",
+        "PosY": "798.744769335261",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "868fb6ad-ddd9-4d31-b28d-2f8c597af146",
+            "Type": "Float",
+            "Value": [
+              "0.1077577"
+            ]
+          },
+          {
+            "ID": "ef61d929-7a61-435c-aa18-3927f8cbd903",
+            "Type": "Float",
+            "Value": [
+              "0.1077577"
+            ]
+          },
+          {
+            "ID": "60b7da67-677b-4b1a-a694-a526ba9df3f9",
+            "Type": "Float",
+            "Value": [
+              "0.1077577"
+            ]
+          },
+          {
+            "ID": "60e1f370-8e87-4859-af38-0e3bc11d5155",
+            "Type": "Float",
+            "Value": [
+              "0.2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "FlatShader",
+      "MetaInstanceID": "e754aaab-6190-45d3-9b42-a6712e740bd4",
+      "MetaID": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "364.624634975353",
+        "PosY": "921.542673760156",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "FlatShader",
+      "MetaInstanceID": "8f4d3d93-5f1b-4c1e-b510-b47b0e397feb",
+      "MetaID": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "706.78882922522",
+        "PosY": "1283.64364497412",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "PlaneGrid",
+      "MetaInstanceID": "808d67bb-3137-4823-b285-157566d1d81b",
+      "MetaID": "d34d4462-f186-4ebc-a82b-534f4365e2f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "846.282141966825",
+        "PosY": "1142.49916882829",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "343ae95a-7790-44bc-a422-bc79434a28d0",
+            "Type": "Float",
+            "Value": [
+              "3.94"
+            ]
+          },
+          {
+            "ID": "b127254a-fb31-4ccd-bdcc-3c19f129d4c0",
+            "Type": "Float",
+            "Value": [
+              "3.46"
+            ]
+          },
+          {
+            "ID": "68e2c08a-e689-41a0-bab4-ce6862578832",
+            "Type": "Float",
+            "Value": [
+              "0.95"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "dd6ff3c3-345b-42d2-b153-2ba664d94091",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "8e05dd86-0b73-4e9d-879e-da7167b391c4",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "88f8b59c-8d5c-4f4b-8a2f-08a60349b12a",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "891bbc7c-9a55-4e01-8c8f-ef1b0531d0ce",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "4756c632-be23-4818-9c1a-1c3fde0083d9",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "4a5b20d8-e67e-4dbc-905b-1e60a1c22aca",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "4a5b20d8-e67e-4dbc-905b-1e60a1c22aca",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "ec135e1f-94f5-4cf2-920e-4ad87b569bc3",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "1bb05ee2-ef25-48b0-abb6-3d679c937a4a",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "833d34b0-1ac2-4a1e-bb0a-9640bb4ca59e",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "833d34b0-1ac2-4a1e-bb0a-9640bb4ca59e",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ec135e1f-94f5-4cf2-920e-4ad87b569bc3",
+      "TargetOpPart": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60"
+    },
+    {
+      "SourceOp": "18b391b3-ae93-4e56-bb87-12211f118aa0",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "29e7a9e8-6f3a-4d86-85ea-de1aa92e53ae",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "29e7a9e8-6f3a-4d86-85ea-de1aa92e53ae",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "fee9d53a-44f4-4ba7-b01f-d54e08819587"
+    },
+    {
+      "SourceOp": "f96492d7-9861-4f08-9fb7-b22b782c6f52",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b93daf63-a67d-45d1-8a77-3bdbc16c4cdb"
+    },
+    {
+      "SourceOp": "01e54c42-08d2-4491-898a-22bc84adba81",
+      "SourceOpPart": "171d3f14-75d8-4570-91fa-27ea4486b016",
+      "TargetOp": "f96492d7-9861-4f08-9fb7-b22b782c6f52",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "17bc0b97-91f5-4bcf-ac44-582f0ef18e0b",
+      "SourceOpPart": "0c7f3ee3-aee2-446e-8378-9bc2b8a806b2",
+      "TargetOp": "f96492d7-9861-4f08-9fb7-b22b782c6f52",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "179e3892-6b68-4ba8-a1d5-049f2709c059",
+      "SourceOpPart": "88f646ce-4479-491f-bc43-42ae4ad25b99",
+      "TargetOp": "f96492d7-9861-4f08-9fb7-b22b782c6f52",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "58cb3f77-7fa9-480d-8c0f-38260c5932dd",
+      "SourceOpPart": "a651e01f-5c4d-479b-9213-4d1fa7b5318c",
+      "TargetOp": "18b391b3-ae93-4e56-bb87-12211f118aa0",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "3de1bab2-f0f2-41ec-acd7-3929dd199604",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "9828c19c-85b4-4808-b035-25d92bdfacb2",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "9828c19c-85b4-4808-b035-25d92bdfacb2",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "6dce26a9-aa9a-49ac-ac7f-3417b1aad8a0"
+    },
+    {
+      "SourceOp": "857ded62-8a6b-439f-84c6-d1b18b6563a1",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "4e308292-a43b-4694-ab6b-7ae05053b01f",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "4e308292-a43b-4694-ab6b-7ae05053b01f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "65ea2779-761e-4170-9112-81e2b802d9d5"
+    },
+    {
+      "SourceOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "SourceOpPart": "48a38b39-f9ba-49da-9a51-c4f0e3b1860d",
+      "TargetOp": "240a342f-f0ff-40dd-b022-63c839de2c4e",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "SourceOpPart": "48a38b39-f9ba-49da-9a51-c4f0e3b1860d",
+      "TargetOp": "240a342f-f0ff-40dd-b022-63c839de2c4e",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "0d01f548-cc8a-464a-9c92-58aefe53e4da",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "5e512a01-3bf1-40c6-ba53-3937a0b2b186",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "094c3529-6858-4e72-aa0f-eba492b61586",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "5e512a01-3bf1-40c6-ba53-3937a0b2b186",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "096fd185-3650-4329-bc72-a9b0f932ade2",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "adee9a24-2e7a-4403-b493-a25c04b315e3",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "5e512a01-3bf1-40c6-ba53-3937a0b2b186",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "096fd185-3650-4329-bc72-a9b0f932ade2",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "b0f64705-fd98-4b50-8b04-8f36e68dd592",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "9f5d59af-e795-49f5-9fb1-c4e2a288cd0c",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "9f5d59af-e795-49f5-9fb1-c4e2a288cd0c",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "096fd185-3650-4329-bc72-a9b0f932ade2",
+      "TargetOpPart": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60"
+    },
+    {
+      "SourceOp": "adee9a24-2e7a-4403-b493-a25c04b315e3",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "b74b2394-9d8d-4b7c-85ae-fbe696573d4c",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "919081c9-c882-45cb-aa5f-91dde5d8418f",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "9c4843da-1d9d-4eab-aba2-078264fca42b",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "a5684f56-af85-4d1d-84e3-c2f82aacaeac",
+      "SourceOpPart": "a651e01f-5c4d-479b-9213-4d1fa7b5318c",
+      "TargetOp": "919081c9-c882-45cb-aa5f-91dde5d8418f",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "bfd4dd72-26ac-4613-9c29-16edf7da49e0",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "22a9b044-4b4e-4836-a2f1-54eabd693c44",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "22a9b044-4b4e-4836-a2f1-54eabd693c44",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "TargetOpPart": "6dce26a9-aa9a-49ac-ac7f-3417b1aad8a0"
+    },
+    {
+      "SourceOp": "efa518f8-aa47-414c-a7c7-406a852ff24f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "469e4ca5-2e04-4ca9-b333-a5da2c2d82f8",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "469e4ca5-2e04-4ca9-b333-a5da2c2d82f8",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "TargetOpPart": "65ea2779-761e-4170-9112-81e2b802d9d5"
+    },
+    {
+      "SourceOp": "ab937f2e-1f59-4a0a-8525-e3a5d82a98e7",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6f324dd5-1c3e-4647-9fa5-84391cca6f89",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "6f324dd5-1c3e-4647-9fa5-84391cca6f89",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "15938ebe-b5fb-4aff-9b2f-65f8779825f3",
+      "TargetOpPart": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76ab66c5-5473-4eec-88e6-3830dc34a292",
+      "TargetOp": "270f985b-9ee6-45e4-a72e-b13439f6be9b",
+      "TargetOpPart": "343ae95a-7790-44bc-a422-bc79434a28d0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76ab66c5-5473-4eec-88e6-3830dc34a292",
+      "TargetOp": "270f985b-9ee6-45e4-a72e-b13439f6be9b",
+      "TargetOpPart": "b127254a-fb31-4ccd-bdcc-3c19f129d4c0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76ab66c5-5473-4eec-88e6-3830dc34a292",
+      "TargetOp": "3688f80d-09d1-4636-8501-57be272b5181",
+      "TargetOpPart": "343ae95a-7790-44bc-a422-bc79434a28d0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76ab66c5-5473-4eec-88e6-3830dc34a292",
+      "TargetOp": "3688f80d-09d1-4636-8501-57be272b5181",
+      "TargetOpPart": "b127254a-fb31-4ccd-bdcc-3c19f129d4c0"
+    },
+    {
+      "SourceOp": "60222d90-a0fa-495d-8a58-bfa7e7b59b01",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "4da208c3-a840-41ea-99d0-e1fc675c3371",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "f6667c74-a403-42b4-a4e0-079949b5648b",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "2908300a-1f6d-4641-8953-d410c463fa7d",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ada33aec-407a-4d25-a1e4-68d503c3c9d9",
+      "TargetOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "TargetOpPart": "c27dd13c-748a-43da-9b9a-305a69c6b3ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ada33aec-407a-4d25-a1e4-68d503c3c9d9",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "c27dd13c-748a-43da-9b9a-305a69c6b3ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "002859c9-33f9-4b13-99e9-dbe6cd36f23f",
+      "TargetOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "TargetOpPart": "2055511c-847f-4790-9930-d9c4462bf95d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "002859c9-33f9-4b13-99e9-dbe6cd36f23f",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "2055511c-847f-4790-9930-d9c4462bf95d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "36504251-6548-4adc-b008-62fa150c5f95",
+      "TargetOp": "270f985b-9ee6-45e4-a72e-b13439f6be9b",
+      "TargetOpPart": "68e2c08a-e689-41a0-bab4-ce6862578832"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c9395a0d-f0cf-40db-9f1e-7e45ada5bd67",
+      "TargetOp": "3688f80d-09d1-4636-8501-57be272b5181",
+      "TargetOpPart": "68e2c08a-e689-41a0-bab4-ce6862578832"
+    },
+    {
+      "SourceOp": "27302e9d-a83a-4c68-a4db-91ba655a6196",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "f6667c74-a403-42b4-a4e0-079949b5648b",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "cd25b1a4-1aad-438a-aaaa-b42756115958",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3fb267d3-0e80-433b-bc5e-2dbb9b394265",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "3fb267d3-0e80-433b-bc5e-2dbb9b394265",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "27302e9d-a83a-4c68-a4db-91ba655a6196",
+      "TargetOpPart": "7403f401-0fdb-440a-aa49-cec4156a2c40"
+    },
+    {
+      "SourceOp": "6356f9de-a47a-4ead-bc9e-1e711951ca8e",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "4a5b20d8-e67e-4dbc-905b-1e60a1c22aca",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "d312fd31-25bb-499a-989e-8731912aa6dd",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "50c1b030-ab23-4132-a995-f5db216f4add",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "50c1b030-ab23-4132-a995-f5db216f4add",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6356f9de-a47a-4ead-bc9e-1e711951ca8e",
+      "TargetOpPart": "7403f401-0fdb-440a-aa49-cec4156a2c40"
+    },
+    {
+      "SourceOp": "55c7b73d-0e1f-4b9e-b0b8-fa193c3782f5",
+      "SourceOpPart": "2aba35a1-077a-4ebe-8c82-ae84f3ce6e59",
+      "TargetOp": "312c88de-bd68-4437-9fc7-9b69e39d8375",
+      "TargetOpPart": "fee9d53a-44f4-4ba7-b01f-d54e08819587"
+    },
+    {
+      "SourceOp": "9c4843da-1d9d-4eab-aba2-078264fca42b",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "55c7b73d-0e1f-4b9e-b0b8-fa193c3782f5",
+      "TargetOpPart": "0f2e7649-f88c-4567-8f5a-71fbe1fb82dd"
+    },
+    {
+      "SourceOp": "c37d83a9-2719-4f68-9119-aad70e470a80",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "e3c358f8-624c-4c7c-bb4c-660bc6bc1cd3",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "e3c358f8-624c-4c7c-bb4c-660bc6bc1cd3",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "4da208c3-a840-41ea-99d0-e1fc675c3371",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "5b4e7c1b-1fd7-43bf-a4c6-bf1540b32e1f",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "e3c358f8-624c-4c7c-bb4c-660bc6bc1cd3",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "f3bd2c92-f727-4c66-9ed3-a1ac917de1e3",
+      "SourceOpPart": "406baddd-54fb-46a3-a3fd-4b27129ca57e",
+      "TargetOp": "5a1f64fe-1572-41b5-a7cc-f3c56b663956",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "a8dd7fb9-349f-4fcb-8a6d-4e07f7aea0d1",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "f3bd2c92-f727-4c66-9ed3-a1ac917de1e3",
+      "TargetOpPart": "3ac02d74-c136-4d8e-ab18-ac069267a903"
+    },
+    {
+      "SourceOp": "f6706789-895a-4406-9e39-c9ddbb588f9f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "5a2093ee-3198-436f-b3a9-7afba7f9f5f8",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "5a2093ee-3198-436f-b3a9-7afba7f9f5f8",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "4da208c3-a840-41ea-99d0-e1fc675c3371",
+      "TargetOpPart": "7c9d6eed-8407-4342-ae4a-3163fd5d0659"
+    },
+    {
+      "SourceOp": "3ab9b33e-c0fe-4107-85af-e51682437578",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "2908300a-1f6d-4641-8953-d410c463fa7d",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "3ba1ad40-ae12-4bdb-bb80-a2a35b45d879",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "2577d561-6dcd-48ec-8a3d-8c36c9f2a272",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "2577d561-6dcd-48ec-8a3d-8c36c9f2a272",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3ab9b33e-c0fe-4107-85af-e51682437578",
+      "TargetOpPart": "7403f401-0fdb-440a-aa49-cec4156a2c40"
+    },
+    {
+      "SourceOp": "854fbb46-7f89-49e1-85be-55966092af68",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "36027df3-b252-43b5-a894-3b484981cc82",
+      "TargetOpPart": "1944a8ac-41ce-4d96-9406-fe49d814d719"
+    },
+    {
+      "SourceOp": "cbe44683-e3a3-4e5f-bf05-43927ed889eb",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "36c4d8bc-d3c3-4056-9f29-3c98f7cd9416",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "36c4d8bc-d3c3-4056-9f29-3c98f7cd9416",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "36027df3-b252-43b5-a894-3b484981cc82",
+      "TargetOpPart": "a4d48e86-c687-4533-8d09-5fb5682a3456"
+    },
+    {
+      "SourceOp": "57d39843-fc1f-4047-afeb-b635b14a6983",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ab436e82-2ed0-4f7d-a9c6-1d3328eb5a26",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "ab436e82-2ed0-4f7d-a9c6-1d3328eb5a26",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "fcead0c9-c6f7-40fb-b233-32cdb3bd6ab2",
+      "TargetOpPart": "62eb3b67-432f-4598-92b5-e30ceb92271e"
+    },
+    {
+      "SourceOp": "c92c3610-34dd-43b5-baf8-020f5406d4b6",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "79684f1d-68b4-41c0-9ce8-1c02577a0fdf",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3291b711-71b0-4971-a95c-1acdf6ae758f",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "3291b711-71b0-4971-a95c-1acdf6ae758f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "c92c3610-34dd-43b5-baf8-020f5406d4b6",
+      "TargetOpPart": "7403f401-0fdb-440a-aa49-cec4156a2c40"
+    },
+    {
+      "SourceOp": "e77d2dc4-de76-4396-85d9-1e56dc32ddeb",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a0b30307-63d6-48cd-82a8-aecb1e081d3f",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "a0b30307-63d6-48cd-82a8-aecb1e081d3f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "TargetOpPart": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60"
+    },
+    {
+      "SourceOp": "7fd0612c-fe0b-458c-9bfd-9e9a159df31d",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "2c4c0a09-a9ea-43e3-9852-e120bb3d2c66",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "2c4c0a09-a9ea-43e3-9852-e120bb3d2c66",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "TargetOpPart": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef"
+    },
+    {
+      "SourceOp": "b03edd83-60a3-42b8-8162-89ee1cd7881f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "79ff3dd2-d682-453f-8996-9f323796e347",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "79ff3dd2-d682-453f-8996-9f323796e347",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "TargetOpPart": "a04dece7-fff4-4a69-acbe-a379933208b6"
+    },
+    {
+      "SourceOp": "9e7fad99-dc60-4cef-b0b3-cc57e6a8a167",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "e04d23e8-6a64-4343-998d-4dfe399d369f",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "e04d23e8-6a64-4343-998d-4dfe399d369f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "0810e010-0779-4b09-a2a8-a92ddfebab69",
+      "TargetOpPart": "71962503-ac22-48f4-8097-125d8052962c"
+    },
+    {
+      "SourceOp": "605fe25b-5f96-497e-a931-da140001a567",
+      "SourceOpPart": "42c89448-0bdd-42d3-b7d0-c029476c1d41",
+      "TargetOp": "0d3df231-73e8-4026-8693-ed7a9588cbe9",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "b371a4a4-ce9e-4f4c-93c1-90f2b4ec84dd",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "605fe25b-5f96-497e-a931-da140001a567",
+      "TargetOpPart": "a21cdf02-1f17-43eb-95d1-c5f24108adf1"
+    },
+    {
+      "SourceOp": "cbb954ab-8339-4189-a027-01c5dac638f6",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "297435c4-9e02-4f96-8058-d6fcbd9b2fca",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "297435c4-9e02-4f96-8058-d6fcbd9b2fca",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "179e3892-6b68-4ba8-a1d5-049f2709c059",
+      "TargetOpPart": "5393c281-5e9a-4a6d-867c-67c238bb9f11"
+    },
+    {
+      "SourceOp": "ca79860c-cbd0-4b2a-82fe-4382e006c2e0",
+      "SourceOpPart": "406baddd-54fb-46a3-a3fd-4b27129ca57e",
+      "TargetOp": "15938ebe-b5fb-4aff-9b2f-65f8779825f3",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "240a342f-f0ff-40dd-b022-63c839de2c4e",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "ca79860c-cbd0-4b2a-82fe-4382e006c2e0",
+      "TargetOpPart": "3ac02d74-c136-4d8e-ab18-ac069267a903"
+    },
+    {
+      "SourceOp": "f652135b-5393-404e-a088-f310d6647f26",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "e19a1043-c680-4491-a53a-669978913c82",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "3c43a38a-e5ca-4f9c-b9da-34edbab7791c",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "e19a1043-c680-4491-a53a-669978913c82",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "f2c24129-1e32-4a6b-bec9-51532c4cf923",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "c72cc66c-1efb-46ca-807d-fe1780c16015",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "c72cc66c-1efb-46ca-807d-fe1780c16015",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "3616b35e-e6e4-4721-96d1-61aff2d3d8e9",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "87aa48f4-6624-43e8-8677-1c47e45dead5",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "c72cc66c-1efb-46ca-807d-fe1780c16015",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "e1bcdddf-3a09-45fd-ae7b-13d91140f5f4",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "631fa18b-8fd4-40af-bfef-34e867e58512",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "631fa18b-8fd4-40af-bfef-34e867e58512",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3616b35e-e6e4-4721-96d1-61aff2d3d8e9",
+      "TargetOpPart": "7c9d6eed-8407-4342-ae4a-3163fd5d0659"
+    },
+    {
+      "SourceOp": "5a1f64fe-1572-41b5-a7cc-f3c56b663956",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "cd8393b2-5a02-4a00-98c3-e5c5f21063a2",
+      "TargetOpPart": "2a146001-0a5e-4636-8c74-4fc9151da7a9"
+    },
+    {
+      "SourceOp": "35415114-6482-41a3-8d0a-42f9e03c4b6b",
+      "SourceOpPart": "171d3f14-75d8-4570-91fa-27ea4486b016",
+      "TargetOp": "18b391b3-ae93-4e56-bb87-12211f118aa0",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "b84b80f8-2e9f-4e5b-8a8a-6e2bb5536433",
+      "SourceOpPart": "171d3f14-75d8-4570-91fa-27ea4486b016",
+      "TargetOp": "919081c9-c882-45cb-aa5f-91dde5d8418f",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    },
+    {
+      "SourceOp": "3688f80d-09d1-4636-8501-57be272b5181",
+      "SourceOpPart": "114f9821-56c5-4f27-84b6-d2b630767412",
+      "TargetOp": "b84b80f8-2e9f-4e5b-8a8a-6e2bb5536433",
+      "TargetOpPart": "c9a66106-bce5-40a8-84f0-429a6cec1909"
+    },
+    {
+      "SourceOp": "97ba202f-f92b-446f-98e9-451f58c59f43",
+      "SourceOpPart": "171d3f14-75d8-4570-91fa-27ea4486b016",
+      "TargetOp": "a5684f56-af85-4d1d-84e3-c2f82aacaeac",
+      "TargetOpPart": "91003f98-786e-44cd-b21f-8485bb82e6bc"
+    },
+    {
+      "SourceOp": "36027df3-b252-43b5-a894-3b484981cc82",
+      "SourceOpPart": "cae7b4ea-ca40-4033-9819-904e99638eb8",
+      "TargetOp": "97ba202f-f92b-446f-98e9-451f58c59f43",
+      "TargetOpPart": "c9a66106-bce5-40a8-84f0-429a6cec1909"
+    },
+    {
+      "SourceOp": "97ba202f-f92b-446f-98e9-451f58c59f43",
+      "SourceOpPart": "171d3f14-75d8-4570-91fa-27ea4486b016",
+      "TargetOp": "58cb3f77-7fa9-480d-8c0f-38260c5932dd",
+      "TargetOpPart": "91003f98-786e-44cd-b21f-8485bb82e6bc"
+    },
+    {
+      "SourceOp": "0d3df231-73e8-4026-8693-ed7a9588cbe9",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "01e54c42-08d2-4491-898a-22bc84adba81",
+      "TargetOpPart": "c9a66106-bce5-40a8-84f0-429a6cec1909"
+    },
+    {
+      "SourceOp": "270f985b-9ee6-45e4-a72e-b13439f6be9b",
+      "SourceOpPart": "114f9821-56c5-4f27-84b6-d2b630767412",
+      "TargetOp": "35415114-6482-41a3-8d0a-42f9e03c4b6b",
+      "TargetOpPart": "c9a66106-bce5-40a8-84f0-429a6cec1909"
+    },
+    {
+      "SourceOp": "e754aaab-6190-45d3-9b42-a6712e740bd4",
+      "SourceOpPart": "bdf97c80-3750-4c02-90c7-5e2d30e4782a",
+      "TargetOp": "b371a4a4-ce9e-4f4c-93c1-90f2b4ec84dd",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "15938ebe-b5fb-4aff-9b2f-65f8779825f3",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "e754aaab-6190-45d3-9b42-a6712e740bd4",
+      "TargetOpPart": "df4db8cd-470f-4398-b82e-e4190e2bd577"
+    },
+    {
+      "SourceOp": "8f4d3d93-5f1b-4c1e-b510-b47b0e397feb",
+      "SourceOpPart": "bdf97c80-3750-4c02-90c7-5e2d30e4782a",
+      "TargetOp": "854fbb46-7f89-49e1-85be-55966092af68",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "cd8393b2-5a02-4a00-98c3-e5c5f21063a2",
+      "SourceOpPart": "d4968c82-e03a-4801-b991-c78fbc84a091",
+      "TargetOp": "8f4d3d93-5f1b-4c1e-b510-b47b0e397feb",
+      "TargetOpPart": "df4db8cd-470f-4398-b82e-e4190e2bd577"
+    },
+    {
+      "SourceOp": "15938ebe-b5fb-4aff-9b2f-65f8779825f3",
+      "SourceOpPart": "97542da2-d269-49f0-b428-7f1426a8f895",
+      "TargetOp": "605fe25b-5f96-497e-a931-da140001a567",
+      "TargetOpPart": "ed0f47e7-3713-4f3f-aa35-f057cd68f09f"
+    }
+  ]
+}

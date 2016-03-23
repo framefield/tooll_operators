@@ -1,0 +1,100 @@
+{
+  "Name": "RestoreTime",
+  "_id": "5aa997e5-71a8-4a7d-b01f-95c1d1cbe8d8",
+  "Namespace": "projects.bsm2014.helpers",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "fab22e7c-8d29-47e3-b551-072a0745817c",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "800cc417-ba43-49d0-bd51-2cc29fd511f8",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "SetTime (2)",
+      "MetaInstanceID": "54122c6d-8d77-488c-8218-0a0d79e5d8d2",
+      "MetaID": "fe8fe0f8-dd6e-4f95-86aa-4e03a6ba9fca",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1167.24760615801",
+        "PosY": "-514.372256902532",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Get i",
+      "MetaInstanceID": "ba700a25-4963-4c3d-a9c9-b31b14b9486a",
+      "MetaID": "b27b23d8-64db-4027-9e0f-2dd24e784ead",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1267.24760615801",
+        "PosY": "-489.372256902532",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+            "Type": "Text",
+            "Value": [
+              "MyTime"
+            ]
+          },
+          {
+            "ID": "ffc92c9c-bd1c-4899-9755-e3c15c33bb49",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fab22e7c-8d29-47e3-b551-072a0745817c",
+      "TargetOp": "54122c6d-8d77-488c-8218-0a0d79e5d8d2",
+      "TargetOpPart": "af518af1-95e9-4375-8d38-40a686cd37a9"
+    },
+    {
+      "SourceOp": "54122c6d-8d77-488c-8218-0a0d79e5d8d2",
+      "SourceOpPart": "50fd2aa5-de1c-40e3-87c4-be9dcd08d277",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "800cc417-ba43-49d0-bd51-2cc29fd511f8"
+    },
+    {
+      "SourceOp": "ba700a25-4963-4c3d-a9c9-b31b14b9486a",
+      "SourceOpPart": "978f4979-ac0c-4424-9304-3785cb6a7ae4",
+      "TargetOp": "54122c6d-8d77-488c-8218-0a0d79e5d8d2",
+      "TargetOpPart": "7a909e94-525a-4f67-8ef5-aa58ef064c9a"
+    }
+  ]
+}

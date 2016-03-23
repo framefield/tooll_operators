@@ -1,0 +1,177 @@
+{
+  "Name": "WorldToView",
+  "_id": "2fe96b72-085b-406d-85c5-55696c996b42",
+  "Namespace": "lib.basic",
+  "Description": "transforms the given world position into a view position using the current set camera.\r\nlower left: -1, -1\r\nupper right: 1, 1\r\n\r\nnote: a camera must be defined above.",
+  "Inputs": [
+    {
+      "Name": "WorldPosition.X",
+      "MetaInstanceID": "6a76a70f-7991-4ee4-8717-627bd0f1636f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WorldPosition.Y",
+      "MetaInstanceID": "fee7d6d3-1baf-4165-8dea-7293a972630c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WorldPosition.Z",
+      "MetaInstanceID": "6a0f61dc-7057-41e3-b246-f9274e43c0c4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "ScreenPosition.X",
+      "MetaInstanceID": "c24a2eba-f504-4c54-8de2-c32d97fbfd37",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "ScreenPosition.Y",
+      "MetaInstanceID": "881e1b59-faee-479a-bd01-8dcfbb2aa913",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd",
+      "MetaID": "1b36129e-4716-4595-a7a3-6a55c4e610ba",
+      "Name": "WorldToViewFunc",
+      "Version": "4b4b4929-a0fd-4d7d-99b8-290a1abd82ec",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID1b36129e_4716_4595_a7a3_6a55c4e610ba",
+        "{",
+        "    public class Class_WorldToView : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            ScreenPositionX = 0,",
+        "            ScreenPositionY = 1",
+        "        }",
+        "        //<<< _outputids",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            WorldPositionX = 0,",
+        "            WorldPositionY = 1,",
+        "            WorldPositionZ = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var WorldPositionX = inputs[(int)InputId.WorldPositionX].Eval(context).Value;",
+        "            var WorldPositionY = inputs[(int)InputId.WorldPositionY].Eval(context).Value;",
+        "            var WorldPositionZ = inputs[(int)InputId.WorldPositionZ].Eval(context).Value;",
+        "            var WorldPosition = new Vector3(WorldPositionX, WorldPositionY, WorldPositionZ);",
+        "            //<<< _params",
+        "",
+        "            if (Changed)",
+        "            {",
+        "                Matrix worldToView = context.WorldToCamera*context.CameraProjection;",
+        "                _lastEvaluatedScreenPosition = Vector3.TransformCoordinate(WorldPosition, worldToView);",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Value = 0.0f;",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.ScreenPositionX: context.Value = _lastEvaluatedScreenPosition.X; break;",
+        "                case (int)OutputId.ScreenPositionY: context.Value = _lastEvaluatedScreenPosition.Y; break;",
+        "            }            ",
+        "            return context;",
+        "        }",
+        "",
+        "        Vector3 _lastEvaluatedScreenPosition;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c24a2eba-f504-4c54-8de2-c32d97fbfd37"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6a76a70f-7991-4ee4-8717-627bd0f1636f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fee7d6d3-1baf-4165-8dea-7293a972630c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6a0f61dc-7057-41e3-b246-f9274e43c0c4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76a9208f-81d1-46bf-a7a1-5348d01cdfdd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "881e1b59-faee-479a-bd01-8dcfbb2aa913"
+    }
+  ]
+}

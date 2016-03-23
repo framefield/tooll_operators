@@ -1,0 +1,226 @@
+{
+  "Name": "Move2d",
+  "_id": "50293889-96f4-42b4-bad7-5ef946c43cd9",
+  "Namespace": "lib.3d.modify",
+  "Description": "A simpler version of [Translate] that focuses on moving elements in 2d-Space.\r\n\r\nThe diretion is an angle into which the move is oriented.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "a012be7a-ff3c-449b-97ba-5432e7d4ddce",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Move.X",
+      "MetaInstanceID": "18ea8115-7ab8-4002-b474-f90249bc01df",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Move.Y",
+      "MetaInstanceID": "810fe63a-14a1-4a50-aa16-ce9f9fff5c4b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Z",
+      "MetaInstanceID": "160bf83f-f812-4590-8a25-508e4025a8e3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Direction",
+      "MetaInstanceID": "2ba1f339-6a5b-4658-9e6c-cb1709af028a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "801fe8cb-9d84-4361-a1a4-cbcd30e46fc6",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b38fa1a4-2d7d-4488-90a4-d6945afe441d",
+      "MetaID": "7fcf1367-411d-4735-bbcb-d6eff2663c8f",
+      "Name": "Move2dFunc",
+      "Version": "e565570b-57e4-47d6-8713-3eb0444e633f",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System.Collections.Generic;",
+        "using SharpDX;",
+        "using Framefield.Core.OperatorPartTraits;",
+        "",
+        "namespace Framefield.Core.ID7fcf1367_411d_4735_bbcb_d6eff2663c8f",
+        "{",
+        "    public class Class_Move2d : OperatorPart.Function, ISceneTransform",
+        "    {",
+        "        // ISceneTransform",
+        "        public Matrix Transform",
+        "        {",
+        "            get",
+        "            {",
+        "                UpdateTransform(new OperatorPartContext(), OperatorPart.Connections);",
+        "                return _transform;",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var SceneInput = inputs[0];",
+        "            ",
+        "            UpdateTransform(context, inputs);",
+        "            var prevTransform = context.ObjectTWorld;",
+        "",
+        "            context.ObjectTWorld = _transform * prevTransform;",
+        "            SceneInput.Eval(context);",
+        "            context.ObjectTWorld = prevTransform;",
+        "",
+        "            return context;",
+        "        }",
+        "        ",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            MoveX = 1,",
+        "            MoveY = 2,",
+        "            Z = 3,",
+        "            Direction = 4",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        private void UpdateTransform(OperatorPartContext context, List<OperatorPart> inputs)",
+        "        {",
+        "            if (!Changed)",
+        "                return;",
+        "                ",
+        "            // >>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var MoveX = inputs[(int)InputId.MoveX].Eval(context).Value;",
+        "            var MoveY = inputs[(int)InputId.MoveY].Eval(context).Value;",
+        "            var Move = new Vector2(MoveX, MoveY);",
+        "            var Z = inputs[(int)InputId.Z].Eval(context).Value;",
+        "            var Direction = inputs[(int)InputId.Direction].Eval(context).Value;",
+        "            // <<< _params",
+        "",
+        "            var translation = new Vector3(MoveX, MoveY, Z);",
+        "            var rotation = Quaternion.RotationYawPitchRoll(0, 0, MathUtil.DegreesToRadians(Direction));",
+        "            var scale = new Vector3(1, 1, 1);",
+        "            ",
+        "",
+        "            _transform = Matrix.Transformation(Vector3.Zero, Quaternion.Zero, scale, Vector3.Zero, rotation, translation);",
+        "            ",
+        "            var rotationMatrix = Matrix.Identity;",
+        "            var axis = new Vector3(0,0,1);",
+        "            Matrix.RotationAxis(ref axis , MathUtil.DegreesToRadians(-Direction), out rotationMatrix);",
+        "            _transform*= rotationMatrix;",
+        "            ",
+        "        }",
+        "",
+        "        private Matrix _transform;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a012be7a-ff3c-449b-97ba-5432e7d4ddce",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "18ea8115-7ab8-4002-b474-f90249bc01df",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "810fe63a-14a1-4a50-aa16-ce9f9fff5c4b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "160bf83f-f812-4590-8a25-508e4025a8e3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2ba1f339-6a5b-4658-9e6c-cb1709af028a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b38fa1a4-2d7d-4488-90a4-d6945afe441d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "801fe8cb-9d84-4361-a1a4-cbcd30e46fc6"
+    }
+  ]
+}

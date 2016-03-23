@@ -1,0 +1,222 @@
+{
+  "Name": "Distance",
+  "_id": "67fbad69-99c0-41ed-9eb3-feafe32861ea",
+  "Namespace": "lib.math",
+  "Description": "Calculates the distance between two positions.",
+  "Inputs": [
+    {
+      "Name": "Pos1.X",
+      "MetaInstanceID": "15f39dab-8c00-429b-955f-38c466345795",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos1.Y",
+      "MetaInstanceID": "17b57026-aa68-4dc3-9cf2-a923b65c60a0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos1.Z",
+      "MetaInstanceID": "20596af9-a5a2-4def-b2e8-6afdab64acc3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos2.X",
+      "MetaInstanceID": "6a8f11d2-c07b-45aa-83de-a0e06c8c3169",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos2.Y",
+      "MetaInstanceID": "22888c47-2230-4420-8417-bcb58c6a1e19",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pos2.Z",
+      "MetaInstanceID": "a399b892-9e1b-49fe-93ca-9056ccacce7f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Distance",
+      "MetaInstanceID": "481d9a7e-8650-4748-aa3b-42ff9cce34cb",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "29a10fae-b5dd-44c2-8305-1e69ed9be604",
+      "MetaID": "9fc759e7-8242-4857-a834-8a1471ce9644",
+      "Name": "DistanceFunc",
+      "Version": "367322fd-0c0c-4d16-9b61-bd7196acd30f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID9fc759e7_8242_4857_a834_8a1471ce9644",
+        "{",
+        "    public class Class_Distance : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Pos1X = 0,",
+        "            Pos1Y = 1,",
+        "            Pos1Z = 2,",
+        "            Pos2X = 3,",
+        "            Pos2Y = 4,",
+        "            Pos2Z = 5",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Pos1X = inputs[(int)InputId.Pos1X].Eval(context).Value;",
+        "            var Pos1Y = inputs[(int)InputId.Pos1Y].Eval(context).Value;",
+        "            var Pos1Z = inputs[(int)InputId.Pos1Z].Eval(context).Value;",
+        "            var Pos1 = new Vector3(Pos1X, Pos1Y, Pos1Z);",
+        "            var Pos2X = inputs[(int)InputId.Pos2X].Eval(context).Value;",
+        "            var Pos2Y = inputs[(int)InputId.Pos2Y].Eval(context).Value;",
+        "            var Pos2Z = inputs[(int)InputId.Pos2Z].Eval(context).Value;",
+        "            var Pos2 = new Vector3(Pos2X, Pos2Y, Pos2Z);",
+        "            //<<< _params",
+        "",
+        "            context.Value = Vector3.Distance(Pos1, Pos2);",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "15f39dab-8c00-429b-955f-38c466345795",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "17b57026-aa68-4dc3-9cf2-a923b65c60a0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "20596af9-a5a2-4def-b2e8-6afdab64acc3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6a8f11d2-c07b-45aa-83de-a0e06c8c3169",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "22888c47-2230-4420-8417-bcb58c6a1e19",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a399b892-9e1b-49fe-93ca-9056ccacce7f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "29a10fae-b5dd-44c2-8305-1e69ed9be604",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "481d9a7e-8650-4748-aa3b-42ff9cce34cb"
+    }
+  ]
+}

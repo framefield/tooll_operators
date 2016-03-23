@@ -1,0 +1,59 @@
+{
+  "Name": "UpdateGlobalTime",
+  "_id": "514efc62-e464-4f86-b0ea-eef9db5d3f89",
+  "Namespace": "projects.bsm2014.helpers",
+  "Description": "Hack to set Global Time to time, because GlobalTime is always zero.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "83efa895-cc6c-4552-b464-7fbebedbe11e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "09a31e41-62ee-4479-807e-e9198cf0af3a",
+      "MetaID": "a5fa458f-6a20-4165-996c-eaf7c38b2bfb",
+      "Name": "UpdateGlobalTimeFunc",
+      "Version": "b39fefa2-a30a-4f2d-b2dd-fe62270c56d2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDa5fa458f_6a20_4165_996c_eaf7c38b2bfb",
+        "{",
+        "    public class Class_UpdateGlobalTime : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> function",
+        "",
+        "            context.Value = context.GlobalTime;",
+        "            return context;",
+        "            //<<< function",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "09a31e41-62ee-4479-807e-e9198cf0af3a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "83efa895-cc6c-4552-b464-7fbebedbe11e"
+    }
+  ]
+}

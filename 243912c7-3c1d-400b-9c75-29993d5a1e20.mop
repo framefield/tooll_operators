@@ -1,0 +1,299 @@
+{
+  "Name": "RandomGridTile",
+  "_id": "243912c7-3c1d-400b-9c75-29993d5a1e20",
+  "Namespace": "projects.igravity.helpers",
+  "Description": "Renders a static image that is used to constructed mazes by flipping in randomly by 180 degrees.",
+  "Inputs": [
+    {
+      "Name": "Resolution",
+      "MetaInstanceID": "0b43f708-36a3-4466-8f6f-4dda78c0cdba",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "256"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "4",
+      "Max": "4096",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LineWidth.Height",
+      "MetaInstanceID": "cef29534-67b5-477b-8d46-743687bdd93c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "e8033d56-eab3-444d-aefa-39f0564fd876",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "94795cbc-16f4-4833-ad7b-2a1823247198",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1446.45249669016",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "6cb26e73-0a05-409e-8c58-93ff8d50dabd",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1321.45249669016",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "2.7"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "bd1b418a-c432-4b75-b16b-2a48054997bb",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1346.45249669016",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "5.31"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "0.3"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "09ae0dbd-604b-4876-814c-afd109142516",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1421.45249669016",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "a18d5973-51e0-4366-8f0e-5fcc64e56c68",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1371.45249669016",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "FlatShader",
+      "MetaInstanceID": "523645a5-708b-4a10-9275-d5969b070776",
+      "MetaID": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1589.43940535432",
+        "PosY": "-1396.45249669016",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "80e967a9-ade7-4c47-9578-8effd73b7640",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1489.43940535432",
+        "PosY": "-1346.45249669016",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "7c9d6eed-8407-4342-ae4a-3163fd5d0659",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "8fb0851f-29a5-4d99-b8c3-160c43e7ac60",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "5.31"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "0.3"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "6cb26e73-0a05-409e-8c58-93ff8d50dabd",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "bd1b418a-c432-4b75-b16b-2a48054997bb",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "bd1b418a-c432-4b75-b16b-2a48054997bb",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a18d5973-51e0-4366-8f0e-5fcc64e56c68",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "80e967a9-ade7-4c47-9578-8effd73b7640",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "a18d5973-51e0-4366-8f0e-5fcc64e56c68",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "523645a5-708b-4a10-9275-d5969b070776",
+      "SourceOpPart": "bdf97c80-3750-4c02-90c7-5e2d30e4782a",
+      "TargetOp": "09ae0dbd-604b-4876-814c-afd109142516",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "a18d5973-51e0-4366-8f0e-5fcc64e56c68",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "523645a5-708b-4a10-9275-d5969b070776",
+      "TargetOpPart": "df4db8cd-470f-4398-b82e-e4190e2bd577"
+    },
+    {
+      "SourceOp": "09ae0dbd-604b-4876-814c-afd109142516",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "94795cbc-16f4-4833-ad7b-2a1823247198",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "6cb26e73-0a05-409e-8c58-93ff8d50dabd",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "80e967a9-ade7-4c47-9578-8effd73b7640",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    },
+    {
+      "SourceOp": "94795cbc-16f4-4833-ad7b-2a1823247198",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e8033d56-eab3-444d-aefa-39f0564fd876"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b43f708-36a3-4466-8f6f-4dda78c0cdba",
+      "TargetOp": "94795cbc-16f4-4833-ad7b-2a1823247198",
+      "TargetOpPart": "c19111a6-ae13-4e37-97be-7c000b2178b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b43f708-36a3-4466-8f6f-4dda78c0cdba",
+      "TargetOp": "94795cbc-16f4-4833-ad7b-2a1823247198",
+      "TargetOpPart": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cef29534-67b5-477b-8d46-743687bdd93c",
+      "TargetOp": "6cb26e73-0a05-409e-8c58-93ff8d50dabd",
+      "TargetOpPart": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d"
+    }
+  ]
+}

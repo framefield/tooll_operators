@@ -1,0 +1,714 @@
+{
+  "Name": "_PointLightRaw",
+  "_id": "5f429f06-88a6-4d7c-a575-0ea6f97a6323",
+  "Namespace": "lib.3d.material",
+  "Description": "Raw implementation of a PointLight. You should the [PointLight]-wrapper to get light-gizmo.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "9ae68241-52df-4082-8894-dad7d10e7d0a",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "4796f43e-31c7-4521-a8a6-01d4c5a1cd0d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "cc247416-8d80-4f05-b059-cc8b39866e39",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Z",
+      "MetaInstanceID": "c1486f9e-1957-4d8c-953d-8d2d8c1dfe8a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ambient.R",
+      "MetaInstanceID": "fb98644f-6b2a-4ade-a689-b8df437fa321",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ambient.G",
+      "MetaInstanceID": "b4f61a34-c2b2-41e4-a543-a729a1143f33",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ambient.B",
+      "MetaInstanceID": "26a75870-e070-479c-bd78-0fbe5c78c434",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ambient.A",
+      "MetaInstanceID": "266682e8-a6e7-4b26-9da1-0fbc46d1629d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Diffuse.R",
+      "MetaInstanceID": "4f5955c6-0c7c-477b-9f8e-49eb87946714",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Diffuse.G",
+      "MetaInstanceID": "1998a8e1-5ce7-4081-b8a9-9c321ef7fa22",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Diffuse.B",
+      "MetaInstanceID": "0e4a9e32-0ad6-4355-be46-9dd2ddd0eb44",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Diffuse.A",
+      "MetaInstanceID": "60fc22b4-6a2d-4cfa-80a8-81d25ec8d65b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Specular.R",
+      "MetaInstanceID": "5ee66e74-fad6-41b0-8734-435b0dd2e7d8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.3"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Specular.G",
+      "MetaInstanceID": "ef076383-b119-4255-8722-3c60cc8f85ac",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.3"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Specular.B",
+      "MetaInstanceID": "cd847bfa-d3c0-4872-ba4a-3c2a85ace67d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.3"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Specular.A",
+      "MetaInstanceID": "e2c762cf-851d-4c84-b206-7152b67f1c34",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Intensity.Ambient",
+      "MetaInstanceID": "d1e1d68e-fb89-4711-8718-58418e6dde8a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Intensity.Diffuse",
+      "MetaInstanceID": "4f355f82-e4df-4a16-8227-ccf74e1f3c2d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Intensity.Specular",
+      "MetaInstanceID": "2887feb6-587f-430d-bae8-ef90c795793a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Attenuation.Linear",
+      "MetaInstanceID": "22282937-20b2-4223-96a4-1491ccf42840",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Attenuation.Quad",
+      "MetaInstanceID": "5ca2e2a0-967c-4130-8466-049d4763b4a9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Attenuation.Cubic",
+      "MetaInstanceID": "96b35981-73eb-4a03-a5c6-195baf00a7e8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Enabled",
+      "MetaInstanceID": "1be403cc-bfb4-4082-95b9-210b35dbf10b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "1dc23d21-0a07-4da7-9e49-569733f50c89",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    },
+    {
+      "Name": "This",
+      "MetaInstanceID": "999694dd-ff9f-4800-9be6-455413ee7d97",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "93037d9c-3a82-4049-9386-a92ea6e35b84",
+      "MetaID": "9fd3ae11-52c4-440d-82cc-6ff5d5020a80",
+      "Name": "_PointLightRawFunc",
+      "Version": "9f399eb2-cf77-4656-917b-a0ad603ce79a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Dynamic;",
+        "",
+        "namespace Framefield.Core.ID9fd3ae11_52c4_440d_82cc_6ff5d5020a80",
+        "{",
+        "    public class Class_PointLightRaw : OperatorPart.Function, IPointLight",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Scene = 0,",
+        "            PositionX = 1,",
+        "            PositionY = 2,",
+        "            PositionZ = 3,",
+        "            AmbientR = 4,",
+        "            AmbientG = 5,",
+        "            AmbientB = 6,",
+        "            AmbientA = 7,",
+        "            DiffuseR = 8,",
+        "            DiffuseG = 9,",
+        "            DiffuseB = 10,",
+        "            DiffuseA = 11,",
+        "            SpecularR = 12,",
+        "            SpecularG = 13,",
+        "            SpecularB = 14,",
+        "            SpecularA = 15,",
+        "            IntensityAmbient = 16,",
+        "            IntensityDiffuse = 17,",
+        "            IntensitySpecular = 18,",
+        "            AttenuationLinear = 19,",
+        "            AttenuationQuad = 20,",
+        "            AttenuationCubic = 21,",
+        "            Enabled = 22",
+        "        }",
+        "        //<<< _inputids",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Scene = 0,",
+        "            This = 1",
+        "        }",
+        "        //<<< _outputids",
+        "    ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Scene = inputs[(int)InputId.Scene];",
+        "            var PositionX = inputs[(int)InputId.PositionX].Eval(context).Value;",
+        "            var PositionY = inputs[(int)InputId.PositionY].Eval(context).Value;",
+        "            var PositionZ = inputs[(int)InputId.PositionZ].Eval(context).Value;",
+        "            var Position = new Vector3(PositionX, PositionY, PositionZ);",
+        "            var AmbientR = inputs[(int)InputId.AmbientR].Eval(context).Value;",
+        "            var AmbientG = inputs[(int)InputId.AmbientG].Eval(context).Value;",
+        "            var AmbientB = inputs[(int)InputId.AmbientB].Eval(context).Value;",
+        "            var AmbientA = inputs[(int)InputId.AmbientA].Eval(context).Value;",
+        "            var Ambient = new Color4(AmbientR, AmbientG, AmbientB, AmbientA);",
+        "            var DiffuseR = inputs[(int)InputId.DiffuseR].Eval(context).Value;",
+        "            var DiffuseG = inputs[(int)InputId.DiffuseG].Eval(context).Value;",
+        "            var DiffuseB = inputs[(int)InputId.DiffuseB].Eval(context).Value;",
+        "            var DiffuseA = inputs[(int)InputId.DiffuseA].Eval(context).Value;",
+        "            var Diffuse = new Color4(DiffuseR, DiffuseG, DiffuseB, DiffuseA);",
+        "            var SpecularR = inputs[(int)InputId.SpecularR].Eval(context).Value;",
+        "            var SpecularG = inputs[(int)InputId.SpecularG].Eval(context).Value;",
+        "            var SpecularB = inputs[(int)InputId.SpecularB].Eval(context).Value;",
+        "            var SpecularA = inputs[(int)InputId.SpecularA].Eval(context).Value;",
+        "            var Specular = new Color4(SpecularR, SpecularG, SpecularB, SpecularA);",
+        "            var IntensityAmbient = inputs[(int)InputId.IntensityAmbient].Eval(context).Value;",
+        "            var IntensityDiffuse = inputs[(int)InputId.IntensityDiffuse].Eval(context).Value;",
+        "            var IntensitySpecular = inputs[(int)InputId.IntensitySpecular].Eval(context).Value;",
+        "            var Intensity = new Vector3(IntensityAmbient, IntensityDiffuse, IntensitySpecular);",
+        "            var AttenuationLinear = inputs[(int)InputId.AttenuationLinear].Eval(context).Value;",
+        "            var AttenuationQuad = inputs[(int)InputId.AttenuationQuad].Eval(context).Value;",
+        "            var AttenuationCubic = inputs[(int)InputId.AttenuationCubic].Eval(context).Value;",
+        "            var Attenuation = new Vector3(AttenuationLinear, AttenuationQuad, AttenuationCubic);",
+        "            var Enabled = (int) inputs[(int)InputId.Enabled].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            // store values for later use of IPointLight",
+        "            this.Position = Position;",
+        "            this.Ambient = Ambient;",
+        "            this.Diffuse = Diffuse;",
+        "            this.Specular = Specular;",
+        "            this.Intensity = Intensity;",
+        "            this.Attenuation = Attenuation;",
+        "            ",
+        "            var isLightEnabled = Enabled > 0.01f;",
+        "            var pointLightContainer = (HashSet<IPointLight>) context.Objects[OperatorPartContext.POINT_LIGHT_CONTAINER_ID];",
+        "            if (isLightEnabled && (pointLightContainer != null)) {",
+        "                pointLightContainer.Add(this);",
+        "            }",
+        "            else {",
+        "                //Logger.Error(this,\"No point light container found in context!\");",
+        "            }",
+        "",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.Scene:",
+        "                    Scene.Eval(context);",
+        "                    break;",
+        "                case (int)OutputId.This:",
+        "                    dynamic obj = new ExpandoObject();",
+        "                    obj.This = this;",
+        "                    context.Dynamic = obj;",
+        "                    break;",
+        "            }",
+        "",
+        "            pointLightContainer.Remove(this);",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        public Vector3 Position { get; private set; }",
+        "        public Color4 Ambient { get; private set; }",
+        "        public Color4 Diffuse { get; private set; }",
+        "        public Color4 Specular { get; private set; }",
+        "        public Vector3 Intensity { get; private set; }",
+        "        public Vector3 Attenuation { get; private set; }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1dc23d21-0a07-4da7-9e49-569733f50c89"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9ae68241-52df-4082-8894-dad7d10e7d0a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4796f43e-31c7-4521-a8a6-01d4c5a1cd0d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cc247416-8d80-4f05-b059-cc8b39866e39",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c1486f9e-1957-4d8c-953d-8d2d8c1dfe8a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fb98644f-6b2a-4ade-a689-b8df437fa321",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b4f61a34-c2b2-41e4-a543-a729a1143f33",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "26a75870-e070-479c-bd78-0fbe5c78c434",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "266682e8-a6e7-4b26-9da1-0fbc46d1629d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f5955c6-0c7c-477b-9f8e-49eb87946714",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1998a8e1-5ce7-4081-b8a9-9c321ef7fa22",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0e4a9e32-0ad6-4355-be46-9dd2ddd0eb44",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "60fc22b4-6a2d-4cfa-80a8-81d25ec8d65b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5ee66e74-fad6-41b0-8734-435b0dd2e7d8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ef076383-b119-4255-8722-3c60cc8f85ac",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cd847bfa-d3c0-4872-ba4a-3c2a85ace67d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e2c762cf-851d-4c84-b206-7152b67f1c34",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d1e1d68e-fb89-4711-8718-58418e6dde8a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f355f82-e4df-4a16-8227-ccf74e1f3c2d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2887feb6-587f-430d-bae8-ef90c795793a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "22282937-20b2-4223-96a4-1491ccf42840",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5ca2e2a0-967c-4130-8466-049d4763b4a9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "96b35981-73eb-4a03-a5c6-195baf00a7e8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1be403cc-bfb4-4082-95b9-210b35dbf10b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "93037d9c-3a82-4049-9386-a92ea6e35b84",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "999694dd-ff9f-4800-9be6-455413ee7d97"
+    }
+  ]
+}

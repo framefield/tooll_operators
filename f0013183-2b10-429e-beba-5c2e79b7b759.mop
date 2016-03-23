@@ -1,0 +1,66 @@
+{
+  "Name": "MemoryConsumption",
+  "_id": "f0013183-2b10-429e-beba-5c2e79b7b759",
+  "Namespace": "lib.basic",
+  "Description": "Returns the current used private memory in megabytes.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "7f15f5b9-9c5c-4f9a-995b-3904e79dfbf2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c186188c-6994-4e3f-9084-a51b6bbc6d2c",
+      "MetaID": "749c9204-2556-437a-a8dd-3fbf0ff6c05f",
+      "Name": "MemoryConsumptionFunc",
+      "Version": "cad7788d-f9db-45e9-98b8-1a44c2a309eb",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Profiling;",
+        "",
+        "namespace Framefield.Core.ID749c9204_2556_437a_a8dd_3fbf0ff6c05f",
+        "{",
+        "    public class Class_MemoryConsumption : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            if (TimeLogger.FrameCount > 0)",
+        "            {",
+        "                context.Value = (float)(TimeLogger.LastFrame.Value.PrivateMemory/(1 << 20));",
+        "            } ",
+        "            else",
+        "            {",
+        "                context.Value = 0;",
+        "            }",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c186188c-6994-4e3f-9084-a51b6bbc6d2c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7f15f5b9-9c5c-4f9a-995b-3904e79dfbf2"
+    }
+  ]
+}

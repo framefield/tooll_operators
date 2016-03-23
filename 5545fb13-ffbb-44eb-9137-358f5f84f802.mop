@@ -1,0 +1,110 @@
+{
+  "Name": "GenerateMips",
+  "_id": "5545fb13-ffbb-44eb-9137-358f5f84f802",
+  "Namespace": "lib.image.generate",
+  "Description": "Loads an image file. Click on the [..] to select a file.",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "966bfd1b-affb-4fa8-9521-ffbbae68e8ca",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "e96aac69-a73f-4bc3-99b9-8982580e1921",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "6efd67ca-4a7a-415a-871d-54460866ce8c",
+      "MetaID": "d61df8a2-e602-47dd-a47f-344e9573ea7d",
+      "Name": "GenerateMipsFunc",
+      "Version": "2119b0f1-7683-4c1f-bc0a-683565516bc1",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.IDd61df8a2_e602_47dd_a47f_344e9573ea7d",
+        "{",
+        "    public class Class_GenerateMips : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override void Dispose() ",
+        "        {",
+        "            base.Dispose();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; if (Image == null) return context;",
+        "            //<<< _params",
+        "",
+        "            if (Changed)",
+        "            {",
+        "                using (var srv = new ShaderResourceView(context.D3DDevice, Image))",
+        "                {",
+        "                    context.D3DDevice.ImmediateContext.GenerateMips(srv);",
+        "                }",
+        "            }",
+        "            context.Image = Image;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6efd67ca-4a7a-415a-871d-54460866ce8c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e96aac69-a73f-4bc3-99b9-8982580e1921"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "966bfd1b-affb-4fa8-9521-ffbbae68e8ca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6efd67ca-4a7a-415a-871d-54460866ce8c"
+    }
+  ]
+}

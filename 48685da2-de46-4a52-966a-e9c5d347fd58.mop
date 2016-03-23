@@ -1,0 +1,1456 @@
+{
+  "Name": "IntroCuttedCubeGroup",
+  "_id": "48685da2-de46-4a52-966a-e9c5d347fd58",
+  "Namespace": "projects.square.geometry",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "8e805d0d-164d-4588-b20b-0b9aee5dce93",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "241.221442413754",
+        "PosY": "1012.68348644957",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "-7.146152"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "-6.44401"
+            ]
+          },
+          {
+            "ID": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5",
+            "Type": "Float",
+            "Value": [
+              "10.22308"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "63"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "BoxPlorer",
+      "MetaInstanceID": "3b66c57a-0ea8-4cb8-9981-d7b493abe07a",
+      "MetaID": "aaadbf70-7aa5-4c81-ae14-f162cbe1bc2e",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "241.221442413754",
+        "PosY": "1062.68348644957",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "6a9a86ff-6cc3-4822-8d70-d85d0854763e",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "float Minrad;",
+              "float Scale;",
+              "float3 Clamping;",
+              "float2 Fold;",
+              "float3 Increment;",
+              "float MaxSteps;",
+              "float StepSize;",
+              "float MinDistance;",
+              "float MaxDistance;",
+              "float DistToColor;",
+              "float4 Surface1;",
+              "float4 Surface2;",
+              "float4 Surface3;",
+              "float4 Diffuse;",
+              "float4 Specular;",
+              "float2 Spec;",
+              "float4 Glow;",
+              "float4 AmbientOcclusion;",
+              "float AODistance;",
+              "float4 Background;",
+              "float Fog;",
+              "float3 LightPos;",
+              "float3 SpherePos;",
+              "float SphereRadius;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samLinear\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_LINEAR;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> VS \r",
+              "PS_IN VS( VS_IN input )\r",
+              "{\r",
+              "    PS_IN output = (PS_IN)0;\r",
+              "    input.pos = mul(input.pos, objectToWorldMatrix); \r",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);\r",
+              "    output.pos = mul(output.pos, projMatrix);\r",
+              "    output.texCoord = input.texCoord;\r",
+              "\r",
+              "    float4 viewTNearFragPos = float4(input.texCoord.x*2.0 - 1.0, -input.texCoord.y*2.0 + 1.0, 0.0, 1.0);\r",
+              "    float4 worldTNearFragPos = mul(viewTNearFragPos, ViewToWorld);\r",
+              "    worldTNearFragPos /= worldTNearFragPos.w;\r",
+              "\r",
+              "    float4 viewTFarFragPos = float4(input.texCoord.x*2.0 - 1.0, -input.texCoord.y*2.0 + 1.0, 1.0, 1.0);\r",
+              "    float4 worldTFarFragPos = mul(viewTFarFragPos, ViewToWorld);\r",
+              "    worldTFarFragPos /= worldTFarFragPos.w;\r",
+              "\r",
+              "    output.worldTViewDir = normalize(worldTFarFragPos.xyz - worldTNearFragPos.xyz);\r",
+              "\r",
+              "    output.worldTViewPos = worldTNearFragPos;\r",
+              "    return output;\r",
+              "}\r",
+              "//<<< VS\r",
+              "\r",
+              "//>>> PS\r",
+              "int iters = 7;\r",
+              "\r",
+              "float sphereD(float3 p0) {\r",
+              "    return length(p0+float4(SpherePos.xyz,1))-SphereRadius;\r",
+              "}\r",
+              "\r",
+              "// Compute the distance from |pos| to the Mandelbox.\r",
+              "float getDistance(float3 pos) {\r",
+              "\r",
+              "    // precomputed constants\r",
+              "    float minRad2 = clamp(Minrad, 1.0e-9, 1.0);\r",
+              "    float4 scale = float4(Scale, Scale, Scale, abs(Scale)) / minRad2 ;\r",
+              "    float absScalem1 = abs(Scale - 1.0);\r",
+              "    float AbsScaleRaisedTo1mIters = pow(abs(Scale), float(1-iters));\r",
+              "    float DIST_MULTIPLIER = StepSize;\r",
+              "\r",
+              "    float4 p = float4(pos,1);\r",
+              "    float4 p0 = p;  // p.w is the distance estimate\r",
+              "  \r",
+              "\r",
+              "  for (int i=0; i<iters; i++) {\r",
+              "     //box folding: \r",
+              "     //if (p>1) p = 2-p; else if (p<-1) p = -2-p;\r",
+              "    p.xyz = abs(1+p.xyz) - p.xyz - abs(1.0-p.xyz);  // add;add;abs.add;abs.add (130.4%)\r",
+              "    p.xyz = clamp(p.xyz*0.5+0.5, 0.0, 1.0) * 4.0 - 2.0 - p.xyz;  // mad.sat;mad;add (102.3%)    \r",
+              "    //p.xyz = clamp(p.xyz, -1.0, 1.0) * 2.0 - p.xyz;  // min;max;mad    \r",
+              "    p.xyz = clamp(p.xyz, Clamping.x, Clamping.y) * Clamping.z - p.xyz;  // min;max;mad\r",
+              "    \r",
+              "\r",
+              "    // sphere folding: if (r2 < minRad2) p /= minRad2; else if (r2 < 1.0) p /= r2;\r",
+              "    float r2 = dot(p.xyz, p.xyz);\r",
+              "    p *= clamp(max(minRad2/r2, minRad2), Fold.x, Fold.y);  // dp3,div,max.sat,mul\r",
+              "    p.xyz+= float3(Increment.x,Increment.y,Increment.z);\r",
+              "    // scale, translate\r",
+              "    p = p*scale + p0;\r",
+              "  }\r",
+              "  float d=((length(p.xyz) - absScalem1) / p.w - AbsScaleRaisedTo1mIters) * DIST_MULTIPLIER;\r",
+              "  \r",
+              "  return max(sphereD(p0),d );\r",
+              "}\r",
+              "\r",
+              "\r",
+              "\r",
+              "// Blinn-Phong shading model with rim lighting (diffuse light bleeding to the other side).\r",
+              "// |normal|, |view| and |light| should be normalized.\r",
+              "float3 blinn_phong(float3 normal, float3 view, float3 light, float3 diffuseColor) {\r",
+              "  float3 halfLV = normalize(light + view);\r",
+              "  float spe = pow(max( dot(normal, halfLV), Spec.x ), Spec.y);\r",
+              "  float dif = dot(normal, light) * 0.1 + 0.15;\r",
+              "  return dif*diffuseColor + spe*Specular;\r",
+              "}\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              "float3 getNormal(float3 p, float offset)\r",
+              "{\r",
+              "    float dt=.0001;\r",
+              "    float3 n=float3(getDistance(p+float3(dt,0,0)),\r",
+              "                    getDistance(p+float3(0,dt,0)),\r",
+              "                    getDistance(p+float3(0,0,dt)))-getDistance(p);\r",
+              "    return normalize(n);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "float getAO(float3 aoposition, float3 aonormal, float aodistance, float aoiterations, float aofactor)\r",
+              "{\r",
+              "    float ao = 0.0;\r",
+              "    float k = aofactor;\r",
+              "    aodistance /= aoiterations;\r",
+              "    for (float i=1; i < 4; i += 1)\r",
+              "    {\r",
+              "        ao += (i * aodistance - getDistance(aoposition + aonormal * i * aodistance)) / pow(2,i);\r",
+              "    }\r",
+              "    return 1.0 - k * ao;\r",
+              "}\r",
+              "/*\r",
+              "float4 getTexture2(float3 p, float3 n) \r",
+              "{\r",
+              "    float s = 1.3;\r",
+              "    float dx = abs(n.x);\r",
+              "    float dy = abs(n.y);\r",
+              "    float dz = abs(n.z);\r",
+              "    if (dx > dy  > dz) return  Image.Sample(samLinear, float2(frac(p.z*s), frac(p.y * s))); \r",
+              "    if (dy > dz) return  Image.Sample(samLinear, float2(frac(p.x*s), frac(p.z * s)));\r",
+              "    return  Image.Sample(samLinear, float2(frac(p.x*s), frac(p.y * s)));\r",
+              "}*/\r",
+              "\r",
+              "float MAX_DIST=300;\r",
+              "\r",
+              "float3 surfaceColor1 = float3(0.95, 0.64, 0.1);\r",
+              "float3 surfaceColor2 = float3(0.89, 0.95, 0.75);\r",
+              "float3 surfaceColor3 = float3(0.55, 0.06, 0.03);\r",
+              "\r",
+              "// Compute the color at |pos|.\r",
+              "float3 color(float3 pos) {\r",
+              "  float3 p = pos, p0 = p;\r",
+              "  float trap = 1.0;\r",
+              "\r",
+              "  for (int i=0; i<3; i++) {\r",
+              "    p.xyz = clamp(p.xyz, -1.0, 1.0) * 2.0 - p.xyz;\r",
+              "    float r2 = dot(p.xyz, p.xyz);\r",
+              "    p *= clamp(max(Minrad/r2, Minrad), 0.0, 1.0);\r",
+              "    p = p*Scale + p0.xyz;\r",
+              "    trap = min(trap, r2);\r",
+              "  }\r",
+              "  // |c.x|: log final distance (fractional iteration count)\r",
+              "  // |c.y|: spherical orbit trap at (0,0,0)\r",
+              "  float2 c = clamp(float2( 0.33*log(dot(p,p))-1.0, sqrt(trap) ), 0.0, 1.0);\r",
+              "\r",
+              "  return lerp(lerp(Surface1, Surface2, c.y), Surface3, c.x);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "\r",
+              "    //float4 filter= Image2.Sample(samLinear, input.texCoord);\r",
+              "    float3 p = input.worldTViewPos;\r",
+              "    float3 dp = normalize(input.worldTViewDir);\r",
+              "\r",
+              "  float totalD = 0.0;\r",
+              "  float D = 3.4e38;\r",
+              "  float extraD = 0.0;\r",
+              "  float lastD;\r",
+              "\r",
+              "  // Intersect the view ray with the Mandelbox using raymarching.\r",
+              "  int steps;\r",
+              "  for (steps=0; steps<MaxSteps; steps++) {\r",
+              "    lastD = D;\r",
+              "    D = getDistance(p + totalD * dp);\r",
+              "\r",
+              "    // Overstepping: have we jumped too far? Cancel last step.\r",
+              "    if (extraD > 0.0 && D < extraD) {\r",
+              "      totalD -= extraD;\r",
+              "      extraD = 0.0;\r",
+              "      D = 3.4e38;\r",
+              "      steps--;\r",
+              "      continue;\r",
+              "    }\r",
+              "\r",
+              "    if (D < MinDistance) break;\r",
+              "\r",
+              "    totalD += D;\r",
+              "\r",
+              "    // Overstepping is based on the optimal length of the last step.\r",
+              "    totalD += extraD = 0.096 * D*(D+extraD)/lastD;\r",
+              "  }\r",
+              "\r",
+              "  p += totalD * dp;\r",
+              "\r",
+              "  // Color the surface with Blinn-Phong shading, ambient occlusion and glow.\r",
+              "  float3 col = Background;\r",
+              "\r",
+              "  // We've got a hit or we're not sure.\r",
+              "  if (D < MAX_DIST) {\r",
+              "    float3 n = getNormal(p, D);\r",
+              "    col = color(p);\r",
+              "    //col = blinn_phong(n, -dp, normalize(input.worldTViewPos+float3(10,1,0)+dp), col);\r",
+              "    col = blinn_phong(n, -dp, LightPos, col);\r",
+              "    //float getAO(float3 aoposition, float3 aonormal, float aodistance, float aoiterations, float aofactor)\r",
+              "\r",
+              "    col = lerp(AmbientOcclusion, col, getAO(p,n,AODistance, 3, AmbientOcclusion.a));\r",
+              "\r",
+              "    // We've gone through all steps, but we haven't hit anything.\r",
+              "    // Mix in the background color.\r",
+              "    if (D > MinDistance) {\r",
+              "      col = lerp(col, Background, clamp(log(D/MinDistance) * DistToColor, 0.0, 1.0));\r",
+              "    }\r",
+              "  }\r",
+              "\r",
+              "  // Glow is based on the number of steps.\r",
+              "  col = lerp(col, Glow, float(steps)/float(MaxSteps) * Glow.a);\r",
+              "  col = lerp(col, Background, clamp(log( length(p- input.worldTViewPos)/Fog), 0,1));\r",
+              "\r",
+              "  return float4(col, 1);\r",
+              "\r",
+              "\r",
+              "\r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          },
+          {
+            "ID": "6414a3bc-c7c5-4167-9c2a-e6e9af0e0192",
+            "Type": "Float",
+            "Value": [
+              "22.1"
+            ]
+          },
+          {
+            "ID": "000b25df-3c81-49c0-b98d-7bc806cf92ff",
+            "Type": "Float",
+            "Value": [
+              "-0.36"
+            ]
+          },
+          {
+            "ID": "39f1304c-9f13-4663-959e-40c1ba98db7c",
+            "Type": "Float",
+            "Value": [
+              "0.67"
+            ]
+          },
+          {
+            "ID": "67361c40-b4ca-428d-98d3-51ba7e663c0d",
+            "Type": "Float",
+            "Value": [
+              "1.18"
+            ]
+          },
+          {
+            "ID": "f94a9291-4fe0-42e4-9d1e-3c1afffe1483",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "98d0a6e0-0e12-402c-89d2-b48c47c189d9",
+            "Type": "Float",
+            "Value": [
+              "0.7749999"
+            ]
+          },
+          {
+            "ID": "f3690ce6-24ff-48aa-8780-ff69b2a141c9",
+            "Type": "Float",
+            "Value": [
+              "4.658999"
+            ]
+          },
+          {
+            "ID": "5b8eb563-e6ba-48fd-9913-161dcbc014de",
+            "Type": "Float",
+            "Value": [
+              "-0.993"
+            ]
+          },
+          {
+            "ID": "0b8253f6-1bcc-44d6-a8c3-6c74ba498994",
+            "Type": "Float",
+            "Value": [
+              "7.709999"
+            ]
+          },
+          {
+            "ID": "49117020-5c8a-45e8-ba6b-85ef8a9ceb63",
+            "Type": "Float",
+            "Value": [
+              "0.78"
+            ]
+          },
+          {
+            "ID": "574a0161-be35-4be7-8e29-cfdc29e54e69",
+            "Type": "Float",
+            "Value": [
+              "6.6"
+            ]
+          },
+          {
+            "ID": "d26616ec-3696-4a02-8f31-226a78d5b5b4",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "05b2834b-b372-4005-85e1-25a260e811e1",
+            "Type": "Float",
+            "Value": [
+              "0.00112219"
+            ]
+          },
+          {
+            "ID": "874024f9-da73-43d3-8edc-853602e2ed68",
+            "Type": "Float",
+            "Value": [
+              "0.0009372899"
+            ]
+          },
+          {
+            "ID": "d99fc7b3-3e88-4e0d-9792-32a9af076228",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "f65bb1d0-d7e0-46b2-a41c-f33bc8ab4a89",
+            "Type": "Float",
+            "Value": [
+              "0.9"
+            ]
+          },
+          {
+            "ID": "83f7f4a0-c2af-485b-aff5-5be26b8b8977",
+            "Type": "Float",
+            "Value": [
+              "1.28"
+            ]
+          },
+          {
+            "ID": "f5dea852-f492-45da-ac56-88b158cd7257",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4b8938a6-3492-45bc-8dac-6cde62f0acdf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "567afffc-dfb0-48bd-8fbc-c4ec1c7b3988",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1166507f-209c-4da3-9415-7a63fb72c10a",
+            "Type": "Float",
+            "Value": [
+              "-0.11"
+            ]
+          },
+          {
+            "ID": "95c3b0ae-7873-4ca9-9975-fb0946c30137",
+            "Type": "Float",
+            "Value": [
+              "0.36"
+            ]
+          },
+          {
+            "ID": "372017cc-60f8-4b50-be44-543e093d38a9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e8c3e70f-416a-467c-a096-0396b1dfe2e8",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e1bd3b34-981c-4979-8e43-12bf911f2006",
+            "Type": "Float",
+            "Value": [
+              "10"
+            ]
+          },
+          {
+            "ID": "191ed1ef-3e9b-47dc-a29c-8d2236022218",
+            "Type": "Float",
+            "Value": [
+              "0.75"
+            ]
+          },
+          {
+            "ID": "61ac2a18-fab4-497b-bd8c-405d4eb21f31",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "b64abe74-2759-4eda-9924-b5f091b86eb8",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "2bbcb45b-d1ea-4687-8d39-d2875c042c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7aff0786-eef9-4d54-b4ba-d18c8cd16d2b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7ad438c7-15f2-4c21-882e-0cb56dc223cc",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "790984d9-47ca-4a31-9fca-fdd2f8bd5089",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "75320fce-619e-436b-8e1f-e0dd53618dd8",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a403f1f8-2e32-4c03-93b3-f224ea53cb54",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "479d4603-c0af-424a-81ae-2b935e6e2438",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "82137b54-5c8f-4332-a15b-ae0ba4c4fe6f",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "14671fc0-cb21-409e-93bb-0e023f7d33b9",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "57cefe97-6acb-4985-860e-f73df3d62fb0",
+            "Type": "Float",
+            "Value": [
+              "0.4535161"
+            ]
+          },
+          {
+            "ID": "ec58a4cc-de83-4a78-9616-e45d6d44350b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "06b569c8-2fdf-421e-bcfb-a4c6a294863e",
+            "Type": "Float",
+            "Value": [
+              "0.5"
+            ]
+          },
+          {
+            "ID": "885ed3cb-38c8-4ee4-9fcc-57766d046ffe",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ee3c42e4-6071-44f6-a63b-51bbcf73bce4",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e36500cc-43c4-49e3-a9b7-275f682a372b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "01bd1cd0-a4b1-4ee8-ba93-6c8d8d4a8131",
+            "Type": "Float",
+            "Value": [
+              "0.6"
+            ]
+          },
+          {
+            "ID": "3e7708b9-f2c7-4042-bf7a-d573c1a71fa5",
+            "Type": "Float",
+            "Value": [
+              "0.9"
+            ]
+          },
+          {
+            "ID": "6024916a-8edf-4b88-9bd6-72fee1fe5475",
+            "Type": "Float",
+            "Value": [
+              "0.61"
+            ]
+          },
+          {
+            "ID": "f87c727a-865a-43cd-a948-21b32abae7b2",
+            "Type": "Float",
+            "Value": [
+              "0.329"
+            ]
+          },
+          {
+            "ID": "190988cc-f9a9-4f45-a4e9-1f7e76909e8c",
+            "Type": "Float",
+            "Value": [
+              "30.17"
+            ]
+          },
+          {
+            "ID": "506f3c5a-81b8-4fbd-a206-4672e5fd6b4c",
+            "Type": "Float",
+            "Value": [
+              "0.001"
+            ]
+          },
+          {
+            "ID": "7d83157d-f843-47ef-932c-793cc329db0c",
+            "Type": "Float",
+            "Value": [
+              "0.889"
+            ]
+          },
+          {
+            "ID": "c554a17b-8f0d-4dc5-81ea-aba5d2d9d040",
+            "Type": "Float",
+            "Value": [
+              "0.58"
+            ]
+          },
+          {
+            "ID": "a3c54cae-772b-41b2-9296-4419ad3fd3fd",
+            "Type": "Float",
+            "Value": [
+              "-0.03000012"
+            ]
+          },
+          {
+            "ID": "71afa103-f18d-4aa1-b569-1fd29392c042",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3162b6cd-3957-4bfa-ad22-505afbe7d672",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "68a58152-e159-4bd5-8942-e00357b8ee4b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4377fb6a-2120-450e-a3fb-87cb44c6541b",
+            "Type": "Float",
+            "Value": [
+              "78.6"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "573b12bc-36c5-4654-802d-f747ae5fb5e8",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "241.221442413754",
+        "PosY": "1037.68348644957",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "558a0362-3802-4278-82b5-c5149223034b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "00edfeb2-e957-4aae-b31e-02e855933669",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "338288cf-ed05-4316-9444-bf58077dc42b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "81af2c05-bec6-4552-a7af-29e123745152",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "-14.6127169048981": {
+                  "Value": 7.0156803131103516,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0015794893594511805,
+                  "OutTangentAngle": 3.1431721429492443,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "24": {
+                  "Value": 7.0766687393188477,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "27.4773670804564": {
+                  "Value": 7.0766687393188477,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "29.8727935684013": {
+                  "Value": 14.596792221069336,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.2624223881229935,
+                  "OutTangentAngle": -1.8791702654667997,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "5151c080-73db-4fc6-88d8-12d3042628f7",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "516c5c67-950e-4456-a23d-b33a6eb5349c",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "-14.6127169048981": {
+                  "Value": -5.1057662963867187,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.069027531555895916,
+                  "OutTangentAngle": 3.210620185145689,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "24": {
+                  "Value": -2.4361844062805176,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "27.4773670804564": {
+                  "Value": -2.4361844062805176,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "29.8727935684013": {
+                  "Value": -6.8103804588317871,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.2134082433194084,
+                  "OutTangentAngle": 2.0718155897296153,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "4a8f24ee-49c6-4dae-ba0c-1c485e6d8cc5",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "4153fb5d-39df-4342-b063-4425586334b1",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "-14.6127169048981": {
+                  "Value": -10.080886840820312,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.17424848526322645,
+                  "OutTangentAngle": 3.3158411388530196,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "24": {
+                  "Value": -3.2837469577789307,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "27.4773670804564": {
+                  "Value": -3.2837469577789307,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "29.8727935684013": {
+                  "Value": -2.4967203140258789,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.3174428878180332,
+                  "OutTangentAngle": -2.82414976577176,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "3c150a8c-cfd3-4cc6-ae59-26cb9d6d0674",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "221.656282050844",
+        "PosY": "93.9981983827164",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "209489ee-4f91-4cc2-9ac9-b63607a350ff",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "-1.30184940935491": {
+                  "Value": 1.3071613516016209,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.8518518518519": {
+                  "Value": 1.2238979339599609,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "22.3360304649929": {
+                  "Value": 0.3373388946056366,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1830405996456665,
+                  "OutTangentAngle": 3.041447946055873,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "24.6975951188649": {
+                  "Value": -0.0668531209230423,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.224749647620305,
+                  "OutTangentAngle": 3.0831569940305124,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "29.999645549655": {
+                  "Value": -0.1109999418258667,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "2d58217c-0c1e-4612-abed-6d890783fc28",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "cf6d68e6-6985-4471-8910-d0ba8b68d35c",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "-1.30184940935491": {
+                  "Value": 0.65728970924535446,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.8518518518519": {
+                  "Value": 0.65897524356842041,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "22.3360304649929": {
+                  "Value": 0.676922082901001,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0020341495894020661,
+                  "OutTangentAngle": 3.143626803179195,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "24.6975951188649": {
+                  "Value": 0.68510544300079346,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0011844017640944612,
+                  "OutTangentAngle": 3.1427770553538874,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "30.0006272627583": {
+                  "Value": 0.68600004911422729,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 2,
+                  "OutEditMode": 2,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "5dc96798-b0f0-4c28-b103-86dd00ce0e9a",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "5dc96798-b0f0-4c28-b103-86dd00ce0e9a",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "cf6d68e6-6985-4471-8910-d0ba8b68d35c",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "cf6d68e6-6985-4471-8910-d0ba8b68d35c",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3b66c57a-0ea8-4cb8-9981-d7b493abe07a",
+      "TargetOpPart": "36f283c2-557a-472c-bf9d-90fd4a67d978"
+    },
+    {
+      "SourceOp": "2d58217c-0c1e-4612-abed-6d890783fc28",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "209489ee-4f91-4cc2-9ac9-b63607a350ff",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "209489ee-4f91-4cc2-9ac9-b63607a350ff",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3b66c57a-0ea8-4cb8-9981-d7b493abe07a",
+      "TargetOpPart": "ff138f4c-e84b-4453-b958-0a120298d628"
+    },
+    {
+      "SourceOp": "3b66c57a-0ea8-4cb8-9981-d7b493abe07a",
+      "SourceOpPart": "63184cfc-7c45-4a70-8923-966eb1ff3478",
+      "TargetOp": "573b12bc-36c5-4654-802d-f747ae5fb5e8",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "3c150a8c-cfd3-4cc6-ae59-26cb9d6d0674",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "4153fb5d-39df-4342-b063-4425586334b1",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "4153fb5d-39df-4342-b063-4425586334b1",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "TargetOpPart": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b"
+    },
+    {
+      "SourceOp": "4a8f24ee-49c6-4dae-ba0c-1c485e6d8cc5",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "516c5c67-950e-4456-a23d-b33a6eb5349c",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "516c5c67-950e-4456-a23d-b33a6eb5349c",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "TargetOpPart": "28827d15-597c-4214-8be9-72762d229578"
+    },
+    {
+      "SourceOp": "5151c080-73db-4fc6-88d8-12d3042628f7",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "81af2c05-bec6-4552-a7af-29e123745152",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "81af2c05-bec6-4552-a7af-29e123745152",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "TargetOpPart": "7dcec0b7-d396-406c-9291-c6a82a371e47"
+    },
+    {
+      "SourceOp": "573b12bc-36c5-4654-802d-f747ae5fb5e8",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "ac808e52-a3f6-45a4-8d93-75232b63cf97",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8e805d0d-164d-4588-b20b-0b9aee5dce93"
+    }
+  ]
+}

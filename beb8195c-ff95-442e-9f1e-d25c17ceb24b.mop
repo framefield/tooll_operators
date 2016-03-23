@@ -1,0 +1,103 @@
+{
+  "Name": "StringsFromXmlFile",
+  "_id": "beb8195c-ff95-442e-9f1e-d25c17ceb24b",
+  "Namespace": "lib.basic.file",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "e5cb75db-ac17-40c5-b0b2-d5cc7e800c0f",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "test.txt"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Dynamic",
+      "MetaInstanceID": "822c4fb9-8ae6-46bd-b878-16f9cc0c6db8",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f46cc31f-10cc-4b2b-a05b-d6573fcdac07",
+      "MetaID": "3733bbeb-c4fe-41a6-9ec5-404861a84c0a",
+      "Name": "StringsFromXmlFileFunc",
+      "Version": "a5eecfdb-1708-451c-a288-ae02c328cc6c",
+      "Type": "Dynamic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Dynamic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using System.Xml;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID3733bbeb_c4fe_41a6_9ec5_404861a84c0a",
+        "{",
+        "    public class Class_StringsFromXmlFile : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            FilePath = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            dynamic obj = new ExpandoObject();",
+        "",
+        "            XmlDocument doc = new XmlDocument();",
+        "            doc.Load(FilePath);",
+        "            XmlElement root = doc.DocumentElement;",
+        "",
+        "            var list = new List<string>();",
+        "            foreach (XmlNode item in root.GetElementsByTagName(\"item\")) {",
+        "                var value = item[\"title\"].InnerText;",
+        "                list.Add(value);",
+        "            }",
+        "",
+        "            context.Dynamic = list;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e5cb75db-ac17-40c5-b0b2-d5cc7e800c0f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f46cc31f-10cc-4b2b-a05b-d6573fcdac07"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f46cc31f-10cc-4b2b-a05b-d6573fcdac07",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "822c4fb9-8ae6-46bd-b878-16f9cc0c6db8"
+    }
+  ]
+}

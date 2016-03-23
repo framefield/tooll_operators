@@ -1,0 +1,2755 @@
+{
+  "Name": "FXAA-Playground",
+  "_id": "660d9fb7-3fb9-4414-8fb5-14615ce281e8",
+  "Namespace": "projects.square.research",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "ReduceNoise",
+      "MetaInstanceID": "1fd37931-9f53-44ef-b47a-51de05f4ed6c",
+      "MetaID": "fadbd6c7-6479-485a-8cdd-b3892ce1f165",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2271.55808972862",
+        "PosY": "1488.35897123746",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "46db2506-6a86-4f46-b447-17aa6a5c01ec",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image;",
+              "float Strength;",
+              "float Size;",
+              "float Contrast;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samLinear\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_POINT;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float width, height;\r",
+              "    Image.GetDimensions(width, height);\r",
+              "    \r",
+              "    float sx = Size / width;\r",
+              "    float sy = Size / height;\r",
+              "\r",
+              "    float4 y1= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y + sy));\r",
+              "    float4 y2= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y - sy));\r",
+              "    float4 x1= Image.Sample(samLinear, float2(input.texCoord.x + sx, input.texCoord.y));\r",
+              "    float4 x2= Image.Sample(samLinear, float2(input.texCoord.x - sx, input.texCoord.y)); \r",
+              "    float4 c =  Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y)); \r",
+              "\r",
+              "    float4 average = (y1+y2+x1+x2)*0.25;\r",
+              "    float ag = (average.r + average.g + average.b)/3;\r",
+              "    float cg = (c.r+c.g+c.b)/3;\r",
+              "    \r",
+              "    if( (ag < Contrast && cg > 1-Contrast) || (ag > Contrast && cg < 1.0-Contrast)   ) {\r",
+              "        c=average;\r",
+              "    }    \r",
+              "    return c;    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              "\r",
+              ""
+            ]
+          },
+          {
+            "ID": "ff56c6af-b171-4825-98d3-63d04314d62a",
+            "Type": "Image",
+            "Value": [
+              ""
+            ]
+          },
+          {
+            "ID": "08ba17ae-691c-4ccd-a5eb-2eb2d8ff3331",
+            "Type": "Float",
+            "Value": [
+              "0.4799999"
+            ]
+          },
+          {
+            "ID": "b1b5be6c-07e9-44ad-b3a9-dffcd467efcd",
+            "Type": "Float",
+            "Value": [
+              "0.24"
+            ]
+          },
+          {
+            "ID": "687ffd13-710d-4463-8082-6c844f4a772c",
+            "Type": "Float",
+            "Value": [
+              "12.8"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ChannelMixer",
+      "MetaInstanceID": "e2ca2bcc-5c02-4375-a6f2-51fdaec66476",
+      "MetaID": "d18c4dd5-41b7-4b21-a23b-8b711c124eb8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2229.75813691994",
+        "PosY": "1668.91620719668",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "91003f98-786e-44cd-b21f-8485bb82e6bc",
+            "Type": "Image",
+            "Value": [
+              ""
+            ]
+          },
+          {
+            "ID": "6539e55c-15c3-454e-9a02-53013b27490e",
+            "Type": "Float",
+            "Value": [
+              "0.3"
+            ]
+          },
+          {
+            "ID": "e00c7d52-e012-4f17-93c2-6d08e3708a59",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4a8a6485-dd61-43ff-9a39-730e6c6a9545",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e3483e4d-2875-4e03-9d6d-160224b01df7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3f95edff-005f-479d-b1a0-c85bdb0fe6a4",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "b07cb0ba-647a-4f0e-942d-7d1107b0bf90",
+            "Type": "Float",
+            "Value": [
+              "0.24"
+            ]
+          },
+          {
+            "ID": "1333a7c7-5855-4b8b-abfb-310418ec50da",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "996b4e3c-7182-4394-9b3a-019fabf71c13",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1cb17929-e72b-4ec1-9567-beb9a6ce7e67",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "edf88db7-665e-42d6-89c1-4ab95d4ee09a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "555e6e93-f4e2-4fc8-a71f-3ec42c155272",
+            "Type": "Float",
+            "Value": [
+              "0.3"
+            ]
+          },
+          {
+            "ID": "617a0b1d-d2b1-4a67-8037-6087ee907db9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "6e9b29db-8da9-4762-b51d-15dba6e359e7",
+            "Type": "Float",
+            "Value": [
+              "0.64"
+            ]
+          },
+          {
+            "ID": "212a747d-17e7-4318-a589-6a8a3a3fdef7",
+            "Type": "Float",
+            "Value": [
+              "0.54"
+            ]
+          },
+          {
+            "ID": "3d4bb1c4-882e-427f-ac6e-db61560a58a0",
+            "Type": "Float",
+            "Value": [
+              "0.4"
+            ]
+          },
+          {
+            "ID": "c3ffc190-45fd-4616-be32-61d88f3ddc31",
+            "Type": "Float",
+            "Value": [
+              "0.28"
+            ]
+          },
+          {
+            "ID": "fc57f8b7-0df9-4c72-a2ba-ef604e9206dd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d08d264-aca0-45a5-94cf-b5d59763b4b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d45236e-99a4-4e8c-b2ba-7d79f5f2daae",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "280b3505-b285-4f12-ad19-97b872fa1991",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "FXAA",
+      "MetaInstanceID": "1c3d72e4-8ebe-448e-8ff2-c7acd3089ea4",
+      "MetaID": "73e5c1b9-ffd7-4cad-bc75-1c39dbdd8510",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2418.8263130939",
+        "PosY": "1553.91558867407",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "562f7f1f-8a76-422e-8f1c-90660dab3ddb",
+            "Type": "Text",
+            "Value": [
+              "/*============================================================================\r",
+              "\r",
+              "\r",
+              "                    NVIDIA FXAA 3.11 by TIMOTHY LOTTES\r",
+              "\r",
+              "\r",
+              "------------------------------------------------------------------------------\r",
+              "COPYRIGHT (C) 2010, 2011 NVIDIA CORPORATION. ALL RIGHTS RESERVED.\r",
+              "------------------------------------------------------------------------------\r",
+              "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THIS SOFTWARE IS PROVIDED\r",
+              "*AS IS* AND NVIDIA AND ITS SUPPLIERS DISCLAIM ALL WARRANTIES, EITHER EXPRESS\r",
+              "OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF\r",
+              "MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL NVIDIA\r",
+              "OR ITS SUPPLIERS BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT, OR\r",
+              "CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR\r",
+              "LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION,\r",
+              "OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF THE USE OF OR INABILITY TO USE\r",
+              "THIS SOFTWARE, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH\r",
+              "DAMAGES.\r",
+              "\r",
+              "------------------------------------------------------------------------------\r",
+              "                           INTEGRATION CHECKLIST\r",
+              "------------------------------------------------------------------------------\r",
+              "(1.)\r",
+              "In the shader source, setup defines for the desired configuration.\r",
+              "When providing multiple shaders (for different presets),\r",
+              "simply setup the defines differently in multiple files.\r",
+              "Example,\r",
+              "\r",
+              "  #define FXAA_PC 1\r",
+              "  #define FXAA_HLSL_5 1\r",
+              "  #define FXAA_QUALITY__PRESET 12\r",
+              "\r",
+              "Or,\r",
+              "\r",
+              "  #define FXAA_360 1\r",
+              "  \r",
+              "Or,\r",
+              "\r",
+              "  #define FXAA_PS3 1\r",
+              "  \r",
+              "Etc.\r",
+              "\r",
+              "(2.)\r",
+              "Then include this file,\r",
+              "\r",
+              "  #include \"Fxaa3_11.h\"\r",
+              "\r",
+              "(3.)\r",
+              "Then call the FXAA pixel shader from within your desired shader.\r",
+              "Look at the FXAA Quality FxaaPixelShader() for docs on inputs.\r",
+              "As for FXAA 3.11 all inputs for all shaders are the same \r",
+              "to enable easy porting between platforms.\r",
+              "\r",
+              "  return FxaaPixelShader(...);\r",
+              "\r",
+              "(4.)\r",
+              "Insure pass prior to FXAA outputs RGBL (see next section).\r",
+              "Or use,\r",
+              "\r",
+              "  #define FXAA_GREEN_AS_LUMA 1\r",
+              "\r",
+              "(5.)\r",
+              "Setup engine to provide the following constants\r",
+              "which are used in the FxaaPixelShader() inputs,\r",
+              "\r",
+              "  FxaaFloat2 fxaaQualityRcpFrame,\r",
+              "  FxaaFloat4 fxaaConsoleRcpFrameOpt,\r",
+              "  FxaaFloat4 fxaaConsoleRcpFrameOpt2,\r",
+              "  FxaaFloat4 fxaaConsole360RcpFrameOpt2,\r",
+              "  FxaaFloat fxaaQualitySubpix,\r",
+              "  FxaaFloat fxaaQualityEdgeThreshold,\r",
+              "  FxaaFloat fxaaQualityEdgeThresholdMin,\r",
+              "  FxaaFloat fxaaConsoleEdgeSharpness,\r",
+              "  FxaaFloat fxaaConsoleEdgeThreshold,\r",
+              "  FxaaFloat fxaaConsoleEdgeThresholdMin,\r",
+              "  FxaaFloat4 fxaaConsole360ConstDir\r",
+              "\r",
+              "Look at the FXAA Quality FxaaPixelShader() for docs on inputs.\r",
+              "\r",
+              "(6.)\r",
+              "Have FXAA vertex shader run as a full screen triangle,\r",
+              "and output \"pos\" and \"fxaaConsolePosPos\" \r",
+              "such that inputs in the pixel shader provide,\r",
+              "\r",
+              "  // {xy} = center of pixel\r",
+              "  FxaaFloat2 pos,\r",
+              "\r",
+              "  // {xy__} = upper left of pixel\r",
+              "  // {__zw} = lower right of pixel\r",
+              "  FxaaFloat4 fxaaConsolePosPos,\r",
+              "\r",
+              "(7.)\r",
+              "Insure the texture sampler(s) used by FXAA are set to bilinear filtering.\r",
+              "\r",
+              "\r",
+              "------------------------------------------------------------------------------\r",
+              "                    INTEGRATION - RGBL AND COLORSPACE\r",
+              "------------------------------------------------------------------------------\r",
+              "FXAA3 requires RGBL as input unless the following is set, \r",
+              "\r",
+              "  #define FXAA_GREEN_AS_LUMA 1\r",
+              "\r",
+              "In which case the engine uses green in place of luma,\r",
+              "and requires RGB input is in a non-linear colorspace.\r",
+              "\r",
+              "RGB should be LDR (low dynamic range).\r",
+              "Specifically do FXAA after tonemapping.\r",
+              "\r",
+              "RGB data as returned by a texture fetch can be non-linear,\r",
+              "or linear when FXAA_GREEN_AS_LUMA is not set.\r",
+              "Note an \"sRGB format\" texture counts as linear,\r",
+              "because the result of a texture fetch is linear data.\r",
+              "Regular \"RGBA8\" textures in the sRGB colorspace are non-linear.\r",
+              "\r",
+              "If FXAA_GREEN_AS_LUMA is not set,\r",
+              "luma must be stored in the alpha channel prior to running FXAA.\r",
+              "This luma should be in a perceptual space (could be gamma 2.0).\r",
+              "Example pass before FXAA where output is gamma 2.0 encoded,\r",
+              "\r",
+              "  color.rgb = ToneMap(color.rgb); // linear color output\r",
+              "  color.rgb = sqrt(color.rgb);    // gamma 2.0 color output\r",
+              "  return color;\r",
+              "\r",
+              "To use FXAA,\r",
+              "\r",
+              "  color.rgb = ToneMap(color.rgb);  // linear color output\r",
+              "  color.rgb = sqrt(color.rgb);     // gamma 2.0 color output\r",
+              "  color.a = dot(color.rgb, FxaaFloat3(0.299, 0.587, 0.114)); // compute luma\r",
+              "  return color;\r",
+              "\r",
+              "Another example where output is linear encoded,\r",
+              "say for instance writing to an sRGB formated render target,\r",
+              "where the render target does the conversion back to sRGB after blending,\r",
+              "\r",
+              "  color.rgb = ToneMap(color.rgb); // linear color output\r",
+              "  return color;\r",
+              "\r",
+              "To use FXAA,\r",
+              "\r",
+              "  color.rgb = ToneMap(color.rgb); // linear color output\r",
+              "  color.a = sqrt(dot(color.rgb, FxaaFloat3(0.299, 0.587, 0.114))); // compute luma\r",
+              "  return color;\r",
+              "\r",
+              "Getting luma correct is required for the algorithm to work correctly.\r",
+              "\r",
+              "\r",
+              "------------------------------------------------------------------------------\r",
+              "                          BEING LINEARLY CORRECT?\r",
+              "------------------------------------------------------------------------------\r",
+              "Applying FXAA to a framebuffer with linear RGB color will look worse.\r",
+              "This is very counter intuitive, but happends to be true in this case.\r",
+              "The reason is because dithering artifacts will be more visiable \r",
+              "in a linear colorspace.\r",
+              "\r",
+              "\r",
+              "------------------------------------------------------------------------------\r",
+              "                             COMPLEX INTEGRATION\r",
+              "------------------------------------------------------------------------------\r",
+              "Q. What if the engine is blending into RGB before wanting to run FXAA?\r",
+              "\r",
+              "A. In the last opaque pass prior to FXAA,\r",
+              "   have the pass write out luma into alpha.\r",
+              "   Then blend into RGB only.\r",
+              "   FXAA should be able to run ok\r",
+              "   assuming the blending pass did not any add aliasing.\r",
+              "   This should be the common case for particles and common blending passes.\r",
+              "\r",
+              "A. Or use FXAA_GREEN_AS_LUMA.\r",
+              "\r",
+              "============================================================================*/\r",
+              "\r",
+              "/*============================================================================\r",
+              "\r",
+              "                             INTEGRATION KNOBS\r",
+              "\r",
+              "============================================================================*/\r",
+              "//\r",
+              "// FXAA_PS3 and FXAA_360 choose the console algorithm (FXAA3 CONSOLE).\r",
+              "// FXAA_360_OPT is a prototype for the new optimized 360 version.\r",
+              "//\r",
+              "// 1 = Use API.\r",
+              "// 0 = Don't use API.\r",
+              "//\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "\r",
+              "#define FXAA_HLSL_4 1\r",
+              "#define FXAA_PC 1\r",
+              "#define FXAA_GREEN_AS_LUMA 1\r",
+              "#define FXAA_QUALITY__PRESET 39\r",
+              "  \r",
+              "/*==========================================================================*/\r",
+              "#ifndef FXAA_GREEN_AS_LUMA\r",
+              "    //\r",
+              "    // For those using non-linear color,\r",
+              "    // and either not able to get luma in alpha, or not wanting to,\r",
+              "    // this enables FXAA to run using green as a proxy for luma.\r",
+              "    // So with this enabled, no need to pack luma in alpha.\r",
+              "    //\r",
+              "    // This will turn off AA on anything which lacks some amount of green.\r",
+              "    // Pure red and blue or combination of only R and B, will get no AA.\r",
+              "    //\r",
+              "    // Might want to lower the settings for both,\r",
+              "    //    fxaaConsoleEdgeThresholdMin\r",
+              "    //    fxaaQualityEdgeThresholdMin\r",
+              "    // In order to insure AA does not get turned off on colors \r",
+              "    // which contain a minor amount of green.\r",
+              "    //\r",
+              "    // 1 = On.\r",
+              "    // 0 = Off.\r",
+              "    //\r",
+              "    #define FXAA_GREEN_AS_LUMA 0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#ifndef FXAA_EARLY_EXIT\r",
+              "    //\r",
+              "    // Controls algorithm's early exit path.\r",
+              "    // On PS3 turning this ON adds 2 cycles to the shader.\r",
+              "    // On 360 turning this OFF adds 10ths of a millisecond to the shader.\r",
+              "    // Turning this off on console will result in a more blurry image.\r",
+              "    // So this defaults to on.\r",
+              "    //\r",
+              "    // 1 = On.\r",
+              "    // 0 = Off.\r",
+              "    //\r",
+              "    #define FXAA_EARLY_EXIT 1\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#ifndef FXAA_DISCARD\r",
+              "    //\r",
+              "    // Only valid for PC OpenGL currently.\r",
+              "    // Probably will not work when FXAA_GREEN_AS_LUMA = 1.\r",
+              "    //\r",
+              "    // 1 = Use discard on pixels which don't need AA.\r",
+              "    //     For APIs which enable concurrent TEX+ROP from same surface.\r",
+              "    // 0 = Return unchanged color on pixels which don't need AA.\r",
+              "    //\r",
+              "    #define FXAA_DISCARD 0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#ifndef FXAA_FAST_PIXEL_OFFSET\r",
+              "    //\r",
+              "    // Used for GLSL 120 only.\r",
+              "    //\r",
+              "    // 1 = GL API supports fast pixel offsets\r",
+              "    // 0 = do not use fast pixel offsets\r",
+              "    //\r",
+              "    #ifdef GL_EXT_gpu_shader4\r",
+              "        #define FXAA_FAST_PIXEL_OFFSET 1\r",
+              "    #endif\r",
+              "    #ifdef GL_NV_gpu_shader5\r",
+              "        #define FXAA_FAST_PIXEL_OFFSET 1\r",
+              "    #endif\r",
+              "    #ifdef GL_ARB_gpu_shader5\r",
+              "        #define FXAA_FAST_PIXEL_OFFSET 1\r",
+              "    #endif\r",
+              "    #ifndef FXAA_FAST_PIXEL_OFFSET\r",
+              "        #define FXAA_FAST_PIXEL_OFFSET 0\r",
+              "    #endif\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#ifndef FXAA_GATHER4_ALPHA\r",
+              "    //\r",
+              "    // 1 = API supports gather4 on alpha channel.\r",
+              "    // 0 = API does not support gather4 on alpha channel.\r",
+              "    //\r",
+              "    #if (FXAA_HLSL_5 == 1)\r",
+              "        #define FXAA_GATHER4_ALPHA 1\r",
+              "    #endif\r",
+              "    #ifdef GL_ARB_gpu_shader5\r",
+              "        #define FXAA_GATHER4_ALPHA 1\r",
+              "    #endif\r",
+              "    #ifdef GL_NV_gpu_shader5\r",
+              "        #define FXAA_GATHER4_ALPHA 1\r",
+              "    #endif\r",
+              "    #ifndef FXAA_GATHER4_ALPHA\r",
+              "        #define FXAA_GATHER4_ALPHA 0\r",
+              "    #endif\r",
+              "#endif\r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "                        FXAA QUALITY - TUNING KNOBS\r",
+              "------------------------------------------------------------------------------\r",
+              "NOTE the other tuning knobs are now in the shader function inputs!\r",
+              "============================================================================*/\r",
+              "#ifndef FXAA_QUALITY__PRESET\r",
+              "    //\r",
+              "    // Choose the quality preset.\r",
+              "    // This needs to be compiled into the shader as it effects code.\r",
+              "    // Best option to include multiple presets is to \r",
+              "    // in each shader define the preset, then include this file.\r",
+              "    // \r",
+              "    // OPTIONS\r",
+              "    // -----------------------------------------------------------------------\r",
+              "    // 10 to 15 - default medium dither (10=fastest, 15=highest quality)\r",
+              "    // 20 to 29 - less dither, more expensive (20=fastest, 29=highest quality)\r",
+              "    // 39       - no dither, very expensive \r",
+              "    //\r",
+              "    // NOTES\r",
+              "    // -----------------------------------------------------------------------\r",
+              "    // 12 = slightly faster then FXAA 3.9 and higher edge quality (default)\r",
+              "    // 13 = about same speed as FXAA 3.9 and better than 12\r",
+              "    // 23 = closest to FXAA 3.9 visually and performance wise\r",
+              "    //  _ = the lowest digit is directly related to performance\r",
+              "    // _  = the highest digit is directly related to style\r",
+              "    // \r",
+              "    #define FXAA_QUALITY__PRESET 12\r",
+              "#endif\r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "\r",
+              "                           FXAA QUALITY - PRESETS\r",
+              "\r",
+              "============================================================================*/\r",
+              "\r",
+              "/*============================================================================\r",
+              "                     FXAA QUALITY - MEDIUM DITHER PRESETS\r",
+              "============================================================================*/\r",
+              "#if (FXAA_QUALITY__PRESET == 10)\r",
+              "    #define FXAA_QUALITY__PS 3\r",
+              "    #define FXAA_QUALITY__P0 1.5\r",
+              "    #define FXAA_QUALITY__P1 3.0\r",
+              "    #define FXAA_QUALITY__P2 12.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 11)\r",
+              "    #define FXAA_QUALITY__PS 4\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 3.0\r",
+              "    #define FXAA_QUALITY__P3 12.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 12)\r",
+              "    #define FXAA_QUALITY__PS 5\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 4.0\r",
+              "    #define FXAA_QUALITY__P4 12.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 13)\r",
+              "    #define FXAA_QUALITY__PS 6\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 4.0\r",
+              "    #define FXAA_QUALITY__P5 12.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 14)\r",
+              "    #define FXAA_QUALITY__PS 7\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 4.0\r",
+              "    #define FXAA_QUALITY__P6 12.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 15)\r",
+              "    #define FXAA_QUALITY__PS 8\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 4.0\r",
+              "    #define FXAA_QUALITY__P7 12.0\r",
+              "#endif\r",
+              "\r",
+              "/*============================================================================\r",
+              "                     FXAA QUALITY - LOW DITHER PRESETS\r",
+              "============================================================================*/\r",
+              "#if (FXAA_QUALITY__PRESET == 20)\r",
+              "    #define FXAA_QUALITY__PS 3\r",
+              "    #define FXAA_QUALITY__P0 1.5\r",
+              "    #define FXAA_QUALITY__P1 2.0\r",
+              "    #define FXAA_QUALITY__P2 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 21)\r",
+              "    #define FXAA_QUALITY__PS 4\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 22)\r",
+              "    #define FXAA_QUALITY__PS 5\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 23)\r",
+              "    #define FXAA_QUALITY__PS 6\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 24)\r",
+              "    #define FXAA_QUALITY__PS 7\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 3.0\r",
+              "    #define FXAA_QUALITY__P6 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 25)\r",
+              "    #define FXAA_QUALITY__PS 8\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 4.0\r",
+              "    #define FXAA_QUALITY__P7 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 26)\r",
+              "    #define FXAA_QUALITY__PS 9\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 2.0\r",
+              "    #define FXAA_QUALITY__P7 4.0\r",
+              "    #define FXAA_QUALITY__P8 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 27)\r",
+              "    #define FXAA_QUALITY__PS 10\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 2.0\r",
+              "    #define FXAA_QUALITY__P7 2.0\r",
+              "    #define FXAA_QUALITY__P8 4.0\r",
+              "    #define FXAA_QUALITY__P9 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 28)\r",
+              "    #define FXAA_QUALITY__PS 11\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 2.0\r",
+              "    #define FXAA_QUALITY__P7 2.0\r",
+              "    #define FXAA_QUALITY__P8 2.0\r",
+              "    #define FXAA_QUALITY__P9 4.0\r",
+              "    #define FXAA_QUALITY__P10 8.0\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_QUALITY__PRESET == 29)\r",
+              "    #define FXAA_QUALITY__PS 12\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.5\r",
+              "    #define FXAA_QUALITY__P2 2.0\r",
+              "    #define FXAA_QUALITY__P3 2.0\r",
+              "    #define FXAA_QUALITY__P4 2.0\r",
+              "    #define FXAA_QUALITY__P5 2.0\r",
+              "    #define FXAA_QUALITY__P6 2.0\r",
+              "    #define FXAA_QUALITY__P7 2.0\r",
+              "    #define FXAA_QUALITY__P8 2.0\r",
+              "    #define FXAA_QUALITY__P9 2.0\r",
+              "    #define FXAA_QUALITY__P10 4.0\r",
+              "    #define FXAA_QUALITY__P11 8.0\r",
+              "#endif\r",
+              "\r",
+              "/*============================================================================\r",
+              "                     FXAA QUALITY - EXTREME QUALITY\r",
+              "============================================================================*/\r",
+              "#if (FXAA_QUALITY__PRESET == 39)\r",
+              "    #define FXAA_QUALITY__PS 12\r",
+              "    #define FXAA_QUALITY__P0 1.0\r",
+              "    #define FXAA_QUALITY__P1 1.0\r",
+              "    #define FXAA_QUALITY__P2 1.0\r",
+              "    #define FXAA_QUALITY__P3 1.0\r",
+              "    #define FXAA_QUALITY__P4 1.0\r",
+              "    #define FXAA_QUALITY__P5 1.5\r",
+              "    #define FXAA_QUALITY__P6 2.0\r",
+              "    #define FXAA_QUALITY__P7 2.0\r",
+              "    #define FXAA_QUALITY__P8 2.0\r",
+              "    #define FXAA_QUALITY__P9 2.0\r",
+              "    #define FXAA_QUALITY__P10 4.0\r",
+              "    #define FXAA_QUALITY__P11 8.0\r",
+              "#endif\r",
+              "\r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "\r",
+              "                                API PORTING\r",
+              "\r",
+              "============================================================================*/\r",
+              "\r",
+              "#define FxaaBool bool\r",
+              "#define FxaaDiscard clip(-1)\r",
+              "#define FxaaFloat float\r",
+              "#define FxaaFloat2 float2\r",
+              "#define FxaaFloat3 float3\r",
+              "#define FxaaFloat4 float4\r",
+              "#define FxaaHalf half\r",
+              "#define FxaaHalf2 half2\r",
+              "#define FxaaHalf3 half3\r",
+              "#define FxaaHalf4 half4\r",
+              "#define FxaaSat(x) saturate(x)\r",
+              "\r",
+              "\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "#if (FXAA_HLSL_4 == 1)\r",
+              "    #define FxaaInt2 int2\r",
+              "    struct FxaaTex { SamplerState smpl; Texture2D tex; };\r",
+              "    #define FxaaTexTop(t, p) t.tex.SampleLevel(t.smpl, p, 0.0)\r",
+              "    #define FxaaTexOff(t, p, o, r) t.tex.SampleLevel(t.smpl, p, 0.0, o)\r",
+              "#endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "\r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "                   GREEN AS LUMA OPTION SUPPORT FUNCTION\r",
+              "============================================================================*/\r",
+              "#if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "    FxaaFloat FxaaLuma(FxaaFloat4 rgba) { return rgba.w; }\r",
+              "#else\r",
+              "    FxaaFloat FxaaLuma(FxaaFloat4 rgba) { return rgba.y; }\r",
+              "#endif    \r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "\r",
+              "                             FXAA3 QUALITY - PC\r",
+              "\r",
+              "============================================================================*/\r",
+              "#if (FXAA_PC == 1)\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "FxaaFloat4 FxaaPixelShader(\r",
+              "    //\r",
+              "    // Use noperspective interpolation here (turn off perspective interpolation).\r",
+              "    // {xy} = center of pixel\r",
+              "    FxaaFloat2 pos,\r",
+              "    //\r",
+              "    // Used only for FXAA Console, and not used on the 360 version.\r",
+              "    // Use noperspective interpolation here (turn off perspective interpolation).\r",
+              "    // {xy__} = upper left of pixel\r",
+              "    // {__zw} = lower right of pixel\r",
+              "    FxaaFloat4 fxaaConsolePosPos,\r",
+              "    //\r",
+              "    // Input color texture.\r",
+              "    // {rgb_} = color in linear or perceptual color space\r",
+              "    // if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "    //     {___a} = luma in perceptual color space (not linear)\r",
+              "    FxaaTex tex,\r",
+              "    //\r",
+              "    // Only used on the optimized 360 version of FXAA Console.\r",
+              "    // For everything but 360, just use the same input here as for \"tex\".\r",
+              "    // For 360, same texture, just alias with a 2nd sampler.\r",
+              "    // This sampler needs to have an exponent bias of -1.\r",
+              "    FxaaTex fxaaConsole360TexExpBiasNegOne,\r",
+              "    //\r",
+              "    // Only used on the optimized 360 version of FXAA Console.\r",
+              "    // For everything but 360, just use the same input here as for \"tex\".\r",
+              "    // For 360, same texture, just alias with a 3nd sampler.\r",
+              "    // This sampler needs to have an exponent bias of -2.\r",
+              "    FxaaTex fxaaConsole360TexExpBiasNegTwo,\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x_} = 1.0/screenWidthInPixels\r",
+              "    // {_y} = 1.0/screenHeightInPixels\r",
+              "    FxaaFloat2 fxaaQualityRcpFrame,\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // This effects sub-pixel AA quality and inversely sharpness.\r",
+              "    //   Where N ranges between,\r",
+              "    //     N = 0.50 (default)\r",
+              "    //     N = 0.33 (sharper)\r",
+              "    // {x___} = -N/screenWidthInPixels  \r",
+              "    // {_y__} = -N/screenHeightInPixels\r",
+              "    // {__z_} =  N/screenWidthInPixels  \r",
+              "    // {___w} =  N/screenHeightInPixels \r",
+              "    FxaaFloat4 fxaaConsoleRcpFrameOpt,\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // Not used on 360, but used on PS3 and PC.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x___} = -2.0/screenWidthInPixels  \r",
+              "    // {_y__} = -2.0/screenHeightInPixels\r",
+              "    // {__z_} =  2.0/screenWidthInPixels  \r",
+              "    // {___w} =  2.0/screenHeightInPixels \r",
+              "    FxaaFloat4 fxaaConsoleRcpFrameOpt2,\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // Only used on 360 in place of fxaaConsoleRcpFrameOpt2.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x___} =  8.0/screenWidthInPixels  \r",
+              "    // {_y__} =  8.0/screenHeightInPixels\r",
+              "    // {__z_} = -4.0/screenWidthInPixels  \r",
+              "    // {___w} = -4.0/screenHeightInPixels \r",
+              "    FxaaFloat4 fxaaConsole360RcpFrameOpt2,\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__SUBPIX define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Choose the amount of sub-pixel aliasing removal.\r",
+              "    // This can effect sharpness.\r",
+              "    //   1.00 - upper limit (softer)\r",
+              "    //   0.75 - default amount of filtering\r",
+              "    //   0.50 - lower limit (sharper, less sub-pixel aliasing removal)\r",
+              "    //   0.25 - almost off\r",
+              "    //   0.00 - completely off\r",
+              "    FxaaFloat fxaaQualitySubpix,\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__EDGE_THRESHOLD define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // The minimum amount of local contrast required to apply algorithm.\r",
+              "    //   0.333 - too little (faster)\r",
+              "    //   0.250 - low quality\r",
+              "    //   0.166 - default\r",
+              "    //   0.125 - high quality \r",
+              "    //   0.063 - overkill (slower)\r",
+              "    FxaaFloat fxaaQualityEdgeThreshold,\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__EDGE_THRESHOLD_MIN define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Trims the algorithm from processing darks.\r",
+              "    //   0.0833 - upper limit (default, the start of visible unfiltered edges)\r",
+              "    //   0.0625 - high quality (faster)\r",
+              "    //   0.0312 - visible limit (slower)\r",
+              "    // Special notes when using FXAA_GREEN_AS_LUMA,\r",
+              "    //   Likely want to set this to zero.\r",
+              "    //   As colors that are mostly not-green\r",
+              "    //   will appear very dark in the green channel!\r",
+              "    //   Tune by looking at mostly non-green content,\r",
+              "    //   then start at zero and increase until aliasing is a problem.\r",
+              "    FxaaFloat fxaaQualityEdgeThresholdMin,\r",
+              "    // \r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_SHARPNESS define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // This does not effect PS3, as this needs to be compiled in.\r",
+              "    //   Use FXAA_CONSOLE__PS3_EDGE_SHARPNESS for PS3.\r",
+              "    //   Due to the PS3 being ALU bound,\r",
+              "    //   there are only three safe values here: 2 and 4 and 8.\r",
+              "    //   These options use the shaders ability to a free *|/ by 2|4|8.\r",
+              "    // For all other platforms can be a non-power of two.\r",
+              "    //   8.0 is sharper (default!!!)\r",
+              "    //   4.0 is softer\r",
+              "    //   2.0 is really soft (good only for vector graphics inputs)\r",
+              "    FxaaFloat fxaaConsoleEdgeSharpness,\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_THRESHOLD define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // This does not effect PS3, as this needs to be compiled in.\r",
+              "    //   Use FXAA_CONSOLE__PS3_EDGE_THRESHOLD for PS3.\r",
+              "    //   Due to the PS3 being ALU bound,\r",
+              "    //   there are only two safe values here: 1/4 and 1/8.\r",
+              "    //   These options use the shaders ability to a free *|/ by 2|4|8.\r",
+              "    // The console setting has a different mapping than the quality setting.\r",
+              "    // Other platforms can use other values.\r",
+              "    //   0.125 leaves less aliasing, but is softer (default!!!)\r",
+              "    //   0.25 leaves more aliasing, and is sharper\r",
+              "    FxaaFloat fxaaConsoleEdgeThreshold,\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_THRESHOLD_MIN define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Trims the algorithm from processing darks.\r",
+              "    // The console setting has a different mapping than the quality setting.\r",
+              "    // This only applies when FXAA_EARLY_EXIT is 1.\r",
+              "    // This does not apply to PS3, \r",
+              "    // PS3 was simplified to avoid more shader instructions.\r",
+              "    //   0.06 - faster but more aliasing in darks\r",
+              "    //   0.05 - default\r",
+              "    //   0.04 - slower and less aliasing in darks\r",
+              "    // Special notes when using FXAA_GREEN_AS_LUMA,\r",
+              "    //   Likely want to set this to zero.\r",
+              "    //   As colors that are mostly not-green\r",
+              "    //   will appear very dark in the green channel!\r",
+              "    //   Tune by looking at mostly non-green content,\r",
+              "    //   then start at zero and increase until aliasing is a problem.\r",
+              "    FxaaFloat fxaaConsoleEdgeThresholdMin,\r",
+              "    //    \r",
+              "    // Extra constants for 360 FXAA Console only.\r",
+              "    // Use zeros or anything else for other platforms.\r",
+              "    // These must be in physical constant registers and NOT immedates.\r",
+              "    // Immedates will result in compiler un-optimizing.\r",
+              "    // {xyzw} = float4(1.0, -1.0, 0.25, -0.25)\r",
+              "    FxaaFloat4 fxaaConsole360ConstDir\r",
+              ") {\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat2 posM;\r",
+              "    posM.x = pos.x;\r",
+              "    posM.y = pos.y;\r",
+              "    #if (FXAA_GATHER4_ALPHA == 1)\r",
+              "        #if (FXAA_DISCARD == 0)\r",
+              "            FxaaFloat4 rgbyM = FxaaTexTop(tex, posM);\r",
+              "            #if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "                #define lumaM rgbyM.w\r",
+              "            #else\r",
+              "                #define lumaM rgbyM.y\r",
+              "            #endif\r",
+              "        #endif\r",
+              "        #if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "            FxaaFloat4 luma4A = FxaaTexAlpha4(tex, posM);\r",
+              "            FxaaFloat4 luma4B = FxaaTexOffAlpha4(tex, posM, FxaaInt2(-1, -1));\r",
+              "        #else\r",
+              "            FxaaFloat4 luma4A = FxaaTexGreen4(tex, posM);\r",
+              "            FxaaFloat4 luma4B = FxaaTexOffGreen4(tex, posM, FxaaInt2(-1, -1));\r",
+              "        #endif\r",
+              "        #if (FXAA_DISCARD == 1)\r",
+              "            #define lumaM luma4A.w\r",
+              "        #endif\r",
+              "        #define lumaE luma4A.z\r",
+              "        #define lumaS luma4A.x\r",
+              "        #define lumaSE luma4A.y\r",
+              "        #define lumaNW luma4B.w\r",
+              "        #define lumaN luma4B.z\r",
+              "        #define lumaW luma4B.x\r",
+              "    #else\r",
+              "        FxaaFloat4 rgbyM = FxaaTexTop(tex, posM);\r",
+              "        #if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "            #define lumaM rgbyM.w\r",
+              "        #else\r",
+              "            #define lumaM rgbyM.y\r",
+              "        #endif\r",
+              "        FxaaFloat lumaS = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 0, 1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1, 0), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaN = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 0,-1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 0), fxaaQualityRcpFrame.xy));\r",
+              "    #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat maxSM = max(lumaS, lumaM);\r",
+              "    FxaaFloat minSM = min(lumaS, lumaM);\r",
+              "    FxaaFloat maxESM = max(lumaE, maxSM);\r",
+              "    FxaaFloat minESM = min(lumaE, minSM);\r",
+              "    FxaaFloat maxWN = max(lumaN, lumaW);\r",
+              "    FxaaFloat minWN = min(lumaN, lumaW);\r",
+              "    FxaaFloat rangeMax = max(maxWN, maxESM);\r",
+              "    FxaaFloat rangeMin = min(minWN, minESM);\r",
+              "    FxaaFloat rangeMaxScaled = rangeMax * fxaaQualityEdgeThreshold;\r",
+              "    FxaaFloat range = rangeMax - rangeMin;\r",
+              "    FxaaFloat rangeMaxClamped = max(fxaaQualityEdgeThresholdMin, rangeMaxScaled);\r",
+              "    FxaaBool earlyExit = range < rangeMaxClamped;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    if(earlyExit)\r",
+              "        #if (FXAA_DISCARD == 1)\r",
+              "            FxaaDiscard;\r",
+              "        #else\r",
+              "            return rgbyM;\r",
+              "        #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    #if (FXAA_GATHER4_ALPHA == 0)\r",
+              "        FxaaFloat lumaNW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1,-1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaSE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1, 1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaNE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2( 1,-1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaSW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 1), fxaaQualityRcpFrame.xy));\r",
+              "    #else\r",
+              "        FxaaFloat lumaNE = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(1, -1), fxaaQualityRcpFrame.xy));\r",
+              "        FxaaFloat lumaSW = FxaaLuma(FxaaTexOff(tex, posM, FxaaInt2(-1, 1), fxaaQualityRcpFrame.xy));\r",
+              "    #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat lumaNS = lumaN + lumaS;\r",
+              "    FxaaFloat lumaWE = lumaW + lumaE;\r",
+              "    FxaaFloat subpixRcpRange = 1.0/range;\r",
+              "    FxaaFloat subpixNSWE = lumaNS + lumaWE;\r",
+              "    FxaaFloat edgeHorz1 = (-2.0 * lumaM) + lumaNS;\r",
+              "    FxaaFloat edgeVert1 = (-2.0 * lumaM) + lumaWE;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat lumaNESE = lumaNE + lumaSE;\r",
+              "    FxaaFloat lumaNWNE = lumaNW + lumaNE;\r",
+              "    FxaaFloat edgeHorz2 = (-2.0 * lumaE) + lumaNESE;\r",
+              "    FxaaFloat edgeVert2 = (-2.0 * lumaN) + lumaNWNE;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat lumaNWSW = lumaNW + lumaSW;\r",
+              "    FxaaFloat lumaSWSE = lumaSW + lumaSE;\r",
+              "    FxaaFloat edgeHorz4 = (abs(edgeHorz1) * 2.0) + abs(edgeHorz2);\r",
+              "    FxaaFloat edgeVert4 = (abs(edgeVert1) * 2.0) + abs(edgeVert2);\r",
+              "    FxaaFloat edgeHorz3 = (-2.0 * lumaW) + lumaNWSW;\r",
+              "    FxaaFloat edgeVert3 = (-2.0 * lumaS) + lumaSWSE;\r",
+              "    FxaaFloat edgeHorz = abs(edgeHorz3) + edgeHorz4;\r",
+              "    FxaaFloat edgeVert = abs(edgeVert3) + edgeVert4;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat subpixNWSWNESE = lumaNWSW + lumaNESE;\r",
+              "    FxaaFloat lengthSign = fxaaQualityRcpFrame.x;\r",
+              "    FxaaBool horzSpan = edgeHorz >= edgeVert;\r",
+              "    FxaaFloat subpixA = subpixNSWE * 2.0 + subpixNWSWNESE;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    if(!horzSpan) lumaN = lumaW;\r",
+              "    if(!horzSpan) lumaS = lumaE;\r",
+              "    if(horzSpan) lengthSign = fxaaQualityRcpFrame.y;\r",
+              "    FxaaFloat subpixB = (subpixA * (1.0/12.0)) - lumaM;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat gradientN = lumaN - lumaM;\r",
+              "    FxaaFloat gradientS = lumaS - lumaM;\r",
+              "    FxaaFloat lumaNN = lumaN + lumaM;\r",
+              "    FxaaFloat lumaSS = lumaS + lumaM;\r",
+              "    FxaaBool pairN = abs(gradientN) >= abs(gradientS);\r",
+              "    FxaaFloat gradient = max(abs(gradientN), abs(gradientS));\r",
+              "    if(pairN) lengthSign = -lengthSign;\r",
+              "    FxaaFloat subpixC = FxaaSat(abs(subpixB) * subpixRcpRange);\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat2 posB;\r",
+              "    posB.x = posM.x;\r",
+              "    posB.y = posM.y;\r",
+              "    FxaaFloat2 offNP;\r",
+              "    offNP.x = (!horzSpan) ? 0.0 : fxaaQualityRcpFrame.x;\r",
+              "    offNP.y = ( horzSpan) ? 0.0 : fxaaQualityRcpFrame.y;\r",
+              "    if(!horzSpan) posB.x += lengthSign * 0.5;\r",
+              "    if( horzSpan) posB.y += lengthSign * 0.5;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat2 posN;\r",
+              "    posN.x = posB.x - offNP.x * FXAA_QUALITY__P0;\r",
+              "    posN.y = posB.y - offNP.y * FXAA_QUALITY__P0;\r",
+              "    FxaaFloat2 posP;\r",
+              "    posP.x = posB.x + offNP.x * FXAA_QUALITY__P0;\r",
+              "    posP.y = posB.y + offNP.y * FXAA_QUALITY__P0;\r",
+              "    FxaaFloat subpixD = ((-2.0)*subpixC) + 3.0;\r",
+              "    FxaaFloat lumaEndN = FxaaLuma(FxaaTexTop(tex, posN));\r",
+              "    FxaaFloat subpixE = subpixC * subpixC;\r",
+              "    FxaaFloat lumaEndP = FxaaLuma(FxaaTexTop(tex, posP));\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    if(!pairN) lumaNN = lumaSS;\r",
+              "    FxaaFloat gradientScaled = gradient * 1.0/4.0;\r",
+              "    FxaaFloat lumaMM = lumaM - lumaNN * 0.5;\r",
+              "    FxaaFloat subpixF = subpixD * subpixE;\r",
+              "    FxaaBool lumaMLTZero = lumaMM < 0.0;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    lumaEndN -= lumaNN * 0.5;\r",
+              "    lumaEndP -= lumaNN * 0.5;\r",
+              "    FxaaBool doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "    FxaaBool doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "    if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P1;\r",
+              "    if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P1;\r",
+              "    FxaaBool doneNP = (!doneN) || (!doneP);\r",
+              "    if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P1; \r",
+              "    if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P1;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    if(doneNP) {\r",
+              "        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "        doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "        doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P2;\r",
+              "        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P2;\r",
+              "        doneNP = (!doneN) || (!doneP);\r",
+              "        if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P2;\r",
+              "        if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P2;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "        #if (FXAA_QUALITY__PS > 3)\r",
+              "        if(doneNP) {\r",
+              "            if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "            if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "            if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "            if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "            doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "            doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "            if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P3;\r",
+              "            if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P3;\r",
+              "            doneNP = (!doneN) || (!doneP);\r",
+              "            if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P3;\r",
+              "            if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P3;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "            #if (FXAA_QUALITY__PS > 4)\r",
+              "            if(doneNP) {\r",
+              "                if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P4;\r",
+              "                if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P4;\r",
+              "                doneNP = (!doneN) || (!doneP);\r",
+              "                if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P4;\r",
+              "                if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P4;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                #if (FXAA_QUALITY__PS > 5)\r",
+              "                if(doneNP) {\r",
+              "                    if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                    if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                    if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                    if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                    doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                    doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                    if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P5;\r",
+              "                    if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P5;\r",
+              "                    doneNP = (!doneN) || (!doneP);\r",
+              "                    if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P5;\r",
+              "                    if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P5;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                    #if (FXAA_QUALITY__PS > 6)\r",
+              "                    if(doneNP) {\r",
+              "                        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                        doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                        doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P6;\r",
+              "                        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P6;\r",
+              "                        doneNP = (!doneN) || (!doneP);\r",
+              "                        if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P6;\r",
+              "                        if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P6;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                        #if (FXAA_QUALITY__PS > 7)\r",
+              "                        if(doneNP) {\r",
+              "                            if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                            if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                            if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                            if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                            doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                            doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                            if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P7;\r",
+              "                            if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P7;\r",
+              "                            doneNP = (!doneN) || (!doneP);\r",
+              "                            if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P7;\r",
+              "                            if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P7;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    #if (FXAA_QUALITY__PS > 8)\r",
+              "    if(doneNP) {\r",
+              "        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "        doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "        doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P8;\r",
+              "        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P8;\r",
+              "        doneNP = (!doneN) || (!doneP);\r",
+              "        if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P8;\r",
+              "        if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P8;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "        #if (FXAA_QUALITY__PS > 9)\r",
+              "        if(doneNP) {\r",
+              "            if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "            if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "            if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "            if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "            doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "            doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "            if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P9;\r",
+              "            if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P9;\r",
+              "            doneNP = (!doneN) || (!doneP);\r",
+              "            if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P9;\r",
+              "            if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P9;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "            #if (FXAA_QUALITY__PS > 10)\r",
+              "            if(doneNP) {\r",
+              "                if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P10;\r",
+              "                if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P10;\r",
+              "                doneNP = (!doneN) || (!doneP);\r",
+              "                if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P10;\r",
+              "                if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P10;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                #if (FXAA_QUALITY__PS > 11)\r",
+              "                if(doneNP) {\r",
+              "                    if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                    if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                    if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                    if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                    doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                    doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                    if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P11;\r",
+              "                    if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P11;\r",
+              "                    doneNP = (!doneN) || (!doneP);\r",
+              "                    if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P11;\r",
+              "                    if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P11;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                    #if (FXAA_QUALITY__PS > 12)\r",
+              "                    if(doneNP) {\r",
+              "                        if(!doneN) lumaEndN = FxaaLuma(FxaaTexTop(tex, posN.xy));\r",
+              "                        if(!doneP) lumaEndP = FxaaLuma(FxaaTexTop(tex, posP.xy));\r",
+              "                        if(!doneN) lumaEndN = lumaEndN - lumaNN * 0.5;\r",
+              "                        if(!doneP) lumaEndP = lumaEndP - lumaNN * 0.5;\r",
+              "                        doneN = abs(lumaEndN) >= gradientScaled;\r",
+              "                        doneP = abs(lumaEndP) >= gradientScaled;\r",
+              "                        if(!doneN) posN.x -= offNP.x * FXAA_QUALITY__P12;\r",
+              "                        if(!doneN) posN.y -= offNP.y * FXAA_QUALITY__P12;\r",
+              "                        doneNP = (!doneN) || (!doneP);\r",
+              "                        if(!doneP) posP.x += offNP.x * FXAA_QUALITY__P12;\r",
+              "                        if(!doneP) posP.y += offNP.y * FXAA_QUALITY__P12;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                    }\r",
+              "                    #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                }\r",
+              "                #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "            }\r",
+              "            #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "        }\r",
+              "        #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    }\r",
+              "    #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                        }\r",
+              "                        #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                    }\r",
+              "                    #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "                }\r",
+              "                #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "            }\r",
+              "            #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "        }\r",
+              "        #endif\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    }\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat dstN = posM.x - posN.x;\r",
+              "    FxaaFloat dstP = posP.x - posM.x;\r",
+              "    if(!horzSpan) dstN = posM.y - posN.y;\r",
+              "    if(!horzSpan) dstP = posP.y - posM.y;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaBool goodSpanN = (lumaEndN < 0.0) != lumaMLTZero;\r",
+              "    FxaaFloat spanLength = (dstP + dstN);\r",
+              "    FxaaBool goodSpanP = (lumaEndP < 0.0) != lumaMLTZero;\r",
+              "    FxaaFloat spanLengthRcp = 1.0/spanLength;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaBool directionN = dstN < dstP;\r",
+              "    FxaaFloat dst = min(dstN, dstP);\r",
+              "    FxaaBool goodSpan = directionN ? goodSpanN : goodSpanP;\r",
+              "    FxaaFloat subpixG = subpixF * subpixF;\r",
+              "    FxaaFloat pixelOffset = (dst * (-spanLengthRcp)) + 0.5;\r",
+              "    FxaaFloat subpixH = subpixG * fxaaQualitySubpix;\r",
+              "/*--------------------------------------------------------------------------*/\r",
+              "    FxaaFloat pixelOffsetGood = goodSpan ? pixelOffset : 0.0;\r",
+              "    FxaaFloat pixelOffsetSubpix = max(pixelOffsetGood, subpixH);\r",
+              "    if(!horzSpan) posM.x += pixelOffsetSubpix * lengthSign;\r",
+              "    if( horzSpan) posM.y += pixelOffsetSubpix * lengthSign;\r",
+              "    #if (FXAA_DISCARD == 1)\r",
+              "        return FxaaTexTop(tex, posM);\r",
+              "    #else\r",
+              "        return FxaaFloat4(FxaaTexTop(tex, posM).xyz, lumaM);\r",
+              "    #endif\r",
+              "}\r",
+              "/*==========================================================================*/\r",
+              "#endif\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              "/*============================================================================\r",
+              "\r",
+              "                         FXAA3 CONSOLE - PC VERSION\r",
+              "                         \r",
+              "------------------------------------------------------------------------------\r",
+              "Instead of using this on PC, I'd suggest just using FXAA Quality with\r",
+              "    #define FXAA_QUALITY__PRESET 10\r",
+              "Or \r",
+              "    #define FXAA_QUALITY__PRESET 20\r",
+              "Either are higher qualilty and almost as fast as this on modern PC GPUs.\r",
+              "============================================================================*/\r",
+              "\r",
+              "\r",
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image;",
+              "float Strength;",
+              "float Size;",
+              "float Contrast;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "SamplerState samBilinear\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_LINEAR;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "\r",
+              "    FxaaTex tx= {samBilinear, Image};\r",
+              "    \r",
+              "    float4 col=  FxaaPixelShader(\r",
+              "    //\r",
+              "    // Use noperspective interpolation here (turn off perspective interpolation).\r",
+              "    // {xy} = center of pixel\r",
+              "    input.texCoord,\r",
+              "    //\r",
+              "    // Used only for FXAA Console, and not used on the 360 version.\r",
+              "    // Use noperspective interpolation here (turn off perspective interpolation).\r",
+              "    // {xy__} = upper left of pixel\r",
+              "    // {__zw} = lower right of pixel\r",
+              "    FxaaFloat4(0,0,0,0),\r",
+              "    //\r",
+              "    // Input color texture.\r",
+              "    // {rgb_} = color in linear or perceptual color space\r",
+              "    // if (FXAA_GREEN_AS_LUMA == 0)\r",
+              "    //     {___a} = luma in perceptual color space (not linear)\r",
+              "    tx,\r",
+              "    //\r",
+              "    // Only used on the optimized 360 version of FXAA Console.\r",
+              "    // For everything but 360, just use the same input here as for \"tex\".\r",
+              "    // For 360, same texture, just alias with a 2nd sampler.\r",
+              "    // This sampler needs to have an exponent bias of -1.\r",
+              "    tx,\r",
+              "    //\r",
+              "    // Only used on the optimized 360 version of FXAA Console.\r",
+              "    // For everything but 360, just use the same input here as for \"tex\".\r",
+              "    // For 360, same texture, just alias with a 3nd sampler.\r",
+              "    // This sampler needs to have an exponent bias of -2.\r",
+              "    tx,\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x_} = 1.0/screenWidthInPixels\r",
+              "    // {_y} = 1.0/screenHeightInPixels\r",
+              "    FxaaFloat2(1.0,1.0),\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // This effects sub-pixel AA quality and inversely sharpness.\r",
+              "    //   Where N ranges between,\r",
+              "    //     N = 0.50 (default)\r",
+              "    //     N = 0.33 (sharper)\r",
+              "    // {x___} = -N/screenWidthInPixels  \r",
+              "    // {_y__} = -N/screenHeightInPixels\r",
+              "    // {__z_} =  N/screenWidthInPixels  \r",
+              "    // {___w} =  N/screenHeightInPixels \r",
+              "    FxaaFloat4(0,0,0,0),\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // Not used on 360, but used on PS3 and PC.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x___} = -2.0/screenWidthInPixels  \r",
+              "    // {_y__} = -2.0/screenHeightInPixels\r",
+              "    // {__z_} =  2.0/screenWidthInPixels  \r",
+              "    // {___w} =  2.0/screenHeightInPixels \r",
+              "    FxaaFloat4(0,0,0,0),\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // Only used on 360 in place of fxaaConsoleRcpFrameOpt2.\r",
+              "    // This must be from a constant/uniform.\r",
+              "    // {x___} =  8.0/screenWidthInPixels  \r",
+              "    // {_y__} =  8.0/screenHeightInPixels\r",
+              "    // {__z_} = -4.0/screenWidthInPixels  \r",
+              "    // {___w} = -4.0/screenHeightInPixels \r",
+              "    FxaaFloat4(0,0,0,0),\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__SUBPIX define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Choose the amount of sub-pixel aliasing removal.\r",
+              "    // This can effect sharpness.\r",
+              "    //   1.00 - upper limit (softer)\r",
+              "    //   0.75 - default amount of filtering\r",
+              "    //   0.50 - lower limit (sharper, less sub-pixel aliasing removal)\r",
+              "    //   0.25 - almost off\r",
+              "    //   0.00 - completely off\r",
+              "    FxaaFloat(1.0),\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__EDGE_THRESHOLD define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // The minimum amount of local contrast required to apply algorithm.\r",
+              "    //   0.333 - too little (faster)\r",
+              "    //   0.250 - low quality\r",
+              "    //   0.166 - default\r",
+              "    //   0.125 - high quality \r",
+              "    //   0.063 - overkill (slower)\r",
+              "    FxaaFloat(0.166),\r",
+              "    //\r",
+              "    // Only used on FXAA Quality.\r",
+              "    // This used to be the FXAA_QUALITY__EDGE_THRESHOLD_MIN define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Trims the algorithm from processing darks.\r",
+              "    //   0.0833 - upper limit (default, the start of visible unfiltered edges)\r",
+              "    //   0.0625 - high quality (faster)\r",
+              "    //   0.0312 - visible limit (slower)\r",
+              "    // Special notes when using FXAA_GREEN_AS_LUMA,\r",
+              "    //   Likely want to set this to zero.\r",
+              "    //   As colors that are mostly not-green\r",
+              "    //   will appear very dark in the green channel!\r",
+              "    //   Tune by looking at mostly non-green content,\r",
+              "    //   then start at zero and increase until aliasing is a problem.\r",
+              "    FxaaFloat(0.0833),\r",
+              "    // \r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_SHARPNESS define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // This does not effect PS3, as this needs to be compiled in.\r",
+              "    //   Use FXAA_CONSOLE__PS3_EDGE_SHARPNESS for PS3.\r",
+              "    //   Due to the PS3 being ALU bound,\r",
+              "    //   there are only three safe values here: 2 and 4 and 8.\r",
+              "    //   These options use the shaders ability to a free *|/ by 2|4|8.\r",
+              "    // For all other platforms can be a non-power of two.\r",
+              "    //   8.0 is sharper (default!!!)\r",
+              "    //   4.0 is softer\r",
+              "    //   2.0 is really soft (good only for vector graphics inputs)\r",
+              "    FxaaFloat(8.0),\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_THRESHOLD define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // This does not effect PS3, as this needs to be compiled in.\r",
+              "    //   Use FXAA_CONSOLE__PS3_EDGE_THRESHOLD for PS3.\r",
+              "    //   Due to the PS3 being ALU bound,\r",
+              "    //   there are only two safe values here: 1/4 and 1/8.\r",
+              "    //   These options use the shaders ability to a free *|/ by 2|4|8.\r",
+              "    // The console setting has a different mapping than the quality setting.\r",
+              "    // Other platforms can use other values.\r",
+              "    //   0.125 leaves less aliasing, but is softer (default!!!)\r",
+              "    //   0.25 leaves more aliasing, and is sharper\r",
+              "    FxaaFloat(0.25),\r",
+              "    //\r",
+              "    // Only used on FXAA Console.\r",
+              "    // This used to be the FXAA_CONSOLE__EDGE_THRESHOLD_MIN define.\r",
+              "    // It is here now to allow easier tuning.\r",
+              "    // Trims the algorithm from processing darks.\r",
+              "    // The console setting has a different mapping than the quality setting.\r",
+              "    // This only applies when FXAA_EARLY_EXIT is 1.\r",
+              "    // This does not apply to PS3, \r",
+              "    // PS3 was simplified to avoid more shader instructions.\r",
+              "    //   0.06 - faster but more aliasing in darks\r",
+              "    //   0.05 - default\r",
+              "    //   0.04 - slower and less aliasing in darks\r",
+              "    // Special notes when using FXAA_GREEN_AS_LUMA,\r",
+              "    //   Likely want to set this to zero.\r",
+              "    //   As colors that are mostly not-green\r",
+              "    //   will appear very dark in the green channel!\r",
+              "    //   Tune by looking at mostly non-green content,\r",
+              "    //   then start at zero and increase until aliasing is a problem.\r",
+              "    FxaaFloat(0.05),\r",
+              "    //    \r",
+              "    // Extra constants for 360 FXAA Console only.\r",
+              "    // Use zeros or anything else for other platforms.\r",
+              "    // These must be in physical constant registers and NOT immedates.\r",
+              "    // Immedates will result in compiler un-optimizing.\r",
+              "    // {xyzw} = float4(1.0, -1.0, 0.25, -0.25)\r",
+              "    FxaaFloat4(1.0, -1.0, 0.25, -0.25)\r",
+              ");\r",
+              "    return col;\r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ]
+          },
+          {
+            "ID": "0811f61d-4bcc-44c4-933b-95b270709c5f",
+            "Type": "Float",
+            "Value": [
+              "0.8699999"
+            ]
+          },
+          {
+            "ID": "a42734c8-d4d3-4948-8154-6c2da1d346e9",
+            "Type": "Float",
+            "Value": [
+              "1.12"
+            ]
+          },
+          {
+            "ID": "c1c9e6cc-6f76-43c7-a55d-d5386f5f616a",
+            "Type": "Float",
+            "Value": [
+              "12.8"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "1ca99847-67d9-449a-89d2-6268c067bc67",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2518.8263130939",
+        "PosY": "1678.91558867406",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "0.01199969"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SceneRepeat",
+      "MetaInstanceID": "c8ca522a-ad80-4b72-ba82-7f34faa9967b",
+      "MetaID": "50735cb2-86ef-47cd-8bee-e897157e05cf",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2518.8263130939",
+        "PosY": "1653.91558867407",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "b13ebb33-7ced-454f-bf3f-775239aa17e9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "0c81a180-99b7-411d-8339-fcfd38e92b34",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "651a051f-341e-48c3-86a9-88f78a2c2062",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "70650fcb-3d2c-4d12-8d6f-617a6c55b7a7",
+            "Type": "Float",
+            "Value": [
+              "12"
+            ]
+          },
+          {
+            "ID": "663f62ff-f348-4f81-9326-3f596ad18a34",
+            "Type": "Float",
+            "Value": [
+              "23"
+            ]
+          },
+          {
+            "ID": "1ef16188-963c-4477-88ce-bd86a6305ce1",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ab33ed3f-430a-491f-8613-ea83c2b87d33",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e3be34aa-f839-4d6d-928d-c07091b75e7f",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "95828319-c454-4090-a5d3-c88964c3c93b",
+            "Type": "Float",
+            "Value": [
+              "62"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "51a73321-2585-4428-83a8-46785b49bef7",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2418.8263130939",
+        "PosY": "1578.91558867407",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "71505d74-3550-4a0c-a2a0-f4f4d2104400",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2418.8263130939",
+        "PosY": "1603.91558867406",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5",
+            "Type": "Float",
+            "Value": [
+              "-1.099999"
+            ]
+          },
+          {
+            "ID": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "28827d15-597c-4214-8be9-72762d229578",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7dcec0b7-d396-406c-9291-c6a82a371e47",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "f68dbf08-1551-405d-96b5-5b5f7deee006",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2418.8263130939",
+        "PosY": "1628.91558867407",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "2ce7d5a5-49ea-4867-aa31-aff0ee93d0f8",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2418.8263130939",
+        "PosY": "1653.91558867407",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "14.312"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "959d8737-c66c-4d62-ab9f-f520e45532e5",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2696.811011297",
+        "PosY": "1618.81781423502",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "cb4b51b8-8149-42c4-bfe2-f1b44091e4ec",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2696.811011297",
+        "PosY": "1643.81781423502",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "14.312"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "10"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SceneRepeat",
+      "MetaInstanceID": "f0391fd0-3bd3-44ba-9916-e43d6096847e",
+      "MetaID": "50735cb2-86ef-47cd-8bee-e897157e05cf",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2842.22237867081",
+        "PosY": "1757.11610537288",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "60dcdcb4-17da-4524-ae36-cfdf005ff114",
+            "Type": "Scene",
+            "Value": [
+              ""
+            ]
+          },
+          {
+            "ID": "b13ebb33-7ced-454f-bf3f-775239aa17e9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "0c81a180-99b7-411d-8339-fcfd38e92b34",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "651a051f-341e-48c3-86a9-88f78a2c2062",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "d07042d9-262e-4927-a0a6-b82fa9ea5f38",
+            "Type": "Float",
+            "Value": [
+              "5.906839"
+            ]
+          },
+          {
+            "ID": "70650fcb-3d2c-4d12-8d6f-617a6c55b7a7",
+            "Type": "Float",
+            "Value": [
+              "12"
+            ]
+          },
+          {
+            "ID": "663f62ff-f348-4f81-9326-3f596ad18a34",
+            "Type": "Float",
+            "Value": [
+              "23"
+            ]
+          },
+          {
+            "ID": "1ef16188-963c-4477-88ce-bd86a6305ce1",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ab33ed3f-430a-491f-8613-ea83c2b87d33",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e3be34aa-f839-4d6d-928d-c07091b75e7f",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "95828319-c454-4090-a5d3-c88964c3c93b",
+            "Type": "Float",
+            "Value": [
+              "62"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Rectangle",
+      "MetaInstanceID": "d143a4e9-73ea-4aa5-a9c2-17877ce72209",
+      "MetaID": "161f6915-5798-40e0-a99b-47e6205448f4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2796.811011297",
+        "PosY": "1643.81781423502",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2bae21c1-64b4-4dd0-8913-e29a9e5eaa30",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "cc353c8c-8d76-4302-98d0-d5aa2079ad8c",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "9b80fa7b-282e-4c85-8917-f36740916045",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "7403f401-0fdb-440a-aa49-cec4156a2c40",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3b4b22e7-c78c-41e9-b1c7-2c6ce24995cd",
+            "Type": "Float",
+            "Value": [
+              "0.001999685"
+            ]
+          },
+          {
+            "ID": "53d3495a-8c76-4be2-aaf7-7c852ec1b17d",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "3e4b420e-3f3e-464c-9c58-4b49e8b14592",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          },
+          {
+            "ID": "d957543c-efcc-4d9a-8e0e-fcbd23a4dad3",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Disable Z-Test",
+      "MetaInstanceID": "a61d5de1-1e50-4803-b987-70adf0cb62a0",
+      "MetaID": "1c5247fc-f9d8-451f-91cd-83294ff79974",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2696.811011297",
+        "PosY": "1593.81781423502",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "bd43a6ff-b14b-48f3-adb0-bcd96d46a04c",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2675.01152799581",
+        "PosY": "1512.48872033597",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "GaussBlur",
+      "MetaInstanceID": "96ede0e1-4d95-4a26-ad89-6461fab7f99c",
+      "MetaID": "61560c16-3643-426a-ade5-f8e33ef51e78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2675.01152799581",
+        "PosY": "1487.48872033597",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c992df9-496b-4d87-a43f-de5702aef102",
+            "Type": "Float",
+            "Value": [
+              "0.9984998"
+            ]
+          },
+          {
+            "ID": "08a555a3-b28d-4830-aeb3-eaac33c50e69",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a4d48e86-c687-4533-8d09-5fb5682a3456",
+            "Type": "Float",
+            "Value": [
+              "0.04999588"
+            ]
+          },
+          {
+            "ID": "9d6b3b96-87f8-4959-9786-3da31b481a0f",
+            "Type": "Float",
+            "Value": [
+              "9"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "11d5343f-63a5-436b-94d8-47e6becbfd28",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2696.811011297",
+        "PosY": "1568.81781423502",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "810e1039-99f0-401c-a106-3e87bd2811fb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "465c0f09-2564-4d74-97e5-f16e4a168bcf",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5",
+            "Type": "Float",
+            "Value": [
+              "-10"
+            ]
+          },
+          {
+            "ID": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "28827d15-597c-4214-8be9-72762d229578",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "7dcec0b7-d396-406c-9291-c6a82a371e47",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.1"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "ca6a2ecc-f993-4534-9954-c3079fab60d3",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "13.6055289571452": {
+                  "Value": 5.0,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0886663327231676,
+                  "OutTangentAngle": 3.2302589863129607,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "21.4795883614559": {
+                  "Value": 5.6999993324279785,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.088666332723167388,
+                  "OutTangentAngle": -3.0529263208666255,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "79dac38a-1eea-4eba-a594-8dcd771402da",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "51a73321-2585-4428-83a8-46785b49bef7",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "1c3d72e4-8ebe-448e-8ff2-c7acd3089ea4",
+      "TargetOpPart": "a6fd0dc5-25bc-443a-bf9f-19dc47fdc66e"
+    },
+    {
+      "SourceOp": "79dac38a-1eea-4eba-a594-8dcd771402da",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ca6a2ecc-f993-4534-9954-c3079fab60d3",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "ca6a2ecc-f993-4534-9954-c3079fab60d3",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "c8ca522a-ad80-4b72-ba82-7f34faa9967b",
+      "TargetOpPart": "d07042d9-262e-4927-a0a6-b82fa9ea5f38"
+    },
+    {
+      "SourceOp": "71505d74-3550-4a0c-a2a0-f4f4d2104400",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "51a73321-2585-4428-83a8-46785b49bef7",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "f68dbf08-1551-405d-96b5-5b5f7deee006",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "71505d74-3550-4a0c-a2a0-f4f4d2104400",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "2ce7d5a5-49ea-4867-aa31-aff0ee93d0f8",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "f68dbf08-1551-405d-96b5-5b5f7deee006",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "c8ca522a-ad80-4b72-ba82-7f34faa9967b",
+      "SourceOpPart": "1a0f9a44-d771-4071-8149-ea7386a13746",
+      "TargetOp": "f68dbf08-1551-405d-96b5-5b5f7deee006",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "1ca99847-67d9-449a-89d2-6268c067bc67",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "c8ca522a-ad80-4b72-ba82-7f34faa9967b",
+      "TargetOpPart": "60dcdcb4-17da-4524-ae36-cfdf005ff114"
+    },
+    {
+      "SourceOp": "cb4b51b8-8149-42c4-bfe2-f1b44091e4ec",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "959d8737-c66c-4d62-ab9f-f520e45532e5",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "d143a4e9-73ea-4aa5-a9c2-17877ce72209",
+      "SourceOpPart": "a8a64dec-f762-4b73-a45a-c09accecb1b5",
+      "TargetOp": "959d8737-c66c-4d62-ab9f-f520e45532e5",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "959d8737-c66c-4d62-ab9f-f520e45532e5",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "a61d5de1-1e50-4803-b987-70adf0cb62a0",
+      "TargetOpPart": "3ac02d74-c136-4d8e-ab18-ac069267a903"
+    },
+    {
+      "SourceOp": "bd43a6ff-b14b-48f3-adb0-bcd96d46a04c",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "96ede0e1-4d95-4a26-ad89-6461fab7f99c",
+      "TargetOpPart": "1944a8ac-41ce-4d96-9406-fe49d814d719"
+    },
+    {
+      "SourceOp": "11d5343f-63a5-436b-94d8-47e6becbfd28",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "bd43a6ff-b14b-48f3-adb0-bcd96d46a04c",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "a61d5de1-1e50-4803-b987-70adf0cb62a0",
+      "SourceOpPart": "406baddd-54fb-46a3-a3fd-4b27129ca57e",
+      "TargetOp": "11d5343f-63a5-436b-94d8-47e6becbfd28",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "Name": "TimeStamp",
+  "_id": "a0cb38fc-a8a7-4917-a470-b682fc40986f",
+  "Namespace": "lib.math",
+  "Description": "Returns current time formatted as a srting",
+  "Inputs": [
+    {
+      "Name": "Format",
+      "MetaInstanceID": "eef45a5f-0d67-4cb1-a06e-fc9441c2e959",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "yyyy-MM-dd HH-mm-ss"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "dfa28752-deed-4ad2-a115-f9d97a398c0b",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "fee64c3d-7f0b-4b1c-b941-2d686a2a2146",
+      "MetaID": "a59b0138-638d-4d98-bb97-efc0558e8620",
+      "Name": "TimeStampFunc",
+      "Version": "55618a51-b019-4a12-812e-50a05ede74d0",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDa59b0138_638d_4d98_bb97_efc0558e8620",
+        "{",
+        "    public class Class_DateTime : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Format = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            context.Text = DateTime.Now.ToString(Format);",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fee64c3d-7f0b-4b1c-b941-2d686a2a2146",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dfa28752-deed-4ad2-a115-f9d97a398c0b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eef45a5f-0d67-4cb1-a06e-fc9441c2e959",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fee64c3d-7f0b-4b1c-b941-2d686a2a2146"
+    }
+  ]
+}

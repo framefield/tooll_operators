@@ -1,0 +1,106 @@
+{
+  "Name": "Multiply (2)",
+  "_id": "5f979368-1283-4e37-8800-3daf4b48e53f",
+  "Namespace": "lib._deprecated",
+  "Description": "Multiplies two values. If you want to multiply a flexible number of values, use the [Multiply Values] operator.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "a128a3e1-8a16-452f-8e9f-0df752f68f2a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "415c2279-97ac-4c21-a0ef-42ae996096b4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "b703b66f-db92-4e09-8df4-4fb9e365dfd4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e1c4cfd0-a367-403c-a69e-3967fae7c4a3",
+      "MetaID": "82812ba5-bd8e-4a4a-8e8a-cac16def08ab",
+      "Name": "Multiply (2)Func",
+      "Version": "56c5cbbc-b4eb-4485-b896-23e50642facb",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID82812ba5_bd8e_4a4a_8e8a_cac16def08ab",
+        "{",
+        "    public class Class_Multiply__2_ : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value1 = (float) inputs[0].Eval(context).Value;",
+        "            var Value2 = (float) inputs[1].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            context.Value = Value1*Value2;",
+        "            ",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a128a3e1-8a16-452f-8e9f-0df752f68f2a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e1c4cfd0-a367-403c-a69e-3967fae7c4a3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "415c2279-97ac-4c21-a0ef-42ae996096b4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e1c4cfd0-a367-403c-a69e-3967fae7c4a3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e1c4cfd0-a367-403c-a69e-3967fae7c4a3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b703b66f-db92-4e09-8df4-4fb9e365dfd4"
+    }
+  ]
+}

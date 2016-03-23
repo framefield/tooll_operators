@@ -1,0 +1,116 @@
+{
+  "Name": "ValueToOrdinal",
+  "_id": "a2049e2e-7f1c-4fd7-a293-e3d05964c0c5",
+  "Namespace": "lib.basic",
+  "Description": "Converts a value to Ordinal Strings e.g...\r\n\r\n1 -> 1st\r\n2 -> 2nd\r\n3 -> 3rd\r\n\r\n324 -> 324th",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "308f9fa1-2624-45da-993f-9c331321a927",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "86debf4f-bcec-4bb5-a4ae-5a836c73220a",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "2a0af995-39d9-4ea8-be6e-ff7734f6dfe0",
+      "MetaID": "49feaa7f-5aa3-4b56-bbd9-e5b05cb82c29",
+      "Name": "ValueToOrdinalFunc",
+      "Version": "001fbac5-da71-4a56-9f54-b516d12b2f19",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID49feaa7f_5aa3_4b56_bbd9_e5b05cb82c29",
+        "{",
+        "    public class Class_ValueToOrdinal : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public static string ToOrdinal(int num)",
+        "        {",
+        "            if (num <= 0) return num.ToString();",
+        "        ",
+        "            switch (num % 100)",
+        "            {",
+        "                case 11:",
+        "                case 12:",
+        "                case 13:",
+        "                    return num + \"th\";",
+        "            }",
+        "        ",
+        "            switch (num % 10)",
+        "            {",
+        "                case 1:",
+        "                    return num + \"st\";",
+        "                case 2:",
+        "                    return num + \"nd\";",
+        "                case 3:",
+        "                    return num + \"rd\";",
+        "                default:",
+        "                    return num + \"th\";",
+        "            }",
+        "        ",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params            ",
+        "            ",
+        "            context.Text = ToOrdinal((int)Value);",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "308f9fa1-2624-45da-993f-9c331321a927",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2a0af995-39d9-4ea8-be6e-ff7734f6dfe0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2a0af995-39d9-4ea8-be6e-ff7734f6dfe0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86debf4f-bcec-4bb5-a4ae-5a836c73220a"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "Name": "Clamp",
+  "_id": "24929321-07b0-4c57-a175-765bccf0661b",
+  "Namespace": "lib.math",
+  "Description": "Returns a float value in the given range.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "bd264e86-8f2c-4b8a-94f0-3661d1ac1b28",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Random seed. Can be a float value.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Min",
+      "MetaInstanceID": "3af3213e-00ff-4c2b-abf4-084655df2563",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "Minimum value of the range.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Logarithmic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Max",
+      "MetaInstanceID": "2eeeeb39-f55f-4b28-b23f-6aa48e612fb2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "Maximum value of the range.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Logarithmic",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "RandomOut",
+      "MetaInstanceID": "f25b1ce2-b251-4f1e-8714-652e91b23570",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "aa20b1cc-7a93-45e6-815c-48ea5c8c909b",
+      "MetaID": "fff71a25-591f-44ed-9f7b-f7e975a559ad",
+      "Name": "ClampFunc",
+      "Version": "77f24901-b9d5-45cf-9aa5-3269598d8e0d",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDfff71a25_591f_44ed_9f7b_f7e975a559ad",
+        "{",
+        "    public class Class_Clamp : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Min = 1,",
+        "            Max = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Min = inputs[(int)InputId.Min].Eval(context).Value;",
+        "            var Max = inputs[(int)InputId.Max].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if (Min > Max) ",
+        "                Utilities.Swap(ref Min, ref Max);",
+        "            ",
+        "            context.Value = Utilities.Clamp((float)Value, (float)Min, (float)Max);",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bd264e86-8f2c-4b8a-94f0-3661d1ac1b28",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa20b1cc-7a93-45e6-815c-48ea5c8c909b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3af3213e-00ff-4c2b-abf4-084655df2563",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa20b1cc-7a93-45e6-815c-48ea5c8c909b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2eeeeb39-f55f-4b28-b23f-6aa48e612fb2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa20b1cc-7a93-45e6-815c-48ea5c8c909b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa20b1cc-7a93-45e6-815c-48ea5c8c909b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f25b1ce2-b251-4f1e-8714-652e91b23570"
+    }
+  ]
+}

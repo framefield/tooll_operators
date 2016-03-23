@@ -1,0 +1,127 @@
+{
+  "Name": "CombineStringList",
+  "_id": "f56deecf-3924-4f5e-a40d-98bc13022dbe",
+  "Namespace": "lib.text.experimental",
+  "Description": "Extracts the Nth Element of an incoming generic String List\r\n",
+  "Inputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "2d3234b2-f084-4246-bfbb-5e7756f73cbd",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Seperator",
+      "MetaInstanceID": "5686566b-ad85-40af-a953-75bcb316dfad",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "\\n"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "15444d82-f885-4e87-80a3-e6f344befd37",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "22dc48ce-1b66-4019-b6da-71d12a2b53c5",
+      "MetaID": "19109abb-fc95-4103-b2bb-9c2ddc4bbbd2",
+      "Name": "CombineStringListFunc",
+      "Version": "d27c9099-a7d4-431f-96ae-eaa2dabbea59",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID19109abb_fc95_4103_b2bb_9c2ddc4bbbd2",
+        "{",
+        "    public class Class_CombineStringList : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StringList = 0,",
+        "            Seperator = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> params",
+        "            dynamic StringList = inputs[(int)InputId.StringList].Eval(context).Dynamic;",
+        "            var Seperator = inputs[(int)InputId.Seperator].Eval(context).Text;",
+        "            //<<< params            ",
+        "            ",
+        "            Seperator = Seperator.Replace(\"\\\\n\", \"\\n\");",
+        "            ",
+        "            ",
+        "            if(StringList == null) {",
+        "                Logger.Info(this,\"Can't convert incoming structure to Dynamic\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            context.Text = String.Join( Seperator, StringList);",
+        "            Logger.Info(this,\"{0}\", context.Text);",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2d3234b2-f084-4246-bfbb-5e7756f73cbd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "22dc48ce-1b66-4019-b6da-71d12a2b53c5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5686566b-ad85-40af-a953-75bcb316dfad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "22dc48ce-1b66-4019-b6da-71d12a2b53c5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "22dc48ce-1b66-4019-b6da-71d12a2b53c5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "15444d82-f885-4e87-80a3-e6f344befd37"
+    }
+  ]
+}

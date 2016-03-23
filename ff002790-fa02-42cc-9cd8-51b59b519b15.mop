@@ -1,0 +1,130 @@
+{
+  "Name": "CacheRawFiles",
+  "_id": "ff002790-fa02-42cc-9cd8-51b59b519b15",
+  "Namespace": "projects.glitch.helpers",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "102bce59-31f5-401d-863f-b2a044207fd5",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "fb49b36e-0ba8-421c-9da1-997eda581b5a",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "cace45ad-bee5-4f98-a05c-a7ab7a442052",
+      "MetaID": "b7d54d3e-099e-4e81-997e-fffc72001213",
+      "Name": "CacheRawFilesFunc",
+      "Version": "d444142d-315f-4e61-872e-cf1d1e2cbe17",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDb7d54d3e_099e_4e81_997e_fffc72001213",
+        "{",
+        "    public class Class_CacheRawFiles : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StringList = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            foreach (var i in _rawResources)",
+        "                i.Dispose();",
+        "            _rawResources.Clear();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> params ",
+        "            dynamic StringList = inputs[(int)InputId.StringList].Eval(context).Dynamic;",
+        "            //<<< params",
+        "",
+        "            if (StringList == null)",
+        "            {",
+        "                Logger.Info(this, \"Can't convert incoming structure to Dynamic\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            if (Changed)",
+        "            {",
+        "                Changed = false;",
+        "                Dispose();",
+        "                try",
+        "                {",
+        "                    for (int i = 0; i < StringList.Count; ++i)",
+        "                    {",
+        "                        if (File.Exists(StringList[i]))",
+        "                        {",
+        "                            var r = ResourceManager.ReadRaw(StringList[i]);",
+        "                            if (r != null)",
+        "                                _rawResources.Add(r);",
+        "                        }",
+        "                    }",
+        "                }",
+        "                catch",
+        "                {",
+        "                }",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        List<RawResource> _rawResources = new List<RawResource>();",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cace45ad-bee5-4f98-a05c-a7ab7a442052",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fb49b36e-0ba8-421c-9da1-997eda581b5a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "102bce59-31f5-401d-863f-b2a044207fd5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cace45ad-bee5-4f98-a05c-a7ab7a442052"
+    }
+  ]
+}

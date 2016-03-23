@@ -1,0 +1,91 @@
+{
+  "Name": "LightScreenPos",
+  "_id": "38ba5702-703a-45cc-8737-da1366766a5f",
+  "Namespace": "lib.3d.helper",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "ScreenPos.X",
+      "MetaInstanceID": "715f33fb-53ad-480f-a3c2-a6cdb9c99e72",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "ScreenPos.Y",
+      "MetaInstanceID": "cf31ff68-2fa6-49c9-bc1b-0c58e96c2ae4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "54e3a841-dbe6-4cd3-9233-ef72bd4067fc",
+      "MetaID": "d8a02a63-4e91-40dc-86fd-04461a528a19",
+      "Name": "LightScreenPosFunc",
+      "Version": "9a47d2a0-e05e-41a4-81dc-b3610677da80",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDd8a02a63_4e91_40dc_86fd_04461a528a19",
+        "{",
+        "    public class Class_LightScreenPos : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            ScreenPosX = 0,",
+        "            ScreenPosY = 1",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            var pointLightContainer = (HashSet<IPointLight>) context.Objects[OperatorPartContext.POINT_LIGHT_CONTAINER_ID];",
+        "            if (pointLightContainer.Count > 0)",
+        "            {",
+        "                var pointLight = pointLightContainer.First();",
+        "                Matrix worldToView = context.WorldToCamera*context.CameraProjection;",
+        "                Vector4 pos = Vector3.Transform(pointLight.Position, worldToView);",
+        "                pos /= pos.W;",
+        "",
+        "                if ((int)OutputId.ScreenPosX == outputIdx)",
+        "                    context.Value = pos.X;",
+        "                else",
+        "                    context.Value = pos.Y;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "54e3a841-dbe6-4cd3-9233-ef72bd4067fc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "715f33fb-53ad-480f-a3c2-a6cdb9c99e72"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "54e3a841-dbe6-4cd3-9233-ef72bd4067fc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cf31ff68-2fa6-49c9-bc1b-0c58e96c2ae4"
+    }
+  ]
+}

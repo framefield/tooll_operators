@@ -1,0 +1,186 @@
+{
+  "Name": "SmoothValue",
+  "_id": "589257b2-35b2-4ca1-ad82-29e645010287",
+  "Namespace": "lib.math.helper",
+  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "72234b4e-8711-49ec-9bdb-413d22d6258c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SetHardTrigger",
+      "MetaInstanceID": "b6522c25-48f4-45ee-81f4-213c3abe70c1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Acceleration",
+      "MetaInstanceID": "a8c8686e-a1dc-4ddc-b59e-d409397bb622",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.001"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0.001",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Precision",
+      "MetaInstanceID": "239afa03-93d3-4ad7-9cba-9a7b39d6993e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0.0001",
+      "Max": "10",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "5bbb6d7f-cac9-4698-8f1f-babacd8b9d91",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "54b56c95-c5ab-4b8b-9885-375bf33870ee",
+      "MetaID": "f3365080-ed24-457b-9022-491a9e46fafe",
+      "Name": "SmoothValueFunc",
+      "Version": "7c1db783-9fb7-4e9c-8fee-098fed6ac26e",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDf3365080_ed24_457b_9022_491a9e46fafe",
+        "{",
+        "    public class Class_SmoothValue : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            SetHardTrigger = 1,",
+        "            Acceleration = 2,",
+        "            Precision = 3",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var SetHardTrigger = inputs[(int)InputId.SetHardTrigger].Eval(context).Value;",
+        "            var Acceleration = inputs[(int)InputId.Acceleration].Eval(context).Value;",
+        "            var Precision = inputs[(int)InputId.Precision].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if (SetHardTrigger != 0)",
+        "            {",
+        "                _targetValue = Value;",
+        "            }",
+        "            _smoothInterpolator.Acceleration = Acceleration;",
+        "            _smoothInterpolator.Precision = Precision;",
+        "",
+        "            if (_targetValue != Value)",
+        "            {",
+        "                _smoothInterpolator.AnimateTo(Value);",
+        "                _targetValue = Value;",
+        "            }",
+        "",
+        "            context.Value = (float)_smoothInterpolator.GetValue(context.GlobalTime);",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        private float _targetValue = 0;",
+        "        private SmoothInterpolator _smoothInterpolator = new SmoothInterpolator(defaultValue:0, acceleration:0.4, delta:0.001);",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "72234b4e-8711-49ec-9bdb-413d22d6258c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54b56c95-c5ab-4b8b-9885-375bf33870ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b6522c25-48f4-45ee-81f4-213c3abe70c1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54b56c95-c5ab-4b8b-9885-375bf33870ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a8c8686e-a1dc-4ddc-b59e-d409397bb622",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54b56c95-c5ab-4b8b-9885-375bf33870ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "239afa03-93d3-4ad7-9cba-9a7b39d6993e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54b56c95-c5ab-4b8b-9885-375bf33870ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "54b56c95-c5ab-4b8b-9885-375bf33870ee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5bbb6d7f-cac9-4698-8f1f-babacd8b9d91"
+    }
+  ]
+}

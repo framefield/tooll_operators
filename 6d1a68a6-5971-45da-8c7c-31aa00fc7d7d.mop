@@ -1,0 +1,135 @@
+{
+  "Name": "_UseCameraPosition",
+  "_id": "6d1a68a6-5971-45da-8c7c-31aa00fc7d7d",
+  "Namespace": "lib.3d.helper",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Widget",
+      "MetaInstanceID": "1783b06a-1800-43bb-beb5-2e2ec60d1a72",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "c70d24ff-8600-4f0d-91cd-c73383cef36d",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "0cbec441-97f1-4f83-b7f7-11b55fe15378",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0720bdbd-3bcd-40f5-a07b-25ed62bea2c0",
+      "MetaID": "55ef2226-654b-473d-a45c-10aaed6a0d82",
+      "Name": "_UseCameraPositionFunc",
+      "Version": "3ad0f3b2-afb1-421a-9ead-be36d6e91bc9",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID55ef2226_654b_473d_a45c_10aaed6a0d82",
+        "{",
+        "    public class Class__UseCameraPosition : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Widget = 0,",
+        "            Camera = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Widget = inputs[(int)InputId.Widget];",
+        "            var Camera = inputs[(int)InputId.Camera].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "            //<<< _params",
+        "            ",
+        "            Framefield.Core.OperatorPartTraits.ICameraProvider camProvider = Camera.This as Framefield.Core.OperatorPartTraits.ICameraProvider;",
+        "            if (camProvider == null)",
+        "            {",
+        "                Logger.Error(this, \"camera not defined\");",
+        "                return context;",
+        "            }",
+        "",
+        "            // Render Scene",
+        "            ",
+        "            // Render Camera",
+        "            var prevTransform = context.ObjectTWorld;",
+        "            var m = camProvider.GetLastWorldToCamera();",
+        "            m.Invert();",
+        "            m.Row4 = new Vector4( camProvider.GetLastPosition(),1);",
+        "            context.ObjectTWorld = m;",
+        "            Widget.Eval(context);",
+        "            context.ObjectTWorld = prevTransform;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1783b06a-1800-43bb-beb5-2e2ec60d1a72",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0720bdbd-3bcd-40f5-a07b-25ed62bea2c0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c70d24ff-8600-4f0d-91cd-c73383cef36d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0720bdbd-3bcd-40f5-a07b-25ed62bea2c0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0720bdbd-3bcd-40f5-a07b-25ed62bea2c0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0cbec441-97f1-4f83-b7f7-11b55fe15378"
+    }
+  ]
+}

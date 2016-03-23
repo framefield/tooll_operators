@@ -1,0 +1,72 @@
+{
+  "Name": "BackSided",
+  "_id": "51154bfa-a003-49c9-a3d5-d8ecf6327118",
+  "Namespace": "lib.3d.material",
+  "Description": "Sets [RasterizerState] so that only the backside of a geometry is rendered",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "7d0ebb1e-d74a-487d-bc1d-97273aeaa36e",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "39dd9074-4a45-463a-bfb7-8f744c67c8c0",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "RasterizerState",
+      "MetaInstanceID": "4a5e4df9-e402-4a2e-b2de-bc357e377538",
+      "MetaID": "62b35be8-a620-4a2a-a3d9-8d42392e79f3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1623.76788644056",
+        "PosY": "115.479673501764",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "8bec1ec1-6364-40bd-b4e8-c2f20a53fcf0",
+            "Type": "Float",
+            "Value": [
+              "2"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "4a5e4df9-e402-4a2e-b2de-bc357e377538",
+      "SourceOpPart": "c399025b-e505-403b-a8d6-de0ce5440108",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "39dd9074-4a45-463a-bfb7-8f744c67c8c0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7d0ebb1e-d74a-487d-bc1d-97273aeaa36e",
+      "TargetOp": "4a5e4df9-e402-4a2e-b2de-bc357e377538",
+      "TargetOpPart": "c17be31a-912e-4e88-b2a4-da04465f5d35"
+    }
+  ]
+}

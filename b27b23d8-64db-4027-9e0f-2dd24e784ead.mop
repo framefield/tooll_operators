@@ -1,0 +1,113 @@
+{
+  "Name": "Get i",
+  "_id": "b27b23d8-64db-4027-9e0f-2dd24e784ead",
+  "Namespace": "lib.basic",
+  "Description": "This references a Variable that has been defined further up the tree with a \"Set Variable\" operator.\r\n\r\nThe output of this operator is of generic type and will be casted into the respective parameter type like Value or Text.\r\n\r\nThis can also be used to read current context variables likes \"Samples\" and \"AspectRatio\". These are later set by the Player setting.\r\n",
+  "Inputs": [
+    {
+      "Name": "Name",
+      "MetaInstanceID": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Default",
+      "MetaInstanceID": "ffc92c9c-bd1c-4899-9755-e3c15c33bb49",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "978f4979-ac0c-4424-9304-3785cb6a7ae4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "64c2c148-74ae-4eec-b976-86598383748d",
+      "MetaID": "a817e783-25ef-479e-b62c-53d40f6a124a",
+      "Name": "Get iFunc",
+      "Version": "9ebe5959-1eb8-42a1-a0a4-467ea008c1b9",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDa817e783_25ef_479e_b62c_53d40f6a124a",
+        "{",
+        "    public class Class_Get_i : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IVariableAccessor",
+        "    {",
+        "        public string VariableName {",
+        "            get {",
+        "                return OperatorPartUtilities.GetInputTextValue(OperatorPart.Connections[0]);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Name = inputs[0].Eval(context).Text;",
+        "            var Default = inputs[1].Eval(context).Value;",
+        "            var value = 0.0f;",
+        "            if (context.Variables.TryGetValue(Name, out value))",
+        "                context.Value = value;",
+        "            else",
+        "                context.Value = Default;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64c2c148-74ae-4eec-b976-86598383748d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ffc92c9c-bd1c-4899-9755-e3c15c33bb49",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64c2c148-74ae-4eec-b976-86598383748d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "64c2c148-74ae-4eec-b976-86598383748d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "978f4979-ac0c-4424-9304-3785cb6a7ae4"
+    }
+  ]
+}

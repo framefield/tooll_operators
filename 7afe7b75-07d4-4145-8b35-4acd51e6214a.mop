@@ -1,0 +1,116 @@
+{
+  "Name": "Length2",
+  "_id": "7afe7b75-07d4-4145-8b35-4acd51e6214a",
+  "Namespace": "lib.math",
+  "Description": "Computes the length of a vector",
+  "Inputs": [
+    {
+      "Name": "Vec.X",
+      "MetaInstanceID": "eb8df069-c320-40c4-b3ee-d3a87bb0ab67",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Vec.Y",
+      "MetaInstanceID": "2575d054-68cc-434b-a9d0-084babc05c07",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "37d38055-b022-45fb-b8fd-f3bb8d0ff621",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "338c6fec-0cb6-48bf-8d73-e7302f755871",
+      "MetaID": "434538b1-896b-49fc-8498-e083c3d71127",
+      "Name": "Length2Func",
+      "Version": "19927a57-8c37-40f9-84fc-24c1c87fcba0",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID434538b1_896b_49fc_8498_e083c3d71127",
+        "{",
+        "    public class Class_Length : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            VecX = 0,",
+        "            VecY = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var VecX = inputs[(int)InputId.VecX].Eval(context).Value;",
+        "            var VecY = inputs[(int)InputId.VecY].Eval(context).Value;",
+        "            var Vec = new Vector2(VecX, VecY);",
+        "            //<<< _params",
+        "            ",
+        "            context.Value = Vec.Length();",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb8df069-c320-40c4-b3ee-d3a87bb0ab67",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "338c6fec-0cb6-48bf-8d73-e7302f755871"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2575d054-68cc-434b-a9d0-084babc05c07",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "338c6fec-0cb6-48bf-8d73-e7302f755871"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "338c6fec-0cb6-48bf-8d73-e7302f755871",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "37d38055-b022-45fb-b8fd-f3bb8d0ff621"
+    }
+  ]
+}

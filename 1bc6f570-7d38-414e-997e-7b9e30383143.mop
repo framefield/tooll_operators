@@ -1,0 +1,124 @@
+{
+  "Name": "ValueToString",
+  "_id": "1bc6f570-7d38-414e-997e-7b9e30383143",
+  "Namespace": "user.michael",
+  "Description": "Value to String using ToString() and Standard Numeric Format Strings\r\n    See: https://msdn.microsoft.com/en-us/library/dwhawy9k(v=vs.110).aspx",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "0b9321df-05c4-462f-a014-88ed28f91216",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "71d3c3fe-1f1f-4e7f-a0d0-da785102d33d",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "{0}"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "587c08a8-75da-4bf8-a46c-09371edab3c1",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "987323db-2769-433c-957f-badf6256a3d4",
+      "MetaID": "e99b6118-240b-4b51-baf1-dac6149e9c5f",
+      "Name": "ValueToStringFunc",
+      "Version": "3b1c5ac7-6484-4e98-8f17-774c5997f75e",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "/*  ",
+        "    v.01",
+        "    Michael Auerswald <michael@908video.de>",
+        "",
+        "    Value to String using ToString() and Standard Numeric Format Strings",
+        "    See: https://msdn.microsoft.com/en-us/library/dwhawy9k(v=vs.110).aspx",
+        "*/",
+        "",
+        "namespace Framefield.Core.IDe99b6118_240b_4b51_baf1_dac6149e9c5f",
+        "{",
+        "",
+        "    public class Class_ValueToString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Format = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            string s=Value.ToString(Format);",
+        "            context.Text=s;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b9321df-05c4-462f-a014-88ed28f91216",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "987323db-2769-433c-957f-badf6256a3d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71d3c3fe-1f1f-4e7f-a0d0-da785102d33d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "987323db-2769-433c-957f-badf6256a3d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "987323db-2769-433c-957f-badf6256a3d4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "587c08a8-75da-4bf8-a46c-09371edab3c1"
+    }
+  ]
+}

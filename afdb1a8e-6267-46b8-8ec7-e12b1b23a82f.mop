@@ -1,0 +1,191 @@
+{
+  "Name": "Sin",
+  "_id": "afdb1a8e-6267-46b8-8ec7-e12b1b23a82f",
+  "Namespace": "lib.math",
+  "Description": "Computes a Sin value.",
+  "Inputs": [
+    {
+      "Name": "angle",
+      "MetaInstanceID": "d15d3520-5153-4a04-9717-3204f55b5a60",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "period",
+      "MetaInstanceID": "cc759a80-40e5-4338-befe-ade3e51b4bdd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "3.141593"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "amplitute",
+      "MetaInstanceID": "a1650fd4-06d2-444a-98b7-e9db833a88d6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "offset",
+      "MetaInstanceID": "d2735b13-e510-45ac-a076-c7014ea2709f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "phase",
+      "MetaInstanceID": "3358b410-d375-40e4-a838-52c18cf4bf13",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "out",
+      "MetaInstanceID": "045786df-32a6-439d-bd09-ce4e14c72ee2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "635bee9a-622d-4a45-930e-c87b27ec642b",
+      "MetaID": "eea53f81-d17c-4286-82ba-d1bf43318e22",
+      "Name": "SinFunc",
+      "Version": "cd5a5f52-98c0-4994-914b-da7ac7f2119f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDeea53f81_d17c_4286_82ba_d1bf43318e22",
+        "{",
+        "    public class Class_Sin : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            angle = 0,",
+        "            period = 1,",
+        "            amplitute = 2,",
+        "            offset = 3,",
+        "            phase = 4",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var angle = inputs[(int)InputId.angle].Eval(context).Value;",
+        "            var period = inputs[(int)InputId.period].Eval(context).Value;",
+        "            var amplitute = inputs[(int)InputId.amplitute].Eval(context).Value;",
+        "            var offset = inputs[(int)InputId.offset].Eval(context).Value;",
+        "            var phase = inputs[(int)InputId.phase].Eval(context).Value;",
+        "            //<<< _params",
+        "            context.Value = (float) (Math.Sin((angle + phase) / period *Math.PI) * amplitute + offset );",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d15d3520-5153-4a04-9717-3204f55b5a60",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cc759a80-40e5-4338-befe-ade3e51b4bdd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a1650fd4-06d2-444a-98b7-e9db833a88d6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d2735b13-e510-45ac-a076-c7014ea2709f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3358b410-d375-40e4-a838-52c18cf4bf13",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "635bee9a-622d-4a45-930e-c87b27ec642b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "045786df-32a6-439d-bd09-ce4e14c72ee2"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "Name": "LightGizmos",
+  "_id": "86b0f0e1-5c9f-430e-8086-abadbf26866c",
+  "Namespace": "lib.3d.helper",
+  "Description": "Helps to illustrate the position of SpotLights above(!) with a dummy geometry. \r\n\r\nThe more convenient [ShowLightPositions] uses this helper.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "4e520812-4823-4d25-b5c9-60ddf778e531",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Widget",
+      "MetaInstanceID": "b341cea4-8c30-4027-ae03-47c6bd343b1f",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "a68d0586-1cee-4aee-afa7-e8699444a173",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "80e21d7c-9969-4030-a3ce-a5916f4949a4",
+      "MetaID": "6fd1cc00-ad87-4136-87c2-32a07a4a47f9",
+      "Name": "LightGizmosFunc",
+      "Version": "a36fc28d-cda2-4916-8445-88e2d250efd2",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID6fd1cc00_ad87_4136_87c2_32a07a4a47f9",
+        "{",
+        "    public class Class_LightGizmos : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            Widget = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var Widget = inputs[(int)InputId.Widget];",
+        "            //<<< _params",
+        "            SceneInput.Eval(context);",
+        "",
+        "            var prevTransform = context.ObjectTWorld;",
+        "            ",
+        "            var pointLightContainer = (HashSet<IPointLight>) context.Objects[OperatorPartContext.POINT_LIGHT_CONTAINER_ID];",
+        "            foreach (var pointLight in pointLightContainer) {",
+        "                context.ObjectTWorld = Matrix.Translation(pointLight.Position);",
+        "                Widget.Eval(context);",
+        "            }",
+        "",
+        "            context.ObjectTWorld = prevTransform;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4e520812-4823-4d25-b5c9-60ddf778e531",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "80e21d7c-9969-4030-a3ce-a5916f4949a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b341cea4-8c30-4027-ae03-47c6bd343b1f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "80e21d7c-9969-4030-a3ce-a5916f4949a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "80e21d7c-9969-4030-a3ce-a5916f4949a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a68d0586-1cee-4aee-afa7-e8699444a173"
+    }
+  ]
+}

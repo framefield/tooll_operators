@@ -1,0 +1,100 @@
+{
+  "Name": "FaceCamera",
+  "_id": "580591b6-da29-46b4-99c0-5294fa24b9c7",
+  "Namespace": "lib.3d.modify",
+  "Description": "Moves, scales and rotates the incoming geometry.",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "4ec0bce7-7a18-47fe-945c-49a2ce43c70a",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "44703743-53ba-49d7-9f66-97d59f2c01ba",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "096d0c96-3120-4851-bff8-0549ca957f7b",
+      "MetaID": "3050e018-3241-4755-a83c-942db06a249d",
+      "Name": "FaceCameraFunc",
+      "Version": "a47f0b9c-9b53-4f5e-adaf-b7ae324755c0",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID3050e018_3241_4755_a83c_942db06a249d",
+        "{",
+        "    public class Class_FaceCamera: OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            //<<< _params",
+        "",
+        "            using (new PropertyStasher<OperatorPartContext>(context, \"ObjectTWorld\")) {",
+        "                var cameraToWorld = context.WorldToCamera;",
+        "                cameraToWorld.Invert();",
+        "                var newObjectToWorld = context.ObjectTWorld * cameraToWorld;",
+        "                newObjectToWorld.Row4 = context.ObjectTWorld.Row4;",
+        "                context.ObjectTWorld = newObjectToWorld;",
+        "                SceneInput.Eval(context);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4ec0bce7-7a18-47fe-945c-49a2ce43c70a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "096d0c96-3120-4851-bff8-0549ca957f7b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "096d0c96-3120-4851-bff8-0549ca957f7b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "44703743-53ba-49d7-9f66-97d59f2c01ba"
+    }
+  ]
+}

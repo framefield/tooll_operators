@@ -1,0 +1,297 @@
+{
+  "Name": "HoldDuration",
+  "_id": "1273f17d-aa0a-48f4-a9f9-f2e42ab1cda9",
+  "Namespace": "lib.math.helper",
+  "Description": "Increases or decreases the value.\r\n",
+  "Inputs": [
+    {
+      "Name": "StartValue",
+      "MetaInstanceID": "bddabbbc-516f-467b-8b16-f820a29b17a9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "473ff5ec-c8e5-44fd-a417-25f022278b16",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpTrigger",
+      "MetaInstanceID": "898b5bb9-df79-4b4b-bf4e-b4d52497c765",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "DownTrigger",
+      "MetaInstanceID": "2c26dd61-43c0-4bc1-84bc-8c480f1870a4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "UpSpeed",
+      "MetaInstanceID": "60ac8a21-83f3-4086-857d-832396fbc6f6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "DownSpeed",
+      "MetaInstanceID": "fa6542eb-1fa5-4e6b-ab95-a18f7c5a0944",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ValueRange.Min",
+      "MetaInstanceID": "635f5034-62d2-4560-adaf-dd1b1a486880",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ValueRange.Max",
+      "MetaInstanceID": "d9e4d9d4-16cb-48a2-842e-63edd91d080d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "505219ff-01be-4be3-a803-19e7d6bca561",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a5463daf-7c5f-4607-9a46-4d253e3707aa",
+      "MetaID": "568eab9a-a93d-4efa-b1da-bc17b37d9bf3",
+      "Name": "HoldDurationFunc",
+      "Version": "d1335d40-d9b7-40de-bac8-36989cfbe4fc",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "namespace Framefield.Core.ID568eab9a_a93d_4efa_b1da_bc17b37d9bf3",
+        "{",
+        "",
+        "    public class Class_HoldDuration : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StartValue = 0,",
+        "            ResetTrigger = 1,",
+        "            UpTrigger = 2,",
+        "            DownTrigger = 3,",
+        "            UpSpeed = 4,",
+        "            DownSpeed = 5,",
+        "            ValueRangeMin = 6,",
+        "            ValueRangeMax = 7",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        const float UNDEFINED_VALUE = -42;",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var StartValue = inputs[(int)InputId.StartValue].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var UpTrigger = inputs[(int)InputId.UpTrigger].Eval(context).Value;",
+        "            var DownTrigger = inputs[(int)InputId.DownTrigger].Eval(context).Value;",
+        "            var UpSpeed = inputs[(int)InputId.UpSpeed].Eval(context).Value;",
+        "            var DownSpeed = inputs[(int)InputId.DownSpeed].Eval(context).Value;",
+        "            var ValueRangeMin = inputs[(int)InputId.ValueRangeMin].Eval(context).Value;",
+        "            var ValueRangeMax = inputs[(int)InputId.ValueRangeMax].Eval(context).Value;",
+        "            var ValueRange = new Vector2(ValueRangeMin, ValueRangeMax);",
+        "            //<<< _params",
+        "                       ",
+        "            var dt = context.GlobalTime - _lastTime;",
+        "            _lastTime = context.GlobalTime;",
+        "            ",
+        "            if( _value == UNDEFINED_VALUE) {",
+        "                _value = StartValue;",
+        "            }",
+        "            ",
+        "            ",
+        "            if(ResetTrigger > 0) {",
+        "                _value = StartValue;",
+        "            }",
+        "            else {",
+        "                if( UpTrigger > 0) {",
+        "                    _value += dt * UpSpeed;",
+        "                }",
+        "                else {",
+        "                    _value -= dt * DownSpeed;",
+        "                }",
+        "            }",
+        "            ",
+        "            _value = Math.Min( ValueRangeMax,  Math.Max( _value, ValueRangeMin));",
+        "                        ",
+        "            context.Value = _value;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        ",
+        "        private float _lastTime;",
+        "        private float _value = UNDEFINED_VALUE;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bddabbbc-516f-467b-8b16-f820a29b17a9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "473ff5ec-c8e5-44fd-a417-25f022278b16",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "898b5bb9-df79-4b4b-bf4e-b4d52497c765",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2c26dd61-43c0-4bc1-84bc-8c480f1870a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "60ac8a21-83f3-4086-857d-832396fbc6f6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fa6542eb-1fa5-4e6b-ab95-a18f7c5a0944",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "635f5034-62d2-4560-adaf-dd1b1a486880",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d9e4d9d4-16cb-48a2-842e-63edd91d080d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a5463daf-7c5f-4607-9a46-4d253e3707aa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "505219ff-01be-4be3-a803-19e7d6bca561"
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "Name": "FindMinOrMax",
+  "_id": "18ef9523-b32c-4531-9d69-069bd5259500",
+  "Namespace": "lib.math",
+  "Description": "Returns the Minum or Maximum value ever reached by the incoming value.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "f2b35a27-f07c-400c-b36c-c90908ea0ac1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Mode",
+      "MetaInstanceID": "21bb07b7-22e1-4aeb-a013-93a2616af1eb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Min",
+          "Value": "0"
+        },
+        {
+          "Name": "Max",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "85491bfb-b5a2-4500-b542-760e9938e121",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "e824029b-a238-415e-89b0-8cfa821fcdc1",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "eb001e4a-0776-4848-a019-ad7d7ee58c00",
+      "MetaID": "2e57110e-4c07-4fb4-894b-d30197b639c7",
+      "Name": "FindMinOrMaxFunc",
+      "Version": "1d22b950-d382-4c15-88c2-f908bba6363d",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID2e57110e_4c07_4fb4_894b_d30197b639c7",
+        "{",
+        "    public class Class_FindMinOrMax : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Mode = 1,",
+        "            ResetTrigger = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Mode = (int) inputs[(int)InputId.Mode].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            bool resetFlankUpDetected = _lastResetTrigger < 0.5 && ResetTrigger > 0.5;",
+        "            _lastResetTrigger = ResetTrigger;",
+        "            if (resetFlankUpDetected)",
+        "            {",
+        "                Logger.Info(this,\"Resetting Trigger\");",
+        "                switch ((int)Mode)",
+        "                {",
+        "                    case 0: _lastValue = Value = 999999; break;",
+        "                    case 1: _lastValue = Value = -999999; break;",
+        "                }",
+        "            }",
+        "",
+        "            switch ((int)Mode)",
+        "            {",
+        "                case 0: _lastValue = Math.Min(_lastValue, Value); break;",
+        "                case 1: _lastValue = Math.Max(_lastValue, Value); break;",
+        "            }",
+        "            context.Value = _lastValue;",
+        "            return context;",
+        "        }",
+        "",
+        "        float _lastResetTrigger;",
+        "        float _lastValue;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f2b35a27-f07c-400c-b36c-c90908ea0ac1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb001e4a-0776-4848-a019-ad7d7ee58c00"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "21bb07b7-22e1-4aeb-a013-93a2616af1eb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb001e4a-0776-4848-a019-ad7d7ee58c00"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "85491bfb-b5a2-4500-b542-760e9938e121",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb001e4a-0776-4848-a019-ad7d7ee58c00"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb001e4a-0776-4848-a019-ad7d7ee58c00",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e824029b-a238-415e-89b0-8cfa821fcdc1"
+    }
+  ]
+}

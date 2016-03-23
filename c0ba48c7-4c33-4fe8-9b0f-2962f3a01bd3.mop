@@ -1,0 +1,110 @@
+{
+  "Name": "LoadText",
+  "_id": "c0ba48c7-4c33-4fe8-9b0f-2962f3a01bd3",
+  "Namespace": "lib.basic",
+  "Description": "Load Texts from a file.",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "608dd979-35d3-4127-ba70-81043cc59903",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "VariableValueOut",
+      "MetaInstanceID": "96a57ec9-d243-4436-881e-60045fc07c1e",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "9ee751aa-b61a-4a7f-8d12-c8d3a0a94e01",
+      "MetaID": "9f38aae8-c488-42ce-ad2a-6e45bed68268",
+      "Name": "LoadTextFunc",
+      "Version": "a77ffe31-3367-4b9b-afde-5bb82e96a6f4",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.ID9f38aae8_c488_42ce_ad2a_6e45bed68268",
+        "{",
+        "    public class Class_LoadText : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            FilePath = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            if( FilePath != _filepath) {",
+        "                _filepath = FilePath;",
+        "                if( !File.Exists( FilePath)) {",
+        "                    Logger.Error(this,\"{0}: File not found: '{1}'\", this.OperatorPart.Parent, FilePath);",
+        "                    context.Text= \"\";                ",
+        "                }",
+        "                else {                ",
+        "                    _content = File.ReadAllText(FilePath);",
+        "                }",
+        "                Changed = false;",
+        "                Logger.Info(this,\"here\");",
+        "            }",
+        "            ",
+        "            context.Text = _content;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        string _filepath = \"\"; ",
+        "        string _content =\"\";        ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "608dd979-35d3-4127-ba70-81043cc59903",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9ee751aa-b61a-4a7f-8d12-c8d3a0a94e01"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9ee751aa-b61a-4a7f-8d12-c8d3a0a94e01",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "96a57ec9-d243-4436-881e-60045fc07c1e"
+    }
+  ]
+}

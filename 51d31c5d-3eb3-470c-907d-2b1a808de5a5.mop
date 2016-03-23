@@ -1,0 +1,83 @@
+{
+  "Name": "GenericGroup",
+  "_id": "51d31c5d-3eb3-470c-907d-2b1a808de5a5",
+  "Namespace": "lib.basic",
+  "Description": "Group any number of scenes .",
+  "Inputs": [
+    {
+      "Name": "Inputs",
+      "MetaInstanceID": "35be2ce9-a9ac-4191-a51c-d9fd96744626",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Ouput",
+      "MetaInstanceID": "5a5ab0b0-8833-4dcd-a611-8a98e3e127f6",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "310d20ac-2c85-4923-adbc-d044d4ae0a61",
+      "MetaID": "77e19147-8388-49a0-9e94-7ca52fb20ea8",
+      "Name": "GenericGroupFunc",
+      "Version": "710bd4bf-bcb6-418c-be8c-3d0a30040a2e",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID77e19147_8388_49a0_9e94_7ca52fb20ea8",
+        "{",
+        "    public class Class_GenericGroup : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Inputs = inputs[0];",
+        "            //!!automatic generated code ends here",
+        "            foreach (var input in inputs[0].Connections) {",
+        "                input.Eval(context);",
+        "            }",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "310d20ac-2c85-4923-adbc-d044d4ae0a61",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a5ab0b0-8833-4dcd-a611-8a98e3e127f6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "35be2ce9-a9ac-4191-a51c-d9fd96744626",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "310d20ac-2c85-4923-adbc-d044d4ae0a61"
+    }
+  ]
+}

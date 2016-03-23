@@ -1,0 +1,164 @@
+{
+  "Name": "SkyBox",
+  "_id": "e13dd295-6ab5-4235-b9d0-40efb6a040bb",
+  "Namespace": "lib.3d.helper",
+  "Description": "Expects an image of a cubemap with a lying cross layout like.\r\n\r\nassets-common/image/cubemap.png\r\n",
+  "Inputs": [
+    {
+      "Name": "CubeMapImage",
+      "MetaInstanceID": "a75fb7c3-d95b-489e-96f8-612f4bd5102e",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ChokeSeams",
+      "MetaInstanceID": "efe0d4cb-5f1b-4aca-bb28-b45cac624afc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.0025"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size",
+      "MetaInstanceID": "f6a3f035-7339-4bb8-ba7f-15e6a7ad6c26",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "500"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "6d629208-698c-4880-b249-d701e05b3a1f",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "FlatShader",
+      "MetaInstanceID": "ae6e5ea1-3783-4d70-9ac5-08c1bb329222",
+      "MetaID": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1138.59427399145",
+        "PosY": "-517.20412147336",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetTexture",
+      "MetaInstanceID": "8f9a16d5-9f90-4392-9a93-18c9053d118f",
+      "MetaID": "ab3b7bf5-c2ba-4e38-92ab-4387f64f8c14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1138.59427399146",
+        "PosY": "-492.204121473356",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SkyBoxCube",
+      "MetaInstanceID": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "MetaID": "f87b51b7-0b23-42f3-89a2-b509b2d62180",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-1138.59427399146",
+        "PosY": "-467.204121473355",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "ae6e5ea1-3783-4d70-9ac5-08c1bb329222",
+      "SourceOpPart": "bdf97c80-3750-4c02-90c7-5e2d30e4782a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6d629208-698c-4880-b249-d701e05b3a1f"
+    },
+    {
+      "SourceOp": "8f9a16d5-9f90-4392-9a93-18c9053d118f",
+      "SourceOpPart": "d3623e99-cf33-4e3f-a0d5-4a312cc6a6cf",
+      "TargetOp": "ae6e5ea1-3783-4d70-9ac5-08c1bb329222",
+      "TargetOpPart": "df4db8cd-470f-4398-b82e-e4190e2bd577"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a75fb7c3-d95b-489e-96f8-612f4bd5102e",
+      "TargetOp": "8f9a16d5-9f90-4392-9a93-18c9053d118f",
+      "TargetOpPart": "e62a086c-aa85-4f4b-be03-8987791e5754"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "efe0d4cb-5f1b-4aca-bb28-b45cac624afc",
+      "TargetOp": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "TargetOpPart": "6267f23e-4cfc-4fee-aa36-09ba608677a1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f6a3f035-7339-4bb8-ba7f-15e6a7ad6c26",
+      "TargetOp": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "TargetOpPart": "8890d8e5-ad26-426b-9a99-ee92f17d4f69"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f6a3f035-7339-4bb8-ba7f-15e6a7ad6c26",
+      "TargetOp": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "TargetOpPart": "914a74f6-920a-4df7-8821-400def456f32"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f6a3f035-7339-4bb8-ba7f-15e6a7ad6c26",
+      "TargetOp": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "TargetOpPart": "77cf50f6-f1d8-403a-abd1-df86a4f0e899"
+    },
+    {
+      "SourceOp": "1f89098b-9ae5-4370-ad07-a194743247f7",
+      "SourceOpPart": "9f393688-d6f7-42b7-b5b1-77217ea9e7b3",
+      "TargetOp": "8f9a16d5-9f90-4392-9a93-18c9053d118f",
+      "TargetOpPart": "0f07236b-84c8-4e08-98d3-aa9fa9a584ec"
+    }
+  ]
+}

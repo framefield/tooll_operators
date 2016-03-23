@@ -1,0 +1,96 @@
+{
+  "Name": "Abs",
+  "_id": "34f44901-a0ef-4ad8-b27c-c84d3001ff6b",
+  "Namespace": "lib.math",
+  "Description": "Returns the absolute value. E.g. -1  -> 1  ",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "9603471a-f27b-458f-b01e-189ed4551a4c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "d19a812a-c973-4478-ba4b-866e8d22399c",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "13e87ed0-8bc8-4e4b-a948-f9acd04babdd",
+      "MetaID": "0e1fca12-91b4-4b8d-b49e-60f5aed9d568",
+      "Name": "AbsFunc",
+      "Version": "b1f60feb-03b2-4dba-adac-18ed0d44032c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID0e1fca12_91b4_4b8d_b49e_60f5aed9d568",
+        "{",
+        "    public class Class_Abs : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params",
+        "            //>>> function",
+        "            context.Value= (float)Math.Abs(Value);",
+        "            ",
+        "            //<<< function",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9603471a-f27b-458f-b01e-189ed4551a4c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "13e87ed0-8bc8-4e4b-a948-f9acd04babdd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "13e87ed0-8bc8-4e4b-a948-f9acd04babdd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d19a812a-c973-4478-ba4b-866e8d22399c"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "Name": "StopWatch2",
+  "_id": "aa90202a-0673-4b7b-8387-4ed9a655f207",
+  "Namespace": "lib.basic",
+  "Description": "Stops time in seconds. This was formalerly called [StopWatch].",
+  "Inputs": [
+    {
+      "Name": "StartTrigger",
+      "MetaInstanceID": "d5f62aec-bdd9-46c4-9e3a-740474b80907",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "fcabb0ce-7bc7-43d5-bfb5-7b0a3cd53861",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Time",
+      "MetaInstanceID": "bd162165-4abe-412d-ba65-d373a567c8b3",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "6f725253-b2a7-4a6f-b2bb-380f27059dd6",
+      "MetaID": "fc29b4a9-edf4-4417-a480-6760af8a5770",
+      "Name": "StopWatch2Func",
+      "Version": "a30aa79c-8e07-44b0-bd09-90546e066d47",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core;",
+        "",
+        "namespace Framefield.Core.IDfc29b4a9_edf4_4417_a480_6760af8a5770",
+        "{",
+        "    public class Class_StopWatch2 : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StartTrigger = 0,",
+        "            ResetTrigger = 1",
+        "        }",
+        "        //<<< _inputids        ",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var StartTrigger = inputs[(int)InputId.StartTrigger].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if (_lastTime == float.NaN)",
+        "            {",
+        "                _lastTime = context.Time;",
+        "            }",
+        "            if (_lastTime != context.Time)",
+        "            {",
+        "                _duration += context.Time - _lastTime;",
+        "                _lastTime = context.Time;",
+        "                Changed = false;",
+        "            }",
+        "            ",
+        "            bool resetTriggerUp = _oldResetTrigger < 0.5f && ResetTrigger > 0.5f;",
+        "",
+        "            if(resetTriggerUp) ",
+        "                _running = false;",
+        "                ",
+        "            _oldResetTrigger = ResetTrigger;",
+        "                ",
+        "            ",
+        "            bool startTriggerUp = _oldStartTrigger < 0.5f && StartTrigger > 0.5f;",
+        "            bool startTriggerDown = _oldStartTrigger > 0.5f && StartTrigger < 0.5f;",
+        "            _oldStartTrigger = StartTrigger;",
+        "            if (startTriggerUp)",
+        "            {                ",
+        "                _startTime = context.Time;",
+        "                _running = true;",
+        "            }",
+        "            ",
+        "            if(_running) {",
+        "    ",
+        "                context.Value = context.Time - _startTime;",
+        "            }",
+        "            else {",
+        "                context.Value = 0;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        bool _running = false;",
+        "        float _startTime=0;",
+        "        float _oldStartTrigger;",
+        "        float _oldResetTrigger;",
+        "        float _lastTime = 0;",
+        "        float _duration = 0;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6f725253-b2a7-4a6f-b2bb-380f27059dd6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bd162165-4abe-412d-ba65-d373a567c8b3"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d5f62aec-bdd9-46c4-9e3a-740474b80907",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6f725253-b2a7-4a6f-b2bb-380f27059dd6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fcabb0ce-7bc7-43d5-bfb5-7b0a3cd53861",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6f725253-b2a7-4a6f-b2bb-380f27059dd6"
+    }
+  ]
+}

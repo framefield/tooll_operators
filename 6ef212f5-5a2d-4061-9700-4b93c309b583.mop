@@ -1,0 +1,111 @@
+{
+  "Name": "Divide",
+  "_id": "6ef212f5-5a2d-4061-9700-4b93c309b583",
+  "Namespace": "lib.math",
+  "Description": "Divides two values. ",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "8442f2c7-1413-4903-9aa8-1cec6bc43b59",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "10b3c694-86d0-4649-8772-de320220d520",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "c0d2b0a4-0a54-448a-958d-ef2c91a15627",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7663c4d5-6696-418f-9c80-2ef8818b9ed1",
+      "MetaID": "9a7adc6f-9ed0-4f15-b750-742e1a6e0a56",
+      "Name": "DivideFunc",
+      "Version": "f106efb6-489c-4888-9963-a73a5118b0bd",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID9a7adc6f_9ed0_4f15_b750_742e1a6e0a56",
+        "{",
+        "    public class Class_Divide : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value1 = (float) inputs[0].Eval(context).Value;",
+        "            var Value2 = (float) inputs[1].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            if (Value2 != 0) {",
+        "                context.Value= Value1/Value2;",
+        "            }",
+        "            else {",
+        "                context.Value= 0.0f;",
+        "            }",
+        "            ",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8442f2c7-1413-4903-9aa8-1cec6bc43b59",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7663c4d5-6696-418f-9c80-2ef8818b9ed1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "10b3c694-86d0-4649-8772-de320220d520",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7663c4d5-6696-418f-9c80-2ef8818b9ed1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7663c4d5-6696-418f-9c80-2ef8818b9ed1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c0d2b0a4-0a54-448a-958d-ef2c91a15627"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "Name": "ContextVariables",
+  "_id": "b11b67fe-2601-41c8-a079-1a92722f6b1c",
+  "Namespace": "lib.basic",
+  "Description": "Prints the variables in the context.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "6cd90d9f-49ae-4cfe-a3a7-db100e6f5786",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "944896a6-2879-46f0-8b50-1956185ec7eb",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e19d44f7-a21c-483d-8e1f-9023275140c5",
+      "MetaID": "158f3634-7f87-49ff-85da-bd0ea5f3f077",
+      "Name": "ContextVariablesFunc",
+      "Version": "6c499e5d-acb1-46e7-a64c-b0d1f5c39851",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID158f3634_7f87_49ff_85da_bd0ea5f3f077",
+        "{",
+        "    public class Class_ContextVariables : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> params",
+        "            float v = (float) inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< params            ",
+        "            ",
+        "            string buffer = \"context.Variables:\\n\";",
+        "            foreach (var e in context.Variables)",
+        "            {",
+        "                buffer += String.Format(\"  {0}: {1}\\n\", e.Key, e.Value);",
+        "            }",
+        "",
+        "            context.Text = buffer;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6cd90d9f-49ae-4cfe-a3a7-db100e6f5786",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e19d44f7-a21c-483d-8e1f-9023275140c5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e19d44f7-a21c-483d-8e1f-9023275140c5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "944896a6-2879-46f0-8b50-1956185ec7eb"
+    }
+  ]
+}

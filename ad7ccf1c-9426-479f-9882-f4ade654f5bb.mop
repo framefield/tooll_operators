@@ -1,0 +1,96 @@
+{
+  "Name": "Or",
+  "_id": "ad7ccf1c-9426-479f-9882-f4ade654f5bb",
+  "Namespace": "lib.math",
+  "Description": "Checks if any of the incoming values is above 0.5",
+  "Inputs": [
+    {
+      "Name": "Values",
+      "MetaInstanceID": "1c00593a-241e-42d5-8f2c-7d32c2ff3e9c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "MultiplyOut",
+      "MetaInstanceID": "71e8fe70-0f48-41d6-8f42-7a0379184f9b",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5ca6f228-8c95-4ecb-a0e6-f717a12494db",
+      "MetaID": "83f03ecd-7a62-4ccd-95d4-57a9a16d532e",
+      "Name": "OrFunc",
+      "Version": "17323621-43d4-49eb-819f-bf4a418191ec",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID83f03ecd_7a62_4ccd_95d4_57a9a16d532e",
+        "{",
+        "    public class Class_Or : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Values = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Values = inputs[(int)InputId.Values].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            var anyActive = false;",
+        "            ",
+        "            foreach (var input in inputs[0].Connections) {",
+        "                var value = input.Eval(context).Value;",
+        "                if(value > 0.5f) ",
+        "                    anyActive = true;",
+        "            }",
+        "            context.Value = anyActive ? 1 : 0;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1c00593a-241e-42d5-8f2c-7d32c2ff3e9c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5ca6f228-8c95-4ecb-a0e6-f717a12494db"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5ca6f228-8c95-4ecb-a0e6-f717a12494db",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "71e8fe70-0f48-41d6-8f42-7a0379184f9b"
+    }
+  ]
+}

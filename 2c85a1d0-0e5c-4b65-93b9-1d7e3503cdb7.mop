@@ -1,0 +1,169 @@
+{
+  "Name": "ToNormalMap",
+  "_id": "2c85a1d0-0e5c-4b65-93b9-1d7e3503cdb7",
+  "Namespace": "lib.image.generate",
+  "Description": "Loads an image.",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "f8fb49a2-03b1-4e45-942b-717dbc0b1809",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale",
+      "MetaInstanceID": "57d9ca70-6489-47cf-b135-7bd45e7adc24",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ComputeOcclusion",
+      "MetaInstanceID": "7dc622b9-f816-4a93-aab3-5fb084ef99f3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Off",
+          "Value": "0"
+        },
+        {
+          "Name": "On",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "252836b4-9204-4440-90c4-3b58d958c705",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "6de16b0d-428f-4ab9-8ad7-8b8173cead25",
+      "MetaID": "b93b955f-4ebb-4448-9bcd-8d49f68892e9",
+      "Name": "ToNormalMapFunc",
+      "Version": "713a6982-7446-4b70-9c16-6475f4cc3cf4",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDb93b955f_4ebb_4448_9bcd_8d49f68892e9",
+        "{",
+        "    public class Class_NormalMap : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0,",
+        "            Scale = 1,",
+        "            ComputeOcclusion = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _normalMap);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var Image = inputs[(int)InputId.Image].Eval(context).Image; if (Image == null) return context;",
+        "                var Scale = inputs[(int)InputId.Scale].Eval(context).Value;",
+        "                var ComputeOcclusion = (int) inputs[(int)InputId.ComputeOcclusion].Eval(context).Value;",
+        "                //<<< _params",
+        "",
+        "                Dispose();",
+        "                NormalMapFlags flags = (NormalMapFlags) ComputeOcclusion;",
+        "                _normalMap = new Texture2D(context.D3DDevice, Image.Description);",
+        "                Texture2D.ComputeNormalMap(context.D3DDevice.ImmediateContext, Image, _normalMap, flags | NormalMapFlags.Mirror, Channel.Red, Scale);",
+        "                Changed = false;",
+        "            }",
+        "            context.Image = _normalMap;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Texture2D _normalMap = null;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6de16b0d-428f-4ab9-8ad7-8b8173cead25",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "252836b4-9204-4440-90c4-3b58d958c705"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f8fb49a2-03b1-4e45-942b-717dbc0b1809",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6de16b0d-428f-4ab9-8ad7-8b8173cead25"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "57d9ca70-6489-47cf-b135-7bd45e7adc24",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6de16b0d-428f-4ab9-8ad7-8b8173cead25"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7dc622b9-f816-4a93-aab3-5fb084ef99f3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6de16b0d-428f-4ab9-8ad7-8b8173cead25"
+    }
+  ]
+}

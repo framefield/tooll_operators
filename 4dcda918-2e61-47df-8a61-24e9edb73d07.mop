@@ -1,0 +1,280 @@
+{
+  "Name": "TimeClip",
+  "_id": "4dcda918-2e61-47df-8a61-24e9edb73d07",
+  "Namespace": "lib.basic",
+  "Description": "Maps the time of incoming animation a new clip range defined by ClipIn and ClipOut.\r\n\r\nOperator sub tree is only evaluated if the time is between ClipIn and ClipOut.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClipIn",
+      "MetaInstanceID": "e5125df7-71ba-403d-b8a2-370703cc374f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClipOut",
+      "MetaInstanceID": "2d7f567b-3556-49af-b0ff-46fcbf00ec80",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SourceIn",
+      "MetaInstanceID": "16177efe-bc1e-4242-a9e7-583aff3f5f9b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SourceOut",
+      "MetaInstanceID": "76b8f048-4843-4bcf-ac3d-16f726efc8dc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Layer",
+      "MetaInstanceID": "9b13e8a0-24dc-487f-89e2-6c046827260b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8",
+      "MetaID": "b9ed517f-bd01-4f5e-94c2-6450b079579e",
+      "Name": "TimeClipFunc",
+      "Version": "8d829712-58d4-44a8-b05b-689e73494a62",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDb9ed517f_bd01_4f5e_94c2_6450b079579e",
+        "{",
+        "    public class Class_TimeClip : OperatorPart.Function,",
+        "                                  Framefield.Core.OperatorPartTraits.ITimeClip,",
+        "                                  Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            ClipIn = 1,",
+        "            ClipOut = 2,",
+        "            SourceIn = 3,",
+        "            SourceOut = 4,",
+        "            Layer = 5",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public double StartTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.ClipIn); } ",
+        "            set { SetInputValue((int)InputId.ClipIn, value); } ",
+        "        }",
+        "",
+        "        public double EndTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.ClipOut); } ",
+        "            set { SetInputValue((int)InputId.ClipOut, value); } ",
+        "        }",
+        "",
+        "        public double SourceStartTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.SourceIn); } ",
+        "            set { SetInputValue((int)InputId.SourceIn, value); } ",
+        "        }",
+        "",
+        "        public double SourceEndTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.SourceOut); } ",
+        "            set { SetInputValue((int)InputId.SourceOut, value); } ",
+        "        }",
+        "",
+        "        public int Layer",
+        "        {",
+        "            get { return (int)GetInputValue((int)InputId.Layer); } ",
+        "            set { SetInputValue((int)InputId.Layer, value); } ",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            var prevValue = context.Value;",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var ClipIn = inputs[(int)InputId.ClipIn].Eval(context).Value;",
+        "            var ClipOut = inputs[(int)InputId.ClipOut].Eval(context).Value;",
+        "            var SourceIn = inputs[(int)InputId.SourceIn].Eval(context).Value;",
+        "            var SourceOut = inputs[(int)InputId.SourceOut].Eval(context).Value;",
+        "            var Layer = inputs[(int)InputId.Layer].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if (context.Time < ClipIn || context.Time >= ClipOut)",
+        "            {",
+        "                context.Value = prevValue;",
+        "                return context;",
+        "            }",
+        "",
+        "            var oldTime = context.Time;",
+        "            context.Time = SourceIn + (context.Time - ClipIn)*(SourceOut - SourceIn)/(ClipOut - ClipIn);",
+        "",
+        "            _timeAccessorInvalidator.Clear();",
+        "            Input.TraverseWithFunctionUseSpecificBehavior(null, _timeAccessorInvalidator);",
+        "            Input.Eval(context);",
+        "            ",
+        "            context.Time = oldTime;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        private double GetInputValue(int index)",
+        "        {",
+        "            return OperatorPartUtilities.GetInputFloatValue(OperatorPart.Connections[index]);",
+        "        }",
+        "",
+        "        private void SetInputValue(int index, double val)",
+        "        {",
+        "            OperatorPart opPart = OperatorPart.Connections[index];",
+        "            if (opPart.Connections.Count == 0)",
+        "            {",
+        "                opPart.Func = Utilities.CreateValueFunction(new Float((float)val));",
+        "            }",
+        "        }",
+        "",
+        "        OperatorPart.InvalidateTimeAccessors _timeAccessorInvalidator = new OperatorPart.InvalidateTimeAccessors();",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e5125df7-71ba-403d-b8a2-370703cc374f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2d7f567b-3556-49af-b0ff-46fcbf00ec80",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "16177efe-bc1e-4242-a9e7-583aff3f5f9b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "76b8f048-4843-4bcf-ac3d-16f726efc8dc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9b13e8a0-24dc-487f-89e2-6c046827260b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160"
+    }
+  ]
+}

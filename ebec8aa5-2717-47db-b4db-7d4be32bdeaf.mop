@@ -1,0 +1,5159 @@
+{
+  "Name": "EarlyAdadptiveResolutionExperiments",
+  "_id": "ebec8aa5-2717-47db-b4db-7d4be32bdeaf",
+  "Namespace": "projects.square.research",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1685.17355220829",
+        "PosY": "1871.30898411214",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.03099989"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1047"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "68"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "648ff809-b580-452e-b504-f73924a4f590",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1685.17355220829",
+        "PosY": "1896.30898411214",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "558a0362-3802-4278-82b5-c5149223034b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "00edfeb2-e957-4aae-b31e-02e855933669",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "338288cf-ed05-4316-9444-bf58077dc42b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendImages",
+      "MetaInstanceID": "f5f2b975-551d-41e9-8b4c-406137b5d259",
+      "MetaID": "5778fd1e-bd11-4b21-9277-62c946c4f80c",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1685.17355220828",
+        "PosY": "1971.30898411212",
+        "Width": "300",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "e0ccec82-f325-410e-9cd2-d3febb0e2dc1",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image1;",
+              "Texture2D Image2;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samNearest",
+              "{",
+              "    Filter = MIN_MAG_MIP_POINT;",
+              "    AddressU = Clamp;",
+              "    AddressV = Clamp;",
+              "};",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float4 col1=Image1.Sample(samNearest, input.texCoord); \r",
+              "    float4 col2=Image2.Sample(samNearest, input.texCoord);    \r",
+              "\r",
+              "    return float4(lerp(col1.rgb,col2.rgb, col2.a),1);\r",
+              "    //return col1+col2;\r",
+              "    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendImagesAdd",
+      "MetaInstanceID": "f46f7fe4-b926-489f-984d-4958a6a87fce",
+      "MetaID": "65ef8dd3-1075-4e0e-b83f-8e083e027099",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1685.17355220828",
+        "PosY": "1946.30898411212",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "35d31711-3711-4174-9fee-20cdfadb1276",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image1;",
+              "Texture2D Image2;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samNearest\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_POINT;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float4 col1=Image1.Sample(samNearest, input.texCoord); \r",
+              "    float4 col2=Image2.Sample(samNearest, input.texCoord);    \r",
+              "\r",
+              "    return float4(col1.rgb+col2.rgb,1);\r",
+              "    //return col1+col2;\r",
+              "    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          },
+          {
+            "ID": "3b4927be-6a67-4872-aeb7-b1dee2136f29",
+            "Type": "Image",
+            "Value": [
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetResolutionGeneric",
+      "MetaInstanceID": "436598cd-381c-4142-b2c4-7d04b05b6b0f",
+      "MetaID": "14e7b14c-15ae-4728-8a30-fba020dc4189",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1685.17355220829",
+        "PosY": "1921.30898411214",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetResolutionGeneric",
+      "MetaInstanceID": "f394d3e2-f220-4494-a358-4b0e2737dbed",
+      "MetaID": "14e7b14c-15ae-4728-8a30-fba020dc4189",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1785.17355220833",
+        "PosY": "2096.30898411201",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "AnimatedEngeryGroup",
+      "MetaInstanceID": "676c297f-a456-458e-91b2-d34b5d6674d1",
+      "MetaID": "9756694b-28e8-422a-a119-598933595505",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1835.17355220828",
+        "PosY": "1996.30898411211",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "e9f3eb8c-2e04-4f09-8eaf-e9ccb9689f88",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1629.63478678074",
+        "PosY": "2192.0187072132",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/tex/wall.jpg"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "DetectEdges",
+      "MetaInstanceID": "58843fd5-ab1b-4f45-a489-0a06cad689ed",
+      "MetaID": "d6760adf-5384-4eea-931f-b5c0714f7632",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1885.17355220827",
+        "PosY": "2046.30898411203",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ab9e7f0-4e72-4357-ad81-98e983107fe7",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image;",
+              "float Strength;",
+              "float Size;",
+              "float Contrast;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samLinear",
+              "{",
+              "    Filter = MIN_MAG_MIP_POINT;",
+              "    AddressU = Clamp;",
+              "    AddressV = Clamp;",
+              "};",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float width, height;\r",
+              "    Image.GetDimensions(width, height);\r",
+              "    \r",
+              "    float sx = Size / width;\r",
+              "    float sy = Size / height;\r",
+              "\r",
+              "    float4 y1= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y + sy));\r",
+              "    float4 y2= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y - sy));\r",
+              "    float4 x1= Image.Sample(samLinear, float2(input.texCoord.x + sx, input.texCoord.y));\r",
+              "    float4 x2= Image.Sample(samLinear, float2(input.texCoord.x - sx, input.texCoord.y)); \r",
+              "    float4 a =  Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y)); \r",
+              "    //return ((a-y1) + (a-y2) + (a-x1) + (a-x2)) * Strength;\r",
+              "    \r",
+              "    float average =  (           abs(x1.r-a.r) + (x2.r-a.r)+ (y1.r - a.r) +(y2.r - a.r) +\r",
+              "                abs(x1.g-a.g) + (x2.g-a.g)+ (y1.g - a.g) +(y2.g - a.g) +\r",
+              "                abs(x1.b-a.b) + (x2.b-a.b)+ (y1.b - a.b) +(y2.b - a.b)) * Strength + Contrast;\r",
+              "    \r",
+              "    return float4(average,average,average,1);\r",
+              "\r",
+              "    \r",
+              "/*    return float4(\r",
+              "                abs(x1.r-a.r) + (x2.r-a.r)+ (y1.r - a.r) +(y2.r - a.r) , \r",
+              "                abs(x1.g-a.g) + (x2.g-a.g)+ (y1.g - a.g) +(y2.g - a.g), \r",
+              "                abs(x1.b-a.b) + (x2.b-a.b)+ (y1.b - a.b) +(y2.b - a.b),\r",
+              "                1.0)  * (Strength * 100) -Contrast;\r",
+              "                */\r",
+              "    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          },
+          {
+            "ID": "a0646a34-1fd0-4f43-8996-1466a4a9f7ba",
+            "Type": "Float",
+            "Value": [
+              "-92.23999"
+            ]
+          },
+          {
+            "ID": "1c0598d9-fe84-409c-84cb-1ba08ec94d95",
+            "Type": "Float",
+            "Value": [
+              "1.9"
+            ]
+          },
+          {
+            "ID": "f243d2b9-485f-4e34-88ec-7a53bccf7beb",
+            "Type": "Float",
+            "Value": [
+              "7.4"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SetResolutionGeneric",
+      "MetaInstanceID": "56e759a2-50a7-44c4-9597-9e8a5cc16403",
+      "MetaID": "14e7b14c-15ae-4728-8a30-fba020dc4189",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1885.17355220831",
+        "PosY": "2021.30898411212",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Canvas",
+      "MetaInstanceID": "49222d17-1ae5-46e4-acad-92e92fe5d3b8",
+      "MetaID": "65ee8537-143f-44f1-a167-b9339fdf551e",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1944.12372473917",
+        "PosY": "2228.32194852198",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "592f4695-f4db-4c89-9f84-ed37e64fec12",
+            "Type": "Float",
+            "Value": [
+              "512"
+            ]
+          },
+          {
+            "ID": "0f9f1e93-3f75-4458-916c-3d3fc8571666",
+            "Type": "Float",
+            "Value": [
+              "512"
+            ]
+          },
+          {
+            "ID": "caf5144d-7da7-482a-8c8b-ea35c88509cc",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "daa22902-6de3-4146-bb07-0c6964872336",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "2f3b6b5e-99f8-4e3e-b115-427313d507db",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a82fb75a-f132-4ea6-8050-ae94f586577b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "AnimatedEngeryGroup",
+      "MetaInstanceID": "cc992a70-5c0d-4002-89f3-f23f835dcf32",
+      "MetaID": "9756694b-28e8-422a-a119-598933595505",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1785.17355220833",
+        "PosY": "2121.308984112",
+        "Width": "325",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "ToNormalMap",
+      "MetaInstanceID": "e66c8fa2-fb85-436e-a7ab-264738b225f6",
+      "MetaID": "2c85a1d0-0e5c-4b65-93b9-1d7e3503cdb7",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1629.6347867808",
+        "PosY": "2142.01870721333",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "57d9ca70-6489-47cf-b135-7bd45e7adc24",
+            "Type": "Float",
+            "Value": [
+              "4.190001"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "GaussBlur",
+      "MetaInstanceID": "e7f546fc-c357-4008-b4b6-36463f4f05c3",
+      "MetaID": "61560c16-3643-426a-ade5-f8e33ef51e78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1629.63478678079",
+        "PosY": "2167.01870721329",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c992df9-496b-4d87-a43f-de5702aef102",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "08a555a3-b28d-4830-aeb3-eaac33c50e69",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a4d48e86-c687-4533-8d09-5fb5682a3456",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "9d6b3b96-87f8-4959-9786-3da31b481a0f",
+            "Type": "Float",
+            "Value": [
+              "5.099999"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "GaussBlur",
+      "MetaInstanceID": "79cc2485-6b5d-4eec-8ca2-76e09061fc75",
+      "MetaID": "61560c16-3643-426a-ade5-f8e33ef51e78",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1885.17355220832",
+        "PosY": "2071.30898411201",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c992df9-496b-4d87-a43f-de5702aef102",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "08a555a3-b28d-4830-aeb3-eaac33c50e69",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a4d48e86-c687-4533-8d09-5fb5682a3456",
+            "Type": "Float",
+            "Value": [
+              "0.3728441"
+            ]
+          },
+          {
+            "ID": "9d6b3b96-87f8-4959-9786-3da31b481a0f",
+            "Type": "Float",
+            "Value": [
+              "100"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "c0e59a52-2c9d-4eb5-a943-52247cc5a3e5",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2010.17355220833",
+        "PosY": "2096.30898411201",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "558a0362-3802-4278-82b5-c5149223034b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "00edfeb2-e957-4aae-b31e-02e855933669",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "338288cf-ed05-4316-9444-bf58077dc42b",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "MetaID": "43403a8d-9c87-414a-89e2-9393b87d9e47",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2010.17355220833",
+        "PosY": "2071.30898411201",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "85c9b855-49ac-4e01-a28f-6e78623790e6",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "af457538-0d01-44c1-8517-6cc44cf9139a",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "da7097f3-8251-4dcc-8c6a-0efdb78c3a30",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "796f5b32-395f-4d8c-bce2-4c3c69ca7d7b",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "f8cfff94-5eac-4970-a093-2398cbe1811d",
+            "Type": "Float",
+            "Value": [
+              "0.04600003"
+            ]
+          },
+          {
+            "ID": "e6b3f27b-b21e-429b-99fb-f1e591b672ce",
+            "Type": "Float",
+            "Value": [
+              "1000"
+            ]
+          },
+          {
+            "ID": "0ccdda43-9ffb-4e32-9056-13b081866cfc",
+            "Type": "Float",
+            "Value": [
+              "45"
+            ]
+          },
+          {
+            "ID": "e56ef057-a4c7-46a1-a6a0-6dbf76eeafcb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "RenderToImageNoAA",
+      "MetaInstanceID": "a8ae71a2-44d1-4a91-8b76-4dd370600a5f",
+      "MetaID": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2010.17355220833",
+        "PosY": "2046.30898411202",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "DetectEdges",
+      "MetaInstanceID": "050e43b3-ff7e-4398-a147-9ded644a3f43",
+      "MetaID": "d6760adf-5384-4eea-931f-b5c0714f7632",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2085.17355220834",
+        "PosY": "2021.30898411202",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ab9e7f0-4e72-4357-ad81-98e983107fe7",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image;",
+              "float Strength;",
+              "float Size;",
+              "float Contrast;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samLinear\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_LINEAR;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float width, height;\r",
+              "    Image.GetDimensions(width, height);\r",
+              "    \r",
+              "    float sx = Size / width;\r",
+              "    float sy = Size / height;\r",
+              "\r",
+              "    float4 y1= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y + sy));\r",
+              "    float4 y2= Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y - sy));\r",
+              "    float4 x1= Image.Sample(samLinear, float2(input.texCoord.x + sx, input.texCoord.y));\r",
+              "    float4 x2= Image.Sample(samLinear, float2(input.texCoord.x - sx, input.texCoord.y)); \r",
+              "    float4 a =  Image.Sample(samLinear, float2(input.texCoord.x, input.texCoord.y)); \r",
+              "    //return ((a-y1) + (a-y2) + (a-x1) + (a-x2)) * Strength;\r",
+              "    \r",
+              "    float average =  (           abs(x1.r-a.r) + (x2.r-a.r)+ (y1.r - a.r) +(y2.r - a.r) +\r",
+              "                abs(x1.g-a.g) + (x2.g-a.g)+ (y1.g - a.g) +(y2.g - a.g) +\r",
+              "                abs(x1.b-a.b) + (x2.b-a.b)+ (y1.b - a.b) +(y2.b - a.b)) * Strength + Contrast;\r",
+              "    \r",
+              "    return float4(average,average,average,1);\r",
+              "\r",
+              "    \r",
+              "/*    return float4(\r",
+              "                abs(x1.r-a.r) + (x2.r-a.r)+ (y1.r - a.r) +(y2.r - a.r) , \r",
+              "                abs(x1.g-a.g) + (x2.g-a.g)+ (y1.g - a.g) +(y2.g - a.g), \r",
+              "                abs(x1.b-a.b) + (x2.b-a.b)+ (y1.b - a.b) +(y2.b - a.b),\r",
+              "                1.0)  * (Strength * 100) -Contrast;\r",
+              "                */\r",
+              "    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          },
+          {
+            "ID": "a0646a34-1fd0-4f43-8996-1466a4a9f7ba",
+            "Type": "Float",
+            "Value": [
+              "2.960003"
+            ]
+          },
+          {
+            "ID": "1c0598d9-fe84-409c-84cb-1ba08ec94d95",
+            "Type": "Float",
+            "Value": [
+              "-0.1890013"
+            ]
+          },
+          {
+            "ID": "f243d2b9-485f-4e34-88ec-7a53bccf7beb",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "BlendImagesAdd",
+      "MetaInstanceID": "7a37aeb2-baf3-40ea-a07e-a5d11e7875d1",
+      "MetaID": "65ef8dd3-1075-4e0e-b83f-8e083e027099",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2010.17355220833",
+        "PosY": "1996.30898411201",
+        "Width": "175",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "35d31711-3711-4174-9fee-20cdfadb1276",
+            "Type": "Text",
+            "Value": [
+              "//>>> _common parameters\r",
+              "float4x4 objectToWorldMatrix;",
+              "float4x4 worldToCameraMatrix;",
+              "float4x4 projMatrix;",
+              "Texture2D txDiffuse;",
+              "float2 RenderTargetSize;",
+              "//<<< _common parameters\r",
+              "\r",
+              "//>>> _parameters\r",
+              "Texture2D Image1;",
+              "Texture2D Image2;",
+              "//<<< _parameters\r",
+              "float4x4 ViewToWorld;\r",
+              " \r",
+              "//>>> setup\r",
+              "SamplerState samNearest\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_POINT;\r",
+              "    AddressU = Clamp;\r",
+              "    AddressV = Clamp;\r",
+              "};\r",
+              "//<<< setup\r",
+              "\r",
+              "//>>> declarations\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float2 texCoord : TEXCOORD;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\t    \r",
+              "    float3 worldTViewPos: TEXCOORD1;\r",
+              "    float3 worldTViewDir: TEXCOORD2;\r",
+              "};\r",
+              "//<<< declarations\r",
+              "\r",
+              "//>>> _GS\r",
+              "",
+              "//<<< _GS\r",
+              "\r",
+              "//>>> _VS \r",
+              "PS_IN VS( VS_IN input )",
+              "{",
+              "    PS_IN output = (PS_IN)0;",
+              "",
+              "    output.pos = mul(input.pos, worldToCameraMatrix);",
+              "    output.pos = mul(output.pos, projMatrix);",
+              "    output.texCoord = input.texCoord;",
+              "",
+              "    return output;",
+              "}",
+              "//<<< _VS\r",
+              "\r",
+              "//>>> PS\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    float4 col1=Image1.Sample(samNearest, input.texCoord); \r",
+              "    float4 col2=Image2.Sample(samNearest, input.texCoord);    \r",
+              "\r",
+              "    return float4(col1.rgb+col2.rgb,1);\r",
+              "    //return col1+col2;\r",
+              "    \r",
+              "}\r",
+              "//<<< PS\r",
+              "\r",
+              "//>>> _technique\r",
+              "technique10 Render",
+              "{",
+              "    pass P0",
+              "    {",
+              "        SetGeometryShader( 0 );",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+              "    }",
+              "}",
+              "//<<< _technique\r",
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "ddd162e7-b4ad-42b4-ae81-649db19b563b",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": 7.5870876312255859,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": -0.09279951182661117,
+                  "OutTangentAngle": 3.0487931417631819,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": 6.3700599670410156,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1903857953529755,
+                  "OutTangentAngle": 2.684141467457867,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": 1.9016877412796021,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.82573412104766,
+                  "OutTangentAngle": 3.1762044303634389,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": 1.9229958057403564,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.03461177677364595,
+                  "OutTangentAngle": 4.411667308330629,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": 2.915144681930542,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.2700746547408359,
+                  "OutTangentAngle": 4.4743231222367683,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": 10.522889137268066,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.332730468646975,
+                  "OutTangentAngle": 1.8344644932801868,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": -0.98289948701858521,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.97605714686998,
+                  "OutTangentAngle": 3.4191419691797855,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": 0.12455528974533081,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.27754931558999241,
+                  "OutTangentAngle": 4.69489162863367,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": 6.9746251106262207,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.5532989750438768,
+                  "OutTangentAngle": 2.0715849546225358,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": -3.5463950634002686,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.2131776082123293,
+                  "OutTangentAngle": 3.1025431913037522,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": -3.6896622180938721,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.2441358448935453,
+                  "OutTangentAngle": 2.7021489636744755,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": -4.5684452056884766,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.8437416172642687,
+                  "OutTangentAngle": 3.1435038308576875,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": -4.5272989273071289,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0019111772678945336,
+                  "OutTangentAngle": 3.9355451093079661,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": 3.2052686214447021,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.793952455718173,
+                  "OutTangentAngle": 2.7002120359225836,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": 0.26599860191345215,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.8418046895123767,
+                  "OutTangentAngle": 2.7002120359225836,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "357229b5-a59d-4c6a-9849-65b0611e9247",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "d0a46f26-aa46-43b1-9558-c6fde37ff2df",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": -3.2475519180297852,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.74153046261005517,
+                  "OutTangentAngle": 3.8831231161998483,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": 8.72960090637207,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.74153046261005506,
+                  "OutTangentAngle": 3.1801424711349022,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": 9.07968807220459,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.038549817545109055,
+                  "OutTangentAngle": 3.505965347450744,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": 9.3143978118896484,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.36437269386095072,
+                  "OutTangentAngle": 3.7837990195067035,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": 9.54454517364502,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.64220636591691027,
+                  "OutTangentAngle": 2.0029345631047129,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": 5.5417098999023437,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.144527216694506,
+                  "OutTangentAngle": 4.1007364479600721,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": 9.9701471328735352,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.95914379437027919,
+                  "OutTangentAngle": 3.2970947949150471,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": 10.579524040222168,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.15550214132525403,
+                  "OutTangentAngle": 1.6059968615980276,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": 7.1755757331848145,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.7475895151878209,
+                  "OutTangentAngle": 2.8523760786129095,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": 5.4620962142944336,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.9939687322027027,
+                  "OutTangentAngle": 2.3423170645328604,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": 1.691881537437439,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.4839097181226535,
+                  "OutTangentAngle": 2.4626547045692084,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": 0.18349206447601318,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.6042473581590011,
+                  "OutTangentAngle": 3.1647063069728625,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": 0.68120050430297852,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.023113653383069262,
+                  "OutTangentAngle": 3.6484551443688882,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": 4.9018492698669434,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.50686249077909484,
+                  "OutTangentAngle": 2.9797264306097775,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": 3.8859763145446777,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1213190841995706,
+                  "OutTangentAngle": 2.9797264306097775,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "5970071a-8af2-474a-a5a7-049d7872c97b",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "07c1a5fe-07c4-479e-bc7c-d9292bb82c8f",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": 3.6918113231658936,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.053559384788955278,
+                  "OutTangentAngle": 3.1951520383787484,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": 4.3928737640380859,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.053559384788955229,
+                  "OutTangentAngle": 3.4592908588094,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": 7.3776998519897461,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.31769820521960657,
+                  "OutTangentAngle": 3.6366888761562381,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": 7.7099781036376953,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.49509622256644487,
+                  "OutTangentAngle": 1.9585468727218369,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": 6.9566202163696289,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.10013952631163,
+                  "OutTangentAngle": 1.7932634190304235,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": -1.2045711278915405,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.9348560726202164,
+                  "OutTangentAngle": 4.3881072477965635,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": 8.0354738235473633,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.24651459420677,
+                  "OutTangentAngle": 3.0018298410710069,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": 7.4886322021484375,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1434224946608005,
+                  "OutTangentAngle": 1.582319600370635,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": -2.913360595703125,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.7239122539604281,
+                  "OutTangentAngle": 2.6947143907888962,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": -5.6728653907775879,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.83630704437869,
+                  "OutTangentAngle": 3.8513114764301775,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": -2.5227673053741455,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.70971882284038423,
+                  "OutTangentAngle": 3.8457547905118354,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": -0.93488919734954834,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.70416213692204221,
+                  "OutTangentAngle": 3.03087939047108,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": -3.3282504081726074,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1724720440608731,
+                  "OutTangentAngle": 3.7621655867624528,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": 2.1050300598144531,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.62057293317265971,
+                  "OutTangentAngle": 2.0990330131193913,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": -8.5557308197021484,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.2406256667091844,
+                  "OutTangentAngle": 2.0990330131193913,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "ab119d36-39a2-4fb9-97cf-b24259d3698e",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "fcfb1374-25c4-4b41-9ebb-92212eee07d4",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": -9.1810207366943359,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.47348105750788871,
+                  "OutTangentAngle": 3.6150737110976818,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": -2.48102068901062,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.47348105750788877,
+                  "OutTangentAngle": 3.1357993893890712,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": -2.5336062908172607,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.2773920429788648,
+                  "OutTangentAngle": 3.3437601742338958,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": -2.4074723720550537,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.20216752064410271,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": -2.4074723720550537,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.5933925699760647,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": -1.5115765333175659,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.45179991638627143,
+                  "OutTangentAngle": 2.8996048077437253,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": -2.2782196998596191,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.0411974613335184,
+                  "OutTangentAngle": 3.1673494629610142,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": -2.1780774593353271,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.025756809371221243,
+                  "OutTangentAngle": 1.8718381988228507,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": -2.5641603469848633,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.0134308524126441,
+                  "OutTangentAngle": 3.6963960121008492,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": 1.0045375823974609,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.554803358511056,
+                  "OutTangentAngle": 3.7403842147383806,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": 3.5067663192749023,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.59879156114858756,
+                  "OutTangentAngle": 3.3878203554670812,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": 3.9765851497650146,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.24622770187728807,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": 3.9765851497650146,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.028209267593625,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": 3.1110010147094727,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1698019211834181,
+                  "OutTangentAngle": 3.2337052837965397,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": 3.6856687068939209,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.092112630206746593,
+                  "OutTangentAngle": -3.0494800233830466,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "705a18c7-a893-453d-9d82-bc5c994b5a2f",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "e8917ec2-1652-4e69-a6c9-390984eb322b",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": 1.417759895324707,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": 1.417759895324707,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1172331833144251,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": 1.1966071128845215,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.2588258369042178,
+                  "OutTangentAngle": 3.48659329996836,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": 1.417759895324707,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.34500064637856687,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": 1.417759895324707,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.3410836653829983,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": 1.791015625,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.199491011793205,
+                  "OutTangentAngle": 3.0471531980892248,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": 1.4968092441558838,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1887458516790179,
+                  "OutTangentAngle": 3.1573473608991103,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": 1.5580549240112305,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.015754707309317151,
+                  "OutTangentAngle": 1.7854651979517433,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": 1.0082625150680542,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 4.9270578515415364,
+                  "OutTangentAngle": 2.8899583599759375,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": -0.47213676571846008,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.0315510135657311,
+                  "OutTangentAngle": 2.7463971751156175,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": -2.001793384552002,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.88798982870541,
+                  "OutTangentAngle": 2.948137948737084,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": -2.3680076599121094,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.0897306023268776,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": -2.3680076599121094,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.3604190812369139,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": -0.67755293846130371,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.21882642764712099,
+                  "OutTangentAngle": 2.90742240474713,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": -2.1615738868713379,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.0490150583369227,
+                  "OutTangentAngle": 2.9074224047471295,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "cff3908d-1fa9-4e4e-bf2e-6fb10aa09a54",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "ea9764c2-7a44-4f53-ab7e-1b1b99436c48",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "3.76923076923077": {
+                  "Value": -1.4031679630279541,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "16.8461538461538": {
+                  "Value": -1.4031679630279541,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1061831549895249,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.9230769230769": {
+                  "Value": -1.7247116565704346,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.247775808579318,
+                  "OutTangentAngle": 3.5327494504695589,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.5384615384615": {
+                  "Value": -1.4709222316741943,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.3911567968797659,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "26.8461538461538": {
+                  "Value": -1.4709222316741943,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 2.67032329903799,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "28.6923076923077": {
+                  "Value": -2.4116554260253906,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.8119159526277837,
+                  "OutTangentAngle": 3.4501951503140917,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "31.7983315652317": {
+                  "Value": -1.4214944839477539,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.30860249672429885,
+                  "OutTangentAngle": 3.1514442041814594,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.6854626486189": {
+                  "Value": -1.3831989765167236,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0098515505916661559,
+                  "OutTangentAngle": 4.56759504067225,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "35.8053329631016": {
+                  "Value": -0.56112426519393921,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 1.4260023870824574,
+                  "OutTangentAngle": 2.8974627423633925,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "41.5637705552885": {
+                  "Value": -1.9955418109893799,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.0390553959531861,
+                  "OutTangentAngle": 3.0418814967428096,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "45.2307692307692": {
+                  "Value": -2.3623991012573242,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1834741503326027,
+                  "OutTangentAngle": 3.0323804343494984,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "47.100118168597": {
+                  "Value": -2.5673704147338867,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1739730879392916,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "68.6293760640297": {
+                  "Value": -2.5673704147338867,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 2.967851454740932,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "76.2307692307692": {
+                  "Value": -3.9014966487884521,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 6.1094441083307247,
+                  "OutTangentAngle": 3.327542982995551,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "82.4518647467972": {
+                  "Value": -2.7311615943908691,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.18595032940575806,
+                  "OutTangentAngle": -2.9556423241840353,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "19899135-a99f-41af-92ea-fd87b9b43719",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "4f0d2faf-f856-4204-948b-f4ba3df468ea",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": -0.0059187784790992737,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": 1.8387413024902344,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.33127142617942856,
+                  "OutTangentAngle": 3.4728640797692218,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": 1.2111212015151978,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.61951799853299427,
+                  "OutTangentAngle": 3.7611106521227873,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": 3.5394051074981689,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.79598815196396444,
+                  "OutTangentAngle": 3.9375808055537576,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": 5.71247673034668,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2691464593049027,
+                  "OutTangentAngle": 3.1275538057151095,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": 3.5059256553649902,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.891866796673713,
+                  "OutTangentAngle": 2.75027414308392,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": 4.9917383193969727,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.0668403612632784,
+                  "OutTangentAngle": 4.208433014853072,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": 9.8353347778320312,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.3242844437119734,
+                  "OutTangentAngle": 2.1826917901221807,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": -0.9323461651802063,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 4.9326557366228423,
+                  "OutTangentAngle": 1.791063083033049,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": -0.014162838459014893,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.0378624087298653,
+                  "OutTangentAngle": 4.1794550623196587,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": -0.41638427972793579,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9782441404224906,
+                  "OutTangentAngle": 2.8366514868326975,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": -1.1679266691207886,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1086773816024769,
+                  "OutTangentAngle": 2.9670847280126837,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": -1.0821491479873657,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.068734024140955446,
+                  "OutTangentAngle": 3.2103266777307486,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": -0.998468279838562,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.55129197227095472,
+                  "OutTangentAngle": 3.6928846258607479,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": 0.61626523733139038,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.251952236586078,
+                  "OutTangentAngle": 3.1103595829962853,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": -1.1602225303649902,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1289964717953689,
+                  "OutTangentAngle": 2.9874038182055753,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": -1.3444490432739258,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0576179186846622,
+                  "OutTangentAngle": 2.9160252650948695,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": -3.2960824966430664,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9778621998675421,
+                  "OutTangentAngle": 2.836269546277749,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": -3.2355194091796875,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.26483791187554151,
+                  "OutTangentAngle": 3.4064305654653344,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": -0.95951664447784424,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.41419838906074979,
+                  "OutTangentAngle": 3.5557910426505428,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": -0.22939836978912354,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.14810893411553563,
+                  "OutTangentAngle": 3.2897015877053288,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": -0.182331383228302,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0086659862500868112,
+                  "OutTangentAngle": 3.1502586398398797,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": 0.068040251731872559,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "eda535bc-5093-4713-991e-f70e20533450",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "85ed739b-d03a-4d90-bcb6-3736dc332a92",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": 0.62157166004180908,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": 1.6660699844360352,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.17974334615080004,
+                  "OutTangentAngle": 3.3213359997405933,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": 1.2645256519317627,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9143788188781947,
+                  "OutTangentAngle": 2.7727861652884016,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": 0.74443823099136353,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.7934714639802358,
+                  "OutTangentAngle": 2.6518788103904427,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": -1.0845029354095459,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.53111971330755,
+                  "OutTangentAngle": 2.3895270597177571,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": -1.4862792491912842,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.8806621768134608,
+                  "OutTangentAngle": 2.7390695232236673,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": -1.8282532691955566,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.10682722576518888,
+                  "OutTangentAngle": 3.2484198793549819,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": -1.1119894981384277,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.654856820460753,
+                  "OutTangentAngle": 3.7964494740505459,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": 1.3640388250350952,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.81334268131293386,
+                  "OutTangentAngle": 3.9549353349027272,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": 1.2201375961303711,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.2297724666833771,
+                  "OutTangentAngle": 4.37136512027317,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": 2.2216241359710693,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1889229322630541,
+                  "OutTangentAngle": 3.047330278673261,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": 0.87358695268630981,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.05447345469934,
+                  "OutTangentAngle": 2.9128808011095471,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": 1.3425599336624146,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1177483266970638,
+                  "OutTangentAngle": 2.9761556731072707,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": 0.46260112524032593,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.6484414828670335,
+                  "OutTangentAngle": 2.5068488292772404,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": -0.69151723384857178,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2106006733832446,
+                  "OutTangentAngle": 3.0690080197934515,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": 0.086150437593460083,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.075844862042982658,
+                  "OutTangentAngle": 3.2174375156327759,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": 0.26713377237319946,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9371355755876989,
+                  "OutTangentAngle": 2.7955429219979058,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": -3.26981520652771,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.8060017090286609,
+                  "OutTangentAngle": 2.6644090554388677,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": -2.8350841999053955,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.086781650680864048,
+                  "OutTangentAngle": 3.2283743042706572,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": -2.520275354385376,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.015551569417659377,
+                  "OutTangentAngle": 3.1571442230074527,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": -2.7287368774414062,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.30204847093573661,
+                  "OutTangentAngle": 3.44364112452553,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": -0.89725512266159058,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.064514304152355456,
+                  "OutTangentAngle": 3.2061069577421484,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": -0.511420726776123,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "72283252-8e5c-4651-994b-eb6e055d1424",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "d38eafde-d118-4a51-8bb1-2788b312bf61",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": -1.6144758462905884,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": -2.4528045654296875,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.20856005556814,
+                  "OutTangentAngle": 3.0669674019783466,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": -1.8790256977081299,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.66391166879392782,
+                  "OutTangentAngle": 3.805504322383721,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": -0.58710092306137085,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.5480404463322905,
+                  "OutTangentAngle": 2.4064477927424974,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": -5.863959789276123,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.134283839823123,
+                  "OutTangentAngle": 1.9926911862333294,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": -5.8998560905456543,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.4000273259785478,
+                  "OutTangentAngle": 2.2584346723887547,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": -7.9906826019287109,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.4689598141694331,
+                  "OutTangentAngle": 2.32736716057964,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": -9.597477912902832,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.0257793523125891,
+                  "OutTangentAngle": 4.167372005902382,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": -1.1336860656738281,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.3108413088120723,
+                  "OutTangentAngle": 4.4524339624018658,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": -1.3060543537139893,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.89008784214990655,
+                  "OutTangentAngle": 4.0316804957397,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": -0.75787091255187988,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.090590506425823655,
+                  "OutTangentAngle": 3.2321831600156168,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": -0.97307878732681274,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2273904706500209,
+                  "OutTangentAngle": 3.0857978170602283,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": -0.968787431716919,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.050750829833913991,
+                  "OutTangentAngle": 3.192343483423707,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": -0.84804630279541016,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.00310861353328,
+                  "OutTangentAngle": 2.8615159599434872,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": -1.7632905244827271,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.20275040117176579,
+                  "OutTangentAngle": 3.3443430547615587,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": 0.21626871824264526,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.1549351547562815,
+                  "OutTangentAngle": 3.2965278083460747,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": 0.20706741511821747,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.347769664705103,
+                  "OutTangentAngle": 3.4893623182948961,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": 3.5903353691101074,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.49209194896697045,
+                  "OutTangentAngle": 3.6336846025567637,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": 3.423537015914917,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2234295630665679,
+                  "OutTangentAngle": 3.0818369094767748,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": 3.0749030113220215,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9783381179361248,
+                  "OutTangentAngle": 2.8367454643463317,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": 1.2719825506210327,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9429404132675545,
+                  "OutTangentAngle": 2.801347759677761,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": 1.2308650016784668,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.26844697861026,
+                  "OutTangentAngle": 3.1268543250204677,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": 0.76610177755355835,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "81e1ac11-6880-4b5d-a12d-a04400d649cb",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "f613851d-1d0c-44cc-962a-38767f96e3d9",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": -0.38058683276176453,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": 1.017956018447876,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.38842488014822496,
+                  "OutTangentAngle": 3.5300175337380182,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": 1.0674041509628296,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.786206870542038,
+                  "OutTangentAngle": 3.9277995241318311,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": 3.4064314365386963,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.8654024837655403,
+                  "OutTangentAngle": 4.0069951373553332,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": 6.24268102645874,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.27147349948557659,
+                  "OutTangentAngle": 3.41306615307537,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": 4.0701775550842285,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9382231762195836,
+                  "OutTangentAngle": 2.79663052262979,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": 5.6149916648864746,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.1756484248777628,
+                  "OutTangentAngle": 4.3172410784675561,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": 12.438616752624512,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.2954385189157787,
+                  "OutTangentAngle": 2.1538458653259851,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": -0.688215970993042,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 4.8786186734543096,
+                  "OutTangentAngle": 1.7370260198645162,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": -0.70553261041641235,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.6877649894040623,
+                  "OutTangentAngle": 2.5461723358142687,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": -0.89439171552658081,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2279424963681569,
+                  "OutTangentAngle": 3.0863498427783633,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": -0.90823423862457275,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2630329021954481,
+                  "OutTangentAngle": 3.1214402486056549,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": -0.97050338983535767,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1160265687711792,
+                  "OutTangentAngle": 2.9744339151813861,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": -1.3235776424407959,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.35023524252351634,
+                  "OutTangentAngle": 3.4918278961133096,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": 0.038503535091876984,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1702204921197081,
+                  "OutTangentAngle": 3.028627838529915,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": -1.9109261035919189,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0973815257668615,
+                  "OutTangentAngle": 2.9557888721770684,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": -2.3328342437744141,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0284573515417534,
+                  "OutTangentAngle": 2.8868646979519608,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": -4.3345026969909668,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.949356933426631,
+                  "OutTangentAngle": 2.8077642798368379,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": -4.4136824607849121,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.29699811692889538,
+                  "OutTangentAngle": 3.4385907705186884,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": -1.6977628469467163,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.48034784855879203,
+                  "OutTangentAngle": 3.6219405021485853,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": -0.85081827640533447,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.16521263066676581,
+                  "OutTangentAngle": 3.306805284256559,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": -0.82925981283187866,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0069396212977788146,
+                  "OutTangentAngle": 3.1485322748875721,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": -0.61263501644134521,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "40f45530-f2f8-4c50-bf3e-230994932252",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "f9edc4f7-15f5-440c-a2ae-ed642e81266c",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": 1.0146896839141846,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": 1.1161062717437744,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.024910414384655945,
+                  "OutTangentAngle": 3.1665030679744492,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": 1.102852463722229,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.8385449913027658,
+                  "OutTangentAngle": 2.6969523377129723,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": -0.020071743056178093,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.7662214607884552,
+                  "OutTangentAngle": 2.6246288071986625,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": -1.4026986360549927,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.7272848866399171,
+                  "OutTangentAngle": 2.5856922330501244,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": -1.5015215873718262,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0495861655623617,
+                  "OutTangentAngle": 2.9079935119725686,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": -1.8183455467224121,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.6225737174670227,
+                  "OutTangentAngle": 2.48098106387723,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": -4.21382474899292,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.59093836131086441,
+                  "OutTangentAngle": 3.7325310149006574,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": 0.970778226852417,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.1685329769194119,
+                  "OutTangentAngle": 4.3101256305092051,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": 0.969456136226654,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.91973741884311155,
+                  "OutTangentAngle": 4.0613300724329049,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": 1.3702495098114014,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2784648609790343,
+                  "OutTangentAngle": 3.1368722073892417,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": 0.95215296745300293,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1709668299373437,
+                  "OutTangentAngle": 3.02937417634755,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": 0.94469189643859863,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2595570448321434,
+                  "OutTangentAngle": 3.1179643912423503,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": 0.89398026466369629,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.922638806202535,
+                  "OutTangentAngle": 2.7810461526127419,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": -0.09672025591135025,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.208643967858043,
+                  "OutTangentAngle": 3.0670513142682494,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": 0.50734418630599976,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.045612081882848522,
+                  "OutTangentAngle": 3.1872047354726418,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": 0.479093074798584,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9385396194082016,
+                  "OutTangentAngle": 2.796946965818409,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": -2.8338615894317627,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.7149144361133892,
+                  "OutTangentAngle": 2.5733217825235957,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": -3.3520972728729248,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2149410424960232,
+                  "OutTangentAngle": 3.0733483889062296,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": -3.4227266311645508,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2489657435001007,
+                  "OutTangentAngle": 3.107373089910308,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": -3.5861756801605225,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.32064783203166497,
+                  "OutTangentAngle": 3.4622404856214581,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": -1.6927852630615234,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.066369124272946917,
+                  "OutTangentAngle": 3.20796177786274,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": -1.3049255609512329,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "d5ee1d5f-d6b9-4d86-9c70-6b4141397fad",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "980b6b90-6654-403f-9c96-b61f423c5f19",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": -2.5858957767486572,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": 3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.46153846153845": {
+                  "Value": -3.0045113563537598,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.1712116793594634,
+                  "OutTangentAngle": 3.02961902576967,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "3.53846153846154": {
+                  "Value": -2.9837744235992432,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.70969265462793252,
+                  "OutTangentAngle": 3.8512853082177259,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "5.84615384615385": {
+                  "Value": -0.95614010095596313,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.6267485405413495,
+                  "OutTangentAngle": 2.4851558869515569,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.94547402504704": {
+                  "Value": -6.37898588180542,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.1119893294044347,
+                  "OutTangentAngle": 1.9703966758146414,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8.23076923076923": {
+                  "Value": -6.60257625579834,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.3623126236640655,
+                  "OutTangentAngle": 2.2207199700742724,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "9.69230769230769": {
+                  "Value": -8.6771974563598633,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.2261228095641057,
+                  "OutTangentAngle": 2.0845301559743126,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "11.7211234803228": {
+                  "Value": -12.788174629211426,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.0039871777496279,
+                  "OutTangentAngle": 4.145579831339421,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.8494983277592": {
+                  "Value": -2.1456220149993896,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.3666273911322988,
+                  "OutTangentAngle": 4.5082200447220915,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "13.9264214046823": {
+                  "Value": -2.1373386383056641,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 1.2354006419744847,
+                  "OutTangentAngle": 4.3769932955642776,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "14.1538461538461": {
+                  "Value": -1.2724764347076416,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.026643707031663168,
+                  "OutTangentAngle": 3.1682363606214561,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.5919732441471": {
+                  "Value": -2.03965163230896,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.0906139474360721,
+                  "OutTangentAngle": 2.949021293846279,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "17.930138393566": {
+                  "Value": -2.0088067054748535,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.088563237132296344,
+                  "OutTangentAngle": 3.2301558907220893,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.0535117056856": {
+                  "Value": -1.8210780620574951,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.14843391331445,
+                  "OutTangentAngle": 3.0068412597246565,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "20.6923076923077": {
+                  "Value": -2.38328218460083,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.25180497727200857,
+                  "OutTangentAngle": 3.3933976308618017,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "25.2307692307692": {
+                  "Value": -0.48914846777915955,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 0,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.17000429387314783,
+                  "OutTangentAngle": 3.3115969474629408,
+                  "Weighted": false,
+                  "BrokenTangents": true
+                },
+                "33.3076923076923": {
+                  "Value": -0.21770958602428436,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.3552351563397208,
+                  "OutTangentAngle": 3.4968278099295138,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "34.5384615384615": {
+                  "Value": 2.9637506008148193,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.53628226487756814,
+                  "OutTangentAngle": 3.6778749184673614,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "39.3076923076923": {
+                  "Value": 3.348613977432251,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.088375949170285642,
+                  "OutTangentAngle": 3.2299686027600787,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "43.1538461538462": {
+                  "Value": 3.7271318435668945,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.156838609600233,
+                  "OutTangentAngle": 3.01524595601044,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "46.1455069395628": {
+                  "Value": 2.4800519943237305,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 5.9781936749712452,
+                  "OutTangentAngle": 2.8366010213814521,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "48.3628100338565": {
+                  "Value": 2.0872769355773926,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 6.2574876968913529,
+                  "OutTangentAngle": 3.1158950433015593,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "80.467183329048": {
+                  "Value": 1.5978727340698242,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 2,
+                  "OutType": 2,
+                  "InEditMode": 1,
+                  "OutEditMode": 1,
+                  "InTangentAngle": 0.0,
+                  "OutTangentAngle": -3.1415926535897931,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 0,
+              "PostCurveMapping": 0,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "ce5ea77e-b64a-4e28-9cfd-f5870b028cc4",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "19899135-a99f-41af-92ea-fd87b9b43719",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ea9764c2-7a44-4f53-ab7e-1b1b99436c48",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "ea9764c2-7a44-4f53-ab7e-1b1b99436c48",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "810e1039-99f0-401c-a106-3e87bd2811fb"
+    },
+    {
+      "SourceOp": "cff3908d-1fa9-4e4e-bf2e-6fb10aa09a54",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "e8917ec2-1652-4e69-a6c9-390984eb322b",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "e8917ec2-1652-4e69-a6c9-390984eb322b",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "465c0f09-2564-4d74-97e5-f16e4a168bcf"
+    },
+    {
+      "SourceOp": "705a18c7-a893-453d-9d82-bc5c994b5a2f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "fcfb1374-25c4-4b41-9ebb-92212eee07d4",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "fcfb1374-25c4-4b41-9ebb-92212eee07d4",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5"
+    },
+    {
+      "SourceOp": "ab119d36-39a2-4fb9-97cf-b24259d3698e",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "07c1a5fe-07c4-479e-bc7c-d9292bb82c8f",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "07c1a5fe-07c4-479e-bc7c-d9292bb82c8f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b"
+    },
+    {
+      "SourceOp": "5970071a-8af2-474a-a5a7-049d7872c97b",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "d0a46f26-aa46-43b1-9558-c6fde37ff2df",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "d0a46f26-aa46-43b1-9558-c6fde37ff2df",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "28827d15-597c-4214-8be9-72762d229578"
+    },
+    {
+      "SourceOp": "357229b5-a59d-4c6a-9849-65b0611e9247",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "ddd162e7-b4ad-42b4-ae81-649db19b563b",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "ddd162e7-b4ad-42b4-ae81-649db19b563b",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "7dcec0b7-d396-406c-9291-c6a82a371e47"
+    },
+    {
+      "SourceOp": "49222d17-1ae5-46e4-acad-92e92fe5d3b8",
+      "SourceOpPart": "b8881370-4312-4973-9aff-d9caa5002c5c",
+      "TargetOp": "cc992a70-5c0d-4002-89f3-f23f835dcf32",
+      "TargetOpPart": "7f270b55-ca01-48ad-99fc-a86051574edb"
+    },
+    {
+      "SourceOp": "648ff809-b580-452e-b504-f73924a4f590",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "6c139240-3221-42da-8fd2-9fa374435b7c",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "58843fd5-ab1b-4f45-a489-0a06cad689ed",
+      "SourceOpPart": "95103d9c-ebb6-49d1-a434-493c6d189f53",
+      "TargetOp": "56e759a2-50a7-44c4-9597-9e8a5cc16403",
+      "TargetOpPart": "cedaae90-4fb3-4ea1-9326-780fec32425b"
+    },
+    {
+      "SourceOp": "cc992a70-5c0d-4002-89f3-f23f835dcf32",
+      "SourceOpPart": "9a16b787-15a2-4ecf-9313-c1688334e765",
+      "TargetOp": "f394d3e2-f220-4494-a358-4b0e2737dbed",
+      "TargetOpPart": "cedaae90-4fb3-4ea1-9326-780fec32425b"
+    },
+    {
+      "SourceOp": "436598cd-381c-4142-b2c4-7d04b05b6b0f",
+      "SourceOpPart": "95eb34de-08fc-400f-8b38-34eba58a46fd",
+      "TargetOp": "648ff809-b580-452e-b504-f73924a4f590",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "e9f3eb8c-2e04-4f09-8eaf-e9ccb9689f88",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "e7f546fc-c357-4008-b4b6-36463f4f05c3",
+      "TargetOpPart": "1944a8ac-41ce-4d96-9406-fe49d814d719"
+    },
+    {
+      "SourceOp": "e7f546fc-c357-4008-b4b6-36463f4f05c3",
+      "SourceOpPart": "cae7b4ea-ca40-4033-9819-904e99638eb8",
+      "TargetOp": "e66c8fa2-fb85-436e-a7ab-264738b225f6",
+      "TargetOpPart": "f8fb49a2-03b1-4e45-942b-717dbc0b1809"
+    },
+    {
+      "SourceOp": "e66c8fa2-fb85-436e-a7ab-264738b225f6",
+      "SourceOpPart": "252836b4-9204-4440-90c4-3b58d958c705",
+      "TargetOp": "676c297f-a456-458e-91b2-d34b5d6674d1",
+      "TargetOpPart": "65106dd8-263c-4b8c-b3ab-8444ad59236d"
+    },
+    {
+      "SourceOp": "676c297f-a456-458e-91b2-d34b5d6674d1",
+      "SourceOpPart": "9a16b787-15a2-4ecf-9313-c1688334e765",
+      "TargetOp": "f5f2b975-551d-41e9-8b4c-406137b5d259",
+      "TargetOpPart": "9d7470a5-c572-4924-b121-b6e2b1614034"
+    },
+    {
+      "SourceOp": "f394d3e2-f220-4494-a358-4b0e2737dbed",
+      "SourceOpPart": "95eb34de-08fc-400f-8b38-34eba58a46fd",
+      "TargetOp": "f5f2b975-551d-41e9-8b4c-406137b5d259",
+      "TargetOpPart": "31cbd2f8-2f42-403d-9142-3ad22e6b6225"
+    },
+    {
+      "SourceOp": "f5f2b975-551d-41e9-8b4c-406137b5d259",
+      "SourceOpPart": "852971d5-5a56-4b81-97de-3c33203693c3",
+      "TargetOp": "f46f7fe4-b926-489f-984d-4958a6a87fce",
+      "TargetOpPart": "155e09d4-8fa1-4ea7-b7b6-dd3810328f4c"
+    },
+    {
+      "SourceOp": "f394d3e2-f220-4494-a358-4b0e2737dbed",
+      "SourceOpPart": "95eb34de-08fc-400f-8b38-34eba58a46fd",
+      "TargetOp": "79cc2485-6b5d-4eec-8ca2-76e09061fc75",
+      "TargetOpPart": "1944a8ac-41ce-4d96-9406-fe49d814d719"
+    },
+    {
+      "SourceOp": "79cc2485-6b5d-4eec-8ca2-76e09061fc75",
+      "SourceOpPart": "cae7b4ea-ca40-4033-9819-904e99638eb8",
+      "TargetOp": "58843fd5-ab1b-4f45-a489-0a06cad689ed",
+      "TargetOpPart": "c2e438ee-873d-4a44-8314-00f1fe463dc1"
+    },
+    {
+      "SourceOp": "c0e59a52-2c9d-4eb5-a943-52247cc5a3e5",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "43db4b66-089f-4222-82ed-2fb064a15371"
+    },
+    {
+      "SourceOp": "cc992a70-5c0d-4002-89f3-f23f835dcf32",
+      "SourceOpPart": "9a16b787-15a2-4ecf-9313-c1688334e765",
+      "TargetOp": "c0e59a52-2c9d-4eb5-a943-52247cc5a3e5",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "ce5ea77e-b64a-4e28-9cfd-f5870b028cc4",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "980b6b90-6654-403f-9c96-b61f423c5f19",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "980b6b90-6654-403f-9c96-b61f423c5f19",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "810e1039-99f0-401c-a106-3e87bd2811fb"
+    },
+    {
+      "SourceOp": "d5ee1d5f-d6b9-4d86-9c70-6b4141397fad",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "f9edc4f7-15f5-440c-a2ae-ed642e81266c",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "f9edc4f7-15f5-440c-a2ae-ed642e81266c",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "465c0f09-2564-4d74-97e5-f16e4a168bcf"
+    },
+    {
+      "SourceOp": "40f45530-f2f8-4c50-bf3e-230994932252",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "f613851d-1d0c-44cc-962a-38767f96e3d9",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "f613851d-1d0c-44cc-962a-38767f96e3d9",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "db7fa71f-f8fd-4c13-b1a7-716a32ddb7c5"
+    },
+    {
+      "SourceOp": "81e1ac11-6880-4b5d-a12d-a04400d649cb",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "d38eafde-d118-4a51-8bb1-2788b312bf61",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "d38eafde-d118-4a51-8bb1-2788b312bf61",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "cd55616a-d11d-4b9b-ad6d-6071cac5e87b"
+    },
+    {
+      "SourceOp": "72283252-8e5c-4651-994b-eb6e055d1424",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "85ed739b-d03a-4d90-bcb6-3736dc332a92",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "85ed739b-d03a-4d90-bcb6-3736dc332a92",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "28827d15-597c-4214-8be9-72762d229578"
+    },
+    {
+      "SourceOp": "eda535bc-5093-4713-991e-f70e20533450",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "4f0d2faf-f856-4204-948b-f4ba3df468ea",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "4f0d2faf-f856-4204-948b-f4ba3df468ea",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "TargetOpPart": "7dcec0b7-d396-406c-9291-c6a82a371e47"
+    },
+    {
+      "SourceOp": "a8ae71a2-44d1-4a91-8b76-4dd370600a5f",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "050e43b3-ff7e-4398-a147-9ded644a3f43",
+      "TargetOpPart": "c2e438ee-873d-4a44-8314-00f1fe463dc1"
+    },
+    {
+      "SourceOp": "050e43b3-ff7e-4398-a147-9ded644a3f43",
+      "SourceOpPart": "95103d9c-ebb6-49d1-a434-493c6d189f53",
+      "TargetOp": "7a37aeb2-baf3-40ea-a07e-a5d11e7875d1",
+      "TargetOpPart": "3b4927be-6a67-4872-aeb7-b1dee2136f29"
+    },
+    {
+      "SourceOp": "a8ae71a2-44d1-4a91-8b76-4dd370600a5f",
+      "SourceOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "TargetOp": "7a37aeb2-baf3-40ea-a07e-a5d11e7875d1",
+      "TargetOpPart": "155e09d4-8fa1-4ea7-b7b6-dd3810328f4c"
+    },
+    {
+      "SourceOp": "a08b12aa-6f32-4fa5-869d-df99eb87ff3f",
+      "SourceOpPart": "682960d0-f2eb-4d1f-891d-cfbbd3d8a911",
+      "TargetOp": "a8ae71a2-44d1-4a91-8b76-4dd370600a5f",
+      "TargetOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad"
+    },
+    {
+      "SourceOp": "f46f7fe4-b926-489f-984d-4958a6a87fce",
+      "SourceOpPart": "93b119c0-4467-428d-91be-32ebdeed0a07",
+      "TargetOp": "436598cd-381c-4142-b2c4-7d04b05b6b0f",
+      "TargetOpPart": "cedaae90-4fb3-4ea1-9326-780fec32425b"
+    },
+    {
+      "SourceOp": "56e759a2-50a7-44c4-9597-9e8a5cc16403",
+      "SourceOpPart": "95eb34de-08fc-400f-8b38-34eba58a46fd",
+      "TargetOp": "676c297f-a456-458e-91b2-d34b5d6674d1",
+      "TargetOpPart": "7f270b55-ca01-48ad-99fc-a86051574edb"
+    },
+    {
+      "SourceOp": "e66c8fa2-fb85-436e-a7ab-264738b225f6",
+      "SourceOpPart": "252836b4-9204-4440-90c4-3b58d958c705",
+      "TargetOp": "cc992a70-5c0d-4002-89f3-f23f835dcf32",
+      "TargetOpPart": "65106dd8-263c-4b8c-b3ab-8444ad59236d"
+    }
+  ]
+}

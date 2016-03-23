@@ -1,0 +1,150 @@
+{
+  "Name": "Replace",
+  "_id": "c7dd6c6d-8ae6-470d-85d3-d8e72655daf6",
+  "Namespace": "lib.text",
+  "Description": "Replaces all occurances in a string with another string.\r\n",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "f213c04b-6f8c-41da-8b03-22b27f66622d",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SearchText",
+      "MetaInstanceID": "dc7e03b0-1ebf-481a-997a-17b85a5f57e5",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ReplaceText",
+      "MetaInstanceID": "b47c3bde-6445-43e7-8800-dcd99112e8f5",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "21f7a5c5-23ea-4fa2-9be7-e0322b067dec",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "4cda684f-6a68-4517-86dc-8845caeb6719",
+      "MetaID": "1f140717-cc1b-41ed-a2d6-3bf73aac8741",
+      "Name": "ReplaceFunc",
+      "Version": "f02d018d-0b6d-4991-a978-db2492778959",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID1f140717_cc1b_41ed_a2d6_3bf73aac8741",
+        "{",
+        "    public class Class_Replace : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0,",
+        "            SearchText = 1,",
+        "            ReplaceText = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            var SearchText = inputs[(int)InputId.SearchText].Eval(context).Text;",
+        "            var ReplaceText = inputs[(int)InputId.ReplaceText].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            if (String.IsNullOrEmpty(String) || String.IsNullOrEmpty(SearchText) || String.IsNullOrEmpty(ReplaceText) ) {",
+        "                context.Text = String.Empty;",
+        "                return context;",
+        "            }",
+        "            string result = string.Empty;",
+        "            context.Text = String.Replace(SearchText, ReplaceText);            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4cda684f-6a68-4517-86dc-8845caeb6719",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "21f7a5c5-23ea-4fa2-9be7-e0322b067dec"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f213c04b-6f8c-41da-8b03-22b27f66622d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4cda684f-6a68-4517-86dc-8845caeb6719"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dc7e03b0-1ebf-481a-997a-17b85a5f57e5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4cda684f-6a68-4517-86dc-8845caeb6719"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b47c3bde-6445-43e7-8800-dcd99112e8f5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4cda684f-6a68-4517-86dc-8845caeb6719"
+    }
+  ]
+}

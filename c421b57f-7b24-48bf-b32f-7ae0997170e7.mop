@@ -1,0 +1,150 @@
+{
+  "Name": "Random",
+  "_id": "c421b57f-7b24-48bf-b32f-7ae0997170e7",
+  "Namespace": "lib.math",
+  "Description": "Returns a float value in the given range.",
+  "Inputs": [
+    {
+      "Name": "Seed",
+      "MetaInstanceID": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Random seed. Can be a float value.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Min",
+      "MetaInstanceID": "d23dc4ea-7fee-48d8-9714-c0b7f34d7d52",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Minimum value of the range.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Logarithmic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Max",
+      "MetaInstanceID": "3c161f24-08ae-4639-adef-63b7fc61e016",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "Maximum value of the range.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Logarithmic",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "RandomOut",
+      "MetaInstanceID": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "MetaID": "1fc674ad-a74f-4551-b442-09f44c554421",
+      "Name": "RandomFunc",
+      "Version": "9ddcf26c-d004-4f41-ba1a-debec662f301",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID1fc674ad_a74f_4551_b442_09f44c554421",
+        "{",
+        "    public class Class_Random : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Seed = 0,",
+        "            Min = 1,",
+        "            Max = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
+        "            var Min = inputs[(int)InputId.Min].Eval(context).Value;",
+        "            var Max = inputs[(int)InputId.Max].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            //>>> function",
+        "            if (Min > Max) ",
+        "                Utilities.Swap(ref Min, ref Max);",
+        "            ",
+        "            var random = new Random(98764 + (int)( Seed * Math.PI));",
+        "            var t2 = random.Next(9876672);",
+        "            t2 += random.Next(5341324);",
+        "            t2 += random.Next(1242324);",
+        "            var random2 = new Random( (int)t2);",
+        "            ",
+        "            context.Value = (float)(random2.NextDouble() * (Max-Min) + Min);",
+        "            //<<< function",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d23dc4ea-7fee-48d8-9714-c0b7f34d7d52",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3c161f24-08ae-4639-adef-63b7fc61e016",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66"
+    }
+  ]
+}

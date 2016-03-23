@@ -1,0 +1,152 @@
+{
+  "Name": "SetResolution",
+  "_id": "c6d02108-2f1f-41ca-9a91-96f297ea55a1",
+  "Namespace": "lib.image.adjust",
+  "Description": "Overrides the requested resolution of Image operators in the subtree below. Use -1 to pass the resolution requested above.\r\n\r\nExample Size [-1,1] will render a texture with the width of the current viewport and a height of 1 pixel.\r\n",
+  "Inputs": [
+    {
+      "Name": "Size.X",
+      "MetaInstanceID": "ed85e2e7-add6-4a3a-9a5f-188b88753246",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Y",
+      "MetaInstanceID": "225a12cb-4652-45a9-a000-33c943e9c224",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Input",
+      "MetaInstanceID": "a5cc5c73-a109-453e-b2dc-2d2bc8b2800c",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "3893f28d-7734-40bb-9858-9b853dc00cd6",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "75f4fe41-f965-4f1a-ac43-e8e6a8b4b031",
+      "MetaID": "6d0204ef-14c6-41ef-b407-19207808e885",
+      "Name": "SetResolutionFunc",
+      "Version": "a8554526-749c-4fca-b562-18669ca78ddb",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.ID6d0204ef_14c6_41ef_b407_19207808e885",
+        "{",
+        "    public class Class_SetResolution : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[2];",
+        "",
+        "            int SizeX = (int) inputs[0].Eval(context).Value;",
+        "            int SizeY = (int) inputs[1].Eval(context).Value;",
+        "            /*",
+        "            if (SizeX == 0 || SizeY == 0) {",
+        "                SizeX = context.Viewport.Width * (SampleCount > 1 ? 2 : 1);",
+        "                SizeY = context.Viewport.Height * (SampleCount > 1 ? 2 : 1);",
+        "                //if ((_renderTargetResource != null) && ",
+        "                //    (SizeX != _renderTargetResource.Texture.Description.Width || SizeY != _renderTargetResource.Texture.Description.Height)) {",
+        "                //    rebuildTarget = true;",
+        "                //}",
+        "            }*/",
+        "            //context.Viewport.Width = 10; //SizeX;",
+        "            //context.Viewport.Height = 10; //SizeY;",
+        "            ",
+        "            var oldViewport = context.Viewport;",
+        "            context.Viewport = new ViewportF( 0,0, SizeX, SizeY);",
+        "",
+        "            Scene.Eval(context);",
+        "            context.Viewport = oldViewport;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "//        Resource _renderTargetResource;",
+        "//        RenderTargetView _renderTargetView;",
+        "//        Resource _renderDepthResource;",
+        "//        DepthStencilView _renderTargetDepthView;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "75f4fe41-f965-4f1a-ac43-e8e6a8b4b031",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3893f28d-7734-40bb-9858-9b853dc00cd6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ed85e2e7-add6-4a3a-9a5f-188b88753246",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "75f4fe41-f965-4f1a-ac43-e8e6a8b4b031"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "225a12cb-4652-45a9-a000-33c943e9c224",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "75f4fe41-f965-4f1a-ac43-e8e6a8b4b031"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a5cc5c73-a109-453e-b2dc-2d2bc8b2800c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "75f4fe41-f965-4f1a-ac43-e8e6a8b4b031"
+    }
+  ]
+}

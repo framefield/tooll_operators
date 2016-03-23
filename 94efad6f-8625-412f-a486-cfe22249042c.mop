@@ -1,0 +1,81 @@
+{
+  "Name": "Asin",
+  "_id": "94efad6f-8625-412f-a486-cfe22249042c",
+  "Namespace": "lib.math",
+  "Description": "Returns the square root of a number. If the number is smaller than 0, it returns 0.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "ffb836ed-373c-4655-a042-2eb0a61be7ce",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "5d5d69e6-b352-428c-b954-c3abb8f49d17",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "9e347c23-5812-4c67-a8dc-e8830fcc36fc",
+      "MetaID": "35f75c05-67e7-4247-ac5c-f6972e5c177c",
+      "Name": "AsinFunc",
+      "Version": "2bb2a4c2-4eb4-4660-be53-4c1659ca5133",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID35f75c05_67e7_4247_ac5c_f6972e5c177c",
+        "{",
+        "    public class Class_aSin : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            context.Value= (float) Math.Asin(Value);",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ffb836ed-373c-4655-a042-2eb0a61be7ce",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9e347c23-5812-4c67-a8dc-e8830fcc36fc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9e347c23-5812-4c67-a8dc-e8830fcc36fc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5d5d69e6-b352-428c-b954-c3abb8f49d17"
+    }
+  ]
+}

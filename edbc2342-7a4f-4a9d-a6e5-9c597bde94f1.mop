@@ -1,0 +1,256 @@
+{
+  "Name": "ObjectDisplace",
+  "_id": "edbc2342-7a4f-4a9d-a6e5-9c597bde94f1",
+  "Namespace": "projects.vaserely.shaders",
+  "Description": "This effect uses the object position in world space as look-up position in an image of which the following channels are used to distort the object:\r\n\r\nR - Vertical Scale\r\nG - Horizontal Scalef\r\nB - rotation\r\nA - overall scale\r\n\r\nThe image is provided by the texture assigned to the geometry.\r\n\r\nFor an example see [DisplacingScene] in Vasarely.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "fee9d53a-44f4-4ba7-b01f-d54e08819587",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.X",
+      "MetaInstanceID": "6dce26a9-aa9a-49ac-ac7f-3417b1aad8a0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Y",
+      "MetaInstanceID": "65ea2779-761e-4170-9112-81e2b802d9d5",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Strength",
+      "MetaInstanceID": "62eb3b67-432f-4598-92b5-e30ceb92271e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate.Offset",
+      "MetaInstanceID": "c27dd13c-748a-43da-9b9a-305a69c6b3ff",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextureScale",
+      "MetaInstanceID": "2055511c-847f-4790-9930-d9c4462bf95d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.01"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "48a38b39-f9ba-49da-9a51-c4f0e3b1860d",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8",
+      "MetaID": "a6790d44-81e9-4d90-bdca-52f0fd47b9b9",
+      "Name": "ObjectDisplaceFunc",
+      "Version": "12efb360-4cab-423e-bcff-f10923b163ba",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Runtime.InteropServices;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.D3DCompiler;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.Rendering;",
+        "",
+        "namespace Framefield.Core.IDa6790d44_81e9_4d90_bdca_52f0fd47b9b9",
+        "{ ",
+        "    public class Class_ObjectDisplace : OperatorPart.Function",
+        "    {",
+        "        public class Renderer : BaseRenderer",
+        "        {",
+        "            public override void SetupEffect(OperatorPartContext context) {",
+        "                base.SetupEffect(context);",
+        "",
+        "                context.Effect.GetVariableByName(\"scale\").AsVector().Set(_scale);",
+        "                context.Effect.GetVariableByName(\"rotate\").AsVector().Set(_rotate);",
+        "                context.Effect.GetVariableByName(\"textureScale\").AsScalar().Set(_textureScale);",
+        "            }",
+        "",
+        "            public SharpDX.Vector2 _scale;",
+        "            public SharpDX.Vector2 _rotate;",
+        "            public float _textureScale;",
+        "        }",
+        "",
+        "        public Class_ObjectDisplace() {",
+        "            try {",
+        "                _renderer = new Renderer();",
+        "                using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/ObjectDisplace.fx\", \"fx_5_0\", ShaderFlags.None, EffectFlags.None, null, null))",
+        "                    _effect = new Effect(D3DDevice.Device, bytecode);",
+        "            }",
+        "            catch (Exception ex) {",
+        "                Logger.Error(this,\"error creating effect: {0}\", ex.Message);",
+        "            }",
+        "        }",
+        "",
+        "",
+        "",
+        "        public override void Dispose() {",
+        "            Utilities.DisposeObj(ref _effect);",
+        "            Utilities.DisposeObj(ref _renderer);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];//.Eval(context);",
+        "            _renderer._scale = new SharpDX.Vector2(  inputs[1].Eval(context).Value, ",
+        "                                                    inputs[2].Eval(context).Value);",
+        "",
+        "            _renderer._rotate = new SharpDX.Vector2( inputs[3].Eval(context).Value, ",
+        "                                                    inputs[4].Eval(context).Value);",
+        "                                                    ",
+        "            _renderer._textureScale = inputs[5].Eval(context).Value;                                        ",
+        "",
+        "            var D3DDevice = context.D3DDevice;",
+        "            var subContext = new OperatorPartContext(context);",
+        "            try {",
+        "                subContext.Effect = _effect;",
+        "                subContext.InputLayout = context.Renderer.SceneDefaultInputLayout;",
+        "                subContext.Renderer = _renderer;",
+        "",
+        "                Scene.Eval(subContext);",
+        "            }",
+        "            catch (Exception exception) {",
+        "                Logger.Error(this,\"Load Effect error: {0}\\n{1}\\n{2} .\", exception.Message, exception.Source, exception.InnerException);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Effect _effect;",
+        "        Renderer _renderer;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "48a38b39-f9ba-49da-9a51-c4f0e3b1860d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fee9d53a-44f4-4ba7-b01f-d54e08819587",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6dce26a9-aa9a-49ac-ac7f-3417b1aad8a0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "65ea2779-761e-4170-9112-81e2b802d9d5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "62eb3b67-432f-4598-92b5-e30ceb92271e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c27dd13c-748a-43da-9b9a-305a69c6b3ff",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2055511c-847f-4790-9930-d9c4462bf95d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b2554a7-d9be-40e4-9d15-41b48f01b5f8"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "Name": "TimeClipSwitch",
+  "_id": "4f1bd322-ff50-407d-95d5-e420758ad272",
+  "Namespace": "lib.basic",
+  "Description": "Operator sub tree is only evaluated if the time is between ClipIn and ClipOut.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "53e46a3c-527c-4496-ac9d-8b7d58b9044d",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClipIn",
+      "MetaInstanceID": "da7bb8e0-a0da-422f-b500-b4f5d009a7c2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClipOut",
+      "MetaInstanceID": "11bc7dbc-8fe1-4f8e-8eb7-5070a71d12aa",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SourceIn",
+      "MetaInstanceID": "71888d2d-014a-499f-93fd-4ab5301a8c99",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SourceOut",
+      "MetaInstanceID": "9bc8f0d5-dee8-45e2-86a4-f7614f0319e4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Layer",
+      "MetaInstanceID": "3ca8b2ad-f6b7-432c-b18e-c84d9c47ad4c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "0d1f61e3-3470-4847-b4fe-26b5b874d137",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "030a0ab8-b553-4a00-9e74-be739a4b6295",
+      "MetaID": "8ddb8e8d-716e-4c3c-97fc-77cc2823fad5",
+      "Name": "TimeClipSwitchFunc",
+      "Version": "d9e4e191-49db-4c8d-93c1-2dac0621ed73",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID8ddb8e8d_716e_4c3c_97fc_77cc2823fad5",
+        "{",
+        "    public class Class_TimeClipSwitch : OperatorPart.Function,",
+        "                                        Framefield.Core.OperatorPartTraits.ITimeClip,",
+        "                                        Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            ClipIn = 1,",
+        "            ClipOut = 2,",
+        "            SourceIn = 3,",
+        "            SourceOut = 4,",
+        "            Layer = 5",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public double StartTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.ClipIn); } ",
+        "            set { SetInputValue((int)InputId.ClipIn, value); } ",
+        "        }",
+        "",
+        "        public double EndTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.ClipOut); } ",
+        "            set { SetInputValue((int)InputId.ClipOut, value); } ",
+        "        }",
+        "",
+        "        public double SourceStartTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.SourceIn); } ",
+        "            set { SetInputValue((int)InputId.SourceIn, value); } ",
+        "        }",
+        "",
+        "        public double SourceEndTime",
+        "        {",
+        "            get { return GetInputValue((int)InputId.SourceOut); } ",
+        "            set { SetInputValue((int)InputId.SourceOut, value); } ",
+        "        }",
+        "",
+        "        public int Layer",
+        "        {",
+        "            get { return (int)GetInputValue((int)InputId.Layer); } ",
+        "            set { SetInputValue((int)InputId.Layer, value); } ",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            var prevValue = context.Value;",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var ClipIn = inputs[(int)InputId.ClipIn].Eval(context).Value;",
+        "            var ClipOut = inputs[(int)InputId.ClipOut].Eval(context).Value;",
+        "            var SourceIn = inputs[(int)InputId.SourceIn].Eval(context).Value;",
+        "            var SourceOut = inputs[(int)InputId.SourceOut].Eval(context).Value;",
+        "            var Layer = inputs[(int)InputId.Layer].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if (context.Time < ClipIn || context.Time >= ClipOut)",
+        "            {",
+        "                context.Value = prevValue;",
+        "                return context;",
+        "            }",
+        "",
+        "            inputs[0].Eval(context);",
+        "            return context;",
+        "        }",
+        "",
+        "        private double GetInputValue(int index)",
+        "        {",
+        "            return OperatorPartUtilities.GetInputFloatValue(OperatorPart.Connections[index]);",
+        "        }",
+        "",
+        "        private void SetInputValue(int index, double val)",
+        "        {",
+        "            OperatorPart opPart = OperatorPart.Connections[index];",
+        "            if (opPart.Connections.Count == 0)",
+        "            {",
+        "                opPart.Func = Utilities.CreateValueFunction(new Float((float)val));",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "53e46a3c-527c-4496-ac9d-8b7d58b9044d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "da7bb8e0-a0da-422f-b500-b4f5d009a7c2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "11bc7dbc-8fe1-4f8e-8eb7-5070a71d12aa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71888d2d-014a-499f-93fd-4ab5301a8c99",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9bc8f0d5-dee8-45e2-86a4-f7614f0319e4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3ca8b2ad-f6b7-432c-b18e-c84d9c47ad4c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "030a0ab8-b553-4a00-9e74-be739a4b6295",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0d1f61e3-3470-4847-b4fe-26b5b874d137"
+    }
+  ]
+}

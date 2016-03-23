@@ -1,0 +1,155 @@
+{
+  "Name": "MinOrMax",
+  "_id": "2687c2e3-8d4d-4d5a-a4fe-3c59eae41840",
+  "Namespace": "lib.math.helper",
+  "Description": "returns valu1 or value2 regarding the selected mode.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "e66e071b-c885-4e90-80c6-c51dd03506d7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "1e2d0e0b-42f6-4afc-bc25-a1eabf52966c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Mode",
+      "MetaInstanceID": "af3d1772-2713-43c7-84f6-24dee8d870bf",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Min",
+          "Value": "0"
+        },
+        {
+          "Name": "Max",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Product",
+      "MetaInstanceID": "4e94c5f3-0f3a-4e6a-a738-ed898d7387cc",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "d627c3f8-20ef-4ac6-9287-7efb74320990",
+      "MetaID": "b3dd4c0e-298b-4103-9a91-05a8b5a08f83",
+      "Name": "MinOrMaxFunc",
+      "Version": "8c6fa594-0fd2-4f26-8189-6c714dd0efae",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDb3dd4c0e_298b_4103_9a91_05a8b5a08f83",
+        "{",
+        "    public class Class_Compare : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value1 = 0,",
+        "            Value2 = 1,",
+        "            Mode = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value1 = inputs[(int)InputId.Value1].Eval(context).Value;",
+        "            var Value2 = inputs[(int)InputId.Value2].Eval(context).Value;",
+        "            var Mode = (int) inputs[(int)InputId.Mode].Eval(context).Value;",
+        "            //<<< _params",
+        "                               ",
+        "            switch ((int)Mode)",
+        "            {",
+        "                case 0: context.Value = Math.Min(Value1, Value2); break;",
+        "                case 1: context.Value = Math.Max(Value1, Value2); break;",
+        "            }",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e66e071b-c885-4e90-80c6-c51dd03506d7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d627c3f8-20ef-4ac6-9287-7efb74320990"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1e2d0e0b-42f6-4afc-bc25-a1eabf52966c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d627c3f8-20ef-4ac6-9287-7efb74320990"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "af3d1772-2713-43c7-84f6-24dee8d870bf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d627c3f8-20ef-4ac6-9287-7efb74320990"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d627c3f8-20ef-4ac6-9287-7efb74320990",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4e94c5f3-0f3a-4e6a-a738-ed898d7387cc"
+    }
+  ]
+}

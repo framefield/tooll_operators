@@ -1,0 +1,152 @@
+{
+  "Name": "SetResolutionGeneric",
+  "_id": "14e7b14c-15ae-4728-8a30-fba020dc4189",
+  "Namespace": "lib.basic",
+  "Description": "This operator is almost identical to [SetResolution] with the only exception that you are not limited to Image Operators as input.\r\n",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "cedaae90-4fb3-4ea1-9326-780fec32425b",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.X",
+      "MetaInstanceID": "ebbbbc78-9399-4650-bdf2-19caf00a0e56",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Y",
+      "MetaInstanceID": "07ece252-f9a9-46ee-9617-428faa7b1d2b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SetVariableOut",
+      "MetaInstanceID": "95eb34de-08fc-400f-8b38-34eba58a46fd",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5b8e19e2-c383-4d7b-8603-34173fd1e26f",
+      "MetaID": "292f24a9-8d8b-4dfd-837b-c9c7203c3dd0",
+      "Name": "SetResolutionGenericFunc",
+      "Version": "d06eea64-73e2-4837-8131-d67a3ac564b5",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID292f24a9_8d8b_4dfd_837b_c9c7203c3dd0",
+        "{",
+        "    public class Class_SetResolutionGeneric : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Subtree = 0,",
+        "            SizeX = 1,",
+        "            SizeY = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Subtree = inputs[(int)InputId.Subtree];",
+        "            var SizeX = inputs[(int)InputId.SizeX].Eval(context).Value;",
+        "            var SizeY = inputs[(int)InputId.SizeY].Eval(context).Value;",
+        "            var Size = new Vector2(SizeX, SizeY);",
+        "            //<<< _params",
+        "",
+        "            var prevViewport = context.Viewport;",
+        "            context.Viewport = new ViewportF(0, 0, SizeX, SizeY);",
+        "",
+        "            context = Subtree.Eval(context);",
+        "",
+        "            context.Viewport = prevViewport;",
+        "            Changed = false;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cedaae90-4fb3-4ea1-9326-780fec32425b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5b8e19e2-c383-4d7b-8603-34173fd1e26f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ebbbbc78-9399-4650-bdf2-19caf00a0e56",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5b8e19e2-c383-4d7b-8603-34173fd1e26f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "07ece252-f9a9-46ee-9617-428faa7b1d2b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5b8e19e2-c383-4d7b-8603-34173fd1e26f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5b8e19e2-c383-4d7b-8603-34173fd1e26f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "95eb34de-08fc-400f-8b38-34eba58a46fd"
+    }
+  ]
+}

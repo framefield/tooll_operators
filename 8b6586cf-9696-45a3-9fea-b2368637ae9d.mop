@@ -1,0 +1,286 @@
+{
+  "Name": "Viewport",
+  "_id": "8b6586cf-9696-45a3-9fea-b2368637ae9d",
+  "Namespace": "lib.3d",
+  "Description": "Sets the Viewport in Pixel",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "31bd1fb1-e6af-43bd-9cc4-152d8ab50355",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "ca15e308-4dbb-497b-aa8e-79e5d52f6a30",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "de39b7b9-6254-46f4-92e1-6a41a8e6da94",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.X",
+      "MetaInstanceID": "6b2f429c-888c-4664-bc85-589d1d077813",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Y",
+      "MetaInstanceID": "8862b690-85f3-43c4-a4d8-2cba232e98ea",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "512"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SetAspectRatio",
+      "MetaInstanceID": "d41c5c5d-bae5-4db3-a854-e61b815e298f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Inherit",
+          "Value": "0"
+        },
+        {
+          "Name": "Calculate",
+          "Value": "1"
+        },
+        {
+          "Name": "Manually",
+          "Value": "2"
+        }
+      ]
+    },
+    {
+      "Name": "AspectRatio",
+      "MetaInstanceID": "e3d8f183-6ee8-45f6-b452-f248a981eb38",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "38e8f0ac-cdfc-4612-8cbc-ff57c7ec40e6",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "86370aa7-3d9d-4aa5-913f-d74f426b05fd",
+      "MetaID": "353a8afd-71ea-43b3-a831-05a2537bd204",
+      "Name": "ViewportFunc",
+      "Version": "bbbc44ad-348d-4f04-83a4-b855dd4d30e2",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID353a8afd_71ea_43b3_a831_05a2537bd204",
+        "{",
+        "    public class Class_Viewport : OperatorPart.Function",
+        "    {",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            PositionX = 1,",
+        "            PositionY = 2,",
+        "            SizeX = 3,",
+        "            SizeY = 4,",
+        "            SetAspectRatio = 5,",
+        "            AspectRatio = 6",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        const String AspecRatioID = \"AspectRatio\";",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var PositionX = inputs[(int)InputId.PositionX].Eval(context).Value;",
+        "            var PositionY = inputs[(int)InputId.PositionY].Eval(context).Value;",
+        "            var Position = new Vector2(PositionX, PositionY);",
+        "            var SizeX = inputs[(int)InputId.SizeX].Eval(context).Value;",
+        "            var SizeY = inputs[(int)InputId.SizeY].Eval(context).Value;",
+        "            var Size = new Vector2(SizeX, SizeY);",
+        "            var SetAspectRatio = (int) inputs[(int)InputId.SetAspectRatio].Eval(context).Value;",
+        "            var AspectRatio = inputs[(int)InputId.AspectRatio].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            using (new PropertyStasher<OperatorPartContext>(context, \"Viewport\"))",
+        "            {",
+        "                context.Viewport = new Viewport((int)PositionX, (int)PositionY, (int)SizeX, (int)SizeY);",
+        "",
+        "                float previousAspectRatio = 0;",
+        "                bool aspectRatioWasSet = context.Variables.TryGetValue(AspecRatioID, out previousAspectRatio);",
+        "                if (SetAspectRatio < 0.5f) {",
+        "                    //",
+        "                }",
+        "                else if (SetAspectRatio < 1.5f){",
+        "                    context.Variables[AspecRatioID] = (float)SizeX / SizeY;",
+        "                }",
+        "                else {",
+        "                    context.Variables[AspecRatioID] = AspectRatio;                ",
+        "                }",
+        "",
+        "                SceneInput.Eval(context);",
+        "",
+        "                if (SetAspectRatio > 0.5f)",
+        "                {",
+        "                    if (aspectRatioWasSet) ",
+        "                        context.Variables[AspecRatioID] = previousAspectRatio;                    ",
+        "                    else",
+        "                        context.Variables.Remove(AspecRatioID);",
+        "                }",
+        "                ",
+        "            }",
+        "            return context;",
+        "        }",
+        "        ",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "31bd1fb1-e6af-43bd-9cc4-152d8ab50355",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ca15e308-4dbb-497b-aa8e-79e5d52f6a30",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "de39b7b9-6254-46f4-92e1-6a41a8e6da94",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6b2f429c-888c-4664-bc85-589d1d077813",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8862b690-85f3-43c4-a4d8-2cba232e98ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d41c5c5d-bae5-4db3-a854-e61b815e298f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e3d8f183-6ee8-45f6-b452-f248a981eb38",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "86370aa7-3d9d-4aa5-913f-d74f426b05fd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "38e8f0ac-cdfc-4612-8cbc-ff57c7ec40e6"
+    }
+  ]
+}

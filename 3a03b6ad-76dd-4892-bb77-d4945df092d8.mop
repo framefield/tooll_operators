@@ -1,0 +1,133 @@
+{
+  "Name": "GenerateMipMap",
+  "_id": "3a03b6ad-76dd-4892-bb77-d4945df092d8",
+  "Namespace": "user.cynic",
+  "Description": "unoptimized way to generate a mip map with an additional buffer",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "95d7b1c9-2051-451e-bc89-47144123785c",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "309fe678-47d0-4911-8ff9-9ebc3e1e83f8",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "116b750e-a825-4399-8376-adbc6e4020ef",
+      "MetaID": "d50105bb-2cb1-40e4-995a-e0a0f8840660",
+      "Name": "GenerateMipMapFunc",
+      "Version": "0eb19541-9edd-46f5-8a20-fd6e074830cf",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDd50105bb_2cb1_40e4_995a_e0a0f8840660",
+        "{",
+        "    public class Class_GenerateMipMap : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _mipMappedImage);",
+        "            Utilities.DisposeObj(ref _mipMappedImageSRV);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; // Needs to be checked for null!",
+        "            //<<< _params",
+        "",
+        "            if (Image == null)",
+        "            {",
+        "                context.Image = null;",
+        "                return context;",
+        "            }",
+        "",
+        "",
+        "            if (_mipMappedImage == null || Changed)",
+        "            {",
+        "                Dispose();",
+        "                var device = context.D3DDevice;",
+        "                var description = Image.Description;",
+        "                description.OptionFlags |= ResourceOptionFlags.GenerateMipMaps;",
+        "                description.MipLevels = 1 + (int)Math.Log(Math.Max(description.Width, description.Height), 2);",
+        "                _mipMappedImage = new Texture2D(device, description);               ",
+        "                _mipMappedImageSRV = new ShaderResourceView(device, _mipMappedImage);",
+        "",
+        "                device.ImmediateContext.CopySubresourceRegion(Image, 0, null, _mipMappedImage, 0);",
+        "                device.ImmediateContext.GenerateMips(_mipMappedImageSRV);",
+        "",
+        "                // debug info",
+        "                //Logger.Info(\"width: {0}  height: {1}  mip levels: {2}\", description.Width, description.Height, description.MipLevels);",
+        "                //Texture2D.ToFile(device.ImmediateContext, _mipMappedImage, ImageFileFormat.Dds, \"MipMapTest.dds\");",
+        " ",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Image = _mipMappedImage;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        //ImageResource _imageResource;",
+        "        Texture2D _mipMappedImage;",
+        "        ShaderResourceView _mipMappedImageSRV;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "116b750e-a825-4399-8376-adbc6e4020ef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "309fe678-47d0-4911-8ff9-9ebc3e1e83f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "95d7b1c9-2051-451e-bc89-47144123785c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "116b750e-a825-4399-8376-adbc6e4020ef"
+    }
+  ]
+}

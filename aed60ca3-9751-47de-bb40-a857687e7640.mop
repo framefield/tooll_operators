@@ -1,0 +1,127 @@
+{
+  "Name": "SetTime",
+  "_id": "aed60ca3-9751-47de-bb40-a857687e7640",
+  "Namespace": "lib.basic",
+  "Description": "Does not invalidate the sub-graph",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "e1d6b7dc-7ce8-45f4-95f5-1ace695a54d5",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "5142df79-4e21-471a-8bd0-db2b8b6e9eca",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "229cfb6a-3d54-4b3c-80f4-0bf6d7b173e5",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c9a10b11-7b1d-467e-8294-e3a637435420",
+      "MetaID": "339e77fe-c217-46e0-aab9-080ebbc0bbcc",
+      "Name": "SetTimeFunc",
+      "Version": "4baf36f1-701f-4f6b-984b-aa360eaef0fd",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID339e77fe_c217_46e0_aab9_080ebbc0bbcc",
+        "{",
+        "    public class Class_SetTime : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            Time = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params ",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var Time = inputs[(int)InputId.Time].Eval(context).Value;",
+        "            //<<< _params ",
+        "",
+        "            var oldTime = context.Time;",
+        "            context.Time = Time;",
+        "",
+        "            //var invalidator = new OperatorPart.InvalidateTimeAccessors();",
+        "            //Input.TraverseWithFunction(invalidator, null);",
+        "            Input.Eval(context);",
+        "",
+        "            context.Time = oldTime;",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e1d6b7dc-7ce8-45f4-95f5-1ace695a54d5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c9a10b11-7b1d-467e-8294-e3a637435420"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5142df79-4e21-471a-8bd0-db2b8b6e9eca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c9a10b11-7b1d-467e-8294-e3a637435420"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c9a10b11-7b1d-467e-8294-e3a637435420",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "229cfb6a-3d54-4b3c-80f4-0bf6d7b173e5"
+    }
+  ]
+}

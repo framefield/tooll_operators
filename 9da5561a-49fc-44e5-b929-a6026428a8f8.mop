@@ -1,0 +1,190 @@
+{
+  "Name": "Cos",
+  "_id": "9da5561a-49fc-44e5-b929-a6026428a8f8",
+  "Namespace": "lib.math",
+  "Description": "Computes a cosine value.",
+  "Inputs": [
+    {
+      "Name": "angle",
+      "MetaInstanceID": "9a8c8490-77b5-4cb2-befc-a64e8111b9ee",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "period",
+      "MetaInstanceID": "c25e93e5-9708-402a-b6da-32e2f2c761bc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "3.141593"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "amplitute",
+      "MetaInstanceID": "26d01cf4-5d52-4369-bc8b-50a46a79abdc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "offset",
+      "MetaInstanceID": "787dfa0d-abcd-40d8-aa36-a7dddfc2cced",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "phase",
+      "MetaInstanceID": "d2dfefd2-7285-43d6-89dd-a58857f68b46",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "out",
+      "MetaInstanceID": "1058acec-4eb2-458a-90cf-6ffcc5f46825",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e5667b49-a035-4474-a9c8-63006e9eff6c",
+      "MetaID": "005a693c-373b-4665-a1bd-27982a344598",
+      "Name": "CosFunc",
+      "Version": "672fb9c2-c8ef-4d9d-9469-e89bc88de22d",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID005a693c_373b_4665_a1bd_27982a344598",
+        "{",
+        "    public class Class_Cos : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            angle = 0,",
+        "            period = 1,",
+        "            amplitute = 2,",
+        "            offset = 3,",
+        "            phase = 4",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var angle = inputs[(int)InputId.angle].Eval(context).Value;",
+        "            var period = inputs[(int)InputId.period].Eval(context).Value;",
+        "            var amplitute = inputs[(int)InputId.amplitute].Eval(context).Value;",
+        "            var offset = inputs[(int)InputId.offset].Eval(context).Value;",
+        "            var phase = inputs[(int)InputId.phase].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            context.Value = (float) (Math.Cos((angle + phase) / period *Math.PI) * amplitute + offset );",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9a8c8490-77b5-4cb2-befc-a64e8111b9ee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c25e93e5-9708-402a-b6da-32e2f2c761bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "26d01cf4-5d52-4369-bc8b-50a46a79abdc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "787dfa0d-abcd-40d8-aa36-a7dddfc2cced",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d2dfefd2-7285-43d6-89dd-a58857f68b46",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e5667b49-a035-4474-a9c8-63006e9eff6c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1058acec-4eb2-458a-90cf-6ffcc5f46825"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "Name": "StoreImage",
+  "_id": "8915f0dd-a671-4a1a-81f0-863bd6a0ee65",
+  "Namespace": "lib.image.generate",
+  "Description": "Loads an image file. Click on the [..] to select a file.",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "6c8354ca-ff01-4407-8e22-552b0f916580",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ImagePath",
+      "MetaInstanceID": "e78dfd0a-819f-4b3c-92ce-38d7489e638e",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "Image.png"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "StoreTrigger",
+      "MetaInstanceID": "878f0186-7b57-4cb7-aef1-b42e7239a576",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "1c0c03a6-7ed1-464c-84f8-b30acff5e94c",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "4f05272c-1954-414d-9c4e-947152b0ca92",
+      "MetaID": "df361466-1094-409a-a4b4-63c55c2fea2a",
+      "Name": "StoreImageFunc",
+      "Version": "1a257522-c511-4134-9a68-e8da4ab74942",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDdf361466_1094_409a_a4b4_63c55c2fea2a",
+        "{",
+        "    public class Class_StoreImage : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0,",
+        "            ImagePath = 1,",
+        "            StoreTrigger = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Image = 0",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> __params",
+        "            var ImageInput = inputs[(int)InputId.Image];",
+        "            var ImagePath = inputs[(int)InputId.ImagePath].Eval(context).Text;",
+        "            var StoreTrigger = inputs[(int)InputId.StoreTrigger].Eval(context).Value;",
+        "            //<<< __params",
+        "",
+        "            var imageResult = ImageInput.Eval(context);",
+        "            var image = imageResult.Image;",
+        "            var depth = imageResult.DepthImage;",
+        "",
+        "            bool triggerUpFlankDetected = _lastStoreTrigger < 0.5 && StoreTrigger > 0.5;",
+        "            _lastStoreTrigger = StoreTrigger;",
+        "",
+        "            if (triggerUpFlankDetected)",
+        "            {",
+        "                FileInfo fi = new FileInfo(ImagePath);",
+        "                Directory.CreateDirectory(fi.DirectoryName);",
+        "",
+        "                if (image != null)",
+        "                {",
+        "                    var filename = fi.DirectoryName + \"\\\\\" + Path.GetFileNameWithoutExtension(fi.Name) + \".png\";",
+        "                    Texture2D.ToFile(D3DDevice.Device.ImmediateContext, image, ImageFileFormat.Png, fi.FullName);",
+        "                    Logger.Info(this,\"image stored {0}\", filename);",
+        "                }",
+        "                if (depth != null)",
+        "                {",
+        "                    var filename = fi.DirectoryName + \"\\\\\" + Path.GetFileNameWithoutExtension(fi.Name) + \"_depth.dds\";",
+        "                    Texture2D.ToFile(D3DDevice.Device.ImmediateContext, depth, ImageFileFormat.Dds, filename);",
+        "                    Logger.Info(this,\"depth image stored {0}\", filename);",
+        "                }",
+        "            }",
+        "",
+        "            context.Image = image;",
+        "            context.DepthImage = depth;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        float _lastStoreTrigger;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f05272c-1954-414d-9c4e-947152b0ca92",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1c0c03a6-7ed1-464c-84f8-b30acff5e94c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6c8354ca-ff01-4407-8e22-552b0f916580",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4f05272c-1954-414d-9c4e-947152b0ca92"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e78dfd0a-819f-4b3c-92ce-38d7489e638e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4f05272c-1954-414d-9c4e-947152b0ca92"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "878f0186-7b57-4cb7-aef1-b42e7239a576",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4f05272c-1954-414d-9c4e-947152b0ca92"
+    }
+  ]
+}

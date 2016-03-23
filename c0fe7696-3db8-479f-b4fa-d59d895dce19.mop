@@ -1,0 +1,163 @@
+{
+  "Name": "Split",
+  "_id": "c0fe7696-3db8-479f-b4fa-d59d895dce19",
+  "Namespace": "lib.text._deprecated",
+  "Description": "Splits a Text input and returns as a dynamic list.",
+  "Inputs": [
+    {
+      "Name": "InputText",
+      "MetaInstanceID": "0ceba40c-cf52-46c7-99e5-5abc37f85745",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SplitCharacter",
+      "MetaInstanceID": "77ae699d-04ae-41de-8535-efd9736b152e",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "\\n"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "696ceae8-326c-4a44-a9bd-b53a6c1adf9d",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    },
+    {
+      "Name": "Count",
+      "MetaInstanceID": "3c18dc73-6a5d-40a4-ad85-ed480dd67704",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "837dffbe-3f48-4fcc-a2a4-a2e0833273f4",
+      "MetaID": "c96f7bc0-3fa0-4354-a4ba-09acead9ffa8",
+      "Name": "SplitFunc",
+      "Version": "ccb391e3-dccb-49ca-90a5-42434aa23a95",
+      "Type": "Dynamic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Net;",
+        "using System.IO;",
+        "",
+        "using System.Threading;",
+        "using System.Threading.Tasks;",
+        "using System.Collections.Specialized;",
+        "",
+        "namespace Framefield.Core.IDc96f7bc0_3fa0_4354_a4ba_09acead9ffa8",
+        "{",
+        "    public class Class_Split : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            InputText = 0,",
+        "            SplitCharacter = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            StringList = 0,",
+        "            Count = 1",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        List<List<string>> _tmpList = new List<List<string>>();",
+        "        List<String> _resultList = new List<String>();",
+        "        String _oldString = \"\";",
+        "",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var InputText = inputs[(int)InputId.InputText].Eval(context).Text;",
+        "            var SplitCharacter = inputs[(int)InputId.SplitCharacter].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            if( _oldString != InputText) {",
+        "                Changed = true;",
+        "            }",
+        "            ",
+        "            if( Changed) {",
+        "                if( SplitCharacter == \"\\\\n\") {",
+        "                    SplitCharacter = \"\\n\";",
+        "                }",
+        "                _resultList = InputText.Split( SplitCharacter[0] ).ToList();            ",
+        "                context.Value = _resultList.Count;",
+        "            }",
+        "            ",
+        "            ",
+        "",
+        "            context.Dynamic = _resultList;",
+        "            return context;",
+        "        }",
+        "    }",
+        "    ",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "837dffbe-3f48-4fcc-a2a4-a2e0833273f4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "696ceae8-326c-4a44-a9bd-b53a6c1adf9d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0ceba40c-cf52-46c7-99e5-5abc37f85745",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "837dffbe-3f48-4fcc-a2a4-a2e0833273f4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "77ae699d-04ae-41de-8535-efd9736b152e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "837dffbe-3f48-4fcc-a2a4-a2e0833273f4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "837dffbe-3f48-4fcc-a2a4-a2e0833273f4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3c18dc73-6a5d-40a4-ad85-ed480dd67704"
+    }
+  ]
+}

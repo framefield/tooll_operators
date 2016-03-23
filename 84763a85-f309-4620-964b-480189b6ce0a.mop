@@ -1,0 +1,127 @@
+{
+  "Name": "Concat",
+  "_id": "84763a85-f309-4620-964b-480189b6ce0a",
+  "Namespace": "lib.text",
+  "Description": "Combines any number of strings\r\n",
+  "Inputs": [
+    {
+      "Name": "Strings",
+      "MetaInstanceID": "7c2e6851-32b5-40d8-9df1-8ace6d496a08",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Delimiter",
+      "MetaInstanceID": "5985a1f6-2c13-42e8-9a81-b58ca9ff71a9",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "30fff527-c89e-41e1-a08e-9929953caa0f",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "9b2b893c-609c-443b-b3d1-d48b852e26c9",
+      "MetaID": "97431c06-0eda-4291-bc12-7398d79a3e68",
+      "Name": "ConcatFunc",
+      "Version": "9435e683-3cde-4257-ad30-23022eabe128",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID97431c06_0eda_4291_bc12_7398d79a3e68",
+        "{",
+        "    public class Class_Concat : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Strings = 0,",
+        "            Delimiter = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> params",
+        "            var StringInputs = inputs[(int)InputId.Strings];",
+        "            var Delimiter = inputs[(int)InputId.Delimiter].Eval(context).Text;",
+        "            //<<< params",
+        "",
+        "            string result = string.Empty;",
+        "            string separator = \"\";",
+        "            for (int i = 0; i < StringInputs.Connections.Count; ++i) {",
+        "                result += separator + StringInputs.Connections[i].Eval(context).Text;",
+        "                separator = Delimiter;",
+        "            }",
+        "            context.Text = result;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9b2b893c-609c-443b-b3d1-d48b852e26c9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "30fff527-c89e-41e1-a08e-9929953caa0f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c2e6851-32b5-40d8-9df1-8ace6d496a08",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9b2b893c-609c-443b-b3d1-d48b852e26c9"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5985a1f6-2c13-42e8-9a81-b58ca9ff71a9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9b2b893c-609c-443b-b3d1-d48b852e26c9"
+    }
+  ]
+}

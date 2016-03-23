@@ -1,0 +1,57 @@
+{
+  "Name": "ScrollLockedPressed",
+  "_id": "fe26dbf7-48c7-4063-b970-40dd87279d1a",
+  "Namespace": "lib.basic",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "dd58fa05-7ccd-419d-92b1-f2fa986e386f",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5d26cf65-9827-4236-9de4-0d7c54f81dc6",
+      "MetaID": "9cb12ee2-d4fa-45ee-a089-294c22070ba0",
+      "Name": "ScrollLockedPressedFunc",
+      "Version": "9a40341f-98a6-43b8-9e0d-2b0641552dda",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using System.Windows.Forms;",
+        "",
+        "namespace Framefield.Core.ID9cb12ee2_d4fa_45ee_a089_294c22070ba0",
+        "{",
+        "    public class Class_ScrollLockedPressed : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            context.Value = Control.IsKeyLocked(Keys.Scroll) ? 1f : 0f;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5d26cf65-9827-4236-9de4-0d7c54f81dc6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dd58fa05-7ccd-419d-92b1-f2fa986e386f"
+    }
+  ]
+}

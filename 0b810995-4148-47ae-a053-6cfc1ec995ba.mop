@@ -1,0 +1,162 @@
+{
+  "Name": "LocatorScreen",
+  "_id": "0b810995-4148-47ae-a053-6cfc1ec995ba",
+  "Namespace": "lib.basic",
+  "Description": "Gets the current object position in screen coordinates. Depth contains the plain depth value (not z!).",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "60196cb3-1632-414f-b22d-44b77304fbd9",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "1c3a3b6e-e532-418f-aaf4-edfe63ad3a49",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    },
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "c92be6c9-7f39-4674-9634-3d60b1940f40",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "8cd7079d-7a9d-48a2-ab02-cb00f11e2b65",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Position.Depth",
+      "MetaInstanceID": "0e987a1a-3d93-4513-85ed-28874543cbd6",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea",
+      "MetaID": "8ac787a9-f9a3-47a5-8afb-4fc9eafdc09e",
+      "Name": "LocatorScreenFunc",
+      "Version": "3b2f8c64-80c7-494e-8008-e669e0032d53",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID8ac787a9_f9a3_47a5_8afb_4fc9eafdc09e",
+        "{",
+        "    public class Class_LocatorScreen : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Output = 0,",
+        "            PositionX = 1,",
+        "            PositionY = 2,",
+        "            PositionDepth = 3",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            //<<< _params",
+        "           ",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.Output:",
+        "                {",
+        "                    context.ObjectTWorld.Decompose(out _scale, out _rotation, out _position);",
+        "                    Matrix worldToView = context.WorldToCamera*context.CameraProjection;",
+        "                    _screenPosition = Vector3.TransformCoordinate(_position, worldToView);",
+        "",
+        "                    Input.Eval(context);",
+        "",
+        "                    //because these outputs are dependent on this evaluation, we need to invalidate them here",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionX);",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionY);",
+        "                    OperatorPart.EmitChangedEventForOutput((int)OutputId.PositionDepth);",
+        "                    break;",
+        "                }",
+        "                case (int)OutputId.PositionX: context.Value = _screenPosition.X; break;",
+        "                case (int)OutputId.PositionY: context.Value = _screenPosition.Y; break;",
+        "                case (int)OutputId.PositionDepth: context.Value = _screenPosition.Z; break;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Vector3 _scale;",
+        "        Quaternion _rotation;",
+        "        Vector3 _position;",
+        "        Vector3 _screenPosition;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1c3a3b6e-e532-418f-aaf4-edfe63ad3a49"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c92be6c9-7f39-4674-9634-3d60b1940f40"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8cd7079d-7a9d-48a2-ab02-cb00f11e2b65"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "60196cb3-1632-414f-b22d-44b77304fbd9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06fc5c4c-2c64-4bb2-b788-5aadf94e80ea",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0e987a1a-3d93-4513-85ed-28874543cbd6"
+    }
+  ]
+}

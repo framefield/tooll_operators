@@ -1,0 +1,110 @@
+{
+  "Name": "Skew",
+  "_id": "efe9c5a2-c4b8-4315-95e4-c71db3a6b876",
+  "Namespace": "lib.3d.modify",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "5c92926e-3437-48b3-a1ad-1b2b7eb10898",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Skew.X",
+      "MetaInstanceID": "a8829e83-f846-43f2-be2f-b7412be523eb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Skew.Y",
+      "MetaInstanceID": "248b3a5a-23f0-4065-8768-6f1711ca237a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "1ac90421-c045-40f0-a18d-f8d676f5c58e",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "_TransformMatrix",
+      "MetaInstanceID": "39c51ef0-915e-42e6-9c20-4d1c60840778",
+      "MetaID": "b7a3b216-37c5-4c36-83c5-f1b823ce1d3f",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "2182.86477967939",
+        "PosY": "429.62238288114",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "39c51ef0-915e-42e6-9c20-4d1c60840778",
+      "SourceOpPart": "295a1efe-e58c-4f6b-9da3-dda84ec64394",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1ac90421-c045-40f0-a18d-f8d676f5c58e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5c92926e-3437-48b3-a1ad-1b2b7eb10898",
+      "TargetOp": "39c51ef0-915e-42e6-9c20-4d1c60840778",
+      "TargetOpPart": "7bd58946-823a-4b8d-8735-1ebbfaac8196"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a8829e83-f846-43f2-be2f-b7412be523eb",
+      "TargetOp": "39c51ef0-915e-42e6-9c20-4d1c60840778",
+      "TargetOpPart": "f7f36a7b-af5c-4ce4-aaba-e48aa1dafca4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "248b3a5a-23f0-4065-8768-6f1711ca237a",
+      "TargetOp": "39c51ef0-915e-42e6-9c20-4d1c60840778",
+      "TargetOpPart": "b3f850db-a41d-4139-8584-e4457461737a"
+    }
+  ]
+}

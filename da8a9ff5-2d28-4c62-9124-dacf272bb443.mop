@@ -1,0 +1,239 @@
+{
+  "Name": "BeatCounter",
+  "_id": "da8a9ff5-2d28-4c62-9124-dacf272bb443",
+  "Namespace": "lib.math",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "BPM",
+      "MetaInstanceID": "5182c211-abb0-4ee9-8191-42b31015a4d3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "120"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset",
+      "MetaInstanceID": "472bdf9c-c58d-4bda-a327-ef50b50c8d3e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Bars",
+      "MetaInstanceID": "88814b71-4d7c-4a36-b529-50d5d160ba4b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "4"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ticks",
+      "MetaInstanceID": "7e4dbc0d-3e89-4f4f-859b-f1a51100fde3",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "1000"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "ByBars",
+      "MetaInstanceID": "a7085a71-5d76-4ed3-b457-7dc7cb4b00a0",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Every",
+      "MetaInstanceID": "a875cc03-91fa-4b23-b719-d848479439b7",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Every4th",
+      "MetaInstanceID": "02a657c9-5518-46fa-a750-1161fb65d00d",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Every16th",
+      "MetaInstanceID": "ae1ccf10-6b53-4920-8f42-ae80274c33d3",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
+      "MetaID": "66640b3f-0c38-4c34-94e7-67f3e45c3010",
+      "Name": "BeatCounterFunc",
+      "Version": "0d203f31-466a-4f34-ae3b-7982bb1647c8",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID66640b3f_0c38_4c34_94e7_67f3e45c3010",
+        "{",
+        "    public class Class_BeatCounter : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            BPM = 0,",
+        "            Offset = 1,",
+        "            Bars = 2,",
+        "            Ticks = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            ByBars = 0,",
+        "            Every = 1,",
+        "            Every4th = 2,",
+        "            Every16th = 3",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var BPM = inputs[(int)InputId.BPM].Eval(context).Value;",
+        "            var Offset = inputs[(int)InputId.Offset].Eval(context).Value;",
+        "            var Bars = inputs[(int)InputId.Bars].Eval(context).Value;",
+        "            var Ticks = inputs[(int)InputId.Ticks].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            switch (outputIdx)",
+        "            {",
+        "                case (int)OutputId.ByBars: ",
+        "                {",
+        "                    var x = 60/BPM*Bars;",
+        "                    context.Value = (float)Math.Floor((context.GlobalTime - Offset) / x);",
+        "                    break;",
+        "                }",
+        "                case (int)OutputId.Every:",
+        "                {",
+        "                    var x = 60/BPM;",
+        "                    context.Value = (float)Math.Floor((context.GlobalTime - Offset) / x);",
+        "                    break;",
+        "                }",
+        "                case (int)OutputId.Every4th:",
+        "                {",
+        "                    var x = 60/BPM*4;",
+        "                    context.Value = (float)Math.Floor((context.GlobalTime - Offset) / x);",
+        "                    break;",
+        "                }",
+        "                case (int)OutputId.Every16th:",
+        "                {",
+        "                    var x = 60/BPM*16;",
+        "                    context.Value = (float)Math.Floor((context.GlobalTime - Offset) / x);",
+        "                    break;",
+        "                }                    ",
+        "            }            ",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5182c211-abb0-4ee9-8191-42b31015a4d3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "472bdf9c-c58d-4bda-a327-ef50b50c8d3e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "88814b71-4d7c-4a36-b529-50d5d160ba4b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7e4dbc0d-3e89-4f4f-859b-f1a51100fde3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a7085a71-5d76-4ed3-b457-7dc7cb4b00a0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a875cc03-91fa-4b23-b719-d848479439b7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "02a657c9-5518-46fa-a750-1161fb65d00d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ae1ccf10-6b53-4920-8f42-ae80274c33d3"
+    }
+  ]
+}

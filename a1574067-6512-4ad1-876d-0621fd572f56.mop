@@ -1,0 +1,140 @@
+{
+  "Name": "DynamicToString",
+  "_id": "a1574067-6512-4ad1-876d-0621fd572f56",
+  "Namespace": "lib.basic",
+  "Description": "Converts dynamic input into a string.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "8db2b9cf-16c2-43ef-8c43-d9726389a067",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Filter",
+      "MetaInstanceID": "4b7f7b56-be10-4b5d-8522-3b88daf74801",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "0973acc5-ac70-45e9-8caa-fdec7786e644",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "d6070005-7bf8-482e-8402-c6d108b1a225",
+      "MetaID": "77956284-3099-4765-aac3-ea72e1108e75",
+      "Name": "DynamicToStringFunc",
+      "Version": "85610145-dfee-484d-a1da-ffd085516acc",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Newtonsoft.Json;",
+        "using Newtonsoft.Json.Serialization;",
+        "using System.Dynamic;",
+        "using System.IO;",
+        "",
+        "",
+        "namespace Framefield.Core.ID77956284_3099_4765_aac3_ea72e1108e75",
+        "{",
+        "    public class Class_DynamicToString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            Filter = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input].Eval(context).Dynamic; ",
+        "            if (Input == null)",
+        "            {",
+        "                context.Text = String.Empty;",
+        "                return context;",
+        "            }",
+        "            //<<< params",
+        "",
+        "            using (var stringWriter = new StringWriter())",
+        "            using (var jsonTextWriter = new JsonTextWriter(stringWriter) ",
+        "                                            {",
+        "                                                QuoteName = false,",
+        "                                                Formatting = Formatting.Indented",
+        "                                            })",
+        "            {",
+        "                _serializer.Serialize(jsonTextWriter, Input);",
+        "                context.Text = stringWriter.ToString();",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        JsonSerializer _serializer = new JsonSerializer();",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d6070005-7bf8-482e-8402-c6d108b1a225",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0973acc5-ac70-45e9-8caa-fdec7786e644"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8db2b9cf-16c2-43ef-8c43-d9726389a067",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d6070005-7bf8-482e-8402-c6d108b1a225"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4b7f7b56-be10-4b5d-8522-3b88daf74801",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d6070005-7bf8-482e-8402-c6d108b1a225"
+    }
+  ]
+}

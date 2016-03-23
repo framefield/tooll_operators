@@ -1,0 +1,251 @@
+{
+  "Name": "ManipulateMemory",
+  "_id": "e6cbe1a2-d1e6-457a-b846-c2be1f5470d8",
+  "Namespace": "lib.image.experimental",
+  "Description": "Interprets the binary input as an image file.\r\n",
+  "Inputs": [
+    {
+      "Name": "Binary",
+      "MetaInstanceID": "043fc39e-4350-42b6-bdf4-7676a5b5db60",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Seed",
+      "MetaInstanceID": "95e51f65-fba3-4f65-a5b8-95db3b0e6c89",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Amount",
+      "MetaInstanceID": "b63226e2-b9b3-40e2-a4da-db4470e95933",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Strength",
+      "MetaInstanceID": "a746c66a-68d4-40f2-b293-17f66adcd021",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset",
+      "MetaInstanceID": "cdec332e-a59e-4aba-a440-292f0606ad7a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Binary",
+      "MetaInstanceID": "721cfab1-d204-4908-a164-90495ea1946f",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "11e3db13-8b7e-49af-923a-61925c45a492",
+      "MetaID": "943ca3de-9e5f-4b11-bce2-267156192a6f",
+      "Name": "ManipulateMemoryFunc",
+      "Version": "6babc612-4298-43b1-9a50-c29cad2e1907",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Dynamic;",
+        "",
+        "namespace Framefield.Core.ID943ca3de_9e5f_4b11_bce2_267156192a6f",
+        "{",
+        "    public class Class_ManipulateMemory : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Binary = 0,",
+        "            Seed = 1,",
+        "            Amount = 2,",
+        "            Strength = 3,",
+        "            Offset = 4",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> __params",
+        "            var Binary = inputs[(int)InputId.Binary].Eval(context).Dynamic;",
+        "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
+        "            var Amount = inputs[(int)InputId.Amount].Eval(context).Value;",
+        "            var Strength = inputs[(int)InputId.Strength].Eval(context).Value;",
+        "            var Offset = inputs[(int)InputId.Offset].Eval(context).Value;",
+        "            //<<< __params",
+        "",
+        "            if (Binary == null)",
+        "            {",
+        "               context.Dynamic = null;",
+        "               return context;",
+        "            }",
+        "",
+        "            if (_copiedBinary == null || Changed)",
+        "            {",
+        "                try",
+        "                {",
+        "                    if (_randomNumbers == null || (int)Seed != _seed || Binary.Data.Length != _randomNumbers.Length)",
+        "                    {",
+        "                        _seed = (int)Seed;",
+        "                        Random random = new Random(_seed);",
+        "                        _randomNumbers = new float[Binary.Data.Length];",
+        "                        for (int i = 0; i < Binary.Data.Length; ++i)",
+        "                            _randomNumbers[i] = (float)random.NextDouble();",
+        "                    }",
+        "",
+        "                    _copiedBinary = new byte[Binary.Data.Length];",
+        "                    Array.Copy(Binary.Data, _copiedBinary, Binary.Data.Length);",
+        "                    for (int i = (int)Offset; i < _copiedBinary.Length; ++i)",
+        "                    {",
+        "                        if (_randomNumbers[i] < Amount/100)",
+        "                        {",
+        "                            _copiedBinary[i] += (byte)((_randomNumbers[i] - 0.5f)*Strength/100*255);",
+        "                        }",
+        "                    }",
+        "                }",
+        "                catch (Exception e)",
+        "                {",
+        "                    //Logger.Error(this, \"binary data could not be manipulated: {0}\", e.Message);",
+        "                    _copiedBinary = null;",
+        "                } ",
+        "",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            if (_copiedBinary != null)",
+        "            {",
+        "                dynamic obj = new ExpandoObject();",
+        "                obj.Data = _copiedBinary;",
+        "                context.Dynamic = obj;",
+        "            }",
+        "            else",
+        "            {",
+        "                context.Dynamic = null;",
+        "            }",
+        "            return context;",
+        "        }",
+        "",
+        "        int _seed;",
+        "        byte[] _copiedBinary;",
+        "        float[] _randomNumbers;",
+        "    }",
+        "    ",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "11e3db13-8b7e-49af-923a-61925c45a492",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "721cfab1-d204-4908-a164-90495ea1946f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "043fc39e-4350-42b6-bdf4-7676a5b5db60",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11e3db13-8b7e-49af-923a-61925c45a492"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "95e51f65-fba3-4f65-a5b8-95db3b0e6c89",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11e3db13-8b7e-49af-923a-61925c45a492"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b63226e2-b9b3-40e2-a4da-db4470e95933",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11e3db13-8b7e-49af-923a-61925c45a492"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a746c66a-68d4-40f2-b293-17f66adcd021",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11e3db13-8b7e-49af-923a-61925c45a492"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cdec332e-a59e-4aba-a440-292f0606ad7a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11e3db13-8b7e-49af-923a-61925c45a492"
+    }
+  ]
+}

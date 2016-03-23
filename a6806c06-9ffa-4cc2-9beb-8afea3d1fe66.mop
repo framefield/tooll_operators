@@ -1,0 +1,152 @@
+{
+  "Name": "UseImageBuffer",
+  "_id": "a6806c06-9ffa-4cc2-9beb-8afea3d1fe66",
+  "Namespace": "lib.image.generate",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Size.Width",
+      "MetaInstanceID": "915a9dff-c4e7-4980-87f7-c805bd75e592",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "4100",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ImageBufferID",
+      "MetaInstanceID": "1ee86828-5f9e-4664-b76e-facf4a5f1cda",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "ImageBufferID"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "4ebde9df-51e3-4edb-9d27-8ad3821b30ed",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b9499ef4-16a0-403a-a51d-5214ac789a8a",
+      "MetaID": "c2982a6b-aba2-485d-9912-5fc89f6230d5",
+      "Name": "UseImageBufferFunc",
+      "Version": "03246074-ddc0-43c8-91f0-1267d46ec297",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDc2982a6b_aba2_485d_9912_5fc89f6230d5",
+        "{",
+        "    public class Class_UseImageBuffer : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SizeWidth = 0,",
+        "            ImageBufferID = 1",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        private bool BuildRenderTarget(OperatorPartContext context, int width, int height) {",
+        "            var resourceChanged = ResourceManager.ValidateRenderTargetResource(ref _renderTargetResource, OperatorPart, context.D3DDevice,",
+        "                                                                               width, height);",
+        "            if (resourceChanged) {",
+        "                Utilities.DisposeObj(ref _renderTargetView);",
+        "                _renderTargetView = new RenderTargetView(context.D3DDevice, _renderTargetResource.Texture);",
+        "            }",
+        "            return resourceChanged;",
+        "        }",
+        "",
+        "        public override void Dispose() {",
+        "            ResourceManager.Dispose(_renderTargetResource);",
+        "            Utilities.DisposeObj(ref _renderTargetView);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var SizeWidth = inputs[(int)InputId.SizeWidth].Eval(context).Value;",
+        "            var ImageBufferID = inputs[(int)InputId.ImageBufferID].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            Changed = true;",
+        "",
+        "            object imageResource;",
+        "            if (context.Objects.TryGetValue(ImageBufferID, out imageResource))",
+        "            {",
+        "                context.Image = ((Resource)imageResource).Texture;",
+        "                ",
+        "                //Texture2D.ToFile(context.D3DDevice.ImmediateContext, context.Image, ImageFileFormat.Dds, \"bufferFeedback.dds\");",
+        "            }",
+        "            else",
+        "            {",
+        "                Logger.Warn(this, \"Can't read image buffer with ID '{0}'. Did you forget to add the machting RenderToImage-Operator above?\", ImageBufferID);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Resource _renderTargetResource;",
+        "        RenderTargetView _renderTargetView;",
+        "    }",
+        "",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b9499ef4-16a0-403a-a51d-5214ac789a8a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4ebde9df-51e3-4edb-9d27-8ad3821b30ed"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "915a9dff-c4e7-4980-87f7-c805bd75e592",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b9499ef4-16a0-403a-a51d-5214ac789a8a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1ee86828-5f9e-4664-b76e-facf4a5f1cda",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b9499ef4-16a0-403a-a51d-5214ac789a8a"
+    }
+  ]
+}

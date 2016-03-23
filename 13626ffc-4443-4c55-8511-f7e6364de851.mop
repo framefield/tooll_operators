@@ -1,0 +1,172 @@
+{
+  "Name": "FormatedTimeSinceDate",
+  "_id": "13626ffc-4443-4c55-8511-f7e6364de851",
+  "Namespace": "lib.basic",
+  "Description": "Uses the System.Clock to returns the seconds since the given date. \r\n\r\nRead more at http://msdn.microsoft.com/en-us/library/ee372287(v=vs.110).aspx for valid formats.\r\n",
+  "Inputs": [
+    {
+      "Name": "Year",
+      "MetaInstanceID": "e023398d-c25d-4a57-88f8-ff84f20ec7a4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1970"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1900",
+      "Max": "2400",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Month",
+      "MetaInstanceID": "7a6468a2-961f-46ea-ad0b-bb06d128dff9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "12",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Day",
+      "MetaInstanceID": "bcab9427-9a7c-4ce0-b51e-e67d7ecb823a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "31",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "359bac92-b5df-4247-85a1-7b9123934737",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "{0:dd\\.hh\\:mm\\:ss\\.ff} days"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "ee06d0e9-64b9-43c6-9078-ae13ebdcc7cd",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4",
+      "MetaID": "0979ebaa-be12-4f65-92a2-7c5f7b130ebe",
+      "Name": "FormatedTimeSinceDateFunc",
+      "Version": "47af5641-9a25-4b75-bdd9-3b2636d0c445",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "using System.Globalization;",
+        "",
+        "namespace Framefield.Core.ID0979ebaa_be12_4f65_92a2_7c5f7b130ebe",
+        "{",
+        "",
+        "    public class Class_FormatedTimeSinceDate : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Year = 0,",
+        "            Month = 1,",
+        "            Day = 2,",
+        "            Format = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Year = inputs[(int)InputId.Year].Eval(context).Value;",
+        "            var Month = inputs[(int)InputId.Month].Eval(context).Value;",
+        "            var Day = inputs[(int)InputId.Day].Eval(context).Value;",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            DateTime startDate = new DateTime((int)Math.Floor(Year),(int)Math.Round(Month),(int)Math.Round(Day));",
+        "            ",
+        "            TimeSpan duration = DateTime.Now - startDate;",
+        "            context.Text = String.Format(Format, duration);",
+        "                        ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ee06d0e9-64b9-43c6-9078-ae13ebdcc7cd"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e023398d-c25d-4a57-88f8-ff84f20ec7a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7a6468a2-961f-46ea-ad0b-bb06d128dff9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bcab9427-9a7c-4ce0-b51e-e67d7ecb823a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "359bac92-b5df-4247-85a1-7b9123934737",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c0ebbc5c-ef4c-4292-bd53-226c657ed0c4"
+    }
+  ]
+}

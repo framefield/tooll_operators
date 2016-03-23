@@ -1,0 +1,104 @@
+{
+  "Name": "TimeValueChanged",
+  "_id": "6f729684-c7cf-4391-860a-afaca28e5c3b",
+  "Namespace": "lib.basic",
+  "Description": "Time the input was changed.\r\n\r\nNote: Is was originally a Generic Value input which was always triggered if the Operator needs evaluation. Now, it compare the new and original value.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "5c06ff0b-ff44-4dcc-ad7d-b05390cb7bf4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Time",
+      "MetaInstanceID": "a5ca8ed2-47e7-4d37-add4-fca964ed97a4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3bcc6bb2-057c-4bcd-b572-656bf37f2fa5",
+      "MetaID": "ac6db43e-2249-48d9-b15d-c03e39e72eb7",
+      "Name": "TimeValueChangedFunc",
+      "Version": "d7d27d7e-bdb7-463d-b6b9-366e36b1dbe4",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDac6db43e_2249_48d9_b15d_c03e39e72eb7",
+        "{",
+        "    public class Class_TimeValueChanged__2_ : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0",
+        "        }",
+        "        //<<< _inputids        ",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if (Changed == true && Value != _lastValue)",
+        "            {            ",
+        "                _lastValue = Value;",
+        "                _lastChangedTime = context.Time;",
+        "                Changed = false;",
+        "            }",
+        "            context.Value = _lastChangedTime;",
+        "            return context;",
+        "        }",
+        "",
+        "        float _lastChangedTime = -99999;",
+        "        float _lastValue;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3bcc6bb2-057c-4bcd-b572-656bf37f2fa5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a5ca8ed2-47e7-4d37-add4-fca964ed97a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5c06ff0b-ff44-4dcc-ad7d-b05390cb7bf4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3bcc6bb2-057c-4bcd-b572-656bf37f2fa5"
+    }
+  ]
+}

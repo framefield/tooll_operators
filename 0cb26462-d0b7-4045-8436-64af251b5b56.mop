@@ -1,0 +1,164 @@
+{
+  "Name": "GetChildren",
+  "_id": "0cb26462-d0b7-4045-8436-64af251b5b56",
+  "Namespace": "lib.3d.modify",
+  "Description": "Get a sub range of 'Number' childs starting from 'Index' of the input scene.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "9a03c50b-29e1-4255-bdac-b45f20caaaaa",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Index",
+      "MetaInstanceID": "83308c4b-389c-4230-b89d-4390ad8d1c06",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Count",
+      "MetaInstanceID": "0cf5217d-559b-4b88-af37-4809866a65db",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "d91b9a33-6371-4e20-b634-544b0c358123",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "1dd8b5de-0ab0-46d9-9f41-475d27cdb115",
+      "MetaID": "e5baefcc-00e9-4593-829a-907334eb8168",
+      "Name": "GetChildrenFunc",
+      "Version": "a4036895-8e11-46bb-af24-04c174a02cb8",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using Framefield.Core.Rendering;",
+        "",
+        "",
+        "namespace Framefield.Core.IDe5baefcc_00e9_4593_829a_907334eb8168",
+        "{",
+        "    public class Class_GetChildren : OperatorPart.Function",
+        "    {",
+        "        public class Renderer : BaseRenderer",
+        "        {",
+        "            public int StartIndex { get; set; }",
+        "            public int NumChilds { get; set; }",
+        "",
+        "            public override void Render(Mesh mesh, OperatorPartContext context) {",
+        "                if (m_RenderCounter >= StartIndex && m_RenderCounter < StartIndex + NumChilds)",
+        "                    base.Render(mesh, context);",
+        "                ++m_RenderCounter;",
+        "            }",
+        "",
+        "            public void ClearRenderCounter() {",
+        "                m_RenderCounter = 0;",
+        "            }",
+        "",
+        "            private int m_RenderCounter = 0;",
+        "        }",
+        "",
+        "",
+        "        public Class_GetChildren() {",
+        "            m_Renderer = new Renderer();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];",
+        "            var Index = (float) inputs[1].Eval(context).Value;",
+        "            var Number = (float) inputs[2].Eval(context).Value;",
+        "",
+        "            m_Renderer.StartIndex = (int)Index;",
+        "            m_Renderer.NumChilds = (int)Number;",
+        "            m_Renderer.ClearRenderCounter();",
+        "",
+        "            var prevRenderer = context.Renderer;",
+        "            context.Renderer = m_Renderer;",
+        "            Scene.Eval(context);",
+        "",
+        "            context.Renderer = prevRenderer;",
+        "            return context;",
+        "        }",
+        "",
+        "        private Renderer m_Renderer;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1dd8b5de-0ab0-46d9-9f41-475d27cdb115",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d91b9a33-6371-4e20-b634-544b0c358123"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9a03c50b-29e1-4255-bdac-b45f20caaaaa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1dd8b5de-0ab0-46d9-9f41-475d27cdb115"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "83308c4b-389c-4230-b89d-4390ad8d1c06",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1dd8b5de-0ab0-46d9-9f41-475d27cdb115"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0cf5217d-559b-4b88-af37-4809866a65db",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1dd8b5de-0ab0-46d9-9f41-475d27cdb115"
+    }
+  ]
+}

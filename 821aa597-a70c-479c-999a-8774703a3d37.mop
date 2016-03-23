@@ -1,0 +1,390 @@
+{
+  "Name": "RenderImagesToFile",
+  "_id": "821aa597-a70c-479c-999a-8774703a3d37",
+  "Namespace": "lib.basic",
+  "Description": "Renders the TimeRange given in Seconds as png, jpg or bmp image sequence.\r\n\r\nFilenameFormat can include the following tokens:\r\n[T]-Timestamp\r\n[F] - Framenumber\r\n[FFFFFFF] - Framenumber with leading zeros\r\n\r\nThe output of this operator is rate of progress from 0 to 1. \r\n\r\nQuirks:\r\n-------\r\n1. For rendering, the playback has to run.\r\n2. Framerate might not work with two open views.",
+  "Inputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "68b92404-4631-4a75-bf62-8b1b1156aa6f",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Path",
+      "MetaInstanceID": "2050d554-1b88-4f6d-a9bf-fe6d97f3b0cb",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "output"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Width",
+      "MetaInstanceID": "72af4b5e-4f5e-4dc8-9b97-c13c34347cb7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1920"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Height",
+      "MetaInstanceID": "e99bda87-26db-49d2-b56c-8f59b8a90239",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1080"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FPS",
+      "MetaInstanceID": "884bb8e3-367b-44f7-aee0-873251685700",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "30"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TimeRange.Start",
+      "MetaInstanceID": "53639330-899c-47dc-9d3e-daa9fa883bbe",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TimeRange.End",
+      "MetaInstanceID": "7ddf5190-7cd8-44ee-b9c6-b8ed1d902916",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "240"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "ffc0f240-9331-48c4-b8ee-41071277a05e",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "png"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Trigger",
+      "MetaInstanceID": "289add98-1815-4d33-bf40-f432047a531a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ExistingFiles",
+      "MetaInstanceID": "99a98899-40bb-4e94-81e3-aec8708a4cf7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Overwrite",
+          "Value": "0"
+        },
+        {
+          "Name": "Skip",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "FilenameFormat",
+      "MetaInstanceID": "a111fe8c-3b8b-437a-addd-958ab3970723",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "frame-[T]"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "VariableValueOut",
+      "MetaInstanceID": "ea3fd1cf-56a0-46c8-96d4-1898bee831c2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "423fee39-61cb-41cc-9e50-b0596a9856d4",
+      "MetaID": "190ebf7e-085f-47c9-ad54-7abf55e30bc5",
+      "Name": "RenderImagesToFileFunc",
+      "Version": "3645662a-0fea-4ae4-a859-c00732942419",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Rendering;",
+        "",
+        "namespace Framefield.Core.ID190ebf7e_085f_47c9_ad54_7abf55e30bc5",
+        "{",
+        "    public class Class_RenderImagesToFile : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Input = 0,",
+        "            Path = 1,",
+        "            SizeWidth = 2,",
+        "            SizeHeight = 3,",
+        "            FPS = 4,",
+        "            TimeRangeStart = 5,",
+        "            TimeRangeEnd = 6,",
+        "            Format = 7,",
+        "            Trigger = 8,",
+        "            ExistingFiles = 9,",
+        "            FilenameFormat = 10",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public Class_RenderImagesToFile() {",
+        "            _sequenceCreator = new SequenceCreator();",
+        "        }",
+        "",
+        "        public override void Dispose() {",
+        "            _sequenceCreator.Dispose();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Input = inputs[(int)InputId.Input];",
+        "            var Path = inputs[(int)InputId.Path].Eval(context).Text;",
+        "            var SizeWidth = inputs[(int)InputId.SizeWidth].Eval(context).Value;",
+        "            var SizeHeight = inputs[(int)InputId.SizeHeight].Eval(context).Value;",
+        "            var Size = new Vector2(SizeWidth, SizeHeight);",
+        "            var FPS = inputs[(int)InputId.FPS].Eval(context).Value;",
+        "            var TimeRangeStart = inputs[(int)InputId.TimeRangeStart].Eval(context).Value;",
+        "            var TimeRangeEnd = inputs[(int)InputId.TimeRangeEnd].Eval(context).Value;",
+        "            var TimeRange = new Vector2(TimeRangeStart, TimeRangeEnd);",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            var Trigger = inputs[(int)InputId.Trigger].Eval(context).Value;",
+        "            var ExistingFiles = (int) inputs[(int)InputId.ExistingFiles].Eval(context).Value;",
+        "            var FilenameFormat = inputs[(int)InputId.FilenameFormat].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            bool flankDetected = Trigger >= 0.5 && _oldTrigger <= 0.5;",
+        "            _oldTrigger = Trigger;",
+        "",
+        "            if (flankDetected && !_renderingActive) {",
+        "                _sequenceCreator.Setup(Input, height:SizeHeight, ",
+        "                width:SizeWidth, ",
+        "                startTime:TimeRangeStart, ",
+        "                endTime:TimeRangeEnd, ",
+        "                frameRate:FPS, ",
+        "                fileExtension:Format, ",
+        "                skipExistingFiles: ExistingFiles != 0,",
+        "                directory: Path,",
+        "                filenameFormat: FilenameFormat",
+        "                );",
+        "                _renderingActive = true;",
+        "            }",
+        "",
+        "            if (_renderingActive) {",
+        "                float progress = _sequenceCreator.RenderFrame();",
+        "                if (progress >= 1.0)",
+        "                    _renderingActive = false;",
+        "",
+        "                context.Value = progress;",
+        "            }",
+        "            return context;",
+        "        }",
+        "",
+        "        SequenceCreator _sequenceCreator;",
+        "        float _oldTrigger = 0;",
+        "        bool _renderingActive = false;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "68b92404-4631-4a75-bf62-8b1b1156aa6f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2050d554-1b88-4f6d-a9bf-fe6d97f3b0cb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "72af4b5e-4f5e-4dc8-9b97-c13c34347cb7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e99bda87-26db-49d2-b56c-8f59b8a90239",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "884bb8e3-367b-44f7-aee0-873251685700",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "53639330-899c-47dc-9d3e-daa9fa883bbe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7ddf5190-7cd8-44ee-b9c6-b8ed1d902916",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ffc0f240-9331-48c4-b8ee-41071277a05e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "289add98-1815-4d33-bf40-f432047a531a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "99a98899-40bb-4e94-81e3-aec8708a4cf7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a111fe8c-3b8b-437a-addd-958ab3970723",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ea3fd1cf-56a0-46c8-96d4-1898bee831c2"
+    }
+  ]
+}

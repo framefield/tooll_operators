@@ -1,0 +1,143 @@
+{
+  "Name": "ReuseCamera",
+  "_id": "5e77f6c8-f8bc-4fd2-9b80-3a862db9e17f",
+  "Namespace": "lib.3d.modify",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "SceneInput",
+      "MetaInstanceID": "46247cb4-1af9-4d78-ae92-20532a1c3029",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "6a90b61c-9a39-4ef2-bd2b-75aa568f50f4",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "d27dead4-b701-461c-89b1-cc1df1f2abf5",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0da9801e-cf6b-43b2-aa00-6cfb14ad1acc",
+      "MetaID": "d5769b1d-fe58-4c2f-81f1-25451b9cbf1c",
+      "Name": "ReuseCameraFunc",
+      "Version": "80a30b9f-f4ce-46d2-8bdf-2d7ad6eb70c0",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Dynamic;",
+        "using Framefield.Core.OperatorPartTraits;",
+        "",
+        "namespace Framefield.Core.IDd5769b1d_fe58_4c2f_81f1_25451b9cbf1c",
+        "{",
+        "    public class Class_ReuseCamera : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SceneInput = 0,",
+        "            Camera = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Output = 0",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var SceneInput = inputs[(int)InputId.SceneInput];",
+        "            var Camera = inputs[(int)InputId.Camera].Eval(context).Dynamic; if (Camera == null) return context;",
+        "            //<<< _params",
+        "",
+        "",
+        "            var cam = Camera.This as ICameraProvider;",
+        "",
+        "            var prevTransform = context.WorldToCamera;",
+        "            var prevCamProj = context.CameraProjection;",
+        "",
+        "            if (cam != null)",
+        "            {",
+        "                context.WorldToCamera = cam.GetLastWorldToCamera();",
+        "                context.CameraProjection = cam.GetLastCameraToView();",
+        "            }",
+        "",
+        "            SceneInput.Eval(context);",
+        "",
+        "            context.CameraProjection = prevCamProj;",
+        "            context.WorldToCamera = prevTransform;",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "46247cb4-1af9-4d78-ae92-20532a1c3029",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0da9801e-cf6b-43b2-aa00-6cfb14ad1acc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6a90b61c-9a39-4ef2-bd2b-75aa568f50f4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0da9801e-cf6b-43b2-aa00-6cfb14ad1acc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0da9801e-cf6b-43b2-aa00-6cfb14ad1acc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d27dead4-b701-461c-89b1-cc1df1f2abf5"
+    }
+  ]
+}

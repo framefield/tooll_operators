@@ -1,0 +1,273 @@
+{
+  "Name": "CubeMapFromImages",
+  "_id": "d4ae2bd0-0a29-4831-b13e-4130092c6804",
+  "Namespace": "lib.image.load",
+  "Description": "1 - right\r\n2 - left \r\n3 - top\r\n4 - bottom\r\n5 - front\r\n6 - back\r\n",
+  "Inputs": [
+    {
+      "Name": "RightImage",
+      "MetaInstanceID": "93d68d60-be23-4701-9275-72a36d4d3d3a",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "LeftImage",
+      "MetaInstanceID": "1315d653-43e9-4e25-8597-aa79908a0678",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TopImage",
+      "MetaInstanceID": "d9d94c71-d1e1-47fc-b56e-b6258d812ae5",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "BottomImage",
+      "MetaInstanceID": "0509fda9-5124-4aee-b4c4-5c87ce5b8eef",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FrontImage",
+      "MetaInstanceID": "f735f215-b393-4f97-bb27-f9a8b12dbd17",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "BackImage",
+      "MetaInstanceID": "ece52ffe-0750-4f8a-b026-ca7186f2148f",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "abf6940d-30a6-4ee5-86e1-c41a390a2b05",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "4a98cb92-3c48-4b1f-a197-82ee0b744382",
+      "MetaID": "27806659-b530-478d-b23d-914fdad02bee",
+      "Name": "CubeMapFromImagesFunc",
+      "Version": "e5c9832f-c908-420c-a0cf-3222b1d264ff",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.IO;",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.ID27806659_b530_478d_b23d_914fdad02bee",
+        "{",
+        "    public class Class_CubeMapFromImages : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            RightImage = 0,",
+        "            LeftImage = 1,",
+        "            TopImage = 2,",
+        "            BottomImage = 3,",
+        "            FrontImage = 4,",
+        "            BackImage = 5",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            ResourceManager.Dispose(_cubeImageResource);",
+        "            base.Dispose();",
+        "        }",
+        "",
+        "        private bool BuildTextureArray(OperatorPartContext context, Texture2D[] singleTextures)",
+        "        {",
+        "            if (singleTextures.Count() != 6)",
+        "                return false;",
+        "",
+        "            var textureDesc = ResourceManager.GetTextureDescription(BindFlags.ShaderResource,",
+        "                                                                    singleTextures[0].Description.Format,",
+        "                                                                    singleTextures[0].Description.Width,",
+        "                                                                    singleTextures[0].Description.Height);",
+        "            textureDesc.MipLevels = singleTextures[0].Description.MipLevels;",
+        "            textureDesc.OptionFlags = ResourceOptionFlags.TextureCube;",
+        "            textureDesc.ArraySize = 6;",
+        "            ResourceManager.ValidateResource(ref _cubeImageResource, OperatorPart, context.D3DDevice, textureDesc);",
+        "",
+        "            if (_cubeImageResource == null || _cubeImageResource.Texture == null)",
+        "                return false;",
+        "",
+        "            var dxContext = context.D3DDevice.ImmediateContext;",
+        "            Texture2D targetCubeTexture = _cubeImageResource.Texture;",
+        "            for (int arraySlice = 0; arraySlice < singleTextures.Count(); ++arraySlice)",
+        "            {",
+        "                Texture2D texture = singleTextures[arraySlice];",
+        "                if (texture == null)",
+        "                    return false;",
+        "",
+        "                for (int mipSlice = 0; mipSlice < texture.Description.MipLevels; ++mipSlice)",
+        "                {",
+        "                    int mipSize;",
+        "                    int idx = targetCubeTexture.CalculateSubResourceIndex(mipSlice, arraySlice, out mipSize);",
+        "                    dxContext.CopySubresourceRegion(texture, mipSlice, null, targetCubeTexture, idx);",
+        "                }",
+        "            }",
+        "            return true;",
+        "        }",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var RightImage = inputs[(int)InputId.RightImage].Eval(context).Image; // Needs to be checked for null!",
+        "                var LeftImage = inputs[(int)InputId.LeftImage].Eval(context).Image; // Needs to be checked for null!",
+        "                var TopImage = inputs[(int)InputId.TopImage].Eval(context).Image; // Needs to be checked for null!",
+        "                var BottomImage = inputs[(int)InputId.BottomImage].Eval(context).Image; // Needs to be checked for null!",
+        "                var FrontImage = inputs[(int)InputId.FrontImage].Eval(context).Image; // Needs to be checked for null!",
+        "                var BackImage = inputs[(int)InputId.BackImage].Eval(context).Image; // Needs to be checked for null!",
+        "                //<<< _params",
+        "",
+        "                var currentImages = new[] { RightImage, LeftImage, TopImage, BottomImage, FrontImage, BackImage };",
+        "                if (BuildTextureArray(context, currentImages))",
+        "                    Changed = false;",
+        "            }",
+        "",
+        "            if (_cubeImageResource != null && _cubeImageResource.Texture != null)",
+        "                context.Image = _cubeImageResource.Texture;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Resource _cubeImageResource;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "abf6940d-30a6-4ee5-86e1-c41a390a2b05"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "93d68d60-be23-4701-9275-72a36d4d3d3a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1315d653-43e9-4e25-8597-aa79908a0678",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d9d94c71-d1e1-47fc-b56e-b6258d812ae5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0509fda9-5124-4aee-b4c4-5c87ce5b8eef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f735f215-b393-4f97-bb27-f9a8b12dbd17",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ece52ffe-0750-4f8a-b026-ca7186f2148f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4a98cb92-3c48-4b1f-a197-82ee0b744382"
+    }
+  ]
+}

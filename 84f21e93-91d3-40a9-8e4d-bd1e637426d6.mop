@@ -1,0 +1,199 @@
+{
+  "Name": "SwitchDebugUI",
+  "_id": "84f21e93-91d3-40a9-8e4d-bd1e637426d6",
+  "Namespace": "lib.basic",
+  "Description": "Helper that checks ShowDebugInfo-Variable to see wether to render UI-Geometry.",
+  "Inputs": [
+    {
+      "Name": "Show",
+      "MetaInstanceID": "8b012083-2360-4804-89d7-2a060a8454bc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Yes",
+          "Value": "0"
+        },
+        {
+          "Name": "No",
+          "Value": "-2"
+        },
+        {
+          "Name": "Inherrit",
+          "Value": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "3551c2b3-d570-4121-a1ba-9d3c13c523dc",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Input",
+      "MetaInstanceID": "90b70b1f-deb4-4ba8-84fa-459f0cfe2297",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Switch",
+      "MetaInstanceID": "e2363b90-b775-48e8-b06c-1497da8ae09f",
+      "MetaID": "8cb2c279-e463-4ef4-80ab-6e016bc8b0ec",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "252.766471391894",
+        "PosY": "103.642328807992",
+        "Width": "375",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Switch",
+      "MetaInstanceID": "f2dd227d-a3c0-47a2-9923-59af942e07e9",
+      "MetaID": "8cb2c279-e463-4ef4-80ab-6e016bc8b0ec",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "288.334770171119",
+        "PosY": "162.409666224981",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Remap",
+      "MetaInstanceID": "ff1da415-bd34-4c23-b67f-fa96cbd9f54c",
+      "MetaID": "0224a539-b443-455e-b426-3106bb2879ef",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "388.334770171118",
+        "PosY": "187.40966622497",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "c5955e65-44d4-476b-9def-e4501a8edfb7",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "a7cf5cdd-80ab-47cc-b60f-e332b7cf4c9f",
+            "Type": "Float",
+            "Value": [
+              "-1"
+            ]
+          },
+          {
+            "ID": "3d1b280b-6f37-4c53-ab66-ad24603db387",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Get i",
+      "MetaInstanceID": "7cb1c42e-c72f-4af6-994a-f57d93735820",
+      "MetaID": "b27b23d8-64db-4027-9e0f-2dd24e784ead",
+      "OperatorProperties": {
+        "Name": "ShowDebugOverlays?",
+        "PosX": "388.334770171018",
+        "PosY": "212.409666224971",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+            "Type": "Text",
+            "Value": [
+              "ShowDebugOverlays"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "e2363b90-b775-48e8-b06c-1497da8ae09f",
+      "SourceOpPart": "92069550-a785-4ec0-9b82-278563dd17d5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "90b70b1f-deb4-4ba8-84fa-459f0cfe2297"
+    },
+    {
+      "SourceOp": "7cb1c42e-c72f-4af6-994a-f57d93735820",
+      "SourceOpPart": "978f4979-ac0c-4424-9304-3785cb6a7ae4",
+      "TargetOp": "ff1da415-bd34-4c23-b67f-fa96cbd9f54c",
+      "TargetOpPart": "5fa1199d-166e-42ed-9013-13b3dc238a75"
+    },
+    {
+      "SourceOp": "ff1da415-bd34-4c23-b67f-fa96cbd9f54c",
+      "SourceOpPart": "fb40ef14-6cc7-43dd-95b1-65b2cbcc43e8",
+      "TargetOp": "f2dd227d-a3c0-47a2-9923-59af942e07e9",
+      "TargetOpPart": "be3165cf-08da-4832-ad70-c9e8f1b59d2f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8b012083-2360-4804-89d7-2a060a8454bc",
+      "TargetOp": "e2363b90-b775-48e8-b06c-1497da8ae09f",
+      "TargetOpPart": "be3165cf-08da-4832-ad70-c9e8f1b59d2f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3551c2b3-d570-4121-a1ba-9d3c13c523dc",
+      "TargetOp": "e2363b90-b775-48e8-b06c-1497da8ae09f",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    },
+    {
+      "SourceOp": "f2dd227d-a3c0-47a2-9923-59af942e07e9",
+      "SourceOpPart": "92069550-a785-4ec0-9b82-278563dd17d5",
+      "TargetOp": "e2363b90-b775-48e8-b06c-1497da8ae09f",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3551c2b3-d570-4121-a1ba-9d3c13c523dc",
+      "TargetOp": "f2dd227d-a3c0-47a2-9923-59af942e07e9",
+      "TargetOpPart": "baa01e67-eaf1-4794-a296-f402814837fc"
+    }
+  ]
+}

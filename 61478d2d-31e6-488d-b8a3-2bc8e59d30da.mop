@@ -1,0 +1,433 @@
+{
+  "Name": "DEPRECATED DrawText",
+  "_id": "61478d2d-31e6-488d-b8a3-2bc8e59d30da",
+  "Namespace": "lib._deprecated",
+  "Description": "Draws Text on current render target.\r\n\r\nDEPRECATED: Due to various performance reasons, this Operator is no longer supported. Please use [Text] instead.",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "12360e08-853d-48d5-98d5-54b7c4ca9442",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "73cc8ada-88ea-4228-a758-e742161334b2",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "My Text"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "This parameter controls a text.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Font",
+      "MetaInstanceID": "bdabf67d-d87f-48f3-9062-1e0ffdd59c19",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "Impact"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FontSize",
+      "MetaInstanceID": "9e979bdc-d6f6-4dbd-8951-df1f13b4c97f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextPos.X",
+      "MetaInstanceID": "87923378-a44b-469d-881e-1386547192a0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10",
+      "Max": "10",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextPos.Y",
+      "MetaInstanceID": "49c661d1-0503-48ee-a600-9e1c11fab320",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10",
+      "Max": "10",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "ce7640c2-bc5f-4b48-9596-af26b6080d0d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "e8754a4f-6357-4167-8ef2-ed76d4223e2c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "cb7e9064-b82d-443d-ad2a-36fbcac4fd3a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "ded4df6d-ddc4-49aa-a7df-ea655ec515b1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "HorAlignment",
+      "MetaInstanceID": "bd88e2df-3e59-4759-991c-9a38003abb58",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "2",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Left",
+          "Value": "0"
+        },
+        {
+          "Name": "Center",
+          "Value": "1"
+        },
+        {
+          "Name": "Right",
+          "Value": "2"
+        }
+      ]
+    },
+    {
+      "Name": "VerAlignment",
+      "MetaInstanceID": "8023eb45-986f-406b-b018-ed5e1c1a404d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "8",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Top",
+          "Value": "0"
+        },
+        {
+          "Name": "Center",
+          "Value": "4"
+        },
+        {
+          "Name": "Bottom",
+          "Value": "8"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "8715b481-0634-488e-b0fc-70ae61479ae5",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680",
+      "MetaID": "4e1811b4-b017-4508-a7b6-800c8e06282b",
+      "Name": "DEPRECATED DrawTextFunc",
+      "Version": "967eab67-8ee2-4adb-b070-cc4c65555a73",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "",
+        "namespace Framefield.Core.ID4e1811b4_b017_4508_a7b6_800c8e06282b",
+        "{",
+        "    public class Class_DrawText : OperatorPart.Function",
+        "    {",
+        "        public override void Dispose() {",
+        "            DisposeFontCache();",
+        "//             Utilities.DisposeObj(ref _sprite);",
+        "        }",
+        "",
+        "        private void DisposeFontCache() {",
+        "//             foreach (var fontEntry in _fontCache) {",
+        "//                 fontEntry.Value.Dispose();",
+        "//             }",
+        "//             _fontCache.Clear();",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Subtree = inputs[0];",
+        "            var Text = (string) inputs[1].Eval(context).Text;",
+        "",
+        "            if (inputs[2].Func.Changed)",
+        "                DisposeFontCache();",
+        "",
+        "            var Font = (string) inputs[2].Eval(context).Text;",
+        "            var FontSize = (float) inputs[3].Eval(context).Value;",
+        "            var TextPosX = (float) inputs[4].Eval(context).Value;",
+        "            var TextPosY = (float) inputs[5].Eval(context).Value;",
+        "            var ColorR = (float) inputs[6].Eval(context).Value;",
+        "            var ColorG = (float) inputs[7].Eval(context).Value;",
+        "            var ColorB = (float) inputs[8].Eval(context).Value;",
+        "            var ColorA = (float) inputs[9].Eval(context).Value;",
+        "            var color = new Color4(ColorR, ColorG, ColorB, ColorA);",
+        "            var HorAlignment = (float) inputs[10].Eval(context).Value;",
+        "            var VerAlignment = (float) inputs[11].Eval(context).Value;",
+        "",
+        "            var viewport = context.Viewport;",
+        "            var widthHalf = viewport.Width/2.0f;",
+        "            var heightHalf = viewport.Height/2.0f;",
+        "            var fontSizeChanged = inputs[3].Func.Changed;",
+        "            //var FontSize = inputs[3].Eval(context).Value;",
+        "            var fontSizeInPixel = (int) (heightHalf * FontSize);",
+        "",
+        "//             if (_sprite == null)",
+        "//                 _sprite = new Sprite(context.D3DDevice, 2);",
+        "// ",
+        "// ",
+        "//             bool newFont = false;",
+        "//             Font font;",
+        "//             if (!_fontCache.TryGetValue(fontSizeInPixel, out font))",
+        "//             {",
+        "//                 var fontName = inputs[2].Eval(context).Text;",
+        "//                 font = new Font(context.D3DDevice, fontSizeInPixel, fontName);",
+        "//                 _fontCache.Add(fontSizeInPixel, font);",
+        "//                 newFont = true;",
+        "//             }",
+        "",
+        "            bool textInputChanged = inputs[1].Func.Changed;",
+        "            //var Text = inputs[1].Eval(context).Text;",
+        "//             if (textInputChanged || newFont) {",
+        "//                 font.PreloadText(Text);",
+        "//             }",
+        "",
+        "            Subtree.Eval(context);",
+        "",
+        "            if (context.D3DDevice != null) {",
+        "//                 var size = font.Measure(_sprite, Text, new System.Drawing.Rectangle(0, 0, viewport.Width, viewport.Height), SharpDX.Direct3D11.FontDrawFlags.Center);",
+        "//                 //int posX = (int) (viewport.X + widthHalf*TextPosX) - size.Width/2;",
+        "//                 //int posY = (int) (viewport.Y + heightHalf*-TextPosY)- size.Height/2;",
+        "//                 int posX = (int) ( widthHalf*TextPosX ); // + size.Width/2;",
+        "//                 int posY = (int) (viewport.Y + heightHalf*-TextPosY); //- size.Height/2;",
+        "//                 FontDrawFlags alignment = (FontDrawFlags) (HorAlignment + VerAlignment);",
+        "//                 _sprite.Begin(SharpDX.Direct3D11.SpriteFlags.None);",
+        "//                 font.Draw(null, Text, new System.Drawing.Rectangle(posX, posY, viewport.Width, viewport.Height), alignment, color);",
+        "// //                font.Draw(null, Text, new System.Drawing.Rectangle(0, 0, viewport.Width, viewport.Height), alignment, color);",
+        "//                 _sprite.End();",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "//         Sprite _sprite = null;",
+        "//         Dictionary<int, Font> _fontCache = new Dictionary<int,Font>();",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8715b481-0634-488e-b0fc-70ae61479ae5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "12360e08-853d-48d5-98d5-54b7c4ca9442",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "73cc8ada-88ea-4228-a758-e742161334b2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bdabf67d-d87f-48f3-9062-1e0ffdd59c19",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9e979bdc-d6f6-4dbd-8951-df1f13b4c97f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "87923378-a44b-469d-881e-1386547192a0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "49c661d1-0503-48ee-a600-9e1c11fab320",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ce7640c2-bc5f-4b48-9596-af26b6080d0d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e8754a4f-6357-4167-8ef2-ed76d4223e2c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cb7e9064-b82d-443d-ad2a-36fbcac4fd3a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ded4df6d-ddc4-49aa-a7df-ea655ec515b1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bd88e2df-3e59-4759-991c-9a38003abb58",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8023eb45-986f-406b-b018-ed5e1c1a404d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef5b3f2d-2ca0-45ce-b1ef-be5cb9c29680"
+    }
+  ]
+}

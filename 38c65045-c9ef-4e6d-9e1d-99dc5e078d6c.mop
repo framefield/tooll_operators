@@ -1,0 +1,106 @@
+{
+  "Name": "MeshSupplier",
+  "_id": "38c65045-c9ef-4e6d-9e1d-99dc5e078d6c",
+  "Namespace": "user.cynic",
+  "Description": "For compability gets a mesh as input and implementes the IMeshSupplier interface so it can be used with ops still awaiting this interface.",
+  "Inputs": [
+    {
+      "Name": "Mesh",
+      "MetaInstanceID": "493ce5df-4505-4a36-b419-bbab77a728d5",
+      "DefaultValue": {
+        "Type": "Mesh",
+        "Value": "Framefield.Core.MeshValue"
+      },
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Out",
+      "MetaInstanceID": "368894c8-e54c-4fb2-9e0b-ab2ad61a9dc5",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "99efb66e-e7d0-4471-a6a6-8acbb314f40b",
+      "MetaID": "d9201da9-669b-4ab5-9a79-25efbb6a1929",
+      "Name": "MeshSupplierFunc",
+      "Version": "d87ca8cb-b85b-451a-bb80-733632adea16",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using Buffer = SharpDX.Direct3D11.Buffer;",
+        "",
+        "namespace Framefield.Core.IDd9201da9_669b_4ab5_9a79_25efbb6a1929",
+        "{",
+        "    public class Class_MeshToScene : OperatorPart.Function,",
+        "                                     Framefield.Core.OperatorPartTraits.IMeshSupplier",
+        "    {",
+        "        // IMeshSupplier",
+        "        public void AddMeshesTo(ICollection<Mesh> meshes)",
+        "        {",
+        "            UpdateMesh(new OperatorPartContext(), OperatorPart.Connections);",
+        "            meshes.Add(_mesh);",
+        "            if (_mesh != null)",
+        "                Logger.Info(\"added mesh with: {0} triangles\", _mesh.NumTriangles);",
+        "        }",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _mesh);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            UpdateMesh(context, inputs);",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        private void UpdateMesh(OperatorPartContext context, IList<OperatorPart> inputs)",
+        "        {",
+        "        Logger.Info(\"mesh != null: {0}\", _mesh != null);",
+        "            if (_mesh != null && !Changed)",
+        "                return;",
+        "",
+        "            _mesh = inputs[0].Eval(context).Mesh;",
+        "",
+        "            Changed = false;",
+        "        }",
+        "",
+        "        private Mesh _mesh;",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "99efb66e-e7d0-4471-a6a6-8acbb314f40b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "368894c8-e54c-4fb2-9e0b-ab2ad61a9dc5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "493ce5df-4505-4a36-b419-bbab77a728d5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "99efb66e-e7d0-4471-a6a6-8acbb314f40b"
+    }
+  ]
+}

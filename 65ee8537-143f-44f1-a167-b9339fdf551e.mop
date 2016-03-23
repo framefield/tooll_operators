@@ -1,0 +1,251 @@
+{
+  "Name": "Canvas",
+  "_id": "65ee8537-143f-44f1-a167-b9339fdf551e",
+  "Namespace": "lib.image.generate",
+  "Description": "Creates an image with given color and size.",
+  "Inputs": [
+    {
+      "Name": "Size.Width",
+      "MetaInstanceID": "592f4695-f4db-4c89-9f84-ed37e64fec12",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "4100",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Height",
+      "MetaInstanceID": "0f9f1e93-3f75-4458-916c-3d3fc8571666",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "4100",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "caf5144d-7da7-482a-8c8b-ea35c88509cc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "daa22902-6de3-4146-bb07-0c6964872336",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "2f3b6b5e-99f8-4e3e-b115-427313d507db",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "a82fb75a-f132-4ea6-8050-ae94f586577b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "b8881370-4312-4973-9aff-d9caa5002c5c",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "0eb9fadb-82ca-411f-97a3-cc7253921c61",
+      "MetaID": "59c531a8-2d16-48b3-8641-ae8d9bce5223",
+      "Name": "CanvasFunc",
+      "Version": "e895e3f2-b6ac-4fb8-9f72-58885e978582",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID59c531a8_2d16_48b3_8641_ae8d9bce5223",
+        "{",
+        "    public class Class_Canvas : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            SizeWidth = 0,",
+        "            SizeHeight = 1,",
+        "            ColorR = 2,",
+        "            ColorG = 3,",
+        "            ColorB = 4,",
+        "            ColorA = 5",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        private bool BuildRenderTarget(OperatorPartContext context, int width, int height) {",
+        "            var resourceChanged = ResourceManager.ValidateRenderTargetResource(ref _renderTargetResource, OperatorPart, context.D3DDevice,",
+        "                                                                               width, height);",
+        "            if (resourceChanged) {",
+        "                Utilities.DisposeObj(ref _renderTargetView);",
+        "                _renderTargetView = new RenderTargetView(context.D3DDevice, _renderTargetResource.Texture);",
+        "            }",
+        "            return resourceChanged;",
+        "        }",
+        "",
+        "        public override void Dispose() {",
+        "            ResourceManager.Dispose(_renderTargetResource);",
+        "            Utilities.DisposeObj(ref _renderTargetView);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var SizeWidth = inputs[(int)InputId.SizeWidth].Eval(context).Value;",
+        "            var SizeHeight = inputs[(int)InputId.SizeHeight].Eval(context).Value;",
+        "            var Size = new Vector2(SizeWidth, SizeHeight);",
+        "            var ColorR = inputs[(int)InputId.ColorR].Eval(context).Value;",
+        "            var ColorG = inputs[(int)InputId.ColorG].Eval(context).Value;",
+        "            var ColorB = inputs[(int)InputId.ColorB].Eval(context).Value;",
+        "            var ColorA = inputs[(int)InputId.ColorA].Eval(context).Value;",
+        "            var Color = new Color4(ColorR, ColorG, ColorB, ColorA);",
+        "            //<<< _params",
+        "",
+        "",
+        "            if (BuildRenderTarget(context, (int)SizeWidth, (int)SizeHeight))",
+        "                Changed = true;",
+        "",
+        "            if (Changed) {",
+        "                context.D3DDevice.ImmediateContext.ClearRenderTargetView(_renderTargetView, new SharpDX.Color4(ColorR, ColorG, ColorB, ColorA));",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Image = _renderTargetResource.Texture;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Resource _renderTargetResource;",
+        "        RenderTargetView _renderTargetView;",
+        "    }",
+        "",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b8881370-4312-4973-9aff-d9caa5002c5c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "592f4695-f4db-4c89-9f84-ed37e64fec12",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0f9f1e93-3f75-4458-916c-3d3fc8571666",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "caf5144d-7da7-482a-8c8b-ea35c88509cc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "daa22902-6de3-4146-bb07-0c6964872336",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2f3b6b5e-99f8-4e3e-b115-427313d507db",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a82fb75a-f132-4ea6-8050-ae94f586577b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0eb9fadb-82ca-411f-97a3-cc7253921c61"
+    }
+  ]
+}

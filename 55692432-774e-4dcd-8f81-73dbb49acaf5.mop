@@ -1,0 +1,126 @@
+{
+  "Name": "Damper",
+  "_id": "55692432-774e-4dcd-8f81-73dbb49acaf5",
+  "Namespace": "lib.math",
+  "Description": "Smoothes the incoming value overtime. \r\n\r\nFriction 0 -> instant change\r\nFriction 0.8 -> very fast\r\nFriction 0.99 -> Almost Frozen\r\n\r\nImage this Operator as the \"P\" in a PID-Controller.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "95f33877-46e4-4e71-a7b7-247844dbe956",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Friction",
+      "MetaInstanceID": "c491b807-7013-469b-8e62-0a1c02ee81ee",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.9"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "71d3f2ef-34c6-4e6e-bc8a-c43aac173ab7",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "dc8f89ae-5b8a-460a-88b5-5e29cf4bc3c4",
+      "MetaID": "6c995f97-59e2-4b9b-b9b4-2aacaeab4928",
+      "Name": "DamperFunc",
+      "Version": "dee450f0-74b9-433a-9c0b-8333b31c661f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID6c995f97_59e2_4b9b_b9b4_2aacaeab4928",
+        "{",
+        "    public class Class_Damper : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Friction = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Friction = inputs[(int)InputId.Friction].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            if (context.Time < _dampedTime)",
+        "                _damped = Value;",
+        "",
+        "            _damped = Friction*_damped + (1 - Friction)*Value;",
+        "            _dampedTime = context.Time;",
+        "            context.Value = _damped;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        float _damped;",
+        "        float _dampedTime = 999999;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "95f33877-46e4-4e71-a7b7-247844dbe956",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dc8f89ae-5b8a-460a-88b5-5e29cf4bc3c4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c491b807-7013-469b-8e62-0a1c02ee81ee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dc8f89ae-5b8a-460a-88b5-5e29cf4bc3c4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dc8f89ae-5b8a-460a-88b5-5e29cf4bc3c4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "71d3f2ef-34c6-4e6e-bc8a-c43aac173ab7"
+    }
+  ]
+}

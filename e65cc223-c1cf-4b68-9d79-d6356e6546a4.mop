@@ -1,0 +1,318 @@
+{
+  "Name": "Annotation",
+  "_id": "e65cc223-c1cf-4b68-9d79-d6356e6546a4",
+  "Namespace": "lib.basic",
+  "Description": "Allows to place comments on graphs",
+  "Inputs": [
+    {
+      "Name": "Height",
+      "MetaInstanceID": "0768e1c1-2976-4903-a842-a79a2f551ed7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "90.60001"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FontSize",
+      "MetaInstanceID": "9863121c-da25-4fd1-8c63-292f3fb0940c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "12"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "8c16f624-d056-467e-bc9e-e205c8eb8828",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "69ef0a8b-3272-4c0b-a84b-ae34c1516348",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "808e260f-0cfe-4435-827c-b61c3ac34d6c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "e05d887c-36cf-48cb-b584-56ddd2d11fb8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.6"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "74914e5e-d398-4d1e-ac1a-b49cc52b7a6f",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": [
+          "Click me in Parameter View to edit.",
+          "",
+          ""
+        ]
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "f069d862-0467-4171-a32c-d2beb430b56e",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "be228785-1420-4885-9a4a-6b7237529702",
+      "MetaID": "ea237ad4-eb28-44a5-849c-5bb243ce91b7",
+      "Name": "AnnotationFunc",
+      "Version": "1426f52d-96de-4f71-9f40-b32107ac1cb9",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDea237ad4_eb28_44a5_849c_5bb243ce91b7",
+        "{",
+        "    public class Class_Annotation : OperatorPart.Function,",
+        "                                  Framefield.Core.OperatorPartTraits.IAnnotation",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Height = 0,",
+        "            FontSize = 1,",
+        "            ColorR = 2,",
+        "            ColorG = 3,",
+        "            ColorB = 4,",
+        "            ColorA = 5,",
+        "            Text = 6",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public string Text",
+        "        {",
+        "            get { return GetInputString((int)InputId.Text); } ",
+        "            set { SetInputString((int)InputId.Text, value); } ",
+        "",
+        "        }",
+        "",
+        "",
+        "        public double Height",
+        "        {",
+        "            get { return GetInputValue((int)InputId.Height); } ",
+        "            set { SetInputValue((int)InputId.Height, value); } ",
+        "        }",
+        "",
+        "        public double FontSize",
+        "        {",
+        "            get { return GetInputValue((int)InputId.FontSize); } ",
+        "            set { SetInputValue((int)InputId.FontSize, value); } ",
+        "        }",
+        "",
+        "        public Color4 Color {",
+        "            get {",
+        "                return new Color4((float)GetInputValue((int)InputId.ColorR),",
+        "                                  (float)GetInputValue((int)InputId.ColorG),",
+        "                                  (float)GetInputValue((int)InputId.ColorB),",
+        "                                  (float)GetInputValue((int)InputId.ColorA));",
+        "            }",
+        "            set {",
+        "                SetInputValue((int)InputId.ColorR, (double)value.Red);",
+        "                SetInputValue((int)InputId.ColorG, (double)value.Green);",
+        "                SetInputValue((int)InputId.ColorB, (double)value.Blue);",
+        "                SetInputValue((int)InputId.ColorA, (double)value.Alpha);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            var prevValue = context.Value;",
+        "            //>>> _params",
+        "            var Height = inputs[(int)InputId.Height].Eval(context).Value;",
+        "            var FontSize = inputs[(int)InputId.FontSize].Eval(context).Value;",
+        "            var ColorR = inputs[(int)InputId.ColorR].Eval(context).Value;",
+        "            var ColorG = inputs[(int)InputId.ColorG].Eval(context).Value;",
+        "            var ColorB = inputs[(int)InputId.ColorB].Eval(context).Value;",
+        "            var ColorA = inputs[(int)InputId.ColorA].Eval(context).Value;",
+        "            var Color = new Color4(ColorR, ColorG, ColorB, ColorA);",
+        "            var Text = inputs[(int)InputId.Text].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            // Just return without doing anything",
+        "            ",
+        "            return context;",
+        "        }",
+        "",
+        "        // Values",
+        "        private double GetInputValue(int index)",
+        "        {",
+        "            return OperatorPartUtilities.GetInputFloatValue(OperatorPart.Connections[index]);",
+        "        }",
+        "",
+        "        private void SetInputValue(int index, double val)",
+        "        {",
+        "            OperatorPart opPart = OperatorPart.Connections[index];",
+        "            if (opPart.Connections.Count == 0)",
+        "            {",
+        "                opPart.Func = Utilities.CreateValueFunction(new Float((float)val));",
+        "            }",
+        "        }",
+        "",
+        "        // Strings",
+        "        private string GetInputString(int index)",
+        "        {",
+        "            return OperatorPartUtilities.GetInputTextValue(OperatorPart.Connections[index]);",
+        "        }",
+        "",
+        "        private void SetInputString(int index, string val)",
+        "        {",
+        "            OperatorPart opPart = OperatorPart.Connections[index];",
+        "            if (opPart.Connections.Count == 0)",
+        "            {",
+        "                opPart.Func = Utilities.CreateValueFunction(new Text((string)val));",
+        "            }",
+        "        }",
+        "",
+        "",
+        "        OperatorPart.InvalidateTimeAccessors _timeAccessorInvalidator = new OperatorPart.InvalidateTimeAccessors();",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0768e1c1-2976-4903-a842-a79a2f551ed7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9863121c-da25-4fd1-8c63-292f3fb0940c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8c16f624-d056-467e-bc9e-e205c8eb8828",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "69ef0a8b-3272-4c0b-a84b-ae34c1516348",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "808e260f-0cfe-4435-827c-b61c3ac34d6c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e05d887c-36cf-48cb-b584-56ddd2d11fb8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "74914e5e-d398-4d1e-ac1a-b49cc52b7a6f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "be228785-1420-4885-9a4a-6b7237529702"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "be228785-1420-4885-9a4a-6b7237529702",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f069d862-0467-4171-a32c-d2beb430b56e"
+    }
+  ]
+}

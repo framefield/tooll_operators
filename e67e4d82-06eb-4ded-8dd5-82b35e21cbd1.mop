@@ -1,0 +1,185 @@
+{
+  "Name": "LoadNthImage",
+  "_id": "e67e4d82-06eb-4ded-8dd5-82b35e21cbd1",
+  "Namespace": "examples.interaction",
+  "Description": "A quick helper method that uses [FilesInDirectory] and [NthString] the access on of the images in the given directory.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "e7ad9825-0fb9-4557-b380-64387ea0541c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Directory",
+      "MetaInstanceID": "75b2d4cc-f12a-4eb7-ba1e-10f4448a1b0f",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "test.txt"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "2fd05b71-7c26-40a5-9ece-3469fcfb3a64",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "NthString",
+      "MetaInstanceID": "d39e9565-7f57-4726-a85f-a9e3f8693413",
+      "MetaID": "9e3c055e-8c04-4e3d-9c03-21a6c8026435",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "422.176157125248",
+        "PosY": "127.077933612346",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Modulo",
+      "MetaInstanceID": "6622f991-177e-4f27-81cd-6aff9611e0fd",
+      "MetaID": "51a42080-36e5-4e8e-ae4f-0a9d60fe2aaa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "522.17615712525",
+        "PosY": "152.077933612341",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "StringListLength",
+      "MetaInstanceID": "493c0cf7-9b73-4182-b5a2-b04f4c30c9b8",
+      "MetaID": "856b5770-a001-4e09-93b9-4b18bd298bb2",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "572.176157125248",
+        "PosY": "177.077933612339",
+        "Width": "50",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "e1a73831-0838-4415-853a-542182ab1351",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "422.176157125248",
+        "PosY": "102.07793361235",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "FilesInDirectory",
+      "MetaInstanceID": "3f32f04b-d7d9-4c8f-9a3a-5f4dc9d453a5",
+      "MetaID": "a3e5722b-51a2-479d-b99f-3249e332b89c",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "422.176157125248",
+        "PosY": "202.077933612334",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "d3778463-2309-4857-a6a3-eff2cb289eab",
+            "Type": "Text",
+            "Value": [
+              "\\.(png|jpg)"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "3f32f04b-d7d9-4c8f-9a3a-5f4dc9d453a5",
+      "SourceOpPart": "38cc1bf7-fee3-47f4-8eb9-aa1842dc8936",
+      "TargetOp": "d39e9565-7f57-4726-a85f-a9e3f8693413",
+      "TargetOpPart": "01f33e48-2afd-42c6-bd56-e1fc3aba479a"
+    },
+    {
+      "SourceOp": "3f32f04b-d7d9-4c8f-9a3a-5f4dc9d453a5",
+      "SourceOpPart": "38cc1bf7-fee3-47f4-8eb9-aa1842dc8936",
+      "TargetOp": "493c0cf7-9b73-4182-b5a2-b04f4c30c9b8",
+      "TargetOpPart": "f598323e-7705-473b-9c35-0a4bbc0365ad"
+    },
+    {
+      "SourceOp": "493c0cf7-9b73-4182-b5a2-b04f4c30c9b8",
+      "SourceOpPart": "78aa597f-23b0-485f-a2d3-3cc8031253b7",
+      "TargetOp": "6622f991-177e-4f27-81cd-6aff9611e0fd",
+      "TargetOpPart": "39629cf3-af7c-4022-9494-0705275080c7"
+    },
+    {
+      "SourceOp": "6622f991-177e-4f27-81cd-6aff9611e0fd",
+      "SourceOpPart": "da95a32f-fde6-4d06-a053-5394db6f46bf",
+      "TargetOp": "d39e9565-7f57-4726-a85f-a9e3f8693413",
+      "TargetOpPart": "af8beea3-abb5-42f1-91f4-518e784689b8"
+    },
+    {
+      "SourceOp": "d39e9565-7f57-4726-a85f-a9e3f8693413",
+      "SourceOpPart": "5eded8ac-d5fc-4340-8ce2-02dd8f987d97",
+      "TargetOp": "e1a73831-0838-4415-853a-542182ab1351",
+      "TargetOpPart": "2ddcf044-4709-4e79-b466-0780b0c1e1e4"
+    },
+    {
+      "SourceOp": "e1a73831-0838-4415-853a-542182ab1351",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2fd05b71-7c26-40a5-9ece-3469fcfb3a64"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e7ad9825-0fb9-4557-b380-64387ea0541c",
+      "TargetOp": "6622f991-177e-4f27-81cd-6aff9611e0fd",
+      "TargetOpPart": "f641b755-6f8d-454e-a6ac-60d518e53f31"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "75b2d4cc-f12a-4eb7-ba1e-10f4448a1b0f",
+      "TargetOp": "3f32f04b-d7d9-4c8f-9a3a-5f4dc9d453a5",
+      "TargetOpPart": "2a57fe51-2660-4404-8795-54e9345cf53b"
+    }
+  ]
+}

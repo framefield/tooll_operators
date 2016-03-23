@@ -1,0 +1,391 @@
+{
+  "Name": "Sphere2Displace",
+  "_id": "d4ed2c1a-4ec9-4c60-95ed-c28972fc2b78",
+  "Namespace": "projects.vaserely.shaders",
+  "Description": "Very basic test shader that can be used as a template for own shaders.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "89386ba7-8220-492e-862e-d8926e69f087",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.X",
+      "MetaInstanceID": "d1fb94b3-e406-4d0c-89dd-3b21135d6aed",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.Y",
+      "MetaInstanceID": "29cb769a-5100-4248-9412-1077d5d233c4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "4eeee379-b867-4d24-a373-e92d476d6e79",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Strength",
+      "MetaInstanceID": "4727883b-a56f-49ed-8236-6afe05a5d51a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "bias",
+      "MetaInstanceID": "bcdf8f22-b695-4a19-bb39-a2746e6fa35c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center2.X",
+      "MetaInstanceID": "d7236f7a-97f4-49e4-a0f5-e19bfcad165a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center2.Y",
+      "MetaInstanceID": "4f55d1e8-0a54-4a7e-bbae-71e18545c86c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius2",
+      "MetaInstanceID": "94895e60-2226-4f6f-ae6d-4d12cf483d80",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Strength2",
+      "MetaInstanceID": "a08582da-e47e-457a-b5de-b37901877bab",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Bias2",
+      "MetaInstanceID": "2311e20c-7c3f-43bb-a612-c56d3eeaadd4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "a6596cc2-dd69-4115-bf08-637700358ef1",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c74122c8-88ba-434d-b902-689b536e72ef",
+      "MetaID": "f7015bf5-43a0-4ec4-b4d8-da49426cf280",
+      "Name": "Sphere2DisplaceFunc",
+      "Version": "fc82b36e-9c2b-4093-a802-2e892ad4d176",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Runtime.InteropServices;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.D3DCompiler;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.Rendering;",
+        "",
+        "",
+        "namespace Framefield.Core.IDf7015bf5_43a0_4ec4_b4d8_da49426cf280",
+        "{",
+        "    public class Class_Sphere2Displace : OperatorPart.Function",
+        "    {",
+        "        public class Renderer : BaseRenderer",
+        "        {",
+        "            public override void SetupEffect(OperatorPartContext context) {",
+        "                base.SetupEffect(context);",
+        "                context.Effect.GetVariableByName(\"center\").AsVector().Set(_center);",
+        "                context.Effect.GetVariableByName(\"radius\").AsScalar().Set(_radius);",
+        "                context.Effect.GetVariableByName(\"strength\").AsScalar().Set(_strength);",
+        "                context.Effect.GetVariableByName(\"bias\").AsScalar().Set(_bias);",
+        "                ",
+        "                context.Effect.GetVariableByName(\"center2\").AsVector().Set(_center2);",
+        "                context.Effect.GetVariableByName(\"radius2\").AsScalar().Set(_radius2);",
+        "                context.Effect.GetVariableByName(\"strength2\").AsScalar().Set(_strength2);",
+        "                context.Effect.GetVariableByName(\"bias2\").AsScalar().Set(_bias2);",
+        "            }",
+        "",
+        "            public SharpDX.Vector2 _center;",
+        "            public float _radius;",
+        "            public float _strength;",
+        "            public float _bias;",
+        "",
+        "            public SharpDX.Vector2 _center2;",
+        "            public float _radius2;",
+        "            public float _strength2;",
+        "            public float _bias2;",
+        "        }",
+        "",
+        "        public Class_Sphere2Displace() {",
+        "            try {",
+        "                using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/Sphere2Displace.fx\", \"fx_5_0\", ShaderFlags.None, EffectFlags.None, null, null))",
+        "                    _effect = new Effect(D3DDevice.Device, bytecode);",
+        "                _renderer = new Renderer();",
+        "            }",
+        "            catch (Exception ex) {",
+        "                Logger.Error(this,\"error creating effect: {0}\", ex.Message);",
+        "            }",
+        "        }",
+        "",
+        "",
+        "",
+        "        public override void Dispose() {",
+        "",
+        "            Utilities.DisposeObj(ref _effect);",
+        "",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];//.Eval(context);",
+        "            var CenterX = inputs[1].Eval(context).Value;",
+        "            var CenterY = inputs[2].Eval(context).Value;",
+        "            _renderer._center = new SharpDX.Vector2(CenterX, CenterY);",
+        "            _renderer._radius = inputs[3].Eval(context).Value;",
+        "            _renderer._strength = inputs[4].Eval(context).Value;",
+        "            _renderer._bias = inputs[5].Eval(context).Value;",
+        "",
+        "            var Center2X = inputs[6].Eval(context).Value;",
+        "            var Center2Y = inputs[7].Eval(context).Value;",
+        "            _renderer._center2 = new SharpDX.Vector2(Center2X, Center2Y);",
+        "            _renderer._radius2 = inputs[8].Eval(context).Value;",
+        "            _renderer._strength2 = inputs[9].Eval(context).Value;",
+        "            _renderer._bias2 = inputs[10].Eval(context).Value;",
+        "",
+        "",
+        "            var D3DDevice = context.D3DDevice;",
+        "            var subContext = new OperatorPartContext(context);",
+        "            try {",
+        "                subContext.Effect = _effect;",
+        "                subContext.InputLayout = context.Renderer.SceneDefaultInputLayout;",
+        "                subContext.Renderer = _renderer;",
+        "",
+        "                Scene.Eval(subContext);",
+        "            }",
+        "            catch (Exception exception) {",
+        "                Logger.Error(this,\"Load Effect error: {0}\", exception.Message);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Effect _effect;",
+        "        Renderer _renderer;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c74122c8-88ba-434d-b902-689b536e72ef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a6596cc2-dd69-4115-bf08-637700358ef1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "89386ba7-8220-492e-862e-d8926e69f087",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d1fb94b3-e406-4d0c-89dd-3b21135d6aed",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "29cb769a-5100-4248-9412-1077d5d233c4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4eeee379-b867-4d24-a373-e92d476d6e79",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4727883b-a56f-49ed-8236-6afe05a5d51a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bcdf8f22-b695-4a19-bb39-a2746e6fa35c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d7236f7a-97f4-49e4-a0f5-e19bfcad165a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f55d1e8-0a54-4a7e-bbae-71e18545c86c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "94895e60-2226-4f6f-ae6d-4d12cf483d80",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a08582da-e47e-457a-b5de-b37901877bab",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2311e20c-7c3f-43bb-a612-c56d3eeaadd4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c74122c8-88ba-434d-b902-689b536e72ef"
+    }
+  ]
+}

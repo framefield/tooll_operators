@@ -1,0 +1,183 @@
+{
+  "Name": "CountInFile",
+  "_id": "aad60e6a-282d-4fcd-bcde-9d25b2cc1e3f",
+  "Namespace": "lib.math.helper",
+  "Description": "Counts the number of time trigger has been changed. \r\n\r\n\r\n\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "CountTrigger",
+      "MetaInstanceID": "d9252a4f-7244-4429-a894-2a469bf841bc",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "0ced623f-f4ba-4fdd-b108-3891fe515a45",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "8bbb9032-8c27-4018-9fc9-9690fbc58e5a",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "Temp/count.txt"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "dee4679e-92ad-4f79-83ef-d11a6eb9b967",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "52e29e8d-9e5e-44ab-b55c-313bb1a945e2",
+      "MetaID": "8b8991c8-1193-4c95-9e43-d9e9a8982985",
+      "Name": "CountInFileFunc",
+      "Version": "d0f4205a-4718-4bf0-ab66-07a8386083c3",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.ID8b8991c8_1193_4c95_9e43_d9e9a8982985",
+        "{",
+        "    public class Class_CountInFile : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            CountTrigger = 0,",
+        "            ResetTrigger = 1,",
+        "            FilePath = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        int ReadNumberFromFile(string filepath) ",
+        "        {",
+        "            if( !File.Exists( filepath)) {",
+        "                Logger.Error(this,\"File not found: '{0}'\", filepath);",
+        "                return 0;",
+        "            }",
+        "            else {                ",
+        "                return  (int)Double.Parse( File.ReadAllText(filepath) );",
+        "            }",
+        "        }",
+        "        ",
+        "        void WriteNumberToFile(string filepath, int number) ",
+        "        {",
+        "            File.WriteAllText(filepath, String.Format(\"{0}\", number));",
+        "        }",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var CountTrigger = inputs[(int)InputId.CountTrigger].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "                        ",
+        "            bool flankDetected = CountTrigger >= 0.5 && _oldTrigger <= 0.5;",
+        "            _oldTrigger = CountTrigger;",
+        "            ",
+        "            if( FilePath != _lastFilePath || flankDetected ) {",
+        "                _lastFilePath = FilePath;",
+        "                _count = ReadNumberFromFile(FilePath);",
+        "                _count++;",
+        "                WriteNumberToFile(FilePath, _count);",
+        "            }",
+        "            ",
+        "            if( ResetTrigger == 1.0) {",
+        "                _count = 0;",
+        "                WriteNumberToFile(FilePath, _count);",
+        "            }",
+        "            _lastValue= CountTrigger;",
+        "            context.Value= _count;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        int _count = 0;",
+        "        float _lastValue= float.NaN;",
+        "        float _oldTrigger;",
+        "        string _lastFilePath;",
+        "        ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d9252a4f-7244-4429-a894-2a469bf841bc",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "52e29e8d-9e5e-44ab-b55c-313bb1a945e2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0ced623f-f4ba-4fdd-b108-3891fe515a45",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "52e29e8d-9e5e-44ab-b55c-313bb1a945e2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8bbb9032-8c27-4018-9fc9-9690fbc58e5a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "52e29e8d-9e5e-44ab-b55c-313bb1a945e2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "52e29e8d-9e5e-44ab-b55c-313bb1a945e2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dee4679e-92ad-4f79-83ef-d11a6eb9b967"
+    }
+  ]
+}

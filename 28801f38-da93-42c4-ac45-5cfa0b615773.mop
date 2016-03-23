@@ -1,0 +1,129 @@
+{
+  "Name": "ValueToTimeStamp",
+  "_id": "28801f38-da93-42c4-ac45-5cfa0b615773",
+  "Namespace": "lib.basic",
+  "Description": "Displays the incoming value in seconds as readble SMPTE Time code.\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "894bb323-5b65-4fe4-810f-68df06c30793",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Format",
+      "MetaInstanceID": "74801c84-7cbe-4645-bc92-4d51dd26bb10",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "{0}"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "9a34a1c9-bdac-469b-a8d5-7589cb419b28",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "eb1c743f-ea1c-4d79-a66b-97bd4b82133f",
+      "MetaID": "10ab0fc1-38b3-4dc9-b225-d97b9c8692a4",
+      "Name": "ValueToTimeStampFunc",
+      "Version": "4d0ae3b8-0703-4de7-bfdd-1f378326c9ed",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID10ab0fc1_38b3_4dc9_b225_d97b9c8692a4",
+        "{",
+        "    public class Class_ValueToTimeStamp : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Format = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Format = inputs[(int)InputId.Format].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            string s=\"?\";",
+        "            try {",
+        "                s= ((int) (Value / 60 % 60)).ToString(\"D2\") + \":\" +",
+        "                       ((int) (Value      % 60)).ToString(\"D2\") + \":\" +",
+        "                       ((int) (Value * 30 % 30)).ToString(\"D2\");",
+        "",
+        "                //s= String.Format(Format, Value);",
+        "            }",
+        "            catch {",
+        "                //Logger.Info(this,\"Can't convert value to string.\");",
+        "            }",
+        "            context.Text= s;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "894bb323-5b65-4fe4-810f-68df06c30793",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb1c743f-ea1c-4d79-a66b-97bd4b82133f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "74801c84-7cbe-4645-bc92-4d51dd26bb10",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "eb1c743f-ea1c-4d79-a66b-97bd4b82133f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb1c743f-ea1c-4d79-a66b-97bd4b82133f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "9a34a1c9-bdac-469b-a8d5-7589cb419b28"
+    }
+  ]
+}

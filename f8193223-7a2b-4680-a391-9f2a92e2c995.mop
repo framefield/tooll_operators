@@ -1,0 +1,351 @@
+{
+  "Name": "RenderToImageNoAA",
+  "_id": "f8193223-7a2b-4680-a391-9f2a92e2c995",
+  "Namespace": "lib.image.render",
+  "Description": "Note:\r\n- SampleCount is not supported right now. Use SMAA post filtering\r\n- A size of 0 will use in the incoming size for rendering.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "20401aaf-1499-4a95-81a8-d2a0728ea3ad",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.X",
+      "MetaInstanceID": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Size.Y",
+      "MetaInstanceID": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.R",
+      "MetaInstanceID": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.G",
+      "MetaInstanceID": "ec11fe2f-74bd-43f7-a175-665bba626442",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.B",
+      "MetaInstanceID": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Color.A",
+      "MetaInstanceID": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClearBackground",
+      "MetaInstanceID": "a2c0de7d-3bbf-4e43-ac8a-7ce3cf6145f8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Leave",
+          "Value": "0"
+        },
+        {
+          "Name": "Clear",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "988c27fe-a1be-4554-b95f-9b0d48db7e85",
+      "MetaID": "2f210b31-bf39-4c12-9721-f42585bdc3f1",
+      "Name": "RenderToImageNoAAFunc",
+      "Version": "1ccc3228-6156-40ed-9c30-1e0a03bab070",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.ID2f210b31_bf39_4c12_9721_f42585bdc3f1",
+        "{",
+        "    public class Class_RenderToImageNoAA : OperatorPart.Function",
+        "    {",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Scene = 0,",
+        "            SizeX = 1,",
+        "            SizeY = 2,",
+        "            ColorR = 3,",
+        "            ColorG = 4,",
+        "            ColorB = 5,",
+        "            ColorA = 6,",
+        "            ClearBackground = 7",
+        "        }",
+        "        // <<< _inputids",
+        "        public override void Dispose() {",
+        "            ResourceManager.Dispose(_renderTargetResource);",
+        "            Utilities.DisposeObj(ref _renderTargetView);",
+        "            ResourceManager.Dispose(_renderDepthResource);",
+        "            Utilities.DisposeObj(ref _renderTargetDepthView);",
+        "        }",
+        "",
+        "        private bool BuildRenderTarget(int width, int height, SharpDX.Direct3D11.Device device) {",
+        "            var renderTargetResourceChanged = ResourceManager.ValidateRenderTargetResource(ref _renderTargetResource, OperatorPart, device, width, height);",
+        "            if (renderTargetResourceChanged) {",
+        "                Utilities.DisposeObj(ref _renderTargetView);",
+        "                _renderTargetView = new RenderTargetView(device, _renderTargetResource.Texture);",
+        "            }",
+        "",
+        "            var depthStencilResourceChanged = ResourceManager.ValidateDepthStencilResource(ref _renderDepthResource, OperatorPart, device, width, height);",
+        "            if (depthStencilResourceChanged) {",
+        "                Utilities.DisposeObj(ref _renderTargetDepthView);",
+        "",
+        "                var depthViewDesc = new DepthStencilViewDescription();",
+        "                depthViewDesc.Format = Format.D32_Float;",
+        "                depthViewDesc.Dimension = DepthStencilViewDimension.Texture2D;",
+        "",
+        "                _renderTargetDepthView = new DepthStencilView(device, _renderDepthResource.Texture, depthViewDesc);",
+        "            }",
+        "",
+        "            return renderTargetResourceChanged || depthStencilResourceChanged;",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Scene = inputs[0];",
+        "",
+        "            int SizeX = (int) inputs[1].Eval(context).Value;",
+        "            int SizeY = (int) inputs[2].Eval(context).Value;",
+        "            float ColorR = inputs[3].Eval(context).Value;",
+        "            float ColorG = inputs[4].Eval(context).Value;",
+        "            float ColorB = inputs[5].Eval(context).Value;",
+        "            float ColorA = inputs[6].Eval(context).Value;",
+        "            bool ClearBackground = inputs[(int)InputId.ClearBackground].Eval(context).Value > 0.5f;",
+        "            int SampleCount = (int) inputs[7].Eval(context).Value;",
+        "",
+        "            if (SizeX == 0 || SizeY == 0) {",
+        "                SizeX = (int) context.Viewport.Width;",
+        "                SizeY = (int) context.Viewport.Height;",
+        "            }",
+        "",
+        "            if (BuildRenderTarget(SizeX, SizeY, context.D3DDevice))",
+        "                Changed = true;",
+        "",
+        "            if (Changed) {",
+        "                var subContext = new OperatorPartContext(context);",
+        "                ",
+        "                var D3DDevice = context.D3DDevice;",
+        "",
+        "                float aspect = (float) SizeX / (float) SizeY;",
+        "                subContext.CameraProjection = Matrix.PerspectiveFovLH(3.1415f / 4.0f, aspect, 0.01f, 1000);",
+        "                subContext.WorldToCamera = Matrix.LookAtLH(new Vector3(0, 0, -2.415f), new Vector3(0, 0, 0), new Vector3(0, 1, 0));",
+        "                subContext.ObjectTWorld = Matrix.Identity;",
+        "                subContext.TextureMatrix = Matrix.Identity;",
+        "                subContext.Renderer = OperatorPartContext.DefaultRenderer;",
+        "                subContext.RenderTargetView = _renderTargetView;",
+        "                subContext.DepthStencilView = _renderTargetDepthView;",
+        "                subContext.Objects[OperatorPartContext.MATERIAL_ID] = new DefaultMaterial();",
+        "",
+        "                subContext.DepthStencilState = OperatorPartContext.DefaultRenderer.DefaultDepthStencilState;",
+        "                subContext.RasterizerState = OperatorPartContext.DefaultRenderer.DefaultRasterizerState;",
+        "                subContext.BlendState = OperatorPartContext.DefaultRenderer.DefaultBlendState;",
+        "                subContext.BlendFactor = OperatorPartContext.DefaultRenderer.DefaultBlendFactor;",
+        "                subContext.Viewport = new Viewport(0, 0, SizeX, SizeY, 0.0f, 1.0f);",
+        "                ",
+        "                subContext.InputLayout = OperatorPartContext.DefaultRenderer.SceneDefaultInputLayout;",
+        "                subContext.Effect = OperatorPartContext.DefaultRenderer.SceneDefaultEffect;",
+        "",
+        "                D3DDevice.ImmediateContext.ClearDepthStencilView(_renderTargetDepthView, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0);",
+        "                if (ClearBackground) {",
+        "                    D3DDevice.ImmediateContext.ClearRenderTargetView(_renderTargetView, new SharpDX.Color4(ColorR, ColorG, ColorB, ColorA));",
+        "                }",
+        "",
+        "                Scene.Eval(subContext);",
+        "",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            context.Image = _renderTargetResource.Texture;",
+        "            context.DepthImage = _renderDepthResource.Texture;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Resource _renderTargetResource;",
+        "        RenderTargetView _renderTargetView;",
+        "        Resource _renderDepthResource;",
+        "        DepthStencilView _renderTargetDepthView;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "66cd2eaf-9dee-47a2-aa39-a70fa6daaf29"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "20401aaf-1499-4a95-81a8-d2a0728ea3ad",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c19111a6-ae13-4e37-97be-7c000b2178b3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1b01205d-5de2-418e-a4c8-39ae8bbf6d04",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1668bd55-1e2c-4135-a643-a4074c24d3fe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ec11fe2f-74bd-43f7-a175-665bba626442",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a9e8898a-d89e-4dd3-8d1f-fb35ad97cb32",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5dbfca62-73f9-43ad-ab02-707d3f84912d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a2c0de7d-3bbf-4e43-ac8a-7ce3cf6145f8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "988c27fe-a1be-4554-b95f-9b0d48db7e85"
+    }
+  ]
+}

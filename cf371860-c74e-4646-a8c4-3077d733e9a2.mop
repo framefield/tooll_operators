@@ -1,0 +1,130 @@
+{
+  "Name": "LoadToMemory",
+  "_id": "cf371860-c74e-4646-a8c4-3077d733e9a2",
+  "Namespace": "lib.image.experimental",
+  "Description": "Loads an file.\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "4ad99687-dac8-4cd6-acea-b4f916a40a55",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "assets-common/image/chipmunk.jpg"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Raw",
+      "MetaInstanceID": "4b766381-e5b5-48c4-b96b-6b316452f1bf",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "78fc6dfe-ac30-4648-9510-5435abe97f6f",
+      "MetaID": "571cdc60-4819-46f4-a63c-895fbf9cac6a",
+      "Name": "LoadToMemoryFunc",
+      "Version": "cc85c49f-be12-4c15-b446-643c60683a83",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Dynamic;",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.ID571cdc60_4819_46f4_a63c_895fbf9cac6a",
+        "{",
+        "    public class Class_LoadToMemory : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            FilePath = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _rawResource);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            if (FilePath == _lastFile)",
+        "                Changed = false;",
+        "",
+        "            _lastFile = FilePath;",
+        "",
+        "            if (Changed)",
+        "            {",
+        "                Dispose();",
+        "                if (File.Exists(FilePath))",
+        "                {",
+        "                    _rawResource = ResourceManager.ReadRaw(FilePath);",
+        "                }",
+        "                else",
+        "                {",
+        "                    Logger.Error(this, \"file not found '{0}'\", FilePath);",
+        "                }",
+        "",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            if (_rawResource != null && _rawResource.Data != null)",
+        "            {",
+        "                dynamic obj = new ExpandoObject();",
+        "                obj.Data = _rawResource.Data;",
+        "                context.Dynamic = obj;",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        RawResource _rawResource;",
+        "        String _lastFile = String.Empty;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "78fc6dfe-ac30-4648-9510-5435abe97f6f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "4b766381-e5b5-48c4-b96b-6b316452f1bf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4ad99687-dac8-4cd6-acea-b4f916a40a55",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "78fc6dfe-ac30-4648-9510-5435abe97f6f"
+    }
+  ]
+}

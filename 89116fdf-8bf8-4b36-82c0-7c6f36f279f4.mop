@@ -1,0 +1,123 @@
+{
+  "Name": "FreezeText",
+  "_id": "89116fdf-8bf8-4b36-82c0-7c6f36f279f4",
+  "Namespace": "lib.text.experimental",
+  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Inputs": [
+    {
+      "Name": "Trigger",
+      "MetaInstanceID": "60bdc74b-5906-43b7-881f-8a22b6412be2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "8f097783-ac0f-4d80-9494-9cbd1741b449",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "1325521374979"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Text",
+      "MetaInstanceID": "75591958-c313-4204-b501-8fc8d02c1732",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "21744cee-57dc-4766-98e9-03dd51ed6b71",
+      "MetaID": "45339799-acdb-4529-803e-a628ce6b6266",
+      "Name": "FreezeTextFunc",
+      "Version": "0bf8ff4e-69ff-4300-8cd0-15b70a8c4458",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "namespace Framefield.Core.ID45339799_acdb_4529_803e_a628ce6b6266",
+        "{",
+        "",
+        "    public class Class_Multiply : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Trigger = 0,",
+        "            Text = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Trigger = inputs[(int)InputId.Trigger].Eval(context).Value;",
+        "            var Text = inputs[(int)InputId.Text].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            if( Trigger != 0) {",
+        "                _frozen = Text;",
+        "            }",
+        "            context.Text = _frozen;",
+        "            ",
+        "            return context;",
+        "        }",
+        "        private String _frozen=\"\";",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "60bdc74b-5906-43b7-881f-8a22b6412be2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "21744cee-57dc-4766-98e9-03dd51ed6b71"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8f097783-ac0f-4d80-9494-9cbd1741b449",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "21744cee-57dc-4766-98e9-03dd51ed6b71"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "21744cee-57dc-4766-98e9-03dd51ed6b71",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "75591958-c313-4204-b501-8fc8d02c1732"
+    }
+  ]
+}

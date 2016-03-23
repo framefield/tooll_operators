@@ -1,0 +1,508 @@
+{
+  "Name": "Layer2d",
+  "_id": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+  "Namespace": "lib.3d.generate",
+  "Description": "lDraws an image fitting into current view.",
+  "Inputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "e26b3a5b-cd72-47c4-9e3f-96a679418f26",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MultiplyColor.R",
+      "MetaInstanceID": "558a0362-3802-4278-82b5-c5149223034b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MultiplyColor.G",
+      "MetaInstanceID": "00edfeb2-e957-4aae-b31e-02e855933669",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MultiplyColor.B",
+      "MetaInstanceID": "338288cf-ed05-4316-9444-bf58077dc42b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MultiplyColor.A",
+      "MetaInstanceID": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "17b5ec84-3d76-4482-b23a-c4d56efe2a8b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "4926dc84-a922-44e1-9dc9-a7145bd39f63",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate",
+      "MetaInstanceID": "8b788d55-e08f-4b49-a2db-12f9ec90d043",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.X",
+      "MetaInstanceID": "ee9183da-60cc-4607-a5cc-9ceab889b29f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Scale.Y",
+      "MetaInstanceID": "8d4eb4da-d60c-4684-a71c-3bb16dc91565",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.X",
+      "MetaInstanceID": "3396bc65-5de5-4095-a9e1-bcf34d96985c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Pivot.Y",
+      "MetaInstanceID": "cb408b95-6647-49df-81b6-2aa1db8dac7e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "RotationMode",
+      "MetaInstanceID": "a535e9de-4357-4f73-8ce8-4330f8f9188e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Undistorted",
+          "Value": "0"
+        },
+        {
+          "Name": "Fill",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "109b64d8-9b9e-4882-8c22-14b888862a19",
+      "MetaID": "10784262-b8dd-4af1-95db-54046d6c6972",
+      "Name": "Layer2dFunc",
+      "Version": "8c9e0310-20b6-4347-8e7a-bccaa6dc04f3",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core;",
+        "using Framefield.Core.Rendering;",
+        "using SharpDX.D3DCompiler;",
+        "",
+        "namespace Framefield.Core.ID10784262_b8dd_4af1_95db_54046d6c6972",
+        "{",
+        "    public class Class_Layer2d : OperatorPart.Function",
+        "    {",
+        "     ",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Image = 0,",
+        "            MultiplyColorR = 1,",
+        "            MultiplyColorG = 2,",
+        "            MultiplyColorB = 3,",
+        "            MultiplyColorA = 4,",
+        "            PositionX = 5,",
+        "            PositionY = 6,",
+        "            Rotate = 7,",
+        "            ScaleX = 8,",
+        "            ScaleY = 9,",
+        "            PivotX = 10,",
+        "            PivotY = 11,",
+        "            RotationMode = 12",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        class Renderer : BaseRenderer",
+        "        {",
+        "        }",
+        "    ",
+        "        public Class_Layer2d()",
+        "        {",
+        "            try {",
+        "                using (var bytecode = ShaderBytecode.CompileFromFile(\"assets-common/fx/Layer2d.fx\", \"fx_5_0\", ShaderFlags.Debug, EffectFlags.None, null, null))",
+        "                    _effect = new Effect(D3DDevice.Device, bytecode);",
+        "                    ",
+        "                var rasterizerDescription = new RasterizerStateDescription",
+        "                                   {",
+        "                                       FillMode = FillMode.Solid,",
+        "                                       CullMode = CullMode.None,",
+        "                                       IsDepthClipEnabled = false",
+        "                                   };",
+        "                _bothSidedRasterizerState = new RasterizerState(D3DDevice.Device, rasterizerDescription);                    ",
+        "            }",
+        "            catch (Exception e) {",
+        "                Logger.Error(this,\"error loading laye2d fx: {0} \", e.Message);",
+        "            }",
+        "        }",
+        "",
+        "",
+        "        public override void  Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _effect);",
+        "            Utilities.DisposeObj(ref _renderer);",
+        "            Utilities.DisposeObj(ref _bothSidedRasterizerState);",
+        "        }",
+        "        ",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "        ",
+        "            //>>> _params",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; // Needs to be checked for null!",
+        "            var MultiplyColorR = inputs[(int)InputId.MultiplyColorR].Eval(context).Value;",
+        "            var MultiplyColorG = inputs[(int)InputId.MultiplyColorG].Eval(context).Value;",
+        "            var MultiplyColorB = inputs[(int)InputId.MultiplyColorB].Eval(context).Value;",
+        "            var MultiplyColorA = inputs[(int)InputId.MultiplyColorA].Eval(context).Value;",
+        "            var MultiplyColor = new Color4(MultiplyColorR, MultiplyColorG, MultiplyColorB, MultiplyColorA);",
+        "            var PositionX = inputs[(int)InputId.PositionX].Eval(context).Value;",
+        "            var PositionY = inputs[(int)InputId.PositionY].Eval(context).Value;",
+        "            var Position = new Vector2(PositionX, PositionY);",
+        "            var Rotate = inputs[(int)InputId.Rotate].Eval(context).Value;",
+        "            var ScaleX = inputs[(int)InputId.ScaleX].Eval(context).Value;",
+        "            var ScaleY = inputs[(int)InputId.ScaleY].Eval(context).Value;",
+        "            var Scale = new Vector2(ScaleX, ScaleY);",
+        "            var PivotX = inputs[(int)InputId.PivotX].Eval(context).Value;",
+        "            var PivotY = inputs[(int)InputId.PivotY].Eval(context).Value;",
+        "            var Pivot = new Vector2(PivotX, PivotY);",
+        "            var RotationMode = (int) inputs[(int)InputId.RotationMode].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if(Image == null)",
+        "                return context;",
+        "                    ",
+        "            var subContext = new OperatorPartContext(context);",
+        "            subContext.Effect = _effect;",
+        "            subContext.Renderer = _renderer;",
+        "            subContext.InputLayout = context.Renderer.ScreenQuadInputLayout;",
+        "            subContext.CameraProjection = Matrix.OrthoLH(1, 1, -100, 100);",
+        "            subContext.WorldToCamera = Matrix.LookAtLH(new Vector3(0, 0, -5), new Vector3(0, 0, 0), new Vector3(0, 1, 0));",
+        "            ",
+        "            subContext.RasterizerState = _bothSidedRasterizerState;",
+        "",
+        "            var pivot3 = new Vector3( Pivot.X, Pivot.Y, 0 );",
+        "            ",
+        "            subContext.ObjectTWorld = Matrix.Identity;",
+        "            ",
+        "            var aspectRation = RotationMode < 0.5f ? context.Viewport.AspectRatio : 1f;",
+        "",
+        "            var scaleToQuad = Matrix.Scaling(aspectRation,1,1);",
+        "            subContext.ObjectTWorld *= scaleToQuad;",
+        "                       ",
+        "            var translateToPivot = Matrix.Translation(-Pivot.X * aspectRation, -Pivot.Y,0);",
+        "            subContext.ObjectTWorld *= translateToPivot;",
+        "            ",
+        "            var scale = Matrix.Scaling(ScaleX, ScaleY,1);",
+        "            subContext.ObjectTWorld *= scale;",
+        "",
+        "",
+        "            var rotate = Matrix.RotationZ(Rotate * 3.141578f / 180);",
+        "            subContext.ObjectTWorld *= rotate;",
+        "",
+        "",
+        "            var translateBackFromPivot = Matrix.Translation(aspectRation * Pivot.X, Pivot.Y,0);",
+        "            subContext.ObjectTWorld *= translateBackFromPivot;",
+        "",
+        "",
+        "            var scaleToScreen = Matrix.Scaling(1/aspectRation,1,1);",
+        "            subContext.ObjectTWorld *= scaleToScreen;",
+        "",
+        "            ",
+        "            var translate = Matrix.Translation(Position.X, Position.Y,0);",
+        "            subContext.ObjectTWorld *= translate;",
+        "            ",
+        "            using (var textureView = new ShaderResourceView(context.D3DDevice, Image))",
+        "            {",
+        "                _effect.GetVariableByName(\"hasDepth\").AsScalar().Set(false);",
+        "                _effect.GetVariableByName(\"multiplyColor\").AsVector().Set(MultiplyColor);",
+        "",
+        "                var depthStencilDescription = new DepthStencilStateDescription();",
+        "                depthStencilDescription.IsDepthEnabled = false;",
+        "                using (var depthStencilState = new DepthStencilState(context.D3DDevice, depthStencilDescription))",
+        "                {",
+        "                    subContext.DepthStencilState = depthStencilState;",
+        "                    subContext.Texture0 = textureView;",
+        "                    subContext.Renderer.SetupEffect(subContext);",
+        "    ",
+        "                    subContext.Renderer.Render(subContext.Renderer._screenQuadMesh, subContext);",
+        "                }            ",
+        "            }    ",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "        Effect _effect;",
+        "        Renderer _renderer = new Renderer();",
+        "        private RasterizerState _bothSidedRasterizerState = null;",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "558a0362-3802-4278-82b5-c5149223034b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "00edfeb2-e957-4aae-b31e-02e855933669",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "338288cf-ed05-4316-9444-bf58077dc42b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ebbd3da8-4e99-4619-99da-51b9bbe0e085",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "17b5ec84-3d76-4482-b23a-c4d56efe2a8b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4926dc84-a922-44e1-9dc9-a7145bd39f63",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8b788d55-e08f-4b49-a2db-12f9ec90d043",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ee9183da-60cc-4607-a5cc-9ceab889b29f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8d4eb4da-d60c-4684-a71c-3bb16dc91565",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3396bc65-5de5-4095-a9e1-bcf34d96985c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cb408b95-6647-49df-81b6-2aa1db8dac7e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a535e9de-4357-4f73-8ce8-4330f8f9188e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "109b64d8-9b9e-4882-8c22-14b888862a19"
+    }
+  ]
+}

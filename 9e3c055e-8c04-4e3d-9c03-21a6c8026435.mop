@@ -1,0 +1,128 @@
+{
+  "Name": "NthString",
+  "_id": "9e3c055e-8c04-4e3d-9c03-21a6c8026435",
+  "Namespace": "lib.text.experimental",
+  "Description": "Extracts the Nth Element of an incoming generic String List\r\n",
+  "Inputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "01f33e48-2afd-42c6-bd56-e1fc3aba479a",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Index",
+      "MetaInstanceID": "af8beea3-abb5-42f1-91f4-518e784689b8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "5eded8ac-d5fc-4340-8ce2-02dd8f987d97",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "985e4dab-db82-40b1-9b57-bbad07d3894c",
+      "MetaID": "151abf24-7a6f-4f91-b3d0-e3216e75ec78",
+      "Name": "NthStringFunc",
+      "Version": "6b128882-abe7-478e-833d-112fd752160a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID151abf24_7a6f_4f91_b3d0_e3216e75ec78",
+        "{",
+        "    public class Class_NthString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StringList = 0,",
+        "            Index = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> params",
+        "            dynamic StringList = inputs[(int)InputId.StringList].Eval(context).Dynamic;",
+        "            int Index = (int) inputs[(int)InputId.Index].Eval(context).Value;",
+        "            //<<< params            ",
+        "            if(StringList == null) {",
+        "                Logger.Info(this,\"Can't convert incoming structure to Dynamic\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            if( Index >= 0 && Index < StringList.Count) {",
+        "                context.Text= StringList[Index];",
+        "            }",
+        "            else  {",
+        "                context.Text = \"\";",
+        "            }",
+        "            //Logger.Info(this,\"{0}\", context.Text);",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "01f33e48-2afd-42c6-bd56-e1fc3aba479a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "985e4dab-db82-40b1-9b57-bbad07d3894c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "af8beea3-abb5-42f1-91f4-518e784689b8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "985e4dab-db82-40b1-9b57-bbad07d3894c"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "985e4dab-db82-40b1-9b57-bbad07d3894c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5eded8ac-d5fc-4340-8ce2-02dd8f987d97"
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+{
+  "Name": "MouseInput",
+  "_id": "1508d5ae-8316-44e5-8431-6513906e452d",
+  "Namespace": "lib.basic",
+  "Description": "Returns a corresponding value to the selected type.",
+  "Inputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "4592cbd2-0845-4e44-94b2-79c71a4009c6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "1",
+      "Max": "10",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "LeftDown",
+          "Value": "1"
+        },
+        {
+          "Name": "LeftUp",
+          "Value": "2"
+        },
+        {
+          "Name": "MiddleDown",
+          "Value": "3"
+        },
+        {
+          "Name": "MiddleUp",
+          "Value": "4"
+        },
+        {
+          "Name": "RightDown",
+          "Value": "5"
+        },
+        {
+          "Name": "RightUp",
+          "Value": "6"
+        },
+        {
+          "Name": "Wheel",
+          "Value": "7"
+        },
+        {
+          "Name": "DragX",
+          "Value": "8"
+        },
+        {
+          "Name": "DragY",
+          "Value": "9"
+        },
+        {
+          "Name": "WheelDelta",
+          "Value": "10"
+        },
+        {
+          "Name": "DeltaX",
+          "Value": "11"
+        },
+        {
+          "Name": "DeltaY",
+          "Value": "12"
+        },
+        {
+          "Name": "X",
+          "Value": "13"
+        },
+        {
+          "Name": "Y",
+          "Value": "14"
+        }
+      ]
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "7aec78e4-1f77-4297-9a9f-ab75b95e955c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampX.Min",
+      "MetaInstanceID": "7f1e4516-015b-4dcd-ad41-ab029b9a46ec",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-960"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampX.Max",
+      "MetaInstanceID": "877f9ab7-65cb-4ed0-ae65-02e5298af768",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "960"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampY.Min",
+      "MetaInstanceID": "fb398e2b-3771-4ec4-9635-2e3812486a3e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-540"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampY.Max",
+      "MetaInstanceID": "ba29a712-eeb4-4c15-abea-8055016282c1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "560"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "3ad8cb5e-c0d8-488f-a5da-a1adec18ccc4",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "54cfdf62-fa18-472f-81ec-4e11f41da6ee",
+      "MetaID": "16b377aa-c233-4d62-a63d-2f1f90d756c6",
+      "Name": "MouseInputFunc",
+      "Version": "b691b57b-e483-4574-81ab-d3455f9180c7",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core;",
+        "using Framefield.Core.Inputs;",
+        "",
+        "",
+        "namespace Framefield.Core.ID16b377aa_c233_4d62_a63d_2f1f90d756c6",
+        "{",
+        "    public class Class_MouseInput : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IAsyncDependend",
+        "    {",
+        "        public bool AsyncChanged { get { return _asyncChanged; } }",
+        "",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Output = 0,",
+        "            ResetTrigger = 1,",
+        "            ClampXMin = 2,",
+        "            ClampXMax = 3,",
+        "            ClampYMin = 4,",
+        "            ClampYMax = 5",
+        "        }",
+        "        //<<< _inputids ",
+        "",
+        "        public Class_MouseInput()",
+        "        {",
+        "            Input.Mouse.MouseInputEvent += HandleMouseInputEvent;",
+        "        }",
+        "        public override void Dispose()",
+        "        {",
+        "            Input.Mouse.MouseInputEvent -= HandleMouseInputEvent;",
+        "        }",
+        "",
+        "        void HandleMouseInputEvent(object o, MouseInput.MouseEventArgs e)",
+        "        {",
+        "            _lastEventArgs = e;",
+        "            _asyncChanged = true;",
+        "",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.MiddleButtonDown))",
+        "            {",
+        "                _dragX = 0;",
+        "                _dragY = 0;",
+        "            }",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonDown))",
+        "            {",
+        "                _pressed = true;",
+        "            }",
+        "            if (e.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonUp))",
+        "            {",
+        "                _pressed = false;",
+        "            }",
+        "            ",
+        "            if (_pressed)",
+        "            {",
+        "                _dragX += e.X;",
+        "                _dragY += e.Y;",
+        "            }",
+        "",
+        "            _moveX = (int)Utilities.Clamp( _moveX + e.X, _clampXMin, _clampXMax);",
+        "            _moveY = (int)Utilities.Clamp( _moveY + e.Y, _clampYMin, _clampYMax);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Output = (int) inputs[(int)InputId.Output].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var ClampXMin = inputs[(int)InputId.ClampXMin].Eval(context).Value;",
+        "            var ClampXMax = inputs[(int)InputId.ClampXMax].Eval(context).Value;",
+        "            var ClampX = new Vector2(ClampXMin, ClampXMax);",
+        "            var ClampYMin = inputs[(int)InputId.ClampYMin].Eval(context).Value;",
+        "            var ClampYMax = inputs[(int)InputId.ClampYMax].Eval(context).Value;",
+        "            var ClampY = new Vector2(ClampYMin, ClampYMax);",
+        "            //<<< _params",
+        "            ",
+        "            if (ResetTrigger > 0.5)",
+        "            {",
+        "                _moveX = 0;",
+        "                _moveY = 0;",
+        "            }",
+        "            ",
+        "            _clampXMin = ClampXMin;",
+        "            _clampXMax = ClampXMax;",
+        "            _clampYMin = ClampYMin;",
+        "            _clampYMax = ClampYMax;",
+        "",
+        "            _asyncChanged = false;",
+        "",
+        "            if (_lastEventArgs == null)",
+        "            {",
+        "                context.Value = 0;",
+        "                return context;",
+        "            }",
+        "",
+        "            switch (Output)",
+        "            {",
+        "                case 1: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonDown) ? 1 : 0; break;",
+        "                case 2: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.LeftButtonUp) ? 1 : 0; break;",
+        "                case 3: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.MiddleButtonDown) ? 1 : 0; break;",
+        "                case 4: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.MiddleButtonUp) ? 1 : 0; break;",
+        "                case 5: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.RightButtonDown) ? 1 : 0; break;",
+        "                case 6: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.RightButtonUp) ? 1 : 0; break;",
+        "                case 7: context.Value = _lastEventArgs.ButtonFlags.HasFlag(MouseInput.ButtonFlags.Wheel) ? 1 : 0; break;",
+        "                case 8: context.Value = (float)_dragX; break;",
+        "                case 9: context.Value = (float)_dragY; break;",
+        "                case 10: context.Value = _lastEventArgs.WheelDelta; break;",
+        "                case 11: context.Value = _lastEventArgs.X; break;",
+        "                case 12: context.Value = _lastEventArgs.Y; break;",
+        "                case 13: context.Value = (float)_moveX; break;",
+        "                case 14: context.Value = (float)_moveY; break;",
+        "            }",
+        "            return context;",
+        "        }",
+        "",
+        "        bool _asyncChanged = false;",
+        "        MouseInput.MouseEventArgs _lastEventArgs = null;",
+        "        bool _pressed = false;",
+        "        int _dragX = 0;",
+        "        int _dragY = 0;",
+        "        ",
+        "        int _moveX = 0;",
+        "        int _moveY = 0;",
+        "        ",
+        "        double _clampXMin;",
+        "        double _clampXMax;",
+        "        ",
+        "        double _clampYMin;",
+        "        double _clampYMax;",
+        "        ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3ad8cb5e-c0d8-488f-a5da-a1adec18ccc4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4592cbd2-0845-4e44-94b2-79c71a4009c6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7aec78e4-1f77-4297-9a9f-ab75b95e955c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7f1e4516-015b-4dcd-ad41-ab029b9a46ec",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "877f9ab7-65cb-4ed0-ae65-02e5298af768",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fb398e2b-3771-4ec4-9635-2e3812486a3e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ba29a712-eeb4-4c15-abea-8055016282c1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54cfdf62-fa18-472f-81ec-4e11f41da6ee"
+    }
+  ]
+}

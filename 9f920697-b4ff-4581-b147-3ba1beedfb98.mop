@@ -1,0 +1,210 @@
+{
+  "Name": "DistributedRandom",
+  "_id": "9f920697-b4ff-4581-b147-3ba1beedfb98",
+  "Namespace": "lib.math.experimental",
+  "Description": "Returns random numbers between A .. B. \r\n\r\nHave a look at [RandDistributionExample].\r\n\r\nThe distrubtion can be adjusted with the Weight parameters. Consider the following examples of CDF.\r\n\r\n## 0.0\r\n##\r\n##\r\n##\r\n## 0.0\r\n\r\n\r\n#  -1.0\r\n##\r\n####\r\n##\r\n# -1.0\r\n\r\n### 1.0\r\n##\r\n#\r\n##\r\n### 1.0\r\n\r\n# -1.3\r\n#\r\n#\r\n##\r\n#### 2.7",
+  "Inputs": [
+    {
+      "Name": "A",
+      "MetaInstanceID": "90e17533-1e26-4916-be54-ed50c6548f87",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "AWeight",
+      "MetaInstanceID": "c60e4ef7-a1fa-4de9-84ac-604edefd5598",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-1.5",
+      "Max": "10",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "B",
+      "MetaInstanceID": "4156fee0-9e34-4021-94d1-961896a88cf2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "BWeight",
+      "MetaInstanceID": "9842ec87-9e44-447c-9140-11364e3a0a95",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-1.5",
+      "Max": "10",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Seed",
+      "MetaInstanceID": "f0e3184c-b0f6-4023-bc0c-90b0c4a8e21c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "ef1a37e4-aa4f-46fa-a0cf-29294a1b0ec9",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "267adc24-d3b8-4e9e-a023-25219ce23ddf",
+      "MetaID": "5554f477-94b3-4c16-bbf2-6bd1ac0215fc",
+      "Name": "DistributedRandomFunc",
+      "Version": "ce14832d-c90d-4170-8820-f83cd8d37386",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID5554f477_94b3_4c16_bbf2_6bd1ac0215fc",
+        "{",
+        "    public class Class_DistributedRandom : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            A = 0,",
+        "            AWeight = 1,",
+        "            B = 2,",
+        "            BWeight = 3,",
+        "            Seed = 4",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var A = inputs[(int)InputId.A].Eval(context).Value;",
+        "            var AWeight = inputs[(int)InputId.AWeight].Eval(context).Value;",
+        "            var B = inputs[(int)InputId.B].Eval(context).Value;",
+        "            var BWeight = inputs[(int)InputId.BWeight].Eval(context).Value;",
+        "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            //>>> function",
+        "            var rand = new Random((int)(Seed*Seed/1.21f+23423f));",
+        "            var xx= rand.NextDouble();",
+        "            xx= rand.NextDouble();",
+        "            rand = new Random((int)(xx*223+Seed));",
+        "            float t = (float)rand.NextDouble();",
+        "            ",
+        "            ",
+        "            var fadeA= (float)Math.Pow( t, Math.Pow( 0.5, -AWeight));",
+        "            var fadeB= (float)Math.Pow( 1-t, Math.Pow( 0.5, -BWeight));",
+        "            ",
+        "            var v= fadeA * (1 - t) + t * (1-fadeB);",
+        "            ",
+        "            context.Value= (B-A)* v+A;",
+        "            //<<< function",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "90e17533-1e26-4916-be54-ed50c6548f87",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c60e4ef7-a1fa-4de9-84ac-604edefd5598",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4156fee0-9e34-4021-94d1-961896a88cf2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9842ec87-9e44-447c-9140-11364e3a0a95",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f0e3184c-b0f6-4023-bc0c-90b0c4a8e21c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "267adc24-d3b8-4e9e-a023-25219ce23ddf",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ef1a37e4-aa4f-46fa-a0cf-29294a1b0ec9"
+    }
+  ]
+}

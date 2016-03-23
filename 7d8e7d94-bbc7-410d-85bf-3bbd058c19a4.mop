@@ -1,0 +1,98 @@
+{
+  "Name": "CountStrings",
+  "_id": "7d8e7d94-bbc7-410d-85bf-3bbd058c19a4",
+  "Namespace": "lib.text.experimental",
+  "Description": "Counts the elements in a generic String List\r\n",
+  "Inputs": [
+    {
+      "Name": "StringList",
+      "MetaInstanceID": "99101a98-d4a3-4e4f-a2ed-8ba3f3e9a947",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "bab1eeef-a5a9-41b9-9b6e-f6028e951462",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "f6941328-ee7f-4af3-9051-6fc58f44c52e",
+      "MetaID": "5c4b9cee-5ad8-40df-b543-d4b33d460872",
+      "Name": "CountStringsFunc",
+      "Version": "dd557c3b-619c-44eb-afea-18e58fdca29b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "",
+        "namespace Framefield.Core.ID5c4b9cee_5ad8_40df_b543_d4b33d460872",
+        "{",
+        "    public class Class_CountStrings : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            StringList = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> params",
+        "            dynamic StringList = inputs[(int)InputId.StringList].Eval(context).Dynamic;",
+        "            ",
+        "            //<<< params            ",
+        "            if(StringList == null) {",
+        "                Logger.Info(this,\"Can't convert incoming structure to Dynamic\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            context.Value = StringList.Count;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "99101a98-d4a3-4e4f-a2ed-8ba3f3e9a947",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f6941328-ee7f-4af3-9051-6fc58f44c52e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f6941328-ee7f-4af3-9051-6fc58f44c52e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "bab1eeef-a5a9-41b9-9b6e-f6028e951462"
+    }
+  ]
+}

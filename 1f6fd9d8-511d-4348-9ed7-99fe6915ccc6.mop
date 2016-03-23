@@ -1,0 +1,84 @@
+{
+  "Name": "Floor",
+  "_id": "1f6fd9d8-511d-4348-9ed7-99fe6915ccc6",
+  "Namespace": "lib.math",
+  "Description": "Converts a value (float) into an integer value. ",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "f0617317-761a-4e42-8677-a82c2b304c21",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "d099596a-8007-4784-a7bb-9f937b46c559",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "e84f41a3-d7a1-48cd-905f-b37a51eaa40f",
+      "MetaID": "8317dc9a-c8ec-4c31-aa53-fb6abc64fe16",
+      "Name": "FloorFunc",
+      "Version": "fd75d5a8-8791-4b1e-a94a-b7b149806b4f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID8317dc9a_c8ec_4c31_aa53_fb6abc64fe16",
+        "{",
+        "    public class Class_Floor : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "",
+        "            // params >>> ",
+        "            var Value = (float) inputs[0].Eval(context).Value;",
+        "            // <<< params",
+        "",
+        "            ",
+        "            // Function >>> ",
+        "            context.Value = (float) Math.Floor(Value);",
+        "            // <<< Function",
+        "            return context;",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f0617317-761a-4e42-8677-a82c2b304c21",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e84f41a3-d7a1-48cd-905f-b37a51eaa40f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e84f41a3-d7a1-48cd-905f-b37a51eaa40f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d099596a-8007-4784-a7bb-9f937b46c559"
+    }
+  ]
+}

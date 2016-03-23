@@ -1,0 +1,851 @@
+{
+  "Name": "WigglingDustParticles",
+  "_id": "64a491bb-17b6-481c-b301-891f68dffb08",
+  "Namespace": "projects.scene-org.effects",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "WiggleFactor.Z",
+      "MetaInstanceID": "3ef91e69-97b1-431b-ac18-96a9de7831f6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "208edebf-9304-44fa-9275-d021be0a4c07",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "LoadImage",
+      "MetaInstanceID": "a4a6f450-30ae-4fe6-9da5-05dfa3d85948",
+      "MetaID": "384b6557-a535-4766-bce2-6c8c1e6fcf14",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-411.840067918264",
+        "PosY": "260.090094862054",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "2ddcf044-4709-4e79-b466-0780b0c1e1e4",
+            "Type": "Text",
+            "Value": [
+              "assets/project/square/image/blurred_particles.png"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "DustParticles",
+      "MetaInstanceID": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "MetaID": "c7a8acc8-6979-4f17-9ffe-9f9e3110164a",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-411.840067918265",
+        "PosY": "210.090094862051",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "63ae4e24-e91f-47d3-881a-4284423076ff",
+            "Type": "Text",
+            "Value": [
+              "float4x4 objectToWorldMatrix;\r",
+              "float4x4 worldToCameraMatrix;\r",
+              "float4x4 cameraToObjectMatrix; // modelview inverse\r",
+              "float4x4 projMatrix;\r",
+              "float4x4 textureMatrix;\r",
+              "\r",
+              "Texture2D txDiffuse;\r",
+              "\r",
+              "float gridSize;\r",
+              "float3 offset;\r",
+              "float focusDistance;\r",
+              "float focusRange;\r",
+              "int2 textureCells;\r",
+              "float3 waveOffset;\r",
+              "float3 waveFrequency;\r",
+              "float3 waveAmplitude;\r",
+              "float3 waveCenter;\r",
+              "float waveCenterDist;\r",
+              "float waveThickness;\r",
+              "float waveIntensity;\r",
+              "\r",
+              "\r",
+              "\r",
+              "SamplerState samLinear\r",
+              "{\r",
+              "    Filter = MIN_MAG_MIP_LINEAR;\r",
+              "    AddressU = Wrap;\r",
+              "    AddressV = Wrap;\r",
+              "};\r",
+              "\r",
+              "BlendState SrcAlphaBlendingAdd\r",
+              "{\r",
+              "    BlendEnable[0] = TRUE;\r",
+              "    SrcBlend = SRC_ALPHA;\r",
+              "    DestBlend = DEST_ALPHA;\r",
+              "    BlendOp = ADD;\r",
+              "    SrcBlendAlpha = SRC_ALPHA;\r",
+              "    DestBlendAlpha = DEST_ALPHA;\r",
+              "    BlendOpAlpha = ADD;\r",
+              "    RenderTargetWriteMask[0] = 0x0F;\r",
+              "};\r",
+              "\r",
+              "DepthStencilState DisabledDepth\r",
+              "{\r",
+              "    DepthEnable = FALSE;\r",
+              "};\r",
+              "\r",
+              "struct VS_IN\r",
+              "{\r",
+              "    float4 pos : POSITION;\r",
+              "    float3 vertexAdd : OFFSET;\r",
+              "//    int row : ROW;\r",
+              "};\r",
+              "\r",
+              "struct PS_IN\r",
+              "{\r",
+              "    float4 pos : SV_POSITION;\r",
+              "    float2 texCoord: TEXCOORD0;\r",
+              "};\r",
+              "\r",
+              "\r",
+              "float mod(float a, float b)\r",
+              "{\r",
+              "    return a - b*floor(a/b);\r",
+              "}\r",
+              "\r",
+              "float3 mod(float3 a, float b)\r",
+              "{\r",
+              "    return a - b*floor(a/b);\r",
+              "}\r",
+              "\r",
+              "//>>> VS\r",
+              "PS_IN VS( VS_IN input )\r",
+              "{\r",
+              "    PS_IN output = (PS_IN)0;\r",
+              "\r",
+              "    float3 pos = input.pos;\r",
+              "\r",
+              "    // add offset and wave sinus\r",
+              "    //pos += offset;\r",
+              "    \r",
+              "    //\r",
+              "    //pos.x += sin(pos.x*waveFrequency.x) * waveAmplitude.x;\r",
+              "    \r",
+              "    // Concentrate\r",
+              "    pos += fmod(pos,waveOffset) * waveCenter;    \r",
+              "    \r",
+              "    // Distort\r",
+              "    //pos += sin( float3(pos.z + offset.x* offset.z * 0.002 , pos.x, 0)  * waveFrequency)* waveAmplitude;\r",
+              "    //pos += sin( float3(pos.x,  offset.y * offset.z * 0.001231, pos.y )   * waveFrequency)* waveAmplitude;\r",
+              "\r",
+              "    pos += sin( float3(pos.z , pos.x, 0)  * waveFrequency)* waveAmplitude;\r",
+              "    pos += sin( float3(pos.x,  0, pos.y )   * waveFrequency)* waveAmplitude;\r",
+              "    pos += sin( float3(pos.x * 32 + offset.x , pos.y * 31 + offset.y * 0.2 , pos.y )) * offset.z;\r",
+              "\r",
+              "    \r",
+              "    pos -= cameraToObjectMatrix[3];\r",
+              "    pos = mod(pos, gridSize) - gridSize/2.0;\r",
+              "    float3 posWorldspace = pos + cameraToObjectMatrix[3];\r",
+              "\r",
+              "    // add offset shock\r",
+              "    /*\r",
+              "    float distance = length(posWorldspace - waveCenter);\r",
+              "    float posInsideWave = clamp(waveCenterDist - distance, 0.0, waveThickness) * 2.0 * 3.1415 / waveThickness;\r",
+              "    float displace = (0.5 - 0.5 * cos(posInsideWave)) * waveIntensity;\r",
+              "    float3 offsetShock = normalize(posWorldspace - waveCenter) * displace;\r",
+              "    pos += offsetShock;\r",
+              "    */\r",
+              "\r",
+              "    // rotate to camera and create quad\r",
+              "    float3x3 modelViewRotMatrix = worldToCameraMatrix;\r",
+              "    pos = mul(pos, modelViewRotMatrix);\r",
+              "    pos = pos + float3(input.vertexAdd.x, input.vertexAdd.y, 0);\r",
+              "    output.pos = mul(float4(pos.x, pos.y, pos.z, 1.0), projMatrix);\r",
+              "\r",
+              "    // calc distance to focus range\r",
+              "    float dist = (abs(focusDistance - output.pos.z) / focusRange);\r",
+              "    float columnWidth = 1.0 / float(textureCells.y);\r",
+              "    dist = clamp(dist, 0.0, 1.0  - columnWidth);\r",
+              "    dist = dist * float(textureCells.y);\r",
+              "    dist -= mod(dist, 1.0);\r",
+              "\r",
+              "    // calc u\r",
+              "    float columnWidthHalf = columnWidth / 2.0;\r",
+              "    float column = dist * columnWidth + columnWidthHalf;\r",
+              "    float u = column + columnWidthHalf * input.vertexAdd.x / abs(input.vertexAdd.x);\r",
+              "\r",
+              "    // calc v\r",
+              "    float rowHeight = 1.0 / float(textureCells.x);\r",
+              "    float rowHeightHalf = rowHeight / 2.0;\r",
+              "    float r = float(input.vertexAdd.z);\r",
+              "    float rowPos = r * rowHeight + rowHeightHalf;\r",
+              "    float v = rowPos + rowHeightHalf * input.vertexAdd.y / abs(input.vertexAdd.y);\r",
+              "\r",
+              "    output.texCoord = float2(u, v);\r",
+              "\r",
+              "    return output;\r",
+              "}\r",
+              "//<<< VS\r",
+              "\r",
+              "\r",
+              "float4 PS( PS_IN input ) : SV_Target\r",
+              "{\r",
+              "    return txDiffuse.Sample(samLinear, input.texCoord);\r",
+              "}\r",
+              "\r",
+              "technique10 Render\r",
+              "{\r",
+              "    pass P0\r",
+              "    {\r",
+              "        SetGeometryShader( 0 );\r",
+              "        SetVertexShader( CompileShader( vs_4_0, VS() ) );\r",
+              "        SetPixelShader( CompileShader( ps_4_0, PS() ) );\r",
+              "        \r",
+              " //       SetBlendState(SrcAlphaBlendingAdd, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);\r",
+              "        //SetDepthStencilState(DisabledDepth, 0);\r",
+              "    }\r",
+              "} "
+            ]
+          },
+          {
+            "ID": "501b99e4-563a-440e-9c86-720382b3167a",
+            "Type": "Float",
+            "Value": [
+              "9000"
+            ]
+          },
+          {
+            "ID": "ced0ba43-4bea-4383-9114-cf3a6819b9de",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "26af1bc3-b598-4c4e-abd0-8616319b851d",
+            "Type": "Float",
+            "Value": [
+              "12.3236"
+            ]
+          },
+          {
+            "ID": "79c27fce-7861-4759-ac3f-3df59b110135",
+            "Type": "Float",
+            "Value": [
+              "0.04"
+            ]
+          },
+          {
+            "ID": "e5f3808b-5e3b-485d-b2bb-df070400e905",
+            "Type": "Float",
+            "Value": [
+              "0.1075828"
+            ]
+          },
+          {
+            "ID": "fa44e1a0-bb0e-41cb-af10-5471aad4c90c",
+            "Type": "Float",
+            "Value": [
+              "11.85889"
+            ]
+          },
+          {
+            "ID": "06c22671-0977-483e-b658-1dd7d8803303",
+            "Type": "Float",
+            "Value": [
+              "20.46103"
+            ]
+          },
+          {
+            "ID": "0fd67a5e-e231-4089-ab5f-cfe57ba4b607",
+            "Type": "Float",
+            "Value": [
+              "8"
+            ]
+          },
+          {
+            "ID": "e8150f99-2426-459e-b00f-20e7e6e78e0e",
+            "Type": "Float",
+            "Value": [
+              "16"
+            ]
+          },
+          {
+            "ID": "0620a472-cda8-4288-a926-e243ecdc08a5",
+            "Type": "Float",
+            "Value": [
+              "-0.02239201"
+            ]
+          },
+          {
+            "ID": "571b3571-103c-46e6-ae0d-b019f7bbbc99",
+            "Type": "Float",
+            "Value": [
+              "-0.03726733"
+            ]
+          },
+          {
+            "ID": "189b9a3c-b9d9-4c8a-81f8-245783e971cd",
+            "Type": "Float",
+            "Value": [
+              "-0.2851642"
+            ]
+          },
+          {
+            "ID": "4bed0439-09da-4edc-bd91-53f10290d6bd",
+            "Type": "Float",
+            "Value": [
+              "0.7266666"
+            ]
+          },
+          {
+            "ID": "eb68bb89-72c7-40b6-8815-92734335a1fb",
+            "Type": "Float",
+            "Value": [
+              "1.101626"
+            ]
+          },
+          {
+            "ID": "5ebc72a1-e43d-40e5-823c-e0e80eebcb7f",
+            "Type": "Float",
+            "Value": [
+              "1.266667"
+            ]
+          },
+          {
+            "ID": "cf35c3b1-24ad-46cf-9a92-8e75e22e40b4",
+            "Type": "Float",
+            "Value": [
+              "-0.5799999"
+            ]
+          },
+          {
+            "ID": "442261ee-3f0c-41a9-ad05-8e0ceda3356e",
+            "Type": "Float",
+            "Value": [
+              "0.3704539"
+            ]
+          },
+          {
+            "ID": "89488308-604b-4145-964a-b0357251f3f8",
+            "Type": "Float",
+            "Value": [
+              "2.414593"
+            ]
+          },
+          {
+            "ID": "0f320627-aa9d-4a06-a9c2-3878b7059779",
+            "Type": "Float",
+            "Value": [
+              "72.71314"
+            ]
+          },
+          {
+            "ID": "71874f68-b2ab-465d-b9cf-18b032510d99",
+            "Type": "Float",
+            "Value": [
+              "-6.612087"
+            ]
+          },
+          {
+            "ID": "2588fbd4-4c4d-4e96-9efa-d84574848308",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "6f9d96ed-b186-4a99-9a55-81fffa640a49",
+            "Type": "Float",
+            "Value": [
+              "12.5"
+            ]
+          },
+          {
+            "ID": "f1b0af4c-f4e7-42ec-bc49-afb2e3f46d88",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ChannelMixer",
+      "MetaInstanceID": "c3d45345-a229-42d1-b389-56c797e064be",
+      "MetaID": "d18c4dd5-41b7-4b21-a23b-8b711c124eb8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-411.840067918264",
+        "PosY": "235.090094862051",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "6539e55c-15c3-454e-9a02-53013b27490e",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "e00c7d52-e012-4f17-93c2-6d08e3708a59",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4a8a6485-dd61-43ff-9a39-730e6c6a9545",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "e3483e4d-2875-4e03-9d6d-160224b01df7",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "3f95edff-005f-479d-b1a0-c85bdb0fe6a4",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "b07cb0ba-647a-4f0e-942d-7d1107b0bf90",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "1333a7c7-5855-4b8b-abfb-310418ec50da",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "996b4e3c-7182-4394-9b3a-019fabf71c13",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "1cb17929-e72b-4ec1-9567-beb9a6ce7e67",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "edf88db7-665e-42d6-89c1-4ab95d4ee09a",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "555e6e93-f4e2-4fc8-a71f-3ec42c155272",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "617a0b1d-d2b1-4a67-8037-6087ee907db9",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "6e9b29db-8da9-4762-b51d-15dba6e359e7",
+            "Type": "Float",
+            "Value": [
+              "0.01999998"
+            ]
+          },
+          {
+            "ID": "212a747d-17e7-4318-a589-6a8a3a3fdef7",
+            "Type": "Float",
+            "Value": [
+              "0.02333334"
+            ]
+          },
+          {
+            "ID": "3d4bb1c4-882e-427f-ac6e-db61560a58a0",
+            "Type": "Float",
+            "Value": [
+              "0.1083332"
+            ]
+          },
+          {
+            "ID": "c3ffc190-45fd-4616-be32-61d88f3ddc31",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "fc57f8b7-0df9-4c72-a2ba-ef604e9206dd",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d08d264-aca0-45a5-94cf-b5d59763b4b3",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "4d45236e-99a4-4e8c-b2ba-7d79f5f2daae",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          },
+          {
+            "ID": "280b3505-b285-4f12-ad19-97b872fa1991",
+            "Type": "Float",
+            "Value": [
+              "0"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Disable Z-Test",
+      "MetaInstanceID": "f87fc895-85a6-4263-b58e-fb40ff8d1f76",
+      "MetaID": "1c5247fc-f9d8-451f-91cd-83294ff79974",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "-411.840067918265",
+        "PosY": "185.090094862051",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "43d36c9f-59d1-4029-8101-a810123ad781",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": 8.8480930328369141,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.35218843111910036,
+                  "OutTangentAngle": 3.4937810847088935,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "12.1538461538462": {
+                  "Value": 13.314759254455566,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.35218843111910014,
+                  "OutTangentAngle": -2.7894042224706928,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 2,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "96c1ca98-f4a6-4fdb-9c0c-c2cb973145a5",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "a5af03ce-521b-4e9c-8c3a-fc3f0c331907",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": 68.070037841796875,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": -0.958893955296042,
+                  "OutTangentAngle": 2.1826986982937511,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "8": {
+                  "Value": 56.670036315917969,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 5.3242913518835442,
+                  "OutTangentAngle": 2.1826986982937511,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 2,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "66f599f6-7d4f-4de7-a83f-30e043d5b692",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Curve",
+      "MetaInstanceID": "86ffc8d9-c92a-4c3a-bf2b-d35c62ff40da",
+      "MetaID": "145c3a6b-b91f-450d-ac46-b13c66ebce19",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": [
+          {
+            "ID": "3d314c47-8600-4b64-aea6-b972c28c17bd",
+            "State": {
+              "Changed": false,
+              "Table": {
+                "0": {
+                  "Value": 35.116405487060547,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.12747416536112555,
+                  "OutTangentAngle": 3.2690668189509187,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                },
+                "7.28205128205128": {
+                  "Value": 36.049739837646484,
+                  "Tension": 0.0,
+                  "Bias": 0.0,
+                  "Continuity": 0.0,
+                  "InType": 1,
+                  "OutType": 1,
+                  "InEditMode": 0,
+                  "OutEditMode": 0,
+                  "InTangentAngle": 0.12747416536112544,
+                  "OutTangentAngle": -3.0141184882286676,
+                  "Weighted": false,
+                  "BrokenTangents": false
+                }
+              },
+              "PreCurveMapping": 2,
+              "PostCurveMapping": 2,
+              "PreCurveMapper": {},
+              "PostCurveMapper": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "33cee200-1693-4164-a6e2-16115c7b6f9f",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "f87fc895-85a6-4263-b58e-fb40ff8d1f76",
+      "SourceOpPart": "406baddd-54fb-46a3-a3fd-4b27129ca57e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "208edebf-9304-44fa-9275-d021be0a4c07"
+    },
+    {
+      "SourceOp": "c3d45345-a229-42d1-b389-56c797e064be",
+      "SourceOpPart": "a651e01f-5c4d-479b-9213-4d1fa7b5318c",
+      "TargetOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "TargetOpPart": "5bb3eeb5-a2b5-4ce0-a64e-444d090910d0"
+    },
+    {
+      "SourceOp": "a4a6f450-30ae-4fe6-9da5-05dfa3d85948",
+      "SourceOpPart": "fad40dfa-a94e-4c07-a008-3d6d59f5438a",
+      "TargetOp": "c3d45345-a229-42d1-b389-56c797e064be",
+      "TargetOpPart": "91003f98-786e-44cd-b21f-8485bb82e6bc"
+    },
+    {
+      "SourceOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "SourceOpPart": "da025af4-64fc-4a4b-81d4-5411a252f1d5",
+      "TargetOp": "f87fc895-85a6-4263-b58e-fb40ff8d1f76",
+      "TargetOpPart": "3ac02d74-c136-4d8e-ab18-ac069267a903"
+    },
+    {
+      "SourceOp": "33cee200-1693-4164-a6e2-16115c7b6f9f",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "86ffc8d9-c92a-4c3a-bf2b-d35c62ff40da",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "86ffc8d9-c92a-4c3a-bf2b-d35c62ff40da",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "TargetOpPart": "571f34d6-df5f-445f-9ec5-f4848dc8cfef"
+    },
+    {
+      "SourceOp": "66f599f6-7d4f-4de7-a83f-30e043d5b692",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "a5af03ce-521b-4e9c-8c3a-fc3f0c331907",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "a5af03ce-521b-4e9c-8c3a-fc3f0c331907",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "TargetOpPart": "7ea98ba1-f44f-409b-9c62-f160cc13e7c0"
+    },
+    {
+      "SourceOp": "96c1ca98-f4a6-4fdb-9c0c-c2cb973145a5",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "43d36c9f-59d1-4029-8101-a810123ad781",
+      "TargetOpPart": "9de89cc6-2867-4eb3-9e16-e9568d14a31e"
+    },
+    {
+      "SourceOp": "43d36c9f-59d1-4029-8101-a810123ad781",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "TargetOpPart": "d46c2795-6c64-4e7d-b38e-15f8a42f9455"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3ef91e69-97b1-431b-ac18-96a9de7831f6",
+      "TargetOp": "e4b8e446-8fff-4a34-9379-0103dbe928da",
+      "TargetOpPart": "1609ddf8-062a-4fee-946b-ecef829b1b32"
+    }
+  ]
+}

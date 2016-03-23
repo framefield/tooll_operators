@@ -1,0 +1,99 @@
+{
+  "Name": "Uppercase",
+  "_id": "b78cbe72-5108-4df2-845b-ec5e595a55d5",
+  "Namespace": "lib.text",
+  "Description": "\t\r\n",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "45386844-f62d-4d37-84af-8399809ede39",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "df393ac0-b838-4177-8602-d672fa2fbcc2",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b5f1f0cf-6eb2-4cee-87f9-7d23f7010ac4",
+      "MetaID": "64358b49-508c-4b53-9e5e-adedb40cacdd",
+      "Name": "UppercaseFunc",
+      "Version": "da5c7ba6-4778-40dc-9765-6cca4a02a81f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID64358b49_508c_4b53_9e5e_adedb40cacdd",
+        "{",
+        "    public class Class_Concat : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            string result = string.Empty;",
+        "            //for (int i = 0; i < StringInputs.Connections.Count; ++i) {",
+        "            //    result += StringInputs.Connections[i].Eval(context).Text;",
+        "            //}",
+        "            context.Text = String.ToUpper();",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b5f1f0cf-6eb2-4cee-87f9-7d23f7010ac4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "df393ac0-b838-4177-8602-d672fa2fbcc2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "45386844-f62d-4d37-84af-8399809ede39",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b5f1f0cf-6eb2-4cee-87f9-7d23f7010ac4"
+    }
+  ]
+}

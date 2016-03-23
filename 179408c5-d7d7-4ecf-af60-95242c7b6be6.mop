@@ -1,0 +1,167 @@
+{
+  "Name": "Set Variable",
+  "_id": "179408c5-d7d7-4ecf-af60-95242c7b6be6",
+  "Namespace": "lib.basic",
+  "Description": "Sets a variable to a float value that can be used further down the tree. ",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Name",
+      "MetaInstanceID": "eac68012-9a8c-4f07-ac08-23a2f83c3eee",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value",
+      "MetaInstanceID": "982f6a23-dca4-48ab-b6cc-a87d60f44e8b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SetVariableOut",
+      "MetaInstanceID": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8",
+      "MetaID": "878477ec-b4da-4c98-9e6c-bec70a7096b9",
+      "Name": "Set VariableFunc",
+      "Version": "68970d99-5425-4697-ad41-114f44faf670",
+      "Type": "Generic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID878477ec_b4da_4c98_9e6c_bec70a7096b9",
+        "{",
+        "    public class Class_Set_Variable : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IVariableAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Subtree = 0,",
+        "            Name = 1,",
+        "            Value = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public string VariableName",
+        "        {",
+        "            get",
+        "            {",
+        "                return OperatorPartUtilities.GetInputTextValue(OperatorPart.Connections[(int)InputId.Name]);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Subtree = inputs[(int)InputId.Subtree];",
+        "            var Name = inputs[(int)InputId.Name].Eval(context).Text;",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            float? previousValue = null;",
+        "            if (context.Variables.ContainsKey(Name))",
+        "            {",
+        "                previousValue = context.Variables[Name];",
+        "                context.Variables[Name] = Value;",
+        "            }",
+        "            else",
+        "                context.Variables.Add(Name, Value);",
+        "            ",
+        "//            var invalidator = new OperatorPart.InvalidateVariableAccessors(Name);",
+        "//            Subtree.TraverseWithFunctionUseSpecificBehavior(invalidator, null);",
+        "            context = Subtree.Eval(context);",
+        "            ",
+        "            if (previousValue.HasValue)",
+        "                context.Variables[Name] = previousValue.Value;",
+        "            else",
+        "                context.Variables.Remove(Name);",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eac68012-9a8c-4f07-ac08-23a2f83c3eee",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "982f6a23-dca4-48ab-b6cc-a87d60f44e8b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5a707af5-14d5-41e1-85fb-ee3d4b190dd8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160"
+    }
+  ]
+}

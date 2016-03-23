@@ -1,0 +1,105 @@
+{
+  "Name": "AverageFramerate",
+  "_id": "c1ae3eeb-8176-4933-bc97-0f1a203bd0b6",
+  "Namespace": "lib.basic",
+  "Description": "Returns the current used private memory in megabytes.",
+  "Inputs": [
+    {
+      "Name": "AverageCount",
+      "MetaInstanceID": "4d57ff5d-480c-44c1-b748-816075c44369",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "d068cf7d-e3f4-42f7-bb9a-4821f9e03154",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7a48a5ff-0835-4660-9212-22ebaf9f6df0",
+      "MetaID": "58ebb352-91df-4836-b221-1253318f2760",
+      "Name": "AverageFramerateFunc",
+      "Version": "15f49416-051c-47c1-a4bb-87c5c2f3a79c",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Profiling;",
+        "",
+        "namespace Framefield.Core.ID58ebb352_91df_4836_b221_1253318f2760",
+        "{",
+        "    public class Class_AverageFramerate : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            AverageCount = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var AverageCount = inputs[(int)InputId.AverageCount].Eval(context).Value;",
+        "            //<<< _params",
+        "            //const int FRAME_COUNT = 10;",
+        "            context.Value = 0;",
+        "            if (TimeLogger.FrameCount > AverageCount)",
+        "            {",
+        "                var currentFrame = TimeLogger.LastFrame.Value;",
+        "                var lastNthFrame = TimeLogger.GetLastNthFrame((int)AverageCount).Value;",
+        "                var duration = (float)(currentFrame.StartTime - lastNthFrame.StartTime)/AverageCount;",
+        "                if (duration > 0)",
+        "                {",
+        "                    context.Value = 1.0f/duration;",
+        "                }                ",
+        "            } ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7a48a5ff-0835-4660-9212-22ebaf9f6df0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d068cf7d-e3f4-42f7-bb9a-4821f9e03154"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4d57ff5d-480c-44c1-b748-816075c44369",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7a48a5ff-0835-4660-9212-22ebaf9f6df0"
+    }
+  ]
+}

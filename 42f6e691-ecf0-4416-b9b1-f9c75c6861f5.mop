@@ -1,0 +1,109 @@
+{
+  "Name": "StringFromFile",
+  "_id": "42f6e691-ecf0-4416-b9b1-f9c75c6861f5",
+  "Namespace": "lib.basic.file",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "FilePath",
+      "MetaInstanceID": "ebf0e786-d94b-47b8-a6bf-ba465c2f1d8c",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "test.txt"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Dynamic",
+      "MetaInstanceID": "f12b0339-7781-41ab-846b-0b49a6e4cc49",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7ab09202-ce36-4be0-a2a0-45b05d5d0dec",
+      "MetaID": "ce0035a7-336e-4e64-97e8-ff0fbcd0a3a6",
+      "Name": "StringFromFileFunc",
+      "Version": "7dd3eaf7-5814-4c53-876b-d64e690693d5",
+      "Type": "Dynamic",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Dynamic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using System.Xml;",
+        "using SharpDX;",
+        "",
+        "",
+        "using System.IO;",
+        "",
+        "namespace Framefield.Core.IDce0035a7_336e_4e64_97e8_ff0fbcd0a3a6",
+        "{",
+        "    public class Class_StringFromFile : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            FilePath = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var FilePath = inputs[(int)InputId.FilePath].Eval(context).Text;",
+        "            //<<< _params",
+        "",
+        "            if( FilePath != _filePath) ",
+        "            {",
+        "                _filePath = FilePath;",
+        "                if( File.Exists(_filePath)) {",
+        "                    _content= File.ReadAllText(_filePath);",
+        "                    Logger.Info(this,\"New content: {0}\", _content);",
+        "                }",
+        "                else {",
+        "                    Logger.Warn(this,\"File not found: {0}\", _filePath);",
+        "                }",
+        "            }",
+        "            ",
+        "            context.Text = _content;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        String _content = \"\";",
+        "        String _filePath = \"\";",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ebf0e786-d94b-47b8-a6bf-ba465c2f1d8c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7ab09202-ce36-4be0-a2a0-45b05d5d0dec"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7ab09202-ce36-4be0-a2a0-45b05d5d0dec",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f12b0339-7781-41ab-846b-0b49a6e4cc49"
+    }
+  ]
+}

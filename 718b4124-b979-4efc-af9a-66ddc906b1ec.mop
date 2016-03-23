@@ -1,0 +1,69 @@
+{
+  "Name": "CurrentUserName",
+  "_id": "718b4124-b979-4efc-af9a-66ddc906b1ec",
+  "Namespace": "projects.glitch.helpers",
+  "Description": "Gets the current logged in user name.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Username",
+      "MetaInstanceID": "df6a8241-a169-4af5-996c-82aa5169087d",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a9689077-4ee6-45eb-806a-60826fba1fed",
+      "MetaID": "2d6a5c43-f771-4911-b3dd-4d8c54bc6619",
+      "Name": "CurrentUserNameFunc",
+      "Version": "c74829be-5a7e-4e2c-bbcc-7fbaa33d55a8",
+      "Type": "Dynamic",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID2d6a5c43_f771_4911_b3dd_4d8c54bc6619",
+        "{",
+        "    public class Class_CurrentUserName : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            string name = string.Empty;",
+        "            try",
+        "            {",
+        "                name = Environment.UserName;",
+        "            }",
+        "            catch",
+        "            {",
+        "            }",
+        "            if (String.IsNullOrEmpty(name))",
+        "                name = \"you\";",
+        "            context.Text = name;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a9689077-4ee6-45eb-806a-60826fba1fed",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "df6a8241-a169-4af5-996c-82aa5169087d"
+    }
+  ]
+}

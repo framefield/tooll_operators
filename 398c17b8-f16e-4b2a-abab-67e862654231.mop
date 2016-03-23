@@ -1,0 +1,245 @@
+{
+  "Name": "FFTRange",
+  "_id": "398c17b8-f16e-4b2a-abab-67e862654231",
+  "Namespace": "user.michael",
+  "Description": "Reads a float[512] array of FFT values from a BassLive operatro and averages a specific Hz range to a 0-1 output. Not normalized (volume dependant).\r\n\r\nMake sure the Sample Frequency is the same as in the BassLive operator, otherwise the ranges will be off.\r\n\r\nThe range begins (FFT Start kHz) and ends at (FFT Start kHz + FFT Length kHz)\r\n\r\nOutput is rounded to a specified number of digits so that \"true zero\" output is possible.",
+  "Inputs": [
+    {
+      "Name": "RecBuffer",
+      "MetaInstanceID": "d61517bd-fcfd-4769-817a-2f25f8132bac",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FrequencyStart",
+      "MetaInstanceID": "aa960a6f-ce94-4636-8d33-341c6d4ef5b1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "48000",
+      "Scale": "10",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FrequencyWidth",
+      "MetaInstanceID": "9a77ef51-bd5b-48d0-a876-305838caa611",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "48000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Round Digits",
+      "MetaInstanceID": "6b92ba70-5055-4dc0-ba8a-63a6c7960762",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "4"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "20",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Sample Frequency kHz",
+      "MetaInstanceID": "4d06f4d9-7f51-4bd7-ae4a-4f115e9325fa",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "44.1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "22.05",
+      "Max": "48",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "c94affab-061e-413b-af94-259fd6313354",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a",
+      "MetaID": "dfa304ae-db4d-4ca6-834e-cfd9d1076a50",
+      "Name": "FFTRangeFunc",
+      "Version": "4d320ff0-e59d-4b90-a989-1fdbbabbf17b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "/*  ",
+        "    v.01",
+        "    Michael Auerswald <michael@908video.de>",
+        "",
+        "    Reads a float[512] array of FFT values from a BassLive operator and averages ",
+        "    a specific kHz range to a 0-1 output. Not normalized (volume dependant).",
+        "",
+        "    Make sure the Sample Frequency is the same as in the BassLive operator, ",
+        "    otherwise the ranges will be off.",
+        "",
+        "    The range begins (FFT Start kHz) and ends at (FFT Start kHz + FFT Length kHz)",
+        "",
+        "    Output is rounded to a specified number of digits so that \"true zero\" output is possible.",
+        "*/",
+        "",
+        "namespace Framefield.Core.IDdfa304ae_db4d_4ca6_834e_cfd9d1076a50",
+        "{",
+        "    public class Class_FFTTRangeAverage : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            RecBuffer = 0,",
+        "            FrequencyStart = 1,",
+        "            FrequencyWidth = 2,",
+        "            RoundDigits = 3,",
+        "            SampleFrequencykHz = 4",
+        "        }",
+        "        //<<< _inputids ",
+        "",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Output = 0",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        public override void Dispose() {",
+        "            ",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var RecBuffer = inputs[(int)InputId.RecBuffer].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "            var FrequencyStart = inputs[(int)InputId.FrequencyStart].Eval(context).Value;",
+        "            var FrequencyWidth = inputs[(int)InputId.FrequencyWidth].Eval(context).Value;",
+        "            var RoundDigits = inputs[(int)InputId.RoundDigits].Eval(context).Value;",
+        "            var SampleFrequencykHz = inputs[(int)InputId.SampleFrequencykHz].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            // if no input is connected just output zero",
+        "            if (RecBuffer == null) {",
+        "                context.Value = 0;",
+        "                return context;",
+        "            }",
+        "",
+        "",
+        "            float kHzPerBand = SampleFrequencykHz / _SAMPLES;",
+        "            ",
+        "            int bandStart = (int)Math.Floor(Math.Max(0, Math.Min(FrequencyStart*0.001f / kHzPerBand, _SAMPLES-1)));",
+        "            int bandEnd = (int)Math.Floor(Math.Max(0, Math.Min((FrequencyStart*0.001f + FrequencyWidth*0.001f) / kHzPerBand, _SAMPLES-1)));",
+        "",
+        "            float sum = 0f;",
+        "            for (int i=bandStart; i <= bandEnd; i++)",
+        "            {",
+        "                sum += RecBuffer[i];",
+        "            }",
+        "            float avg = sum / (bandEnd-bandStart+1);",
+        "",
+        "            context.Value = (float)Math.Round(avg, (int)RoundDigits);",
+        "            ",
+        "            return context;",
+        "        }",
+        "        ",
+        "        // Globals",
+        "        const int _SAMPLES = 512; // hardcoded number of fft samples",
+        "       ",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": [
+        "Libs/Bass.Net.dll"
+      ]
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c94affab-061e-413b-af94-259fd6313354"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d61517bd-fcfd-4769-817a-2f25f8132bac",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aa960a6f-ce94-4636-8d33-341c6d4ef5b1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9a77ef51-bd5b-48d0-a876-305838caa611",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6b92ba70-5055-4dc0-ba8a-63a6c7960762",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4d06f4d9-7f51-4bd7-ae4a-4f115e9325fa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b7b94472-a18b-41a7-b3a9-7fb2c8087d6a"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "Name": "Read Value",
+  "_id": "a1839b2d-44f5-40c0-bdd1-5d2e231c590b",
+  "Namespace": "lib.basic",
+  "Description": "This references a Variable that has been defined further up the tree with a \"Set Variable\" operator.\r\n\r\nThe output of this operator is of generic type and will be casted into the respective parameter type like Value or Text.\r\n\r\nThis can also be used to read current context variables likes \"Samples\" and \"AspectRatio\". These are later set by the Player setting.\r\n",
+  "Inputs": [
+    {
+      "Name": "Name",
+      "MetaInstanceID": "43712d15-3cd9-4cd6-be8e-9cdf207457f7",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "i"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "7d04f0aa-bf59-4ce9-aa28-d272dcf1a016",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c9ec516c-7358-4ecf-83ea-3819e08e6f36",
+      "MetaID": "3bf75bab-354b-467a-9e8f-7f13c2da145c",
+      "Name": "Read ValueFunc",
+      "Version": "38b1e3cf-5bfc-407f-9302-23ffef8549fe",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID3bf75bab_354b_467a_9e8f_7f13c2da145c",
+        "{",
+        "    public class Class_Read_Value : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IVariableAccessor, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        public string VariableName {",
+        "            get {",
+        "                return OperatorPartUtilities.GetInputTextValue(OperatorPart.Connections[0]);",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Name = (string) inputs[0].Eval(context).Text;",
+        "            var value = 0.0f;",
+        "            if (context.Variables.TryGetValue(Name, out value))",
+        "                context.Value = value;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "43712d15-3cd9-4cd6-be8e-9cdf207457f7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c9ec516c-7358-4ecf-83ea-3819e08e6f36"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c9ec516c-7358-4ecf-83ea-3819e08e6f36",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7d04f0aa-bf59-4ce9-aa28-d272dcf1a016"
+    }
+  ]
+}

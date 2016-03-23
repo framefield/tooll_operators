@@ -1,0 +1,967 @@
+{
+  "Name": "DustParticles",
+  "_id": "c7a8acc8-6979-4f17-9ffe-9f9e3110164a",
+  "Namespace": "lib.3d.generate",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "63ae4e24-e91f-47d3-881a-4284423076ff",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "5bb3eeb5-a2b5-4ce0-a64e-444d090910d0",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Count",
+      "MetaInstanceID": "501b99e4-563a-440e-9c86-720382b3167a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1000"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "1E+08",
+      "Scale": "1",
+      "ScaleType": "Quadratic",
+      "EnumValues": []
+    },
+    {
+      "Name": "Seed",
+      "MetaInstanceID": "ced0ba43-4bea-4383-9114-cf3a6819b9de",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GridSize",
+      "MetaInstanceID": "26af1bc3-b598-4c4e-abd0-8616319b851d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "20"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SizeRange.X",
+      "MetaInstanceID": "79c27fce-7861-4759-ac3f-3df59b110135",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SizeRange.Y",
+      "MetaInstanceID": "e5f3808b-5e3b-485d-b2bb-df070400e905",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset.X",
+      "MetaInstanceID": "571f34d6-df5f-445f-9ec5-f4848dc8cfef",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset.Y",
+      "MetaInstanceID": "7ea98ba1-f44f-409b-9c62-f160cc13e7c0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset.Z",
+      "MetaInstanceID": "1609ddf8-062a-4fee-946b-ecef829b1b32",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Focus.Distance",
+      "MetaInstanceID": "fa44e1a0-bb0e-41cb-af10-5471aad4c90c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Focus.Range",
+      "MetaInstanceID": "06c22671-0977-483e-b658-1dd7d8803303",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextureCells.X",
+      "MetaInstanceID": "0fd67a5e-e231-4089-ab5f-cfe57ba4b607",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "8"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "32",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TextureCells.Y",
+      "MetaInstanceID": "e8150f99-2426-459e-b00f-20e7e6e78e0e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "16"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "32",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveOffset.X",
+      "MetaInstanceID": "0620a472-cda8-4288-a926-e243ecdc08a5",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveOffset.Y",
+      "MetaInstanceID": "571b3571-103c-46e6-ae0d-b019f7bbbc99",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveOffset.Z",
+      "MetaInstanceID": "189b9a3c-b9d9-4c8a-81f8-245783e971cd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveFrequency.X",
+      "MetaInstanceID": "4bed0439-09da-4edc-bd91-53f10290d6bd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveFrequency.Y",
+      "MetaInstanceID": "eb68bb89-72c7-40b6-8815-92734335a1fb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveFrequency.Z",
+      "MetaInstanceID": "5ebc72a1-e43d-40e5-823c-e0e80eebcb7f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "3"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveAmplitude.X",
+      "MetaInstanceID": "cf35c3b1-24ad-46cf-9a92-8e75e22e40b4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveAmplitude.Y",
+      "MetaInstanceID": "442261ee-3f0c-41a9-ad05-8e0ceda3356e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveAmplitude.Z",
+      "MetaInstanceID": "89488308-604b-4145-964a-b0357251f3f8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveCenter.X",
+      "MetaInstanceID": "0f320627-aa9d-4a06-a9c2-3878b7059779",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveCenter.Y",
+      "MetaInstanceID": "d46c2795-6c64-4e7d-b38e-15f8a42f9455",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveCenter.Z",
+      "MetaInstanceID": "71874f68-b2ab-465d-b9cf-18b032510d99",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "CenterDistance",
+      "MetaInstanceID": "2588fbd4-4c4d-4e96-9efa-d84574848308",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "20"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveThickness",
+      "MetaInstanceID": "6f9d96ed-b186-4a99-9a55-81fffa640a49",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "15"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "WaveIntensity",
+      "MetaInstanceID": "f1b0af4c-f4e7-42ec-bc49-afb2e3f46d88",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "da025af4-64fc-4a4b-81d4-5411a252f1d5",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f",
+      "MetaID": "bb8be00a-3a9e-4538-8816-a27803d246dc",
+      "Name": "DustParticlesFunc",
+      "Version": "9ff89a50-a6c1-4888-898d-1165533bf25b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D;",
+        "using SharpDX.Direct3D11;",
+        "using Framefield.Core.Rendering;",
+        "using Buffer = SharpDX.Direct3D11.Buffer;",
+        "",
+        "namespace Framefield.Core.IDbb8be00a_3a9e_4538_8816_a27803d246dc",
+        "{",
+        "    public class Class_DustParticles : FXSourceCodeFunction, IFXSceneSourceCode",
+        "    {",
+        "        public override void Dispose() {",
+        "            Utilities.DisposeObj(ref _mesh);",
+        "            Utilities.DisposeObj(ref _inputLayout);",
+        "            base.Dispose();",
+        "        }",
+        "",
+        "        bool _firstEval = true;",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            if (_firstEval) {",
+        "                for (int i = 0; i < NumCodes(); ++i)",
+        "                    Compile(i);",
+        "                _firstEval = false;",
+        "                Changed = true;",
+        "            }",
+        "",
+        "            _image = inputs[1].Eval(context).Image;",
+        "                ",
+        "            if (Changed) {",
+        "                var count = (int) inputs[2].Eval(context).Value;",
+        "                var seed = (int) inputs[3].Eval(context).Value;",
+        "                var gridSize = inputs[4].Eval(context).Value;",
+        "                var particleSizeRange = Utilities.EvaluateVector2(context, inputs, 5);",
+        "                _offset = Utilities.EvaluateVector3(context, inputs, 7);",
+        "                _focus = Utilities.EvaluateVector2(context, inputs, 10);",
+        "                var textureCells = Utilities.EvaluateVector2(context, inputs, 12);",
+        "                _waveOffset = Utilities.EvaluateVector3(context, inputs, 14);",
+        "                _waveFrequency = Utilities.EvaluateVector3(context, inputs, 17);",
+        "                _waveAmplitude = Utilities.EvaluateVector3(context, inputs, 20);",
+        "                _waveCenter = Utilities.EvaluateVector3(context, inputs, 23);",
+        "                _centerDistance = inputs[26].Eval(context).Value;",
+        "                _waveThickness = inputs[27].Eval(context).Value;",
+        "                _waveIntensity = inputs[28].Eval(context).Value;",
+        "                ",
+        "                bool rebuildParticles = (count != _count) ||",
+        "                                        (seed != _seed) ||",
+        "                                        (gridSize != _gridSize) ||",
+        "                                        (particleSizeRange != _particleSizeRange) ||",
+        "                                        (textureCells != _textureCells);",
+        "                _count = count;",
+        "                _seed = seed;",
+        "                _gridSize = gridSize;",
+        "                _particleSizeRange = particleSizeRange;",
+        "                _textureCells = textureCells;",
+        "                ",
+        "                if (rebuildParticles)",
+        "                    CreateParticles();",
+        "                ",
+        "                Changed = false;",
+        "            }",
+        "",
+        "            var D3DDevice = context.D3DDevice;",
+        "",
+        "            try {",
+        "                context.D3DDevice.ImmediateContext.ClearState();",
+        "",
+        "                context.ObjectTWorld = Matrix.Identity;",
+        "                var matrixVariable = _effect.GetVariableByName(\"objectToWorldMatrix\").AsMatrix();",
+        "                matrixVariable.SetMatrix(context.ObjectTWorld);",
+        "                matrixVariable = _effect.GetVariableByName(\"worldToCameraMatrix\").AsMatrix();",
+        "                matrixVariable.SetMatrix(context.WorldToCamera);",
+        "                matrixVariable = _effect.GetVariableByName(\"cameraToObjectMatrix\").AsMatrix();",
+        "                var cameraToObject = Matrix.Invert(/*context.ObjectTWorld */ context.WorldToCamera);",
+        "                //Logger.Info(this,\"campos: {0}\", cameraToObject.get_Rows(3));",
+        "                matrixVariable.SetMatrix(cameraToObject);",
+        "                matrixVariable = _effect.GetVariableByName(\"projMatrix\").AsMatrix();",
+        "                matrixVariable.SetMatrix(context.CameraProjection);",
+        "",
+        "                using (var imageResourceView = new ShaderResourceView(D3DDevice, _image)) {",
+        "                    var textureVariable = _effect.GetVariableByName(\"txDiffuse\").AsShaderResource();",
+        "                    textureVariable.SetResource(imageResourceView);",
+        "    ",
+        "                    var floatVariable = _effect.GetVariableByName(\"gridSize\").AsScalar();",
+        "                    floatVariable.Set(_gridSize);",
+        "    ",
+        "                    var vectorVariable = _effect.GetVariableByName(\"offset\").AsVector();",
+        "                    vectorVariable.Set(_offset);",
+        "    ",
+        "                    floatVariable = _effect.GetVariableByName(\"focusDistance\").AsScalar();",
+        "                    floatVariable.Set(_focus.X);",
+        "    ",
+        "                    floatVariable = _effect.GetVariableByName(\"focusRange\").AsScalar();",
+        "                    floatVariable.Set(_focus.Y);",
+        "    ",
+        "                    vectorVariable = _effect.GetVariableByName(\"textureCells\").AsVector();",
+        "                    vectorVariable.Set(_textureCells);",
+        "    ",
+        "                    vectorVariable = _effect.GetVariableByName(\"waveOffset\").AsVector();",
+        "                    vectorVariable.Set(_waveOffset);",
+        "    ",
+        "                    vectorVariable = _effect.GetVariableByName(\"waveFrequency\").AsVector();",
+        "                    vectorVariable.Set(_waveFrequency);",
+        "    ",
+        "                    vectorVariable = _effect.GetVariableByName(\"waveAmplitude\").AsVector();",
+        "                    vectorVariable.Set(_waveAmplitude);",
+        "    ",
+        "                    vectorVariable = _effect.GetVariableByName(\"waveCenter\").AsVector();",
+        "                    vectorVariable.Set(_waveCenter);",
+        "    ",
+        "                    floatVariable = _effect.GetVariableByName(\"waveCenterDist\").AsScalar();",
+        "                    floatVariable.Set(_centerDistance);",
+        "    ",
+        "                    floatVariable = _effect.GetVariableByName(\"waveThickness\").AsScalar();",
+        "                    floatVariable.Set(_waveThickness);",
+        "    ",
+        "                    floatVariable = _effect.GetVariableByName(\"waveIntensity\").AsScalar();",
+        "                    floatVariable.Set(_waveIntensity);",
+        "    ",
+        "                    if (context.DepthStencilView != null)",
+        "                        context.D3DDevice.ImmediateContext.OutputMerger.SetTargets(context.DepthStencilView, context.RenderTargetView);",
+        "                    else",
+        "                        context.D3DDevice.ImmediateContext.OutputMerger.SetTargets(context.RenderTargetView);",
+        "    ",
+        "                    if (context.BlendState != null) {",
+        "                        context.D3DDevice.ImmediateContext.OutputMerger.BlendState = context.BlendState;",
+        "                    }",
+        "    ",
+        "                    if (context.DepthStencilState != null) {",
+        "                        context.D3DDevice.ImmediateContext.OutputMerger.DepthStencilState = context.DepthStencilState;",
+        "                    }",
+        "    ",
+        "                    if (context.RasterizerState != null) {",
+        "                        context.D3DDevice.ImmediateContext.Rasterizer.State = context.RasterizerState;",
+        "                    }",
+        "    ",
+        "                    context.D3DDevice.ImmediateContext.Rasterizer.SetViewports(new [] { context.Viewport });",
+        "                    context.D3DDevice.ImmediateContext.InputAssembler.InputLayout = _inputLayout;",
+        "                    context.D3DDevice.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;",
+        "                    context.D3DDevice.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_mesh.Vertices, _mesh.AttributesSize, 0));",
+        "    ",
+        "                    var technique = _effect.GetTechniqueByIndex(0);",
+        "                    for (int i2 = 0; i2 < technique.Description.PassCount; ++i2) {",
+        "                        technique.GetPassByIndex(i2).Apply(context.D3DDevice.ImmediateContext);",
+        "                        context.D3DDevice.ImmediateContext.Draw(_mesh.NumTriangles * 3, 0);",
+        "                    }",
+        "                }",
+        "            }",
+        "            catch (Exception exception) {",
+        "                Logger.Error(this,\"Load Effect error: {0}\", exception.Message);",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "//         void updateSeed(ref int seed) {",
+        "//           int n = seed*137;",
+        "//           seed = (n << 13) ^ n;",
+        "//         }",
+        "",
+        "        private void CreateParticles() {",
+        "            var inputElements = new InputElement[] {",
+        "                            new InputElement(\"POSITION\", 0, SharpDX.DXGI.Format.R32G32B32A32_Float, 0, 0),",
+        "                            new InputElement(\"OFFSET\", 0, SharpDX.DXGI.Format.R32G32B32_Float, 16, 0),",
+        "//                            new InputElement(\"OFFSET\", 0, SharpDX.DXGI.Format.R32G32_Float, 16, 0),",
+        "//                            new InputElement(\"ROW\", 0, SharpDX.DXGI.Format.R32_UInt, 24, 0)",
+        "                        };",
+        "",
+        "            var attributesSize = 28;",
+        "            int streamSize = 2 * 3 * attributesSize * _count;",
+        "            var vertexStream = new DataStream(streamSize, true, true);",
+        "",
+        "            Random _random = new Random(_seed);",
+        "            float gridSizeHalf = _gridSize/2.0f;",
+        "",
+        "            for (int particleIdx = 0; particleIdx < _count; ++particleIdx) {",
+        "                float noise1 = (float) _random.NextDouble();",
+        "                float noise2 = (float) _random.NextDouble();",
+        "                float noise3 = (float) _random.NextDouble();",
+        "",
+        "                var pos = new Vector4(-gridSizeHalf + _gridSize * noise1,",
+        "                                      -gridSizeHalf + _gridSize * noise2,",
+        "                                      -gridSizeHalf + _gridSize * noise3,",
+        "                                      1.0f);",
+        "                var size = _particleSizeRange.X + (_particleSizeRange.Y - _particleSizeRange.X) * ((float) _random.NextDouble());",
+        "                var halfSize = size/2.0f;",
+        "                float row = (int) (((float) _random.NextDouble()) * (_textureCells.X - 1.0f));",
+        "                //Logger.Info(this,\"row: {0}\", row);",
+        "",
+        "                // tri 1 vert 1",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(halfSize, halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "                // tri 1 vert 2",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(halfSize, -halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "                // tri 1 vert 3",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(-halfSize, -halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "                // tri 2 vert 1",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(-halfSize, -halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "                // tri 2 vert 2",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(-halfSize, halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "                // tri 2 vert 3",
+        "                vertexStream.Write(pos);",
+        "                vertexStream.Write(new Vector3(halfSize, halfSize, row));",
+        "//                vertexStream.Write(row);",
+        "",
+        "            }",
+        "",
+        "            vertexStream.Position = 0;",
+        "",
+        "            var vertices = new Buffer(D3DDevice.Device, vertexStream, new BufferDescription() {",
+        "                BindFlags = BindFlags.VertexBuffer,",
+        "                CpuAccessFlags = CpuAccessFlags.None,",
+        "                OptionFlags = ResourceOptionFlags.None,",
+        "                SizeInBytes = streamSize,",
+        "                Usage = ResourceUsage.Default",
+        "            });",
+        "",
+        "            Utilities.DisposeObj(ref _mesh);",
+        "            Utilities.DisposeObj(ref _inputLayout);",
+        "            _mesh = new Mesh() { InputElements = inputElements, Vertices = vertices, NumTriangles = _count*2, AttributesSize = attributesSize };",
+        "            if (_effect != null && Core.D3DDevice.Device != null) {",
+        "                var technique = _effect.GetTechniqueByIndex(0);",
+        "                var pass = technique.GetPassByIndex(0);",
+        "                _inputLayout = new InputLayout(Core.D3DDevice.Device, pass.Description.Signature, inputElements);",
+        "            }",
+        "        }",
+        "",
+        "        InputLayout _inputLayout = null;",
+        "        Texture2D _image = null;",
+        "        Mesh _mesh = null;",
+        "        int _count;",
+        "        int _seed;",
+        "        float _gridSize;",
+        "        Vector2 _particleSizeRange;",
+        "        Vector3 _offset;",
+        "        Vector2 _focus;",
+        "        Vector2 _textureCells;",
+        "        Vector3 _waveOffset;",
+        "        Vector3 _waveFrequency;",
+        "        Vector3 _waveAmplitude;",
+        "        Vector3 _waveCenter;",
+        "        float _centerDistance;",
+        "        float _waveThickness;",
+        "        float _waveIntensity;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "da025af4-64fc-4a4b-81d4-5411a252f1d5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "63ae4e24-e91f-47d3-881a-4284423076ff",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5bb3eeb5-a2b5-4ce0-a64e-444d090910d0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "501b99e4-563a-440e-9c86-720382b3167a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ced0ba43-4bea-4383-9114-cf3a6819b9de",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "26af1bc3-b598-4c4e-abd0-8616319b851d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "79c27fce-7861-4759-ac3f-3df59b110135",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e5f3808b-5e3b-485d-b2bb-df070400e905",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "571f34d6-df5f-445f-9ec5-f4848dc8cfef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7ea98ba1-f44f-409b-9c62-f160cc13e7c0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1609ddf8-062a-4fee-946b-ecef829b1b32",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fa44e1a0-bb0e-41cb-af10-5471aad4c90c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "06c22671-0977-483e-b658-1dd7d8803303",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0fd67a5e-e231-4089-ab5f-cfe57ba4b607",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e8150f99-2426-459e-b00f-20e7e6e78e0e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0620a472-cda8-4288-a926-e243ecdc08a5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "571b3571-103c-46e6-ae0d-b019f7bbbc99",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "189b9a3c-b9d9-4c8a-81f8-245783e971cd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4bed0439-09da-4edc-bd91-53f10290d6bd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb68bb89-72c7-40b6-8815-92734335a1fb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5ebc72a1-e43d-40e5-823c-e0e80eebcb7f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cf35c3b1-24ad-46cf-9a92-8e75e22e40b4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "442261ee-3f0c-41a9-ad05-8e0ceda3356e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "89488308-604b-4145-964a-b0357251f3f8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0f320627-aa9d-4a06-a9c2-3878b7059779",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d46c2795-6c64-4e7d-b38e-15f8a42f9455",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71874f68-b2ab-465d-b9cf-18b032510d99",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2588fbd4-4c4d-4e96-9efa-d84574848308",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6f9d96ed-b186-4a99-9a55-81fffa640a49",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f1b0af4c-f4e7-42ec-bc49-afb2e3f46d88",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "05d497e3-9b8c-4b7f-aa70-c2ed3b727b4f"
+    }
+  ]
+}

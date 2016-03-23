@@ -1,0 +1,130 @@
+{
+  "Name": "FMod",
+  "_id": "6d4233cf-7551-4797-bd17-6d0506c649d4",
+  "Namespace": "lib.math",
+  "Description": "This is a variation of the [Modulo] operation that consistently works for negative values.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "bbb0ba8d-2b09-45b5-94a4-4a72c64868fb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "208fa753-cab8-493d-8835-d46ded1b8bce",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "f70cedb0-9f69-4749-a808-7d95df4b6409",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "35e520ff-6b7a-4237-9955-f700a887d6d6",
+      "MetaID": "69bc520e-e470-450d-86c9-673da671ef67",
+      "Name": "FModFunc",
+      "Version": "beb11a8d-00cb-42a9-b344-c97650b690b0",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID69bc520e_e470_450d_86c9_673da671ef67",
+        "{",
+        "    public class Class_FMod : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value1 = 0,",
+        "            Value2 = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Value1 = inputs[(int)InputId.Value1].Eval(context).Value;",
+        "            var Value2 = inputs[(int)InputId.Value2].Eval(context).Value;",
+        "            //<<< _params",
+        "            //>>> function",
+        "            if (Value2 != 0) {",
+        "                if(Value1 < 0) {",
+        "                    context.Value= Value2 + (Value1 % Value2);",
+        "                }",
+        "                else {",
+        "                    context.Value= Value1 % Value2;",
+        "                }",
+        "            }",
+        "            else {",
+        "                context.Value= 0.0f;",
+        "            }",
+        "            //<<< function",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bbb0ba8d-2b09-45b5-94a4-4a72c64868fb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "35e520ff-6b7a-4237-9955-f700a887d6d6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "208fa753-cab8-493d-8835-d46ded1b8bce",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "35e520ff-6b7a-4237-9955-f700a887d6d6"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "35e520ff-6b7a-4237-9955-f700a887d6d6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f70cedb0-9f69-4749-a808-7d95df4b6409"
+    }
+  ]
+}

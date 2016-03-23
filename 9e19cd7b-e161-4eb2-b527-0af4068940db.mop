@@ -1,0 +1,93 @@
+{
+  "Name": "SaveTime",
+  "_id": "9e19cd7b-e161-4eb2-b527-0af4068940db",
+  "Namespace": "projects.bsm2014.helpers",
+  "Description": "SaveTime",
+  "Inputs": [
+    {
+      "Name": "Subtree",
+      "MetaInstanceID": "c0727d5d-3ea6-4b07-b63a-63c14b08b1fa",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SetVariableOut",
+      "MetaInstanceID": "e0a26296-bcd9-4725-9636-ad09bd77e078",
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Time",
+      "MetaInstanceID": "217ebac1-bdeb-4f0f-83e5-dcb2a7372d31",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1226.6692872656",
+        "PosY": "-767.513618733457",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Set Variable",
+      "MetaInstanceID": "3dc56c87-c0df-4cdc-be3c-5dc610da03ba",
+      "MetaID": "179408c5-d7d7-4ecf-af60-95242c7b6be6",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "1126.6692872656",
+        "PosY": "-792.513618733457",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "eac68012-9a8c-4f07-ac08-23a2f83c3eee",
+            "Type": "Text",
+            "Value": [
+              "MyTime"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "217ebac1-bdeb-4f0f-83e5-dcb2a7372d31",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "3dc56c87-c0df-4cdc-be3c-5dc610da03ba",
+      "TargetOpPart": "982f6a23-dca4-48ab-b6cc-a87d60f44e8b"
+    },
+    {
+      "SourceOp": "3dc56c87-c0df-4cdc-be3c-5dc610da03ba",
+      "SourceOpPart": "7af5e6e9-5e64-4e0c-bf9a-e72801c17160",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e0a26296-bcd9-4725-9636-ad09bd77e078"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c0727d5d-3ea6-4b07-b63a-63c14b08b1fa",
+      "TargetOp": "3dc56c87-c0df-4cdc-be3c-5dc610da03ba",
+      "TargetOpPart": "c1a978ae-8e6c-4866-8a1f-6f06ca9e073b"
+    }
+  ]
+}

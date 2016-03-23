@@ -1,0 +1,106 @@
+{
+  "Name": "Sub",
+  "_id": "35aca9b1-29c5-41ea-ba17-dba64f692808",
+  "Namespace": "lib.math",
+  "Description": "Adds two Values. \r\n\r\nIf you want to sum up more values, use the [Sum Values] operator.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "1ab74814-67af-48af-82cb-e7c1b11ccf94",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "6092ae7f-4ef6-401a-b843-3168c017e305",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "ce44fc03-f3eb-4518-860c-9b2ff291b64e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "32797111-7a51-44a8-8b99-c5680effdbcb",
+      "MetaID": "a9be14e2-0185-46a4-b3b5-51884310dadf",
+      "Name": "SubFunc",
+      "Version": "74d00b95-7aea-494a-b21f-95d25aa07f8f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDa9be14e2_0185_46a4_b3b5_51884310dadf",
+        "{",
+        "    public class Class_Sub : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            var Value1 = (float) inputs[0].Eval(context).Value;",
+        "            var Value2 = (float) inputs[1].Eval(context).Value;",
+        "            //!!automatic generated code ends here",
+        "            context.Value = Value1 - Value2;",
+        "            ",
+        "            //!!automatic generated code starts here",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1ab74814-67af-48af-82cb-e7c1b11ccf94",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "32797111-7a51-44a8-8b99-c5680effdbcb"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6092ae7f-4ef6-401a-b843-3168c017e305",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "32797111-7a51-44a8-8b99-c5680effdbcb"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "32797111-7a51-44a8-8b99-c5680effdbcb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ce44fc03-f3eb-4518-860c-9b2ff291b64e"
+    }
+  ]
+}
