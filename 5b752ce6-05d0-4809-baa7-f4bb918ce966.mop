@@ -1,0 +1,175 @@
+{
+  "Name": "KeyInput2",
+  "_id": "5b752ce6-05d0-4809-baa7-f4bb918ce966",
+  "Namespace": "lib.basic",
+  "Description": "Returns 1 if a specific key is pressing otherwise 0.\r\nSome examples for key-codes:\r\n1,2,3,A,B,C\r\nRight, Left, Up, Down\r\nEnter,Escape\r\nControlKey,ShiftKey\r\nBack,Space\r\n",
+  "Inputs": [
+    {
+      "Name": "Key",
+      "MetaInstanceID": "7e890d31-b836-4241-84dd-53a5eda5f451",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "1"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Hold",
+      "MetaInstanceID": "1e2103e8-68dc-4e85-9de5-588cc5b6ecf0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Hold",
+          "Value": "0"
+        },
+        {
+          "Name": "0 Released",
+          "Value": "1"
+        }
+      ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "25f4838f-88d4-4e97-b4ce-1bc75f90cc27",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "ab5ffc45-3f0f-42c7-80ef-1116ac0350ff",
+      "MetaID": "087f634a-3f0d-4480-aa0a-76da48f3e498",
+      "Name": "KeyInput2Func",
+      "Version": "174edb05-d413-44cd-95be-d1318106ea84",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Windows.Forms;",
+        "using Framefield.Core.Inputs;",
+        "",
+        "",
+        "namespace Framefield.Core.ID087f634a_3f0d_4480_aa0a_76da48f3e498",
+        "{",
+        "    public class Class_KeyInput2 : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IAsyncDependend",
+        "    {",
+        "        public bool AsyncChanged { get { return _asyncChanged; } }",
+        "",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Key = 0,",
+        "            Hold = 1",
+        "        }",
+        "        //<<< _inputids ",
+        "",
+        "        public Class_KeyInput2()",
+        "        {",
+        "            Input.Keyboard.KeyPressedEvent += HandleKeyboardKeyPressedEvent;",
+        "            Input.Keyboard.KeyReleasedEvent += HandleKeyboardKeyReleasedEvent;",
+        "        }",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Input.Keyboard.KeyPressedEvent -= HandleKeyboardKeyPressedEvent;",
+        "            Input.Keyboard.KeyReleasedEvent -= HandleKeyboardKeyReleasedEvent;",
+        "        }",
+        "",
+        "        void HandleKeyboardKeyPressedEvent(object o, KeyboardInput.KeyEventArgs e)",
+        "        {",
+        "            _asyncChanged = true;",
+        "            _lastKey = e.Keys;",
+        "        }",
+        "        void HandleKeyboardKeyReleasedEvent(object o, KeyboardInput.KeyEventArgs e)",
+        "        {",
+        "            _asyncChanged = true;",
+        "            if(!_hold) ",
+        "                _lastKey = 0;;",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var Key = inputs[(int)InputId.Key].Eval(context).Text;",
+        "            var Hold = (int) inputs[(int)InputId.Hold].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            _hold = Hold < 0.5f;",
+        "",
+        "            try",
+        "            {",
+        "                _key = (Keys)_keysConverter.ConvertFromString(Key);",
+        "            }",
+        "            catch (Exception) {",
+        "            }",
+        "",
+        "            //context.Value = Input.Keyboard.IsKeyDown(_key) ? (int)_key : 0;",
+        "            context.Value = (int)_lastKey;",
+        "            _asyncChanged = false;",
+        "            return context;",
+        "        }",
+        "",
+        "        bool _asyncChanged = false;",
+        "        KeysConverter _keysConverter = new KeysConverter();",
+        "        Keys _key;",
+        "        Keys _lastKey;",
+        "        bool _hold=false;",
+        "    }",
+        "",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7e890d31-b836-4241-84dd-53a5eda5f451",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ab5ffc45-3f0f-42c7-80ef-1116ac0350ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1e2103e8-68dc-4e85-9de5-588cc5b6ecf0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ab5ffc45-3f0f-42c7-80ef-1116ac0350ff"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ab5ffc45-3f0f-42c7-80ef-1116ac0350ff",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "25f4838f-88d4-4e97-b4ce-1bc75f90cc27"
+    }
+  ]
+}

@@ -91,7 +91,7 @@
           "                    abs(x1.b-m.b) + abs(x2.b-m.b) + abs(y1.b - m.b) +abs(y2.b - m.b)\r",
           "                ) * Strength + Contrast;\r",
           "    \r",
-          "    return float4(average,average,average,1);\r",
+          "    return  clamp(float4(average,average,average,1),0 , 10000);\r",
           "    \r",
           "}\r",
           "//<<< PS\r",

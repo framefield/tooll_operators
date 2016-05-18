@@ -1,0 +1,224 @@
+{
+  "Name": "RandomStepper",
+  "_id": "cfb7ab08-d7b0-48d5-a843-7e9cebdb4c82",
+  "Namespace": "lib.math",
+  "Description": "Randomly steps within a given value range on every trigger. ",
+  "Inputs": [
+    {
+      "Name": "JumpTrigger",
+      "MetaInstanceID": "9dfc42ce-3fea-46c0-b504-08893a0ac9e9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "168da4fc-8616-44c1-b944-0dbf8af4fda8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "DefaultValue",
+      "MetaInstanceID": "9ad33bc7-f38f-4f8f-8458-af6de82310a2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ValueRange",
+      "MetaInstanceID": "b848aca0-a338-4f70-abf4-a0e2ec9fc459",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "JumpFactor",
+      "MetaInstanceID": "d9225dd5-1a41-466e-aa6e-c53276be6592",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "RandomOut",
+      "MetaInstanceID": "ac61433d-3211-4bf9-ac43-d330ac0eeedc",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "01354b7b-0ed2-4454-85ce-7a889f343a64",
+      "MetaID": "c4bd45e3-8b11-480c-acf7-30306a50555f",
+      "Name": "RandomStepperFunc",
+      "Version": "e604917d-3b83-4268-9386-9981c9cb0a10",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDc4bd45e3_8b11_480c_acf7_30306a50555f",
+        "{",
+        "    public class Class_RandomStepper : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            JumpTrigger = 0,",
+        "            ResetTrigger = 1,",
+        "            DefaultValue = 2,",
+        "            ValueRange = 3,",
+        "            JumpFactor = 4",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var JumpTrigger = inputs[(int)InputId.JumpTrigger].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var DefaultValue = inputs[(int)InputId.DefaultValue].Eval(context).Value;",
+        "            var ValueRange = inputs[(int)InputId.ValueRange].Eval(context).Value;",
+        "            var JumpFactor = inputs[(int)InputId.JumpFactor].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            bool isJumping= JumpTrigger - _lastJumpTrigger > 0.5f;",
+        "            _lastJumpTrigger = JumpTrigger;",
+        "            ",
+        "            bool isResetting = ResetTrigger - _lastResetTrigger > 0.5f;",
+        "            _lastResetTrigger = ResetTrigger;",
+        "            ",
+        "            if(isResetting) {",
+        "                _value = DefaultValue;",
+        "                context.Value = _value;",
+        "                return context;",
+        "            }",
+        "            ",
+        "            if(isJumping) ",
+        "            {",
+        "                var jump= _rand.NextDouble() * _direction * JumpFactor * ValueRange;",
+        "                var r2 = _rand.NextDouble();",
+        "                ",
+        "                //Logger.Info(\"\"+_rand.NextDouble());",
+        "                ",
+        "                var distanceFromDefault = Math.Abs(_value - DefaultValue) / ValueRange;",
+        "                var moveBackToCenter = r2 < distanceFromDefault;",
+        "                                ",
+        "                if(  moveBackToCenter ) {",
+        "                    Logger.Info(this, \"Move back\");",
+        "                    _direction = _value < DefaultValue ? 1 : -1;",
+        "                }",
+        "                _value += (float)jump;",
+        "            }",
+        "            ",
+        "            context.Value = _value;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        float _lastJumpTrigger;",
+        "        float _lastResetTrigger;",
+        "        float _value;",
+        "        float _direction = 1;",
+        "        Random _rand = new Random(1212);",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ac61433d-3211-4bf9-ac43-d330ac0eeedc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9dfc42ce-3fea-46c0-b504-08893a0ac9e9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "168da4fc-8616-44c1-b944-0dbf8af4fda8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9ad33bc7-f38f-4f8f-8458-af6de82310a2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b848aca0-a338-4f70-abf4-a0e2ec9fc459",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d9225dd5-1a41-466e-aa6e-c53276be6592",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "01354b7b-0ed2-4454-85ce-7a889f343a64"
+    }
+  ]
+}

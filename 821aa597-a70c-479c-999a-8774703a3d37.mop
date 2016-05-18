@@ -199,6 +199,36 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "ImageFormat",
+      "MetaInstanceID": "a7638c87-f33b-4f11-beef-966d09221d34",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "28"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "8bit RGBA",
+          "Value": "28"
+        },
+        {
+          "Name": "16bit RGBA",
+          "Value": "10"
+        },
+        {
+          "Name": "16bit RGBA 0...1",
+          "Value": "11"
+        }
+      ]
     }
   ],
   "Outputs": [
@@ -213,7 +243,7 @@
       "MetaInstanceID": "423fee39-61cb-41cc-9e50-b0596a9856d4",
       "MetaID": "190ebf7e-085f-47c9-ad54-7abf55e30bc5",
       "Name": "RenderImagesToFileFunc",
-      "Version": "3645662a-0fea-4ae4-a859-c00732942419",
+      "Version": "387873e1-2c5e-429e-9a17-5ac1f003a9b1",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -227,6 +257,10 @@
         "using SharpDX.Windows;",
         "//<<< _using",
         "using Framefield.Core.Rendering;",
+        "using SharpDX.DXGI;",
+        "",
+        "            ",
+        "",
         "",
         "namespace Framefield.Core.ID190ebf7e_085f_47c9_ad54_7abf55e30bc5",
         "{",
@@ -245,7 +279,8 @@
         "            Format = 7,",
         "            Trigger = 8,",
         "            ExistingFiles = 9,",
-        "            FilenameFormat = 10",
+        "            FilenameFormat = 10,",
+        "            ImageFormat = 11",
         "        }",
         "        //<<< _inputids",
         "",
@@ -272,10 +307,27 @@
         "            var Trigger = inputs[(int)InputId.Trigger].Eval(context).Value;",
         "            var ExistingFiles = (int) inputs[(int)InputId.ExistingFiles].Eval(context).Value;",
         "            var FilenameFormat = inputs[(int)InputId.FilenameFormat].Eval(context).Text;",
+        "            var ImageFormat = (int) inputs[(int)InputId.ImageFormat].Eval(context).Value;",
         "            //<<< _params",
         "",
         "            bool flankDetected = Trigger >= 0.5 && _oldTrigger <= 0.5;",
         "            _oldTrigger = Trigger;",
+        "            ",
+        "            //var oldImageBufferFormat = context.ImageBufferFormat;",
+        "            //context.ImageBufferFormat = (SharpDX.DXGI.Format)ImageFormat;",
+        "",
+        "            //Input.Eval(context);",
+        "            //context.ImageBufferFormat = oldImageBufferFormat;",
+        "            ",
+        "            var bufferFormat = SharpDX.DXGI.Format.R16G16B16A16_Float;",
+        "            ",
+        "            if( (int)ImageFormat == 28) {",
+        "                bufferFormat = SharpDX.DXGI.Format.R8G8B8A8_UNorm;",
+        "            }",
+        "            else if ((int)ImageFormat == 11) {",
+        "                bufferFormat = SharpDX.DXGI.Format.R16G16B16A16_UNorm;",
+        "            }",
+        "            ",
         "",
         "            if (flankDetected && !_renderingActive) {",
         "                _sequenceCreator.Setup(Input, height:SizeHeight, ",
@@ -286,7 +338,8 @@
         "                fileExtension:Format, ",
         "                skipExistingFiles: ExistingFiles != 0,",
         "                directory: Path,",
-        "                filenameFormat: FilenameFormat",
+        "                filenameFormat: FilenameFormat,",
+        "                imageFormat:  bufferFormat // (SharpDX.DXGI.Format)ImageFormat",
         "                );",
         "                _renderingActive = true;",
         "            }",
@@ -377,6 +430,12 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "a111fe8c-3b8b-437a-addd-958ab3970723",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a7638c87-f33b-4f11-beef-966d09221d34",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "423fee39-61cb-41cc-9e50-b0596a9856d4"
     },

@@ -1,7 +1,7 @@
 {
   "Name": "OSCReceiver",
   "_id": "5108d91a-4931-436f-9c7f-c0ae352558f0",
-  "Namespace": "lib.user.lev",
+  "Namespace": "lib.input.osc",
   "Description": "OSC receiver operator. Outputs an associative array of messages received from last frame, which should be processed by OSCMessage* operators. Usually only a single OSCReceiver is needed, but there could be some complex scenarios when the messages are being received from two or more different UDP ports.\r\n\r\nIf \"OSC Path Prefix\" parameter is not empty, then additional filtering of messages is performed. For example if the prefix is set to \"tooll\", then only messages with path of form /tooll/foo/bar are being put in the output associative array - i.e. accepted, other messages are igored. Moreover, the prefix part will be removed from the path, i.e. /tooll/foo/bar becomes /foo/bar - should be considered in the OSCMessage* \"OSC Path\" parameter.",
   "Inputs": [
     {

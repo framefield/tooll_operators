@@ -58,7 +58,7 @@
           "float4 PS( PS_IN input ) : SV_Target\r",
           "{\r",
           "    float4 colr=txDiffuse.Sample(samLinear, input.texCoord) * input.col*ColorMul;\r",
-          "\r",
+          "    colr.a= clamp(colr.a, 0,1);\r",
           "    return  colr;\r",
           "}\r",
           "\r",

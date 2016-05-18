@@ -1,0 +1,207 @@
+{
+  "Name": "GrayScottDiffusionExample",
+  "_id": "dabd9dfb-f0e1-4ceb-93c8-4924dad3a1f0",
+  "Namespace": "projects.feedback.research",
+  "Description": "",
+  "Inputs": [
+    {
+      "Name": "Scenes",
+      "MetaInstanceID": "db634999-0d9e-4919-86cc-97ebc75d5546",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "398cc464-b5e1-4544-906d-cb18e4281b91",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "b3a4f482-704b-4a0b-adbc-19068ebc2d15",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "RenderToImage",
+      "MetaInstanceID": "ed21b336-95ce-43eb-a7cf-e9546dca4b0a",
+      "MetaID": "605d497b-689b-4067-a86d-d3f212732484",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14916.8653683081",
+        "PosY": "-4817.79256909247",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "61ee9712-b32e-4d85-9f5a-5f9ebe2ff760",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14916.8653683081",
+        "PosY": "-4792.79256909247",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "e5391d12-e59c-482a-a700-df8cefbfdde6",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14916.8653683081",
+        "PosY": "-4842.79256909247",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Layer2d",
+      "MetaInstanceID": "1d3c0631-d53b-4072-b89e-6bb308f78ade",
+      "MetaID": "c6e1c4b9-28a8-41fb-a9fa-74591a1239f0",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14672.546667304",
+        "PosY": "-4651.83517392101",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "GrayScottDiffusion1",
+      "MetaInstanceID": "924cb27f-0f52-4aba-87f5-f9bf5ba3c772",
+      "MetaID": "94091185-37f0-4a3c-a6c4-5df812bf62d6",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14672.546667304",
+        "PosY": "-4626.83517392101",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "UseImageBuffer",
+      "MetaInstanceID": "4aec9b32-ad97-4861-b9ad-d1ef2d015efd",
+      "MetaID": "a6806c06-9ffa-4cc2-9beb-8afea3d1fe66",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "14672.546667304",
+        "PosY": "-4601.83517392101",
+        "Width": "150",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "915a9dff-c4e7-4980-87f7-c805bd75e592",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "1ee86828-5f9e-4664-b76e-facf4a5f1cda",
+            "Type": "Text",
+            "Value": [
+              "ImageBuffer1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "4aec9b32-ad97-4861-b9ad-d1ef2d015efd",
+      "SourceOpPart": "4ebde9df-51e3-4edb-9d27-8ad3821b30ed",
+      "TargetOp": "924cb27f-0f52-4aba-87f5-f9bf5ba3c772",
+      "TargetOpPart": "709ad20d-6733-4910-a388-90163b7af0bd"
+    },
+    {
+      "SourceOp": "924cb27f-0f52-4aba-87f5-f9bf5ba3c772",
+      "SourceOpPart": "f777acf4-9ea4-4395-9547-3a6eb8a262a1",
+      "TargetOp": "1d3c0631-d53b-4072-b89e-6bb308f78ade",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "61ee9712-b32e-4d85-9f5a-5f9ebe2ff760",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "ed21b336-95ce-43eb-a7cf-e9546dca4b0a",
+      "TargetOpPart": "c81346af-6726-4c48-b3b1-d7f3af772d23"
+    },
+    {
+      "SourceOp": "1d3c0631-d53b-4072-b89e-6bb308f78ade",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "61ee9712-b32e-4d85-9f5a-5f9ebe2ff760",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "db634999-0d9e-4919-86cc-97ebc75d5546",
+      "TargetOp": "61ee9712-b32e-4d85-9f5a-5f9ebe2ff760",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "ed21b336-95ce-43eb-a7cf-e9546dca4b0a",
+      "SourceOpPart": "b003cd1c-7328-401f-b60f-2e95b6f9ddcb",
+      "TargetOp": "e5391d12-e59c-482a-a700-df8cefbfdde6",
+      "TargetOpPart": "e26b3a5b-cd72-47c4-9e3f-96a679418f26"
+    },
+    {
+      "SourceOp": "e5391d12-e59c-482a-a700-df8cefbfdde6",
+      "SourceOpPart": "76bdc878-f5e9-4b35-a44a-77a23d309c03",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b3a4f482-704b-4a0b-adbc-19068ebc2d15"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "398cc464-b5e1-4544-906d-cb18e4281b91",
+      "TargetOp": "924cb27f-0f52-4aba-87f5-f9bf5ba3c772",
+      "TargetOpPart": "399cf25f-f992-491e-a456-d8360d2b3b7e"
+    }
+  ]
+}

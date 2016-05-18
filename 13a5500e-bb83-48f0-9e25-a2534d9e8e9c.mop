@@ -1,0 +1,186 @@
+{
+  "Name": "StretchedTime",
+  "_id": "13a5500e-bb83-48f0-9e25-a2534d9e8e9c",
+  "Namespace": "lib.basic.timing",
+  "Description": "Returns a timing variable that progresses with the given speed. This can be useful for tweaking VJ-Camera animations (e.g. in conjunction with [RandomObserverCam.TimeOffset]",
+  "Inputs": [
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "e143366c-6ef2-4bfc-a200-c1e114fa08d0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Speed",
+      "MetaInstanceID": "8c559803-98aa-46a2-bbda-a20b36625d98",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampRange.Min",
+      "MetaInstanceID": "82d795b5-8063-4db9-9863-16834facc1aa",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ClampRange.Max",
+      "MetaInstanceID": "dcdb8456-e685-4c13-8dff-cc404c2a5247",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "9999"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "StretchedTime",
+      "MetaInstanceID": "11dc311c-5beb-4ad6-8530-47d57df714e3",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "cc9e4db7-75e0-407b-8815-13d84124cc0e",
+      "MetaID": "04ce3e97-08f5-49b0-9dec-a7c813948cfe",
+      "Name": "StretchedTimeFunc",
+      "Version": "3c654c34-b85a-4c1f-b4d5-af07ab24cbe2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Profiling;",
+        "",
+        "namespace Framefield.Core.ID04ce3e97_08f5_49b0_9dec_a7c813948cfe",
+        "{",
+        "    public class Class_StretchedTime : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            ResetTrigger = 0,",
+        "            Speed = 1,",
+        "            ClampRangeMin = 2,",
+        "            ClampRangeMax = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var Speed = inputs[(int)InputId.Speed].Eval(context).Value;",
+        "            var ClampRangeMin = inputs[(int)InputId.ClampRangeMin].Eval(context).Value;",
+        "            var ClampRangeMax = inputs[(int)InputId.ClampRangeMax].Eval(context).Value;",
+        "            var ClampRange = new Vector2(ClampRangeMin, ClampRangeMax);",
+        "            //<<< _params",
+        "            ",
+        "            var resetPressed = (ResetTrigger - _lastResetTrigger  > 0.5f); ",
+        "            if(resetPressed) {",
+        "                _time = 0;",
+        "            }",
+        "                                    ",
+        "            if(context.GlobalTime != _lastTime) {            ",
+        "                var duration = (float)(context.GlobalTime - _lastTime);",
+        "                _lastTime = context.GlobalTime;",
+        "                _time += duration * Speed;                ",
+        "            }",
+        "            _time = Utilities.Clamp( _time, ClampRangeMin, ClampRangeMax);",
+        "            context.Value = (float)_time;;",
+        "            return context;",
+        "        }",
+        "",
+        "        private double _time; ",
+        "        private double _lastTime;",
+        "        private float _lastResetTrigger;",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e143366c-6ef2-4bfc-a200-c1e114fa08d0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cc9e4db7-75e0-407b-8815-13d84124cc0e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8c559803-98aa-46a2-bbda-a20b36625d98",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cc9e4db7-75e0-407b-8815-13d84124cc0e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "82d795b5-8063-4db9-9863-16834facc1aa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cc9e4db7-75e0-407b-8815-13d84124cc0e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "dcdb8456-e685-4c13-8dff-cc404c2a5247",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cc9e4db7-75e0-407b-8815-13d84124cc0e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cc9e4db7-75e0-407b-8815-13d84124cc0e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11dc311c-5beb-4ad6-8530-47d57df714e3"
+    }
+  ]
+}

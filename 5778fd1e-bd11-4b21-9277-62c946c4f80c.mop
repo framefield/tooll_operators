@@ -19,8 +19,10 @@
           "//<<< _common parameters\r",
           "\r",
           "//>>> _parameters\r",
-          "Texture2D Image1;",
-          "Texture2D Image2;",
+          "Texture2D ImageA;",
+          "Texture2D ImageB;",
+          "float ColorMode;",
+          "float AlphaMode;",
           "//<<< _parameters\r",
           " \r",
           "//>>> setup\r",
@@ -70,11 +72,53 @@
           "\r",
           "float4 PS( PS_IN input ) : SV_Target\r",
           "{\r",
-          "    float4 t0 = Image1.Sample(samNearest, input.texCoord); \r",
-          "    float4 t1 = Image2.Sample(samNearest, input.texCoord);    \r",
+          "    float4 tA = ImageA.Sample(samNearest, input.texCoord); \r",
+          "    float4 tB = ImageB.Sample(samNearest, input.texCoord);    \r",
           "\r",
-          "    float a = t0.a + t1.a - t0.a*t1.a;\r",
-          "    float3 rgb = (1.0 - t1.a)*t0.rgb + t1.a*t1.rgb;   \r",
+          "    float a = tA.a + tB.a - tA.a*tB.a;\r",
+          "    float3 rgb = (1.0 - tB.a)*tA.rgb + tB.a*tB.rgb;   \r",
+          "    \r",
+          "    switch( (int)ColorMode) {\r",
+          "        // screen\r",
+          "        case 1:\r",
+          "            rgb = 1-(1-tA.rgb) * (1-tB.rgb);\r",
+          "            break;\r",
+          "            \r",
+          "        // multiply\r",
+          "        case 2:\r",
+          "            rgb = tA.rgb * tB.rgb;\r",
+          "            break;\r",
+          "        //\r",
+          "        case 3:\r",
+          "            rgb = tA.rgb + tB.rgb;\r",
+          "            break;\r",
+          "        \r",
+          "        // overlay\r",
+          "        case 4:\r",
+          "            rgb = float3( \r",
+          "                tA.r < 0.5?(2.0 * tA.r * tB.r) : (1.0-2.0*(1.0-tA.r)*(1.0- tB.r)),\r",
+          "                tA.g < 0.5?(2.0 * tA.g * tB.g) : (1.0-2.0*(1.0-tA.g)*(1.0- tB.g)),\r",
+          "                tA.b < 0.5?(2.0 * tA.b * tB.b) : (1.0-2.0*(1.0-tA.b)*(1.0- tB.b)));\r",
+          "            break;\r",
+          "            \r",
+          "        // difference\r",
+          "        case 5:\r",
+          "            rgb = abs(tA.rgb - tB.rgb) * tB.a + tB.rgb * (1.0 - tB.a);\r",
+          "            break;        \r",
+          "    }\r",
+          "    \r",
+          "    switch( (int)AlphaMode) {\r",
+          "        case 1:\r",
+          "            a = tA.a;\r",
+          "            break;\r",
+          "        case 2:\r",
+          "            a = tB.a;\r",
+          "            break;\r",
+          "            \r",
+          "        case  3:\r",
+          "            a =1;\r",
+          "            break;\r",
+          "    }\r",
           "    \r",
           "    return float4(rgb, a);\r",
           "\r",
@@ -106,7 +150,7 @@
       "EnumValues": []
     },
     {
-      "Name": "Image1",
+      "Name": "ImageA",
       "MetaInstanceID": "31cbd2f8-2f42-403d-9142-3ad22e6b6225",
       "DefaultValue": {
         "Type": "Image",
@@ -123,7 +167,7 @@
       "EnumValues": []
     },
     {
-      "Name": "Image2",
+      "Name": "ImageB",
       "MetaInstanceID": "9d7470a5-c572-4924-b121-b6e2b1614034",
       "DefaultValue": {
         "Type": "Image",
@@ -138,6 +182,82 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "ColorMode",
+      "MetaInstanceID": "cc982fe1-68b7-40f8-a1cc-cab61033d987",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "NormalBlend",
+          "Value": "0"
+        },
+        {
+          "Name": "Screen",
+          "Value": "1"
+        },
+        {
+          "Name": "Multiply",
+          "Value": "2"
+        },
+        {
+          "Name": "Add",
+          "Value": "3"
+        },
+        {
+          "Name": "Overlay",
+          "Value": "4"
+        },
+        {
+          "Name": "Difference",
+          "Value": "5"
+        }
+      ]
+    },
+    {
+      "Name": "AlphaMode",
+      "MetaInstanceID": "b1d7382a-f22c-4cad-9294-2848f12136da",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Normal",
+          "Value": "0"
+        },
+        {
+          "Name": "MaskWithA",
+          "Value": "1"
+        },
+        {
+          "Name": "MaskWithB",
+          "Value": "2"
+        },
+        {
+          "Name": "Opaque",
+          "Value": "3"
+        }
+      ]
     }
   ],
   "Outputs": [
@@ -152,7 +272,7 @@
       "MetaInstanceID": "0361546c-cc78-4e2c-a49b-6d8d12b57129",
       "MetaID": "719e0132-6622-4aba-8c92-8eb8e417529e",
       "Name": "BlendImagesFunc",
-      "Version": "52eff8e8-6cd0-4c45-a8fb-7fb6d2e532a6",
+      "Version": "e5a00aaf-db2a-4a3e-824d-ca0f398c5a98",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -174,8 +294,10 @@
         "        private enum InputId",
         "        {",
         "            Code = 0,",
-        "            Image1 = 1,",
-        "            Image2 = 2",
+        "            ImageA = 1,",
+        "            ImageB = 2,",
+        "            ColorMode = 3,",
+        "            AlphaMode = 4",
         "        }",
         "        //<<< _inputids",
         "",
@@ -183,21 +305,28 @@
         "        {",
         "            return PrepareAndEvalOnChange(context, () =>",
         "            {",
-        "                //>>> __params",
+        "                //>>> _params",
         "                var Code = inputs[(int)InputId.Code].Eval(context).Text;",
-        "                var Image1 = inputs[(int)InputId.Image1].Eval(context).Image; if (Image1 == null) return;",
-        "                var Image2 = inputs[(int)InputId.Image2].Eval(context).Image; if (Image2 == null) return;",
-        "                //<<< __params",
+        "                var ImageA = inputs[(int)InputId.ImageA].Eval(context).Image; // Needs to be checked for null!",
+        "                var ImageB = inputs[(int)InputId.ImageB].Eval(context).Image; // Needs to be checked for null!",
+        "                var ColorMode = (int) inputs[(int)InputId.ColorMode].Eval(context).Value;",
+        "                var AlphaMode = (int) inputs[(int)InputId.AlphaMode].Eval(context).Value;",
+        "                //<<< _params",
         "",
         "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 0));",
+        "                if(ImageA == null || ImageB ==null) {",
+        "                    Logger.Warn(this, \"BlendImages requires two images\");",
+        "                }",
         "",
         "                //>>> _setup",
-        "                using (var Image1View = new ShaderResourceView(context.D3DDevice, Image1))",
-        "                using (var Image2View = new ShaderResourceView(context.D3DDevice, Image2))",
+        "                using (var ImageAView = new ShaderResourceView(context.D3DDevice, ImageA))",
+        "                using (var ImageBView = new ShaderResourceView(context.D3DDevice, ImageB))",
         "                {",
         "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
-        "                    _effect.GetVariableByName(\"Image1\").AsShaderResource().SetResource(Image1View);",
-        "                    _effect.GetVariableByName(\"Image2\").AsShaderResource().SetResource(Image2View);",
+        "                    _effect.GetVariableByName(\"ImageA\").AsShaderResource().SetResource(ImageAView);",
+        "                    _effect.GetVariableByName(\"ImageB\").AsShaderResource().SetResource(ImageBView);",
+        "                    _effect.GetVariableByName(\"ColorMode\").AsScalar().Set(ColorMode);",
+        "                    _effect.GetVariableByName(\"AlphaMode\").AsScalar().Set(AlphaMode);",
         "                //<<< _setup",
         "",
         "                Render(context);",
@@ -239,6 +368,18 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "9d7470a5-c572-4924-b121-b6e2b1614034",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0361546c-cc78-4e2c-a49b-6d8d12b57129"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cc982fe1-68b7-40f8-a1cc-cab61033d987",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0361546c-cc78-4e2c-a49b-6d8d12b57129"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b1d7382a-f22c-4cad-9294-2848f12136da",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "0361546c-cc78-4e2c-a49b-6d8d12b57129"
     }

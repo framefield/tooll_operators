@@ -1,0 +1,170 @@
+{
+  "Name": "Pulsate",
+  "_id": "79047e90-0dd7-4ab4-b982-00f0418a105a",
+  "Namespace": "lib.math.timing",
+  "Description": "Depending on the incoming SyncedBeatTime (e.g. from [BeatTapper]) this Ops generates pulse in different frequencies and intensity.",
+  "Inputs": [
+    {
+      "Name": "BeatTime",
+      "MetaInstanceID": "e299f849-4137-4078-9eba-1a953d17074c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Frequency",
+      "MetaInstanceID": "3c2b9d0a-62fa-46cd-aa80-7967eb6ae830",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Intensity",
+      "MetaInstanceID": "75b22b94-1bb3-4f70-a180-c8801a8c31be",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "e4917cf1-c073-4314-adc0-36cd3730d737",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "8f87fde9-b37e-484c-bd0c-d90069af53d7",
+      "MetaID": "ba00c124-5824-4797-abfc-1d9ac1ab2d52",
+      "Name": "PulsateFunc",
+      "Version": "b2b76532-06f0-4faf-9dba-e780e66f1371",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDba00c124_5824_4797_abfc_1d9ac1ab2d52",
+        "{",
+        "    public class Class_Pulsate : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            BeatTime = 0,",
+        "            Frequency = 1,",
+        "            Intensity = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var BeatTime = inputs[(int)InputId.BeatTime].Eval(context).Value;",
+        "            var Frequency = inputs[(int)InputId.Frequency].Eval(context).Value;",
+        "            var Intensity = inputs[(int)InputId.Intensity].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            const float Steps = 6+1;",
+        "            ",
+        "            float v = 0;",
+        "            if( Frequency < 1/ Steps) {",
+        "               v=0;",
+        "            }",
+        "            else if( Frequency < 2 / Steps ) {",
+        "                v = 1 - (BeatTime / 16) % 1;",
+        "            }",
+        "            else if( Frequency < 3 / Steps ) {",
+        "                v = 1 - (BeatTime / 4) % 1;",
+        "            }",
+        "            else if( Frequency < 4 / Steps) {",
+        "                v = 1 - (BeatTime) % 1;            ",
+        "            }",
+        "            else if( Frequency < 5 / Steps) {",
+        "                v = 1 - (BeatTime * 4) % 1;            ",
+        "            }",
+        "            else if( Frequency < 6 / Steps) {",
+        "                v = 1 - (BeatTime * 16) % 1;            ",
+        "            }",
+        "            //else if ( Frequency < 7 / Steps) {",
+        "            else {",
+        "                v = 1 - (BeatTime * 32) % 1;            ",
+        "            }",
+        "            ",
+        "            context.Value = v * Intensity;",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e299f849-4137-4078-9eba-1a953d17074c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f87fde9-b37e-484c-bd0c-d90069af53d7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3c2b9d0a-62fa-46cd-aa80-7967eb6ae830",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f87fde9-b37e-484c-bd0c-d90069af53d7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "75b22b94-1bb3-4f70-a180-c8801a8c31be",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8f87fde9-b37e-484c-bd0c-d90069af53d7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8f87fde9-b37e-484c-bd0c-d90069af53d7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e4917cf1-c073-4314-adc0-36cd3730d737"
+    }
+  ]
+}

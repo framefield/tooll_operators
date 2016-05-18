@@ -1,0 +1,792 @@
+{
+  "Name": "ColorGradeVignette",
+  "_id": "43fd0707-906b-44fc-ad03-225b907247b6",
+  "Namespace": "lib.image.adjust",
+  "Description": "A special version of [ColorGrade] that also supports a Vignette-Gamma-Correction.\r\n\r\nNegative-Radius for Vignette, positive for blob.\r\nVignette.a controls the intensity.\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "48b027d4-32d7-4713-bfa0-388bcc51dde1",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": [
+          "//>>> _common parameters\r",
+          "float4x4 objectToWorldMatrix;",
+          "float4x4 worldToCameraMatrix;",
+          "float4x4 projMatrix;",
+          "Texture2D txDiffuse;",
+          "float2 RenderTargetSize;",
+          "//<<< _common parameters\r",
+          "\r",
+          "//>>> _parameters\r",
+          "Texture2D Image;",
+          "float4 Gain;",
+          "float4 Gamma;",
+          "float4 Lift;",
+          "float PreSaturate;",
+          "float2 Center;",
+          "float Radius;",
+          "float Bias;",
+          "float4 VignetteColor;",
+          "//<<< _parameters\r",
+          "\r",
+          "//>>> setup\r",
+          "SamplerState samNearest\r",
+          "{\r",
+          "    Filter = MIN_MAG_MIP_LINEAR;\r",
+          "    AddressU = Clamp;\r",
+          "    AddressV = Clamp;\r",
+          "};\r",
+          "//<<< setup\r",
+          "\r",
+          "//>>> declarations\r",
+          "struct VS_IN\r",
+          "{\r",
+          "    float4 pos : POSITION;\r",
+          "    float2 texCoord : TEXCOORD;\r",
+          "};\r",
+          "\r",
+          "struct PS_IN\r",
+          "{\r",
+          "    float4 pos : SV_POSITION;\r",
+          "    float2 texCoord: TEXCOORD0;\t    \r",
+          "    float3 worldTViewPos: TEXCOORD1;\r",
+          "    float3 worldTViewDir: TEXCOORD2;\r",
+          "};\r",
+          "//<<< declarations\r",
+          "\r",
+          "//>>> _GS\r",
+          "",
+          "//<<< _GS\r",
+          "\r",
+          "//>>> _VS \r",
+          "PS_IN VS( VS_IN input )",
+          "{",
+          "    PS_IN output = (PS_IN)0;",
+          "",
+          "    output.pos = mul(input.pos, worldToCameraMatrix);",
+          "    output.pos = mul(output.pos, projMatrix);",
+          "    output.texCoord = input.texCoord;",
+          "",
+          "    return output;",
+          "}",
+          "//<<< _VS\r",
+          "\r",
+          "//>>> PS\r",
+          "float4 PS( PS_IN input ) : SV_Target\r",
+          "{    \r",
+          "    float4 c=Image.Sample(samNearest, input.texCoord);\r",
+          "    c.rgb = clamp( c.rgb, 0.000001,1000);\r",
+          "\r",
+          "    // Saturation\r",
+          "    float gray = (c.r *0.22 + c.g*0.707 + c.b*0.071);\r",
+          "    c.rgb = lerp( float3(gray, gray,gray), c.rgb, PreSaturate); \r",
+          "\r",
+          "    // Vignette\r",
+          "    float r = pow( length( (input.texCoord - 0.5 - Center) / Radius), Bias);\r",
+          "    if(Radius > 0 )\r",
+          "        r= 1-r;\r",
+          "    float v=  smoothstep( 0,1, r);\r",
+          "\r",
+          "\r",
+          "    // Grade        \r",
+          "    float3 liftScaled =   Lift * 4*Lift.a + (0.5-Lift.a);\r",
+          "    float3 gammaScaled =  Gamma * 4*Gamma.a + (0.5-Gamma.a);\r",
+          "    float3 gainScaled =   Gain * 4*Gain.a + (0.5-Gain.a);\r",
+          "    gainScaled += (VignetteColor.rgb-0.5) * v * (VignetteColor.a*2+1);\r",
+          "    \r",
+          "    \r",
+          "    c.rgb=  pow(   ( c.rgb + (liftScaled - 1 ) * (1-c))      // Lift\r",
+          "                 * gainScaled                        // Gain\r",
+          "                 ,    \r",
+          "                   1/gammaScaled);\r",
+          "       \r",
+          "    c.rgb = clamp(c.rgb, 0.000001,1000);\r",
+          "        \r",
+          "    c.a = 1;\r",
+          "    \r",
+          "    return c;\r",
+          "}\r",
+          "//<<< PS\r",
+          "\r",
+          "//>>> _technique\r",
+          "technique10 Render",
+          "{",
+          "    pass P0",
+          "    {",
+          "        SetGeometryShader( 0 );",
+          "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+          "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+          "    }",
+          "}",
+          "//<<< _technique\r",
+          ""
+        ]
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "ff10dbb1-3792-48e4-9585-afc1f802693c",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "PreSaturate",
+      "MetaInstanceID": "cfacfa99-4a93-4c22-aa0c-1bea670a4a2a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gain.R",
+      "MetaInstanceID": "ab6229e1-50db-4a85-bded-e4f432561de2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gain.G",
+      "MetaInstanceID": "e220647b-7b52-4148-8283-963b204a012c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gain.B",
+      "MetaInstanceID": "cca927a1-f686-44de-b1b6-2de73cb0bec7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gain.A",
+      "MetaInstanceID": "4a64a9b6-b95b-4c5b-86a4-919bd4033c8b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gamma.R",
+      "MetaInstanceID": "1163d6ba-4388-42e4-baee-c54bbfb30a98",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gamma.G",
+      "MetaInstanceID": "969cedad-016c-48b4-a548-acb6a865b847",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gamma.B",
+      "MetaInstanceID": "e94763d6-4794-40c2-8250-ec4f47632452",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Gamma.A",
+      "MetaInstanceID": "45c5dba2-4ca3-4914-8634-c9ce0c0fe3f5",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Lift.R",
+      "MetaInstanceID": "7b727f9c-bdc1-4fed-8c17-6cbf26a376ca",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Lift.G",
+      "MetaInstanceID": "3eef35b9-9eee-40a0-b70b-32799a0a9e2a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Lift.B",
+      "MetaInstanceID": "b8001933-ef6b-4511-95fb-d8cf9efd97de",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.4980392"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Lift.A",
+      "MetaInstanceID": "6ff1cdac-6529-4b0d-81cc-e51a4dfa9346",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.X",
+      "MetaInstanceID": "3504734c-d701-41ac-a23d-d837e3bd2d47",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.Y",
+      "MetaInstanceID": "2d94794d-9706-4cd8-b741-5d9fc903f472",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "991b1848-eedd-4302-a9fe-ac46a73633f7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Bias",
+      "MetaInstanceID": "22237226-b4cc-4f9f-8c62-dde8de42016f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "VignetteColor.R",
+      "MetaInstanceID": "facc202a-a863-4ca9-b978-5beb6b8d7b45",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "VignetteColor.G",
+      "MetaInstanceID": "b3efc131-3e6c-4cfc-bffa-c23fe351da44",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "VignetteColor.B",
+      "MetaInstanceID": "b36a7271-07db-47aa-8be2-d2975b396b5f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "VignetteColor.A",
+      "MetaInstanceID": "51f04ea7-ea88-4506-be76-ccd76c34a870",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "6df70550-fcef-498e-b81d-3b79c6b2a5a4",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "45206c61-fc0d-432f-93ed-b6a8ad9ee629",
+      "MetaID": "58414df0-519e-4bb4-871c-0509c8bed46b",
+      "Name": "ColorGradeVignetteFunc",
+      "Version": "c8fa9c07-1aa9-4bd1-af92-a218cd1b8623",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID58414df0_519e_4bb4_871c_0509c8bed46b",
+        "{",
+        "    public class Class_ColorGradeFallOff : FXImageFunction",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Code = 0,",
+        "            Image = 1,",
+        "            GainR = 2,",
+        "            GainG = 3,",
+        "            GainB = 4,",
+        "            GainA = 5,",
+        "            GammaR = 6,",
+        "            GammaG = 7,",
+        "            GammaB = 8,",
+        "            GammaA = 9,",
+        "            LiftR = 10,",
+        "            LiftG = 11,",
+        "            LiftB = 12,",
+        "            LiftA = 13,",
+        "            PreSaturate = 14,",
+        "            CenterX = 15,",
+        "            CenterY = 16,",
+        "            Radius = 17,",
+        "            Bias = 18,",
+        "            VignetteColorR = 19,",
+        "            VignetteColorG = 20,",
+        "            VignetteColorB = 21,",
+        "            VignetteColorA = 22",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            return PrepareAndEvalOnChange(context, () =>",
+        "            {",
+        "                //>>> _params",
+        "                var Code = inputs[(int)InputId.Code].Eval(context).Text;",
+        "                var Image = inputs[(int)InputId.Image].Eval(context).Image; // Needs to be checked for null!",
+        "                var GainR = inputs[(int)InputId.GainR].Eval(context).Value;",
+        "                var GainG = inputs[(int)InputId.GainG].Eval(context).Value;",
+        "                var GainB = inputs[(int)InputId.GainB].Eval(context).Value;",
+        "                var GainA = inputs[(int)InputId.GainA].Eval(context).Value;",
+        "                var Gain = new Color4(GainR, GainG, GainB, GainA);",
+        "                var GammaR = inputs[(int)InputId.GammaR].Eval(context).Value;",
+        "                var GammaG = inputs[(int)InputId.GammaG].Eval(context).Value;",
+        "                var GammaB = inputs[(int)InputId.GammaB].Eval(context).Value;",
+        "                var GammaA = inputs[(int)InputId.GammaA].Eval(context).Value;",
+        "                var Gamma = new Color4(GammaR, GammaG, GammaB, GammaA);",
+        "                var LiftR = inputs[(int)InputId.LiftR].Eval(context).Value;",
+        "                var LiftG = inputs[(int)InputId.LiftG].Eval(context).Value;",
+        "                var LiftB = inputs[(int)InputId.LiftB].Eval(context).Value;",
+        "                var LiftA = inputs[(int)InputId.LiftA].Eval(context).Value;",
+        "                var Lift = new Color4(LiftR, LiftG, LiftB, LiftA);",
+        "                var PreSaturate = inputs[(int)InputId.PreSaturate].Eval(context).Value;",
+        "                var CenterX = inputs[(int)InputId.CenterX].Eval(context).Value;",
+        "                var CenterY = inputs[(int)InputId.CenterY].Eval(context).Value;",
+        "                var Center = new Vector2(CenterX, CenterY);",
+        "                var Radius = inputs[(int)InputId.Radius].Eval(context).Value;",
+        "                var Bias = inputs[(int)InputId.Bias].Eval(context).Value;",
+        "                var VignetteColorR = inputs[(int)InputId.VignetteColorR].Eval(context).Value;",
+        "                var VignetteColorG = inputs[(int)InputId.VignetteColorG].Eval(context).Value;",
+        "                var VignetteColorB = inputs[(int)InputId.VignetteColorB].Eval(context).Value;",
+        "                var VignetteColorA = inputs[(int)InputId.VignetteColorA].Eval(context).Value;",
+        "                var VignetteColor = new Color4(VignetteColorR, VignetteColorG, VignetteColorB, VignetteColorA);",
+        "                //<<< _params",
+        "                ",
+        "                if (Image == null)",
+        "                    return;",
+        "",
+        "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 0));",
+        "",
+        "                //>>> _setup",
+        "                using (var ImageView = new ShaderResourceView(context.D3DDevice, Image))",
+        "                {",
+        "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
+        "                    _effect.GetVariableByName(\"Image\").AsShaderResource().SetResource(ImageView);",
+        "                    _effect.GetVariableByName(\"Gain\").AsVector().Set(new Vector4(GainR, GainG, GainB, GainA));",
+        "                    _effect.GetVariableByName(\"Gamma\").AsVector().Set(new Vector4(GammaR, GammaG, GammaB, GammaA));",
+        "                    _effect.GetVariableByName(\"Lift\").AsVector().Set(new Vector4(LiftR, LiftG, LiftB, LiftA));",
+        "                    _effect.GetVariableByName(\"PreSaturate\").AsScalar().Set(PreSaturate);",
+        "                    _effect.GetVariableByName(\"Center\").AsVector().Set(new Vector2(CenterX, CenterY));",
+        "                    _effect.GetVariableByName(\"Radius\").AsScalar().Set(Radius);",
+        "                    _effect.GetVariableByName(\"Bias\").AsScalar().Set(Bias);",
+        "                    _effect.GetVariableByName(\"VignetteColor\").AsVector().Set(new Vector4(VignetteColorR, VignetteColorG, VignetteColorB, VignetteColorA));",
+        "                //<<< _setup",
+        "",
+        "                var prevBlendState = context.BlendState;",
+        "                context.BlendState = OperatorPartContext.DefaultRenderer.DisabledBlendState;",
+        "",
+        "                Render(context);",
+        "",
+        "                context.BlendState = prevBlendState;",
+        "",
+        "                //>>> _cleanup",
+        "                }",
+        "                //<<< _cleanup",
+        "            });",
+        "        }",
+        "",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6df70550-fcef-498e-b81d-3b79c6b2a5a4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "48b027d4-32d7-4713-bfa0-388bcc51dde1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ff10dbb1-3792-48e4-9585-afc1f802693c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ab6229e1-50db-4a85-bded-e4f432561de2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e220647b-7b52-4148-8283-963b204a012c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cca927a1-f686-44de-b1b6-2de73cb0bec7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4a64a9b6-b95b-4c5b-86a4-919bd4033c8b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1163d6ba-4388-42e4-baee-c54bbfb30a98",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "969cedad-016c-48b4-a548-acb6a865b847",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e94763d6-4794-40c2-8250-ec4f47632452",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "45c5dba2-4ca3-4914-8634-c9ce0c0fe3f5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7b727f9c-bdc1-4fed-8c17-6cbf26a376ca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3eef35b9-9eee-40a0-b70b-32799a0a9e2a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b8001933-ef6b-4511-95fb-d8cf9efd97de",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6ff1cdac-6529-4b0d-81cc-e51a4dfa9346",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "cfacfa99-4a93-4c22-aa0c-1bea670a4a2a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3504734c-d701-41ac-a23d-d837e3bd2d47",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2d94794d-9706-4cd8-b741-5d9fc903f472",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "991b1848-eedd-4302-a9fe-ac46a73633f7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "22237226-b4cc-4f9f-8c62-dde8de42016f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "facc202a-a863-4ca9-b978-5beb6b8d7b45",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b3efc131-3e6c-4cfc-bffa-c23fe351da44",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b36a7271-07db-47aa-8be2-d2975b396b5f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "51f04ea7-ea88-4506-be76-ccd76c34a870",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "45206c61-fc0d-432f-93ed-b6a8ad9ee629"
+    }
+  ]
+}

@@ -102,7 +102,7 @@
           "{\r",
           "    //float stepsInt = floor(Steps);\r",
           "    float4 c=Image1.Sample(samNearest, input.texCoord); \r",
-          "    c.rgb= hsvToRgb(c.r * 360*Min.x+Min.y, c.g, c.b);\r",
+          "    c.rgb= hsvToRgb(c.r * 360, c.g, c.b);\r",
           "    \r",
           "    return c;\r",
           "    \r",
@@ -154,159 +154,6 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
-    },
-    {
-      "Name": "Steps",
-      "MetaInstanceID": "6691acfc-157d-4914-9ba8-7cda37896742",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "4"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Min.R",
-      "MetaInstanceID": "b8866230-4345-4a72-bd1d-4cb924430205",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "0"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Min.G",
-      "MetaInstanceID": "21b6cd3c-ab10-44d1-bcc7-36290d10eab5",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "0"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Min.B",
-      "MetaInstanceID": "9f402207-f31c-4b2b-aac5-c0daa213ffb8",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "0"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Min.A",
-      "MetaInstanceID": "e91c2871-d58a-4ad3-b3ef-a06653058ea3",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "0"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Max.R",
-      "MetaInstanceID": "d97a8bc8-5d46-48f7-b025-0fc378bdc631",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "1"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "0",
-      "Max": "1",
-      "Scale": "0.01",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Max.G",
-      "MetaInstanceID": "a79c8801-ca94-4326-9bc0-1cb128589c8f",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "1"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "0",
-      "Max": "1",
-      "Scale": "0.01",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Max.B",
-      "MetaInstanceID": "28bd9121-96e2-4a22-b1b6-ab3fa14253ac",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "1"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "0",
-      "Max": "1",
-      "Scale": "0.01",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
-      "Name": "Max.A",
-      "MetaInstanceID": "3bb7e84f-fe2f-4db3-8af5-453b1c2c6107",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "1"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "0",
-      "Max": "1",
-      "Scale": "0.01",
-      "ScaleType": "Linear",
-      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -321,7 +168,7 @@
       "MetaInstanceID": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad",
       "MetaID": "c3e70fcf-02cb-47b4-965b-4a78d41677be",
       "Name": "HSL2RGBFunc",
-      "Version": "fd1333e2-6acd-44e2-9086-9ffff128e378",
+      "Version": "3333c8d4-b5ed-420c-910a-5a78a26313f7",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -343,16 +190,7 @@
         "        private enum InputId",
         "        {",
         "            Code = 0,",
-        "            Image1 = 1,",
-        "            Steps = 2,",
-        "            MinR = 3,",
-        "            MinG = 4,",
-        "            MinB = 5,",
-        "            MinA = 6,",
-        "            MaxR = 7,",
-        "            MaxG = 8,",
-        "            MaxB = 9,",
-        "            MaxA = 10",
+        "            Image1 = 1",
         "        }",
         "        //<<< _inputids",
         "",
@@ -360,21 +198,12 @@
         "        {",
         "            return PrepareAndEvalOnChange(context, () =>",
         "            {",
-        "                //>>> __params",
+        "                //>>> _params",
         "                var Code = inputs[(int)InputId.Code].Eval(context).Text;",
-        "                var Image1 = inputs[(int)InputId.Image1].Eval(context).Image; if (Image1 == null) return;",
-        "                var Steps = inputs[(int)InputId.Steps].Eval(context).Value;",
-        "                var MinR = inputs[(int)InputId.MinR].Eval(context).Value;",
-        "                var MinG = inputs[(int)InputId.MinG].Eval(context).Value;",
-        "                var MinB = inputs[(int)InputId.MinB].Eval(context).Value;",
-        "                var MinA = inputs[(int)InputId.MinA].Eval(context).Value;",
-        "                var Min = new Color4(MinR, MinG, MinB, MinA);",
-        "                var MaxR = inputs[(int)InputId.MaxR].Eval(context).Value;",
-        "                var MaxG = inputs[(int)InputId.MaxG].Eval(context).Value;",
-        "                var MaxB = inputs[(int)InputId.MaxB].Eval(context).Value;",
-        "                var MaxA = inputs[(int)InputId.MaxA].Eval(context).Value;",
-        "                var Max = new Color4(MaxR, MaxG, MaxB, MaxA);",
-        "                //<<< __params",
+        "                var Image1 = inputs[(int)InputId.Image1].Eval(context).Image; // Needs to be checked for null!",
+        "                //<<< _params",
+        "                if(Image1 == null)",
+        "                    return;",
         "",
         "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 0));",
         "",
@@ -383,9 +212,6 @@
         "                {",
         "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
         "                    _effect.GetVariableByName(\"Image1\").AsShaderResource().SetResource(Image1View);",
-        "                    _effect.GetVariableByName(\"Steps\").AsScalar().Set(Steps);",
-        "                    _effect.GetVariableByName(\"Min\").AsVector().Set(new Vector4(MinR, MinG, MinB, MinA));",
-        "                    _effect.GetVariableByName(\"Max\").AsVector().Set(new Vector4(MaxR, MaxG, MaxB, MaxA));",
         "                //<<< _setup",
         "",
         "                Render(context);",
@@ -421,60 +247,6 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "aff57477-ce09-47cf-a976-4ca86df1927a",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "6691acfc-157d-4914-9ba8-7cda37896742",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "b8866230-4345-4a72-bd1d-4cb924430205",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "21b6cd3c-ab10-44d1-bcc7-36290d10eab5",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "9f402207-f31c-4b2b-aac5-c0daa213ffb8",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "e91c2871-d58a-4ad3-b3ef-a06653058ea3",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "d97a8bc8-5d46-48f7-b025-0fc378bdc631",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "a79c8801-ca94-4326-9bc0-1cb128589c8f",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "28bd9121-96e2-4a22-b1b6-ab3fa14253ac",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "3bb7e84f-fe2f-4db3-8af5-453b1c2c6107",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "1bddcba8-d7c9-4e4d-94c7-6eff3b673fad"
     }

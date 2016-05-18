@@ -1,0 +1,507 @@
+{
+  "Name": "VJParameter",
+  "_id": "e6da4e94-e94e-4ca8-9755-f929c9e49061",
+  "Namespace": "lib.math.timing",
+  "Description": "Smoothes the incoming value overtime. \r\n\r\nFriction 0 -> instant change\r\nFriction 0.8 -> very fast\r\nFriction 0.99 -> Almost Frozen\r\n\r\nImage this Operator as the \"P\" in a PID-Controller.",
+  "Inputs": [
+    {
+      "Name": "Mode",
+      "MetaInstanceID": "a468d192-cf92-450b-89de-6f4dea43d88b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Pulse (Fix)",
+          "Value": "0"
+        },
+        {
+          "Name": "Pulse (With Intensity)",
+          "Value": "1"
+        },
+        {
+          "Name": "Pulse (Additive)",
+          "Value": "2"
+        },
+        {
+          "Name": "Shake (Noisy)",
+          "Value": "3"
+        },
+        {
+          "Name": "Shake (Sin)",
+          "Value": "4"
+        }
+      ]
+    },
+    {
+      "Name": "SyncTrigger",
+      "MetaInstanceID": "6b31cb93-6ca9-4122-b6ee-3ec95c69fe06",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ResetTrigger",
+      "MetaInstanceID": "4f47b986-e7ed-458c-bf29-88d0f580b0a4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "StandardValue",
+      "MetaInstanceID": "534aacac-96eb-47c3-95a0-fdb4108a367d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "PulseAmount",
+      "MetaInstanceID": "37a7fde1-d3cf-4792-9bf9-30077b810faa",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "PulseScatter",
+      "MetaInstanceID": "02970030-ee20-41ad-b036-f22ac49ae39b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Regression",
+      "MetaInstanceID": "6ea4860e-e7ea-4bec-a786-1d2ff1946771",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.05"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Damping",
+      "MetaInstanceID": "d2fe0b55-dea4-442a-a804-6c13453dda40",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRange.Min",
+      "MetaInstanceID": "6bf7e73c-2e74-425b-b19a-bcd220436ad8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "InputRange.Max",
+      "MetaInstanceID": "8f75f987-cd89-447d-ba32-0ddfbf8b6708",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TriggerThreshold",
+      "MetaInstanceID": "e3322615-ace7-4732-b24f-1cf1c17ef17d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ShakeSpeed",
+      "MetaInstanceID": "49a82e8a-72ca-47e1-8e00-d1d884bdf679",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "40"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "99a49b2b-90eb-4475-8966-072a811997d7",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "db887568-9433-4ba7-8d12-9f19c4935959",
+      "MetaID": "ffab725a-7bdc-414d-b9df-5542aa69dd34",
+      "Name": "VJParameterFunc",
+      "Version": "61e95dac-65c2-4301-8f32-db5c27bd3cfc",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "//using Mathf;",
+        "",
+        "namespace Framefield.Core.IDffab725a_7bdc_414d_b9df_5542aa69dd34",
+        "{",
+        "    public class Class_VJParameter : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "    ",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Mode = 0,",
+        "            SyncTrigger = 1,",
+        "            ResetTrigger = 2,",
+        "            StandardValue = 3,",
+        "            PulseAmount = 4,",
+        "            PulseScatter = 5,",
+        "            Regression = 6,",
+        "            Damping = 7,",
+        "            InputRangeMin = 8,",
+        "            InputRangeMax = 9,",
+        "            TriggerThreshold = 10,",
+        "            ShakeSpeed = 11",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Mode = (int) inputs[(int)InputId.Mode].Eval(context).Value;",
+        "            var SyncTrigger = inputs[(int)InputId.SyncTrigger].Eval(context).Value;",
+        "            var ResetTrigger = inputs[(int)InputId.ResetTrigger].Eval(context).Value;",
+        "            var StandardValue = inputs[(int)InputId.StandardValue].Eval(context).Value;",
+        "            var PulseAmount = inputs[(int)InputId.PulseAmount].Eval(context).Value;",
+        "            var PulseScatter = inputs[(int)InputId.PulseScatter].Eval(context).Value;",
+        "            var Regression = inputs[(int)InputId.Regression].Eval(context).Value;",
+        "            var Damping = inputs[(int)InputId.Damping].Eval(context).Value;",
+        "            var InputRangeMin = inputs[(int)InputId.InputRangeMin].Eval(context).Value;",
+        "            var InputRangeMax = inputs[(int)InputId.InputRangeMax].Eval(context).Value;",
+        "            var InputRange = new Vector2(InputRangeMin, InputRangeMax);",
+        "            var TriggerThreshold = inputs[(int)InputId.TriggerThreshold].Eval(context).Value;",
+        "            var ShakeSpeed = inputs[(int)InputId.ShakeSpeed].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            if( context.GlobalTime == _lastTime) {",
+        "                context.Value = _lastComputed;",
+        "                return context;",
+        "            }",
+        "            ",
+        "            var triggerNormalized = (SyncTrigger - InputRangeMin) /  (InputRangeMax - InputRangeMin);",
+        "            var thresholdNormalized = (TriggerThreshold - InputRangeMin) /  (InputRangeMax - InputRangeMin);",
+        "            ",
+        "            var hasBeenTriggered = triggerNormalized > _lastSyncTrigger && triggerNormalized >= thresholdNormalized;",
+        "            _lastSyncTrigger= triggerNormalized;",
+        "            ",
+        "            if(hasBeenTriggered) {",
+        "                float scatter= (float) (_rand.NextDouble() - 0.5) * PulseScatter;",
+        "                //Logger.Info(this, \"has been triggered\");",
+        "            ",
+        "                switch( (int)Mode) {",
+        "                // Fix Pulse",
+        "                case 0:",
+        "                    _value = StandardValue + PulseAmount + scatter;",
+        "                    break;",
+        "                ",
+        "                // Intensity Pulse",
+        "                case 1:",
+        "                    _value = StandardValue + PulseAmount * (triggerNormalized + scatter);",
+        "                    break;",
+        "                ",
+        "                // Additive Pulse",
+        "                case 2:",
+        "                    _value += PulseAmount * (triggerNormalized + scatter);",
+        "                    break;",
+        "                ",
+        "                // Shake (Random)",
+        "                case 3:",
+        "                    _value += PulseAmount * (triggerNormalized + scatter);",
+        "                    break;",
+        "                    ",
+        "                // Shake (Sin)",
+        "                case 4:",
+        "                    _value += PulseAmount * (triggerNormalized + scatter);",
+        "                    break;                    ",
+        "                }            ",
+        "            }",
+        "                        ",
+        "            double dt = context.GlobalTime - _lastTime;",
+        "            _lastTime = context.GlobalTime;",
+        "           ",
+        "            _value = (1 - Regression) * _value + (Regression * StandardValue);",
+        "            _damped = Damping * _damped + (1 - Damping) * _value; ",
+        "            ",
+        "            ",
+        "            // Random Shake",
+        "            if( (int)Mode == 3 ) {",
+        "                _lastComputed = (float)PerlinNoise( context.GlobalTime * ShakeSpeed) * _damped;",
+        "                                              ",
+        "            }",
+        "            // Sin Shake",
+        "            else if( (int)Mode == 4) {",
+        "                _lastComputed = (float)Math.Sin( context.GlobalTime * ShakeSpeed) * _damped;            ",
+        "            }",
+        "            else {",
+        "                _lastComputed = _damped;",
+        "            }",
+        "            ",
+        "            context.Value = _lastComputed;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        ",
+        "        #region Perlin noise",
+        "        public float Noise(int x, int seed) {",
+        "            int n = x + seed*137;",
+        "            n = (n<<13) ^ n;",
+        "            return (float)( 1.0 - ( (n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0); ",
+        "        }",
+        "        ",
+        "        public float Lerp(float a, float b, float t) {",
+        "            return a + t * (b - a);",
+        "        }",
+        "        ",
+        "        public float Fade(float t) {",
+        "            return t * t * t * (t * (t * 6 - 15) + 10);",
+        "        }",
+        "        ",
+        "        private float PerlinNoise(float t) {",
+        "                                            ",
+        "            int octaves = 2;",
+        "            float noiseSum =0.0f;",
+        "            float period = 2;",
+        "            float zoom = 1;",
+        "            float seed = 13;",
+        "            float rangeMax = 1;",
+        "            float rangeMin = -1;",
+        "            ",
+        "            ",
+        "            for(int a=0; a<octaves-1; a++) {",
+        "                float frequency = (float)Math.Pow(2,a); ",
+        "                float amplitude = (float)Math.Pow(period ,a);",
+        "",
+        "                float v =  t * frequency/zoom  + seed*12.468f ;",
+        "                                               ",
+        "                noiseSum += Lerp( Noise( (int)v  , (int)seed ),",
+        "                                  Noise( (int)v+1, (int)seed ),",
+        "                                  Fade( v - (float)Math.Floor(v) )",
+        "                            )* amplitude;",
+        "",
+        "            }            ",
+        "           return  (noiseSum+1f)*0.5f * (rangeMax - rangeMin) + rangeMin;",
+        "        }        ",
+        "        #endregion",
+        "",
+        "        // ---------------------------------",
+        "        ",
+        "        float _lastComputed;",
+        "        float _value;",
+        "        float _damped;      ",
+        "        float _lastSyncTrigger; ",
+        "        double _lastTime;",
+        "        Random _rand = new Random();",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "db887568-9433-4ba7-8d12-9f19c4935959",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "99a49b2b-90eb-4475-8966-072a811997d7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a468d192-cf92-450b-89de-6f4dea43d88b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6b31cb93-6ca9-4122-b6ee-3ec95c69fe06",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4f47b986-e7ed-458c-bf29-88d0f580b0a4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "534aacac-96eb-47c3-95a0-fdb4108a367d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "37a7fde1-d3cf-4792-9bf9-30077b810faa",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "02970030-ee20-41ad-b036-f22ac49ae39b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6ea4860e-e7ea-4bec-a786-1d2ff1946771",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d2fe0b55-dea4-442a-a804-6c13453dda40",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6bf7e73c-2e74-425b-b19a-bcd220436ad8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8f75f987-cd89-447d-ba32-0ddfbf8b6708",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e3322615-ace7-4732-b24f-1cf1c17ef17d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "49a82e8a-72ca-47e1-8e00-d1d884bdf679",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "db887568-9433-4ba7-8d12-9f19c4935959"
+    }
+  ]
+}

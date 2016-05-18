@@ -68,7 +68,7 @@
       "MetaInstanceID": "4cda684f-6a68-4517-86dc-8845caeb6719",
       "MetaID": "1f140717-cc1b-41ed-a2d6-3bf73aac8741",
       "Name": "ReplaceFunc",
-      "Version": "f02d018d-0b6d-4991-a978-db2492778959",
+      "Version": "b25f4cde-02dd-448e-aed3-848fee17e730",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -109,6 +109,8 @@
         "                return context;",
         "            }",
         "            string result = string.Empty;",
+        "            if(ReplaceText == \"\\\\n\")",
+        "                ReplaceText = \"\\n\";",
         "            context.Text = String.Replace(SearchText, ReplaceText);            ",
         "            return context;",
         "        }",

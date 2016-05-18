@@ -1,0 +1,137 @@
+{
+  "Name": "DamperAngle",
+  "_id": "1e11a034-0630-4c38-90d6-97e43b78bcf1",
+  "Namespace": "lib.math",
+  "Description": "Smoothes the incoming angle value overtime. \r\n\r\nFriction 0 -> instant change\r\nFriction 0.8 -> very fast\r\nFriction 0.99 -> Almost Frozen\r\n",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "bfbc1212-ee10-456c-9e01-6a636c95c747",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Friction",
+      "MetaInstanceID": "7111757d-5e22-4a0c-8461-5aea08baf957",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.9"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Result",
+      "MetaInstanceID": "a98b143c-fa6e-4fc2-96f6-c87750bbb2b1",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a6711248-548e-4132-a7e4-374cd1d9b85e",
+      "MetaID": "bf26f3a7-2f3d-4863-8944-ac6d08b35c5c",
+      "Name": "DamperAngleFunc",
+      "Version": "64af366d-cabc-4d9d-bc57-9112c707f992",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDbf26f3a7_2f3d_4863_8944_ac6d08b35c5c",
+        "{",
+        "    public class Class_DamperAngle : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Friction = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Friction = inputs[(int)InputId.Friction].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            Value %= 360;",
+        "",
+        "            if (context.GlobalTime < _dampedTime)",
+        "                _damped = Value;",
+        "                        ",
+        "            if( Double.IsNaN(_damped))",
+        "                _damped = Value;",
+        "                ",
+        "            // Fix roll-over",
+        "            if( Math.Abs( Value - _damped) > 180) {",
+        "                _damped += Value > _damped? 360 : - 360;",
+        "            }",
+        "",
+        "            _damped = Friction*_damped + (1 - Friction)*Value;",
+        "            ",
+        "            _dampedTime = context.GlobalTime;",
+        "            context.Value = _damped;",
+        "            return context;",
+        "        }",
+        "        ",
+        "        float _damped;",
+        "        float _dampedTime = 999999;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bfbc1212-ee10-456c-9e01-6a636c95c747",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a6711248-548e-4132-a7e4-374cd1d9b85e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7111757d-5e22-4a0c-8461-5aea08baf957",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a6711248-548e-4132-a7e4-374cd1d9b85e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a6711248-548e-4132-a7e4-374cd1d9b85e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a98b143c-fa6e-4fc2-96f6-c87750bbb2b1"
+    }
+  ]
+}

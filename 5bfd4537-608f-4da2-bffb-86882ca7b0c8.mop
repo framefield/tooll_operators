@@ -1,0 +1,259 @@
+{
+  "Name": "BeatPulse",
+  "_id": "5bfd4537-608f-4da2-bffb-86882ca7b0c8",
+  "Namespace": "lib.math.timing",
+  "Description": "Returns a pulse signal between 0 and 1 with the frequency and intensity defined by the ticks.\r\n\r\nExamples:\r\n\r\n1 -      |\\           (one long pulse per bar)\r\n1000 - |\\______ (one quick pulse follow 0)\r\n4010 - |\\__.___  (1 one beat / 0.5 on haftbeat) \r\n4111 - |\\_._._._  (the first with 1, then 3 with 0.25)\r\n41112111        (something complex)\r\n\r\nThe more characters in the Tick the faster the pulse-rate.\r\n\r\nThe largest digest is intepreted as intensity 1.",
+  "Inputs": [
+    {
+      "Name": "BPM",
+      "MetaInstanceID": "3f2ba60d-ecf3-47af-a9cd-90b9f7274f24",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "120"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "BPMTimeOffset",
+      "MetaInstanceID": "d3bdad79-edce-4c77-b970-167ff271845d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Ticks",
+      "MetaInstanceID": "1e956fed-77b1-450c-ac30-00d9a28a6dd0",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "1000"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "BeatsPerBar",
+      "MetaInstanceID": "7c09b7cc-786a-4a0d-945f-08dc4f0a901e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "4"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "OutputRange.Max",
+      "MetaInstanceID": "52d189f3-51fa-4265-8ec0-702dc81e6620",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "OutputRange.Min",
+      "MetaInstanceID": "15051fc8-66e1-41b9-814d-6edf4a6ae689",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Beat",
+      "MetaInstanceID": "950efd6f-0a45-41a0-96c5-f079bd4aac97",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8",
+      "MetaID": "79ca9be5-ad6f-41f0-a4e5-32e9f5191d1e",
+      "Name": "BeatPulseFunc",
+      "Version": "7a9601ac-f6d0-4084-accc-66df304b7464",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID79ca9be5_ad6f_41f0_a4e5_32e9f5191d1e",
+        "{",
+        "    public class Class_BeatPulse : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            BPM = 0,",
+        "            BPMTimeOffset = 1,",
+        "            Ticks = 2,",
+        "            BeatsPerBar = 3,",
+        "            OutputRangeMax = 4,",
+        "            OutputRangeMin = 5",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Beat = 0",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var BPM = inputs[(int)InputId.BPM].Eval(context).Value;",
+        "            var BPMTimeOffset = inputs[(int)InputId.BPMTimeOffset].Eval(context).Value;",
+        "            var Ticks = inputs[(int)InputId.Ticks].Eval(context).Text;",
+        "            var BeatsPerBar = inputs[(int)InputId.BeatsPerBar].Eval(context).Value;",
+        "            var OutputRangeMax = inputs[(int)InputId.OutputRangeMax].Eval(context).Value;",
+        "            var OutputRangeMin = inputs[(int)InputId.OutputRangeMin].Eval(context).Value;",
+        "            var OutputRange = new Vector2(OutputRangeMax, OutputRangeMin);",
+        "            //<<< _params",
+        "",
+        "            var steps = (float)Ticks.Length;",
+        "            if( steps <=0){",
+        "                Logger.Warn(this, \"Ticks must be at least a characters long\");",
+        "                return context;",
+        "            }",
+        "            ",
+        "            //steps = 4;",
+        "            var time = context.GlobalTime - BPMTimeOffset;",
+        "",
+        "            var x = 60 / BPM * BeatsPerBar ;",
+        "            ",
+        "            var barTime = (time % x) / x;",
+        "            ",
+        "            float maxValue = 0;",
+        "            foreach(var c in Ticks) {",
+        "                double v =0;",
+        "                Double.TryParse(\"\"+c, out v);",
+        "                if( v > maxValue)",
+        "                    maxValue = (float)v;                ",
+        "            }",
+        "            ",
+        "            var stepIndex = (int)Math.Floor( barTime * steps) ;",
+        "            if(stepIndex <0 )",
+        "                stepIndex = 0;",
+        "            double stepStrength;",
+        "            Double.TryParse( \"\"+Ticks[stepIndex], out stepStrength );",
+        "            var strength = (float)stepStrength / maxValue;",
+        "",
+        "            float stepTime = barTime * steps - stepIndex;",
+        "            float stepBeat = (1-stepTime) * strength;",
+        "            ",
+        "            context.Value =  stepBeat * (OutputRangeMax - OutputRangeMin) + OutputRangeMin;            ",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3f2ba60d-ecf3-47af-a9cd-90b9f7274f24",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d3bdad79-edce-4c77-b970-167ff271845d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1e956fed-77b1-450c-ac30-00d9a28a6dd0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7c09b7cc-786a-4a0d-945f-08dc4f0a901e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "52d189f3-51fa-4265-8ec0-702dc81e6620",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "15051fc8-66e1-41b9-814d-6edf4a6ae689",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8a8cbfb5-7bf6-4355-a538-dd93aaf2e7f8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "950efd6f-0a45-41a0-96c5-f079bd4aac97"
+    }
+  ]
+}

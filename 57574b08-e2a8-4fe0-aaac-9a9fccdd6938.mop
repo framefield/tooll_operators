@@ -24,7 +24,7 @@
           "float Passes;",
           "float KernelSize;",
           "float Seed;",
-          "float DepthClip;",
+          "float2 DepthClip;",
           "float MixOriginal;",
           "float MultiplyOriginal;",
           "float4 Color;",
@@ -129,8 +129,9 @@
           "    AOColor = lerp( float3(1,1,1), AOColor, Color.a);           // fade with color Alpha    \r",
           "    \r",
           "    \r",
-          "    if (refDepth > DepthClip) {    \r",
-          "        AOColor= float3(1,1,1);\r",
+          "    if (  refDepth > DepthClip.x) { \r",
+          "        float fadeFactor =  (refDepth - DepthClip.x) / (DepthClip.y - DepthClip.x);\r",
+          "        AOColor= lerp(AOColor, float3(1,1,1), fadeFactor);\r",
           "        factor=1;\r",
           "    }\r",
           "\r",
@@ -270,7 +271,7 @@
       "EnumValues": []
     },
     {
-      "Name": "DepthClip",
+      "Name": "DepthClip.Min",
       "MetaInstanceID": "c54fd105-3b90-4ba1-b5b9-8fe207cee1c7",
       "DefaultValue": {
         "Type": "Float",
@@ -280,8 +281,8 @@
       "IsMultiInput": "False",
       "Relevance": "Optional",
       "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
+      "Min": "0",
+      "Max": "1",
       "Scale": "0.0001",
       "ScaleType": "Linear",
       "EnumValues": []
@@ -489,6 +490,23 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "DepthClip.Max",
+      "MetaInstanceID": "007852b2-cf46-4f7b-8735-d8b52e57cdfb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.0001",
+      "ScaleType": "Linear",
+      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -503,7 +521,7 @@
       "MetaInstanceID": "11a07980-abe5-4d2c-9654-1cadb9260a6a",
       "MetaID": "cb9977a3-9af6-4d15-9f3d-e7c2580e4068",
       "Name": "SimpleSSAOFunc",
-      "Version": "29434371-f926-44e2-a572-ac822ff3496d",
+      "Version": "19f6cb3c-c769-4f0b-8fbf-1656bd535f01",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -521,7 +539,7 @@
         "",
         "namespace Framefield.Core.IDcb9977a3_9af6_4d15_9f3d_e7c2580e4068",
         "{",
-        "    public class Class_UglySSOA : FXImageFunction",
+        "    public class Class_SimpleSSAO : FXImageFunction",
         "    {",
         "        //>>> _inputids",
         "        private enum InputId",
@@ -532,7 +550,7 @@
         "            Passes = 3,",
         "            KernelSize = 4,",
         "            Seed = 5,",
-        "            DepthClip = 6,",
+        "            DepthClipMin = 6,",
         "            MixOriginal = 7,",
         "            MultiplyOriginal = 8,",
         "            ColorR = 9,",
@@ -544,19 +562,22 @@
         "            DepthRangeNear = 15,",
         "            DepthRangeFar = 16,",
         "            NoiseOffsetX = 17,",
-        "            NoiseOffsetY = 18",
+        "            NoiseOffsetY = 18,",
+        "            DepthClipMax = 19",
         "        }",
         "        //<<< _inputids",
         "",
         "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
         "            //>>> _params",
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
-        "            var NoiseTexture = inputs[(int)InputId.NoiseTexture].Eval(context).Image; if (NoiseTexture == null) return context;",
-        "            var DepthImage = inputs[(int)InputId.DepthImage].Eval(context).Image; if (DepthImage == null) return context;",
+        "            var NoiseTexture = inputs[(int)InputId.NoiseTexture].Eval(context).Image; // Needs to be checked for null!",
+        "            var DepthImage = inputs[(int)InputId.DepthImage].Eval(context).Image; // Needs to be checked for null!",
         "            var Passes = inputs[(int)InputId.Passes].Eval(context).Value;",
         "            var KernelSize = inputs[(int)InputId.KernelSize].Eval(context).Value;",
         "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
-        "            var DepthClip = inputs[(int)InputId.DepthClip].Eval(context).Value;",
+        "            var DepthClipMin = inputs[(int)InputId.DepthClipMin].Eval(context).Value;",
+        "            var DepthClipMax = inputs[(int)InputId.DepthClipMax].Eval(context).Value;",
+        "            var DepthClip = new Vector2(DepthClipMin, DepthClipMax);",
         "            var MixOriginal = inputs[(int)InputId.MixOriginal].Eval(context).Value;",
         "            var MultiplyOriginal = inputs[(int)InputId.MultiplyOriginal].Eval(context).Value;",
         "            var ColorR = inputs[(int)InputId.ColorR].Eval(context).Value;",
@@ -595,7 +616,7 @@
         "                    _effect.GetVariableByName(\"Passes\").AsScalar().Set(Passes);",
         "                    _effect.GetVariableByName(\"KernelSize\").AsScalar().Set(KernelSize);",
         "                    _effect.GetVariableByName(\"Seed\").AsScalar().Set(Seed);",
-        "                    _effect.GetVariableByName(\"DepthClip\").AsScalar().Set(DepthClip);",
+        "                    _effect.GetVariableByName(\"DepthClip\").AsVector().Set(new Vector2(DepthClipMin, DepthClipMax));",
         "                    _effect.GetVariableByName(\"MixOriginal\").AsScalar().Set(MixOriginal);",
         "                    _effect.GetVariableByName(\"MultiplyOriginal\").AsScalar().Set(MultiplyOriginal);",
         "                    _effect.GetVariableByName(\"Color\").AsVector().Set(new Vector4(ColorR, ColorG, ColorB, ColorA));",
@@ -740,6 +761,12 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "ea994eb7-1fef-40a1-9f00-f739ce21aaf4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "11a07980-abe5-4d2c-9654-1cadb9260a6a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "007852b2-cf46-4f7b-8735-d8b52e57cdfb",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "11a07980-abe5-4d2c-9654-1cadb9260a6a"
     }

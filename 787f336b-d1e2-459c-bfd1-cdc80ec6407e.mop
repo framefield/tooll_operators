@@ -2,7 +2,7 @@
   "Name": "ReplicateFast",
   "_id": "787f336b-d1e2-459c-bfd1-cdc80ec6407e",
   "Namespace": "lib.3d.modify",
-  "Description": "Instanciates the incoming geometry. This operator is similar much(!) faster then [Replicate], but since it's replicating a GPU-Geometry buffer, it can't handle [Transform] or other operators below.\r\n\r\nIt comes with it's own PhongShader and thus requires at least one [PointLight] above and ignores state settings like [RasterState].\r\n\r\nA normal setup might look like this:\r\n\r\n[PointLight]\r\n[Replicate2]\r\n[Bake------]\r\n[Group -----------------]\r\n[Transform ] [Transform]\r\n[Cube--------------------] \r\n\r\nAlso checkout the [ReplicateExample]\r\n",
+  "Description": "Instanciates the incoming geometry. This operator is similar much(!) faster ight] above and ignores state settings like [RasterState].\r\n\r\nA normal setup might look like this:\r\n\r\n[PointLight]\r\n[Replicate2]\r\n[Bake------]\r\n[Group -----------------]\r\n[Transform ] [Transform]\r\n[Cube--------------------] \r\n\r\nAlso checkout the [ReplicateExample]\r\n",
   "Inputs": [
     {
       "Name": "Code",
@@ -741,7 +741,7 @@
       "MetaInstanceID": "2972eccf-e0d3-42c9-b49c-6b183d797f2e",
       "MetaID": "f9e0f2b8-5dbe-4938-8154-0cc2d55f2b96",
       "Name": "ReplicateFastFunc",
-      "Version": "85e6d754-cf9a-4006-b3f7-8c034a938b7f",
+      "Version": "59b83f32-7510-480f-9288-7db513b316cb",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -869,7 +869,7 @@
         "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
         "            //<<< _params        ",
         "",
-        "            if (SceneInput.Connections.Count == 0)",
+        "            if (!SceneInput.Connections.Any() || Count <= 0.5f )",
         "            {",
         "                return context;",
         "            }",

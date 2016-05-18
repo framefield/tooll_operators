@@ -1,0 +1,115 @@
+{
+  "Name": "RoundValue",
+  "_id": "2d8b9fbc-d053-4d66-973d-5940e8ffc192",
+  "Namespace": "lib.math",
+  "Description": "Rounds up the incoming value.",
+  "Inputs": [
+    {
+      "Name": "Value",
+      "MetaInstanceID": "8103a075-31cb-4150-b930-5ecda388efe6",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Precision",
+      "MetaInstanceID": "fe0ac33a-c79b-4bd1-8140-17144e56abc1",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SqrtOut",
+      "MetaInstanceID": "03e4b2e2-1f4c-467a-af84-22c41ecd0058",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "ad55503d-0ae1-487c-8da4-6bece7c0a786",
+      "MetaID": "4f0fb7d8-76d1-4d57-805e-5754ebbc6f40",
+      "Name": "RoundValueFunc",
+      "Version": "d2f09e71-40c1-4e8d-aae0-d2c4ca73917a",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.ID4f0fb7d8_76d1_4d57_805e_5754ebbc6f40",
+        "{",
+        "    public class Class_RoundValue : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value = 0,",
+        "            Precision = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "",
+        "            //>>> _params ",
+        "            var Value = inputs[(int)InputId.Value].Eval(context).Value;",
+        "            var Precision = inputs[(int)InputId.Precision].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            ",
+        "            // Function ",
+        "            context.Value = (float)(Math.Round((double)Value/Precision) * (double)Precision);",
+        "            // Function",
+        "            return context;",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8103a075-31cb-4150-b930-5ecda388efe6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ad55503d-0ae1-487c-8da4-6bece7c0a786"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fe0ac33a-c79b-4bd1-8140-17144e56abc1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ad55503d-0ae1-487c-8da4-6bece7c0a786"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ad55503d-0ae1-487c-8da4-6bece7c0a786",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03e4b2e2-1f4c-467a-af84-22c41ecd0058"
+    }
+  ]
+}

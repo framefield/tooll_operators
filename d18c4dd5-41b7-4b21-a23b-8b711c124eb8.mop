@@ -75,7 +75,7 @@
           "    float g = dot(col, MultiplyG) + Add.g;\r",
           "    float b = dot(col, MultiplyB) + Add.b;\r",
           "    float a = clamp( dot(col, MultiplyA) + Add.a, 0,1);\r",
-          "    return float4(r, g, b, a);\r",
+          "    return float4(r,g,b, clamp(a,0.0001,1));\r",
           "}\r",
           "//<<< PS\r",
           "\r",

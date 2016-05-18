@@ -1,0 +1,99 @@
+{
+  "Name": "Trim",
+  "_id": "ae9e46d9-e8de-43fa-b92e-580b7a9c252a",
+  "Namespace": "lib.text",
+  "Description": "Remove white-space at front and end of text",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "df941be5-2d6f-41a4-9bb0-821507f7cc24",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "ab94f007-e584-4ee2-b4cc-4af3d37eb497",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "094e4a8d-9678-47f0-8877-f120d84ce4af",
+      "MetaID": "c8f9ffe2-2681-431f-ad0a-2f51f4af5af3",
+      "Name": "TrimFunc",
+      "Version": "53b83b94-db87-4796-af11-5ebe020b0baa",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.IDc8f9ffe2_2681_431f_ad0a_2f51f4af5af3",
+        "{",
+        "    public class Class_Trim : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            string result = string.Empty;",
+        "            //for (int i = 0; i < StringInputs.Connections.Count; ++i) {",
+        "            //    result += StringInputs.Connections[i].Eval(context).Text;",
+        "            //}",
+        "            context.Text = String.Trim();",
+        "            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "094e4a8d-9678-47f0-8877-f120d84ce4af",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ab94f007-e584-4ee2-b4cc-4af3d37eb497"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "df941be5-2d6f-41a4-9bb0-821507f7cc24",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "094e4a8d-9678-47f0-8877-f120d84ce4af"
+    }
+  ]
+}
