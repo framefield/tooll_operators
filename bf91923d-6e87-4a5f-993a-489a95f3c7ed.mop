@@ -1,0 +1,100 @@
+{
+  "Name": "CurrentResolution",
+  "_id": "bf91923d-6e87-4a5f-993a-489a95f3c7ed",
+  "Namespace": "lib.helper",
+  "Description": "Returns the current render-resolution in pixels.",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Width",
+      "MetaInstanceID": "e08d090b-d72a-4f21-b1f6-082142387f27",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "Height",
+      "MetaInstanceID": "a7174773-53ca-4547-b2c9-0aaeafcab8e5",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "AspectRatio",
+      "MetaInstanceID": "706abadb-a834-4d86-8716-c8cd625508e0",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "71d9efb9-2f26-4889-b808-4f0dd2c94596",
+      "MetaID": "e14a4ad5-f929-47b3-9ea9-477e34ce4d88",
+      "Name": "CurrentResolutionFunc",
+      "Version": "9f0a55f5-bc8a-439b-abef-267e136e4e90",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDe14a4ad5_f929_47b3_9ea9_477e34ce4d88",
+        "{",
+        "    public class Class_CurrentResolution : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Width = 0,",
+        "            Height = 1,",
+        "            AspectRatio = 2",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> function",
+        "            switch((OutputId)outputIdx) {",
+        "                case OutputId.Width:                    ",
+        "                    context.Value = context.Viewport.Width;",
+        "                    break;",
+        "                case OutputId.Height:                    ",
+        "                    context.Value = context.Viewport.Height;",
+        "                    break;",
+        "                case OutputId.AspectRatio:",
+        "//                    context.Value = context.AspectRatio;",
+        "                    break;",
+        "            }",
+        "            ",
+        "            return context;",
+        "            //<<< function",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71d9efb9-2f26-4889-b808-4f0dd2c94596",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "e08d090b-d72a-4f21-b1f6-082142387f27"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71d9efb9-2f26-4889-b808-4f0dd2c94596",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a7174773-53ca-4547-b2c9-0aaeafcab8e5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71d9efb9-2f26-4889-b808-4f0dd2c94596",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "706abadb-a834-4d86-8716-c8cd625508e0"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
-  "Name": "__ReplicateFastDeprectated",
-  "_id": "787f336b-d1e2-459c-bfd1-cdc80ec6407e",
-  "Namespace": "lib.3d.modify",
-  "Description": "Instanciates the incoming geometry. This operator is similar much(!) faster ight] above and ignores state settings like [RasterState].\r\n\r\nA normal setup might look like this:\r\n\r\n[PointLight]\r\n[Replicate2]\r\n[Bake------]\r\n[Group -----------------]\r\n[Transform ] [Transform]\r\n[Cube--------------------] \r\n\r\nAlso checkout the [ReplicateExample]\r\n",
+  "Name": "ReplicateMesh",
+  "_id": "e4fb187c-fded-4518-896f-64bb23fd95fd",
+  "Namespace": "lib.3d.mesh",
+  "Description": "Instanciates the incoming mesh. ",
   "Inputs": [
     {
       "Name": "Code",
-      "MetaInstanceID": "1b2a71ee-73a4-43d6-af74-d9b0e26a07e6",
+      "MetaInstanceID": "31adc267-5e60-44cf-9fa8-94bf9ff9085a",
       "DefaultValue": {
         "Type": "Text",
         "Value": [
@@ -88,17 +88,18 @@
           "    float4 objToWorldRow3 : INSTANCE_OBJ_TO_WORLD_ROW3;\r",
           "};\r",
           "\r",
-          "\r",
           "struct PS_IN\r",
           "{\r",
-          "    float4 pos : SV_POSITION;\r",
-          "    float4 posInWorld  : WORLD_POS;\r",
-          "    float3 normal : NORMAL;   \r",
+          "    float4 pos : POSITION;\r",
+          "    float3 normal : NORMAL;\r",
+          "    float4 col : COLOR;\r",
           "    float2 texCoord : TEXCOORD0;\r",
-          "    float4 vertexColor : COLOR;\r",
-          "    float3 fragPosToCamPos : POS;\r",
-          "    float fogFragCoord : FALLO;\r",
+          "    float3 tangent : TANGENT0;\r",
+          "    float3 binormal : BINORMAL0;\r",
           "};\r",
+          "\r",
+          "\r",
+          "\r",
           "\r",
           "\r",
           "float mod(float a, float b)\r",
@@ -112,87 +113,52 @@
           "}\r",
           "\r",
           "\r",
-          "\r",
-          "//>>>> VS2\r",
           "PS_IN VS( VS_IN input )\r",
           "{\r",
           "    PS_IN output = (PS_IN)0;\r",
-          "\r",
-          "//    float4x4 objToWorldMatrix = objectToWorldMatrix;\r",
-          "//    objToWorldMatrix[3] = input.objToWorldRow3;\r",
           "    float4x4 instanceToWorldMatrix = float4x4(input.objToWorldRow0,\r",
           "                                              input.objToWorldRow1,\r",
           "                                              input.objToWorldRow2,\r",
           "                                              input.objToWorldRow3);\r",
-          "    output.posInWorld = mul(input.pos, instanceToWorldMatrix);\r",
-          "    output.pos = mul(output.posInWorld, worldToCameraMatrix);\r",
-          "    output.normal = mul(input.normal, (float3x3)instanceToWorldMatrix);\r",
-          "    output.fogFragCoord = abs(output.pos.z / input.pos.w);\r",
-          "    output.pos = mul(output.pos, projMatrix);\r",
+          "    output.pos = mul(input.pos, instanceToWorldMatrix);\r",
+          "    output.normal = normalize(mul(input.normal, (float3x3)instanceToWorldMatrix));\r",
           "    output.texCoord = mul(float4(input.texCoord, 0, 1), textureMatrix).xy;\r",
-          "    output.fragPosToCamPos = normalize(mul(cameraToObjectMatrix[3], objectToWorldMatrix) - output.posInWorld);\r",
-          "    output.vertexColor = input.col;\r",
+          "    output.col = input.col;\r",
+          "    //output.col = float4(0,1,0,1);\r",
+          "    output.tangent = input.tangent;\r",
+          "    output.binormal = input.binormal;\r",
           "      \r",
           "    return output;\r",
           "}\r",
-          "//<<< VS\r",
           "\r",
-          "float4 calcLightSource(float3 fragPosInWorld, int lightIdx, float3 cameraVector, float3 norm, float4 baseColor)\r",
+          "\r",
+          "[maxvertexcount(3)]\r",
+          "void GeometryMain(triangle PS_IN input[3], inout TriangleStream<PS_IN> outputStream)\r",
           "{\r",
-          "    float3 lightVector = pointLights[lightIdx].position - fragPosInWorld;\r",
-          "    float dist = length(lightVector);\r",
-          "    lightVector = normalize(lightVector);\r",
-          "    float nxDir = max(0.0, dot(norm, lightVector));\r",
-          "    float4 diffuse = pointLights[lightIdx].diffuse * nxDir;\r",
-          "    float specularPower = 0.0;\r",
-          "    if (nxDir > 0.0)\r",
-          "    {\r",
-          "        float3 r = reflect(-lightVector, norm);\r",
-          "        float rl = max(0.0, dot(r, cameraVector));\r",
-          "        specularPower = pow(rl, materialShininess);\r",
+          "    for (int i = 0; i < 3; i++)\r",
+          "\t{\r",
+          "        PS_IN vertex = input[i];\r",
+          "        outputStream.Append(vertex);\r",
           "    }\r",
+          "    outputStream.RestartStrip();\r",
+          "};\r",
           "\r",
-          "    float attenuation = 1.0 / (pointLights[lightIdx].attenuation.x +\r",
-          "                               pointLights[lightIdx].attenuation.y * dist +\r",
-          "                               pointLights[lightIdx].attenuation.z * dist * dist);\r",
-          "    float4 color = materialAmbient * pointLights[lightIdx].ambient * attenuation +\r",
-          "                   materialDiffuse * (diffuse * baseColor * attenuation) +\r",
-          "                   materialSpecular * pointLights[lightIdx].specular * specularPower * attenuation * baseColor;\r",
           "\r",
-          "    return color;\r",
+          "GeometryShader pGSComp = CompileShader(gs_5_0, GeometryMain());\r",
+          "GeometryShader pGSwSO = ConstructGSWithSO(pGSComp, \"POSITION; NORMAL.xyz; COLOR; TEXCOORD0.xy; TANGENT0.xyz; BINORMAL0.xyz\", NULL, NULL, NULL, 0);\r",
+          "\r",
+          "\r",
+          "technique11 Render\r",
+          "{\r",
+          "    pass \r",
+          "    {\r",
+          "        SetVertexShader(CompileShader(vs_5_0, VS()));\r",
+          "        SetGeometryShader(pGSwSO);\r",
+          "        SetPixelShader(NULL);\r",
+          "    }\r",
           "}\r",
           "\r",
-          "\r",
-          "\r",
-          "//>>>> PS\r",
-          "float4 PS( PS_IN input ) : SV_Target\r",
-          "{\r",
-          "    float2 newTexCoords = input.texCoord;\r",
-          "    float3 norm = normalize(input.normal);\r",
-          "    float4 baseColor = txDiffuse.Sample(samLinear, newTexCoords);\r",
-          "\r",
-          "    float4 color = float4(0, 0, 0, 1);\r",
-          "    for (int lightIdx = 0; lightIdx < numPointLights; ++lightIdx)\r",
-          "    {\r",
-          "        color += calcLightSource(input.posInWorld, lightIdx, input.fragPosToCamPos, norm, baseColor);\r",
-          "    }\r",
-          "    color += materialEmission*baseColor;\r",
-          "\r",
-          "    float fog = (fogEnd - input.fogFragCoord) * fogScale;\r",
-          "    fog = clamp(fog, 0.0, 1.0);\r",
-          "    return float4(lerp(fogColor.rgb, color.rgb, fog), materialDiffuse.a * baseColor.a);\r",
-          "}\r",
-          "//<<< PS\r",
-          "\r",
-          "technique10 Render\r",
-          "{\r",
-          "    pass P0\r",
-          "    {\r",
-          "        SetGeometryShader( 0 );\r",
-          "        SetVertexShader( CompileShader( vs_4_0, VS() ) );\r",
-          "        SetPixelShader( CompileShader( ps_4_0, PS() ) );\r",
-          "    }\r",
-          "} "
+          ""
         ]
       },
       "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
@@ -206,28 +172,11 @@
       "EnumValues": []
     },
     {
-      "Name": "SceneInput",
-      "MetaInstanceID": "98a0cf9d-3006-4e2e-981c-dc5480114563",
-      "DefaultValue": {
-        "Type": "Scene",
-        "Value": "Framefield.Core.Scene"
-      },
-      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
-      "IsMultiInput": "True",
-      "Relevance": "Required",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "Count",
-      "MetaInstanceID": "bed88a30-6b5d-4b10-b7a1-3bee8b136df2",
+      "MetaInstanceID": "98fe46b7-acd9-42ab-82ee-0b04a0484485",
       "DefaultValue": {
         "Type": "Float",
-        "Value": "100"
+        "Value": "10"
       },
       "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
       "IsMultiInput": "False",
@@ -241,7 +190,7 @@
     },
     {
       "Name": "Radius",
-      "MetaInstanceID": "16646546-1c75-4333-95ae-e7514c865689",
+      "MetaInstanceID": "3e2d9c7b-8fc9-4d1d-8643-3fbe72640163",
       "DefaultValue": {
         "Type": "Float",
         "Value": "10"
@@ -258,7 +207,7 @@
     },
     {
       "Name": "Stretch.X",
-      "MetaInstanceID": "70b91536-eefd-4c49-b7fe-e98795334fac",
+      "MetaInstanceID": "3c61f860-7771-4e30-9210-33476b87f27d",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -275,7 +224,7 @@
     },
     {
       "Name": "Stretch.Y",
-      "MetaInstanceID": "98b6e58c-56d4-445f-9b0f-e0d8021c7380",
+      "MetaInstanceID": "d0351a9f-5bc2-4023-a941-1abade0a6239",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -292,7 +241,7 @@
     },
     {
       "Name": "Stretch.Z",
-      "MetaInstanceID": "74fcd7f2-9a01-417c-b96e-fb57dfa3c0ab",
+      "MetaInstanceID": "211acee7-a503-4eb4-b063-248904492844",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -309,7 +258,7 @@
     },
     {
       "Name": "Shape",
-      "MetaInstanceID": "c88ef57a-9b2e-4865-a33a-8a790f70179f",
+      "MetaInstanceID": "5275bf44-c7e1-492e-9a86-db83a36e301c",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -343,7 +292,7 @@
     },
     {
       "Name": "Layer.X",
-      "MetaInstanceID": "cc121904-47de-45b5-9694-87456d6405f6",
+      "MetaInstanceID": "0e276c5b-c343-40d9-9445-32e593b5cdab",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -360,7 +309,7 @@
     },
     {
       "Name": "Layer.Y",
-      "MetaInstanceID": "1e3a4582-f0f5-4695-8846-47f5ac486ada",
+      "MetaInstanceID": "3c589dc3-5871-4891-b887-2d16d8a30423",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -377,7 +326,7 @@
     },
     {
       "Name": "Scatter",
-      "MetaInstanceID": "0deaf016-ab3e-4a4f-a9db-53ea3145b2f3",
+      "MetaInstanceID": "a585345d-3d6a-459d-8e61-ca7c5d192af0",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -394,7 +343,7 @@
     },
     {
       "Name": "Offset.X",
-      "MetaInstanceID": "5291ef52-f90d-4bcc-af09-b80b2f803c9c",
+      "MetaInstanceID": "c4e61f71-901c-42e2-8015-18b11f628257",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -411,7 +360,7 @@
     },
     {
       "Name": "Offset.Y",
-      "MetaInstanceID": "77c26dbc-2b69-4c51-b3be-85b45b2a69d0",
+      "MetaInstanceID": "c1f519d0-14aa-4008-b97c-2b7bec2073d8",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -428,7 +377,7 @@
     },
     {
       "Name": "Offset.Z",
-      "MetaInstanceID": "ecfb27b3-f105-45c3-816d-a769a1581a07",
+      "MetaInstanceID": "62ed310d-ff82-457e-9ce1-46a8b06adab1",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -445,7 +394,7 @@
     },
     {
       "Name": "OffsetRandom.X",
-      "MetaInstanceID": "85edcdad-1184-4273-8f04-286bed3c11fd",
+      "MetaInstanceID": "3ebdbc8b-e15a-4da3-a465-b1ea96fdbf0d",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -462,7 +411,7 @@
     },
     {
       "Name": "OffsetRandom.Y",
-      "MetaInstanceID": "0d01f6ce-9b3f-4dab-88fc-a2f97d73dc69",
+      "MetaInstanceID": "7a9070e7-c8d7-4704-bef6-ec47ce5aaabb",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -479,7 +428,7 @@
     },
     {
       "Name": "OffsetRandom.Z",
-      "MetaInstanceID": "c57321ca-8bff-4abc-93d2-eff9d5075eb6",
+      "MetaInstanceID": "60baa899-973f-41aa-af97-6ea734d99f8e",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -496,7 +445,7 @@
     },
     {
       "Name": "NoiseTime",
-      "MetaInstanceID": "fbc93f89-147c-4bc1-b586-2e3e58907750",
+      "MetaInstanceID": "3828a384-f831-4eb1-8c4d-d0351fad228c",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -513,7 +462,7 @@
     },
     {
       "Name": "NoiseAmount",
-      "MetaInstanceID": "c59d0b8b-8c38-4366-9011-6d8ed058f7ff",
+      "MetaInstanceID": "666e1dce-cdb2-4fed-b887-6921cefbc39e",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -530,7 +479,7 @@
     },
     {
       "Name": "NoiseScale",
-      "MetaInstanceID": "de9654ac-f9b6-4ed3-8b4a-157dec01365e",
+      "MetaInstanceID": "c324e91a-8dc2-4d0d-98d8-743626b971b3",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -547,7 +496,7 @@
     },
     {
       "Name": "Size",
-      "MetaInstanceID": "ae0b02e4-cb4f-4d72-bb2c-a0b2ddb16d88",
+      "MetaInstanceID": "46e07ebc-1898-4ab2-bf09-38b249776649",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -564,7 +513,7 @@
     },
     {
       "Name": "SizeRandom",
-      "MetaInstanceID": "66162a1c-3765-41df-b94a-9aa2aba2424f",
+      "MetaInstanceID": "215389d7-94b9-46c2-87d3-3f09d8fe0bb5",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -581,7 +530,7 @@
     },
     {
       "Name": "Orientation",
-      "MetaInstanceID": "7af42184-5bd1-4967-8e20-a7837adb45f1",
+      "MetaInstanceID": "58d3a6b2-7896-4856-a144-595112da70e7",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -611,7 +560,7 @@
     },
     {
       "Name": "Rotate.X",
-      "MetaInstanceID": "009900a3-c87f-4ff2-8ace-961ad19ab5a1",
+      "MetaInstanceID": "24afe34e-6f0b-4a66-b7f4-24aa7756b1af",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -628,7 +577,7 @@
     },
     {
       "Name": "Rotate.Y",
-      "MetaInstanceID": "c68f2907-7a8a-4855-ae11-1e088747c002",
+      "MetaInstanceID": "2faf67db-1965-4bd5-9531-ddb43b68aba7",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -645,7 +594,7 @@
     },
     {
       "Name": "Rotate.Z",
-      "MetaInstanceID": "f4a82bdd-c87d-43d4-812e-0d90a03b7b81",
+      "MetaInstanceID": "8ee3331a-6ceb-4a9c-a8a3-eb1df2f6dad3",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -662,7 +611,7 @@
     },
     {
       "Name": "RotateRandom.X",
-      "MetaInstanceID": "26a9f56b-7eac-4719-bbe6-d087220a58aa",
+      "MetaInstanceID": "1d2f5862-6206-4937-850f-271e30681b0d",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -679,7 +628,7 @@
     },
     {
       "Name": "RotateRandom.Y",
-      "MetaInstanceID": "c818cf8c-e94a-4179-9283-86fb1141a582",
+      "MetaInstanceID": "cdd77f01-37f8-4103-86e5-cd9d6d586664",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -696,7 +645,7 @@
     },
     {
       "Name": "RotateRandom.Z",
-      "MetaInstanceID": "81c20ae1-afba-40a4-b316-8f8bf0366875",
+      "MetaInstanceID": "3569c870-21b1-47a6-99ac-caed2bb2323e",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -713,7 +662,7 @@
     },
     {
       "Name": "Seed",
-      "MetaInstanceID": "9cdd664d-cc2c-4f59-bf76-ad4c586aa1f6",
+      "MetaInstanceID": "719db59e-4d36-4dd6-9ec4-f1dcac729de0",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -727,21 +676,38 @@
       "Scale": "1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "MeshInput",
+      "MetaInstanceID": "cfc02766-476a-4b92-9662-f1bbec82f279",
+      "DefaultValue": {
+        "Type": "Mesh",
+        "Value": "Framefield.Core.MeshValue"
+      },
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
+      "IsMultiInput": "True",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
     }
   ],
   "Outputs": [
     {
       "Name": "SceneTransformOut",
-      "MetaInstanceID": "2fa37982-3b1a-462b-8fc3-e2050366fe76",
-      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+      "MetaInstanceID": "d99c7755-128f-4151-8505-06fe81d03096",
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206"
     }
   ],
   "OperatorParts": [
     {
-      "MetaInstanceID": "2972eccf-e0d3-42c9-b49c-6b183d797f2e",
-      "MetaID": "f9e0f2b8-5dbe-4938-8154-0cc2d55f2b96",
-      "Name": "__ReplicateFastDeprectatedFunc",
-      "Version": "25abf969-1be1-4dc8-9688-154cc0a4ce4c",
+      "MetaInstanceID": "6e6d35ad-509c-4477-b210-4e331b7ff0f8",
+      "MetaID": "4eb24dee-5087-4fbe-8858-852f3c927c53",
+      "Name": "ReplicateMeshFunc",
+      "Version": "14abbd00-e600-4c43-a4f6-c59f8f20dfc8",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -754,9 +720,9 @@
         "using Framefield.Core.Rendering;",
         "using Buffer = SharpDX.Direct3D11.Buffer;",
         "",
-        "namespace Framefield.Core.IDf9e0f2b8_5dbe_4938_8154_0cc2d55f2b96",
+        "namespace Framefield.Core.ID4eb24dee_5087_4fbe_8858_852f3c927c53",
         "{",
-        "    public class Class___ReplicateFastDeprectated : FXSourceCodeFunction",
+        "    public class Class_ReplicateMesh : FXSourceCodeFunction",
         "    {",
         "        #region Renderer",
         "        public class Renderer : BaseRenderer",
@@ -779,7 +745,7 @@
         "        }",
         "        #endregion",
         "",
-        "        public Class___ReplicateFastDeprectated()",
+        "        public Class_ReplicateMesh()",
         "        {",
         "            _renderer = new Renderer(){ParentFunc = this};",
         "        }",
@@ -794,35 +760,35 @@
         "        private enum InputId",
         "        {",
         "            Code = 0,",
-        "            SceneInput = 1,",
-        "            Count = 2,",
-        "            Radius = 3,",
-        "            StretchX = 4,",
-        "            StretchY = 5,",
-        "            StretchZ = 6,",
-        "            Shape = 7,",
-        "            LayerX = 8,",
-        "            LayerY = 9,",
-        "            Scatter = 10,",
-        "            OffsetX = 11,",
-        "            OffsetY = 12,",
-        "            OffsetZ = 13,",
-        "            OffsetRandomX = 14,",
-        "            OffsetRandomY = 15,",
-        "            OffsetRandomZ = 16,",
-        "            NoiseTime = 17,",
-        "            NoiseAmount = 18,",
-        "            NoiseScale = 19,",
-        "            Size = 20,",
-        "            SizeRandom = 21,",
-        "            Orientation = 22,",
-        "            RotateX = 23,",
-        "            RotateY = 24,",
-        "            RotateZ = 25,",
-        "            RotateRandomX = 26,",
-        "            RotateRandomY = 27,",
-        "            RotateRandomZ = 28,",
-        "            Seed = 29",
+        "            Count = 1,",
+        "            Radius = 2,",
+        "            StretchX = 3,",
+        "            StretchY = 4,",
+        "            StretchZ = 5,",
+        "            Shape = 6,",
+        "            LayerX = 7,",
+        "            LayerY = 8,",
+        "            Scatter = 9,",
+        "            OffsetX = 10,",
+        "            OffsetY = 11,",
+        "            OffsetZ = 12,",
+        "            OffsetRandomX = 13,",
+        "            OffsetRandomY = 14,",
+        "            OffsetRandomZ = 15,",
+        "            NoiseTime = 16,",
+        "            NoiseAmount = 17,",
+        "            NoiseScale = 18,",
+        "            Size = 19,",
+        "            SizeRandom = 20,",
+        "            Orientation = 21,",
+        "            RotateX = 22,",
+        "            RotateY = 23,",
+        "            RotateZ = 24,",
+        "            RotateRandomX = 25,",
+        "            RotateRandomY = 26,",
+        "            RotateRandomZ = 27,",
+        "            Seed = 28,",
+        "            MeshInput = 29",
         "        }",
         "        //<<< _inputids",
         "",
@@ -832,7 +798,6 @@
         "        {",
         "            //>>> _params",
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
-        "            var SceneInput = inputs[(int)InputId.SceneInput];",
         "            var Count = inputs[(int)InputId.Count].Eval(context).Value;",
         "            var Radius = inputs[(int)InputId.Radius].Eval(context).Value;",
         "            var StretchX = inputs[(int)InputId.StretchX].Eval(context).Value;",
@@ -867,9 +832,13 @@
         "            var RotateRandomZ = inputs[(int)InputId.RotateRandomZ].Eval(context).Value;",
         "            var RotateRandom = new Vector3(RotateRandomX, RotateRandomY, RotateRandomZ);",
         "            var Seed = inputs[(int)InputId.Seed].Eval(context).Value;",
+        "            var MeshInput = inputs[(int)InputId.MeshInput].Eval(context).Mesh;",
         "            //<<< _params        ",
         "",
-        "            if (!SceneInput.Connections.Any() || Count <= 0.5f )",
+        "",
+        "            var numInstances = (int) Count;",
+        "",
+        "            if (MeshInput == null && Count < 0.5f )",
         "            {",
         "                return context;",
         "            }",
@@ -889,27 +858,28 @@
         "            Layer.X = Math.Max(1, (int) Layer.X);",
         "            Layer.Y = Math.Max(1, (int) Layer.Y);",
         "",
-        "            //var meshCollector = new OperatorPart.CollectOpPartFunctionsOfType<Framefield.Core.OperatorPartTraits.IMeshSupplier>();",
-        "            _meshCollector.Clear();",
-        "            SceneInput.TraverseWithFunction(_meshCollector, null);",
-        "            var meshSupplier = _meshCollector.CollectedOpPartFunctions.FirstOrDefault();",
-        "            if (meshSupplier == null)",
+        "            var instancedMesh = MeshInput;",
+        "            ",
+        "            // Compute size of required vertex buffer and create it",
+        "            _bakedMesh.NumTriangles = instancedMesh.NumTriangles * numInstances;",
+        "",
+        "            _bakedMesh.AttributesSize = instancedMesh.AttributesSize;",
+        "            _bakedMesh.InputElements = instancedMesh.InputElements;",
+        "            if (_bakedMesh.Vertices == null || _bakedMesh.Vertices.Description.SizeInBytes != instancedMesh.Vertices.Description.SizeInBytes * numInstances)",
         "            {",
-        "                Logger.Error(this,\"Found no mesh supplier, have you forgotten to add an input?\");",
-        "                return context;",
+        "                Utilities.DisposeObj(ref _bakedMesh.Vertices);",
+        "                _bakedMesh.Vertices = new Buffer(D3DDevice.Device, new BufferDescription()",
+        "                                                                  {",
+        "                                                                      BindFlags = BindFlags.StreamOutput | BindFlags.VertexBuffer,",
+        "                                                                      CpuAccessFlags = CpuAccessFlags.None,",
+        "                                                                      OptionFlags = ResourceOptionFlags.None,",
+        "                                                                      SizeInBytes = instancedMesh.Vertices.Description.SizeInBytes * numInstances,",
+        "                                                                      Usage = ResourceUsage.Default",
+        "                                                                  });",
         "            }",
-        "            var meshes = new List<Mesh>();",
-        "            meshSupplier.AddMeshesTo(meshes);",
-        "            if (meshes.Count != 1)",
-        "            {",
-        "                Logger.Error(this,\"Found more or less than 1 mesh\");",
-        "                return context;",
-        "            }",
-        "            var instancedMesh = meshes[0];",
         "",
         "            // instance data buffer",
         "            const int instanceDataSize = 4*16; // float4x4",
-        "            var numInstances = (int) Count;",
         "            var streamSize = numInstances * instanceDataSize;",
         "            if (_instanceDataBuffer == null || _instanceDataBuffer.Description.SizeInBytes != streamSize)",
         "            {",
@@ -1038,7 +1008,7 @@
         "                    var t2= Matrix.Translation(new Vector3(OffsetX + (float)(rand.NextDouble() -0.5f) * (OffsetRandomX + Scatter),",
         "                                                           OffsetY + (float)(rand.NextDouble() -0.5f) * (OffsetRandomY + Scatter),",
         "                                                           OffsetZ + (float)(rand.NextDouble() -0.5f) * (OffsetRandomZ + Scatter)));",
-        "                    transform = t2 * transform;",
+        "                    transform = transform * t2;",
         "",
         "                    if (Orientation == 0)",
         "                    {",
@@ -1077,7 +1047,7 @@
         "                    }",
         "",
         "                    transform *= Matrix.Transformation(new Vector3(), new Quaternion(), new Vector3(1,1,1), new Vector3(), new Quaternion(), t);",
-        "                    transform *= prevTransform; ",
+        "                    //transform *= prevTransform; ",
         "",
         "                    instanceDataStream.Write(transform);",
         "                }",
@@ -1120,9 +1090,14 @@
         "                context.D3DDevice.ImmediateContext.InputAssembler.InputLayout = new InputLayout(context.D3DDevice, pass.Description.Signature, _instanceDataInputElements);",
         "                context.D3DDevice.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;",
         "                context.D3DDevice.ImmediateContext.InputAssembler.SetVertexBuffers(0, new [] { instancedMesh.Vertices, _instanceDataBuffer}, new [] {76, instanceDataSize}, new [] {0,0} );",
-        "",
+        "                ",
+        "                // Configure Pipeline for stream output",
+        "                context.D3DDevice.ImmediateContext.StreamOutput.SetTargets(new [] { new StreamOutputBufferBinding(_bakedMesh.Vertices, 0) });",
         "                pass.Apply(context.D3DDevice.ImmediateContext);",
+        "    ",
+        "                // Draw mesh into vertex buffer",
         "                context.D3DDevice.ImmediateContext.DrawInstanced(instancedMesh.NumTriangles*3, numInstances, 0, 0);",
+        "                context.D3DDevice.ImmediateContext.StreamOutput.SetTargets(new [] { new StreamOutputBufferBinding(null, 0) });",
         "            }",
         "            catch (Exception exception)",
         "            {",
@@ -1131,9 +1106,12 @@
         "",
         "            context.Effect = prevEffect;",
         "            context.Renderer = prevRenderer;",
+        "            ",
+        "            context.Mesh = _bakedMesh;",
         "",
         "            return context;",
         "        }",
+        "",
         "",
         "        #region helpers",
         "",
@@ -1176,6 +1154,7 @@
         "",
         "        #endregion",
         "",
+        "        private Mesh _bakedMesh = new Mesh();",
         "        private const int SEED = 0;",
         "        private float _frequency = 1;",
         "        private float _noiseTime;",
@@ -1211,189 +1190,189 @@
   "Connections": [
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "1b2a71ee-73a4-43d6-af74-d9b0e26a07e6",
+      "SourceOpPart": "31adc267-5e60-44cf-9fa8-94bf9ff9085a",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "98a0cf9d-3006-4e2e-981c-dc5480114563",
+      "SourceOpPart": "98fe46b7-acd9-42ab-82ee-0b04a0484485",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "bed88a30-6b5d-4b10-b7a1-3bee8b136df2",
+      "SourceOpPart": "3e2d9c7b-8fc9-4d1d-8643-3fbe72640163",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "16646546-1c75-4333-95ae-e7514c865689",
+      "SourceOpPart": "3c61f860-7771-4e30-9210-33476b87f27d",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "70b91536-eefd-4c49-b7fe-e98795334fac",
+      "SourceOpPart": "d0351a9f-5bc2-4023-a941-1abade0a6239",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "98b6e58c-56d4-445f-9b0f-e0d8021c7380",
+      "SourceOpPart": "211acee7-a503-4eb4-b063-248904492844",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "74fcd7f2-9a01-417c-b96e-fb57dfa3c0ab",
+      "SourceOpPart": "5275bf44-c7e1-492e-9a86-db83a36e301c",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "c88ef57a-9b2e-4865-a33a-8a790f70179f",
+      "SourceOpPart": "0e276c5b-c343-40d9-9445-32e593b5cdab",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "cc121904-47de-45b5-9694-87456d6405f6",
+      "SourceOpPart": "3c589dc3-5871-4891-b887-2d16d8a30423",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "1e3a4582-f0f5-4695-8846-47f5ac486ada",
+      "SourceOpPart": "a585345d-3d6a-459d-8e61-ca7c5d192af0",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "0deaf016-ab3e-4a4f-a9db-53ea3145b2f3",
+      "SourceOpPart": "c4e61f71-901c-42e2-8015-18b11f628257",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "5291ef52-f90d-4bcc-af09-b80b2f803c9c",
+      "SourceOpPart": "c1f519d0-14aa-4008-b97c-2b7bec2073d8",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "77c26dbc-2b69-4c51-b3be-85b45b2a69d0",
+      "SourceOpPart": "62ed310d-ff82-457e-9ce1-46a8b06adab1",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "ecfb27b3-f105-45c3-816d-a769a1581a07",
+      "SourceOpPart": "3ebdbc8b-e15a-4da3-a465-b1ea96fdbf0d",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "85edcdad-1184-4273-8f04-286bed3c11fd",
+      "SourceOpPart": "7a9070e7-c8d7-4704-bef6-ec47ce5aaabb",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "0d01f6ce-9b3f-4dab-88fc-a2f97d73dc69",
+      "SourceOpPart": "60baa899-973f-41aa-af97-6ea734d99f8e",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "c57321ca-8bff-4abc-93d2-eff9d5075eb6",
+      "SourceOpPart": "3828a384-f831-4eb1-8c4d-d0351fad228c",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "fbc93f89-147c-4bc1-b586-2e3e58907750",
+      "SourceOpPart": "666e1dce-cdb2-4fed-b887-6921cefbc39e",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "c59d0b8b-8c38-4366-9011-6d8ed058f7ff",
+      "SourceOpPart": "c324e91a-8dc2-4d0d-98d8-743626b971b3",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "de9654ac-f9b6-4ed3-8b4a-157dec01365e",
+      "SourceOpPart": "46e07ebc-1898-4ab2-bf09-38b249776649",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "ae0b02e4-cb4f-4d72-bb2c-a0b2ddb16d88",
+      "SourceOpPart": "215389d7-94b9-46c2-87d3-3f09d8fe0bb5",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "66162a1c-3765-41df-b94a-9aa2aba2424f",
+      "SourceOpPart": "58d3a6b2-7896-4856-a144-595112da70e7",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "7af42184-5bd1-4967-8e20-a7837adb45f1",
+      "SourceOpPart": "24afe34e-6f0b-4a66-b7f4-24aa7756b1af",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "009900a3-c87f-4ff2-8ace-961ad19ab5a1",
+      "SourceOpPart": "2faf67db-1965-4bd5-9531-ddb43b68aba7",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "c68f2907-7a8a-4855-ae11-1e088747c002",
+      "SourceOpPart": "8ee3331a-6ceb-4a9c-a8a3-eb1df2f6dad3",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "f4a82bdd-c87d-43d4-812e-0d90a03b7b81",
+      "SourceOpPart": "1d2f5862-6206-4937-850f-271e30681b0d",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "26a9f56b-7eac-4719-bbe6-d087220a58aa",
+      "SourceOpPart": "cdd77f01-37f8-4103-86e5-cd9d6d586664",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "c818cf8c-e94a-4179-9283-86fb1141a582",
+      "SourceOpPart": "3569c870-21b1-47a6-99ac-caed2bb2323e",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "81c20ae1-afba-40a4-b316-8f8bf0366875",
+      "SourceOpPart": "719db59e-4d36-4dd6-9ec4-f1dcac729de0",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "9cdd664d-cc2c-4f59-bf76-ad4c586aa1f6",
+      "SourceOpPart": "cfc02766-476a-4b92-9662-f1bbec82f279",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e"
+      "TargetOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "2972eccf-e0d3-42c9-b49c-6b183d797f2e",
+      "SourceOpPart": "6e6d35ad-509c-4477-b210-4e331b7ff0f8",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "2fa37982-3b1a-462b-8fc3-e2050366fe76"
+      "TargetOpPart": "d99c7755-128f-4151-8505-06fe81d03096"
     }
   ]
 }

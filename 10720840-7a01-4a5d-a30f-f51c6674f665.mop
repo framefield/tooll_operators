@@ -1,12 +1,12 @@
 {
-  "Name": "NoiseDistortMesh",
-  "_id": "e54093f3-48d0-4d12-bfc3-b2cf295f4b2b",
+  "Name": "DisplaceMesh",
+  "_id": "10720840-7a01-4a5d-a30f-f51c6674f665",
   "Namespace": "lib.3d.mesh",
   "Description": "GPU-based noise deformer derived from Scatter. It transforms vertices randomly.\r\n\r\nNeeds a RGBANoise as 2nd input\r\n\r\n[NoiseDistort____________]\r\n[BackMesh]  [SetResolution]\r\n[Transform]  [RGBANoise]\r\n[Rectangle]\r\n\r\n\t",
   "Inputs": [
     {
       "Name": "Code",
-      "MetaInstanceID": "f7352d0e-f169-4ffc-827f-8a66a401fa64",
+      "MetaInstanceID": "c1451fde-bfa5-4a71-be80-be799693566d",
       "DefaultValue": {
         "Type": "Text",
         "Value": [
@@ -38,16 +38,15 @@
           "};\r",
           "\r",
           "\r",
-          "Vertex VertexMain(Vertex input)\r",
-          "{\r",
-          "    return input;\r",
-          "}\r",
-          "\r",
           "float Lerp(float a, float b, float t)\r",
           "{\r",
           "    return a + t*(b - a);\r",
           "}\r",
           "\r",
+          "Vertex VertexMain(Vertex input)\r",
+          "{\r",
+          "    return input;\r",
+          "}\r",
           "\r",
           "float3 offsetAtPoint( float3 p) \r",
           "{\r",
@@ -59,28 +58,33 @@
           "}\r",
           "\r",
           "\r",
+          "\r",
           "[maxvertexcount(3)]\r",
           "void GeometryMain(triangle Vertex input[3], inout TriangleStream<Vertex> outputStream)\r",
           "{        \r",
-          "    float3 p,pn,dn;\r",
+          "    float3 p,pn,dn,n;\r",
           "\r",
           "    p = input[0].pos;\r",
-          "    pn = p + input[0].normal * ScaleNormals;\r",
-          "    dn = offsetAtPoint( pn );\r",
-          "    input[0].pos.xyz = p + offsetAtPoint( p );    \r",
+          "    n = input[0].normal;\r",
+          "    pn = p + n * ScaleNormals;\r",
+          "    dn = offsetAtPoint( pn ).x * n;\r",
+          "    input[0].pos.xyz = p + offsetAtPoint( p ).x * n;\r",
           "    input[0].normal=  (pn + dn - input[0].pos);\r",
           "\r",
           "    p = input[1].pos;\r",
-          "    pn = p + input[1].normal * ScaleNormals;\r",
-          "    dn = offsetAtPoint( pn );\r",
-          "    input[1].pos.xyz = p + offsetAtPoint( p );    \r",
+          "    n = input[1].normal;\r",
+          "    pn = p + n * ScaleNormals;\r",
+          "    dn = offsetAtPoint( pn ).x * n;\r",
+          "    input[1].pos.xyz = p + offsetAtPoint( p ).x * n;\r",
           "    input[1].normal=  (pn + dn - input[1].pos);\r",
           "\r",
           "    p = input[2].pos;\r",
-          "    pn = p + input[2].normal * ScaleNormals;\r",
-          "    dn = offsetAtPoint( pn );\r",
-          "    input[2].pos.xyz = p + offsetAtPoint( p );    \r",
+          "    n = input[2].normal;\r",
+          "    pn = p + n * ScaleNormals;\r",
+          "    dn = offsetAtPoint( pn ).x * n;\r",
+          "    input[2].pos.xyz = p + offsetAtPoint( p ).x * n;\r",
           "    input[2].normal=  (pn + dn - input[2].pos);\r",
+          "\r",
           "\r",
           "    if( abs(Facetize) > 0.001) {\r",
           "        float3 n = normalize( input[0].normal + input[1].normal + input[2].normal);\r",
@@ -92,7 +96,6 @@
           "    outputStream.Append( input[0]);\r",
           "    outputStream.Append( input[1]);\r",
           "    outputStream.Append( input[2]);\r",
-          "    \r",
           "    \r",
           "    outputStream.RestartStrip();\r",
           "};\r",
@@ -127,7 +130,7 @@
     },
     {
       "Name": "Center.X",
-      "MetaInstanceID": "5e9cc30b-7a6a-430e-afd7-c8208cf6f4ed",
+      "MetaInstanceID": "2d78471b-0caa-49b7-a666-063ae65f4103",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -144,7 +147,7 @@
     },
     {
       "Name": "Center.Y",
-      "MetaInstanceID": "f7f8ac69-2b00-4d0b-81ce-9f6650206f6a",
+      "MetaInstanceID": "a0a0f932-b164-40a7-bfec-6716a227b186",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -161,7 +164,7 @@
     },
     {
       "Name": "Center.Z",
-      "MetaInstanceID": "b9b2bb4a-15ac-45ba-8311-970c1204270f",
+      "MetaInstanceID": "4b50a251-0315-4bee-8ad6-e7e597014efe",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -178,7 +181,7 @@
     },
     {
       "Name": "NoiseAmount",
-      "MetaInstanceID": "33ad1dca-7ba4-447c-b6b3-38ee6781dc9c",
+      "MetaInstanceID": "ce72a8ad-d6d1-47d7-b681-c665b5152e58",
       "DefaultValue": {
         "Type": "Float",
         "Value": "5"
@@ -195,7 +198,7 @@
     },
     {
       "Name": "NoiseScale",
-      "MetaInstanceID": "0d3d0ffb-689c-4b62-93aa-637eb89e4e1b",
+      "MetaInstanceID": "294fe248-ecc1-46c4-95c3-06fc7faa133f",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0.25"
@@ -212,7 +215,7 @@
     },
     {
       "Name": "NoiseTexture",
-      "MetaInstanceID": "cb7034fc-f145-4ad7-99bd-d86e2a2f16f1",
+      "MetaInstanceID": "1f3b536f-77d3-4865-acea-d48a5553b240",
       "DefaultValue": {
         "Type": "Image",
         "Value": "Framefield.Core.Image"
@@ -229,7 +232,7 @@
     },
     {
       "Name": "NoiseAmountXYZ.Width",
-      "MetaInstanceID": "68bbaa44-dff1-4a68-a661-5917c7b2f16d",
+      "MetaInstanceID": "9c8f071d-2c89-4fde-9a29-5154e5dc54ee",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -246,7 +249,7 @@
     },
     {
       "Name": "NoiseAmountXYZ.Height",
-      "MetaInstanceID": "269bbe29-b774-46aa-b98d-bd7cdc8c6f59",
+      "MetaInstanceID": "7c9edfb0-ec2e-45f4-8ace-64d4e653f4cd",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -263,7 +266,7 @@
     },
     {
       "Name": "NoiseAmountXYZ.Depth",
-      "MetaInstanceID": "3ecb839a-e15c-440b-8aa3-1343335cb361",
+      "MetaInstanceID": "ba2e1a71-07ea-423b-916e-1bf21f23bc6e",
       "DefaultValue": {
         "Type": "Float",
         "Value": "1"
@@ -280,7 +283,7 @@
     },
     {
       "Name": "Mesh",
-      "MetaInstanceID": "f885a9e5-1054-45f3-90ea-6c80f36d3134",
+      "MetaInstanceID": "16057200-567f-4d2b-b8de-819471e04391",
       "DefaultValue": {
         "Type": "Mesh",
         "Value": "Framefield.Core.MeshValue"
@@ -297,7 +300,7 @@
     },
     {
       "Name": "Facetize",
-      "MetaInstanceID": "0f616321-4d74-479f-86c7-481c71b5563b",
+      "MetaInstanceID": "891b791d-a210-4a02-b857-d53481920450",
       "DefaultValue": {
         "Type": "Float",
         "Value": "0"
@@ -314,10 +317,10 @@
     },
     {
       "Name": "ScaleNormals",
-      "MetaInstanceID": "047aef11-c5d2-4867-a0d2-8c76f7a86ef2",
+      "MetaInstanceID": "3283da43-82d2-4e58-a803-0ef03de9bac9",
       "DefaultValue": {
         "Type": "Float",
-        "Value": "0.1"
+        "Value": "0"
       },
       "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
       "IsMultiInput": "False",
@@ -333,16 +336,16 @@
   "Outputs": [
     {
       "Name": "Scene",
-      "MetaInstanceID": "52e77665-cec4-4d66-942a-6f27fe18a242",
+      "MetaInstanceID": "0946595d-1691-4b95-a491-efe45f32c0cd",
       "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206"
     }
   ],
   "OperatorParts": [
     {
-      "MetaInstanceID": "edc213e1-c5e3-4e91-b907-88d5edaa1638",
-      "MetaID": "ab9cdf63-1f39-4bc1-88db-dd03995ba7d0",
-      "Name": "NoiseDistortMeshFunc",
-      "Version": "88fd6f0b-ac5f-4f4f-a9be-f215711183f8",
+      "MetaInstanceID": "e61b91ed-aade-4094-8efe-fe448e02bbb7",
+      "MetaID": "1d8fcded-0b60-4428-8bc8-60253a29ec45",
+      "Name": "DisplaceMeshFunc",
+      "Version": "063cf5ed-013c-4f85-b7e5-be156cbaf1d0",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -360,9 +363,9 @@
         "using Buffer = SharpDX.Direct3D11.Buffer;",
         "using SharpDX.Direct3D;",
         "",
-        "namespace Framefield.Core.IDab9cdf63_1f39_4bc1_88db_dd03995ba7d0",
+        "namespace Framefield.Core.ID1d8fcded_0b60_4428_8bc8_60253a29ec45",
         "{",
-        "    public class Class_NoiseDistortMesh : FXSourceCodeFunction, IFXSceneSourceCode",
+        "    public class Class_DisplaceMesh : FXSourceCodeFunction, IFXSceneSourceCode",
         "    {",
         "        //>>> _inputids",
         "        private enum InputId",
@@ -383,7 +386,7 @@
         "        }",
         "        //<<< _inputids",
         "",
-        "        public Class_NoiseDistortMesh()",
+        "        public Class_DisplaceMesh()",
         "        {",
         "        }",
         "",
@@ -511,87 +514,87 @@
   "Connections": [
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638",
+      "SourceOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "52e77665-cec4-4d66-942a-6f27fe18a242"
+      "TargetOpPart": "0946595d-1691-4b95-a491-efe45f32c0cd"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "f7352d0e-f169-4ffc-827f-8a66a401fa64",
+      "SourceOpPart": "c1451fde-bfa5-4a71-be80-be799693566d",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "5e9cc30b-7a6a-430e-afd7-c8208cf6f4ed",
+      "SourceOpPart": "2d78471b-0caa-49b7-a666-063ae65f4103",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "f7f8ac69-2b00-4d0b-81ce-9f6650206f6a",
+      "SourceOpPart": "a0a0f932-b164-40a7-bfec-6716a227b186",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "b9b2bb4a-15ac-45ba-8311-970c1204270f",
+      "SourceOpPart": "4b50a251-0315-4bee-8ad6-e7e597014efe",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "33ad1dca-7ba4-447c-b6b3-38ee6781dc9c",
+      "SourceOpPart": "ce72a8ad-d6d1-47d7-b681-c665b5152e58",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "0d3d0ffb-689c-4b62-93aa-637eb89e4e1b",
+      "SourceOpPart": "294fe248-ecc1-46c4-95c3-06fc7faa133f",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "cb7034fc-f145-4ad7-99bd-d86e2a2f16f1",
+      "SourceOpPart": "1f3b536f-77d3-4865-acea-d48a5553b240",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "68bbaa44-dff1-4a68-a661-5917c7b2f16d",
+      "SourceOpPart": "9c8f071d-2c89-4fde-9a29-5154e5dc54ee",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "269bbe29-b774-46aa-b98d-bd7cdc8c6f59",
+      "SourceOpPart": "7c9edfb0-ec2e-45f4-8ace-64d4e653f4cd",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "3ecb839a-e15c-440b-8aa3-1343335cb361",
+      "SourceOpPart": "ba2e1a71-07ea-423b-916e-1bf21f23bc6e",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "f885a9e5-1054-45f3-90ea-6c80f36d3134",
+      "SourceOpPart": "16057200-567f-4d2b-b8de-819471e04391",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "0f616321-4d74-479f-86c7-481c71b5563b",
+      "SourceOpPart": "891b791d-a210-4a02-b857-d53481920450",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "047aef11-c5d2-4867-a0d2-8c76f7a86ef2",
+      "SourceOpPart": "3283da43-82d2-4e58-a803-0ef03de9bac9",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "edc213e1-c5e3-4e91-b907-88d5edaa1638"
+      "TargetOpPart": "e61b91ed-aade-4094-8efe-fe448e02bbb7"
     }
   ]
 }

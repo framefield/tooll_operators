@@ -1,0 +1,101 @@
+{
+  "Name": "StringLength",
+  "_id": "122fd0fa-3a75-4ded-91c4-50ce36de67bc",
+  "Namespace": "lib.helper",
+  "Description": "Returns the length of a string",
+  "Inputs": [
+    {
+      "Name": "Text",
+      "MetaInstanceID": "ae79cbf8-c91b-4361-a029-a86b6f6a7f0a",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Length",
+      "MetaInstanceID": "caa1eb10-9606-41a2-8273-932a26bafc53",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "083e85b9-66c5-4977-98d4-3aa64c3a30ae",
+      "MetaID": "a076084a-b4ad-4493-96f8-8b2fb2f913d2",
+      "Name": "StringLengthFunc",
+      "Version": "8e440448-8cd1-4794-a32b-67d915bd5af7",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "",
+        "namespace Framefield.Core.IDa076084a_b4ad_4493_96f8_8b2fb2f913d2",
+        "{",
+        "    public class Class_StringLength : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Width = 0",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Text = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var Text = inputs[(int)InputId.Text].Eval(context).Text;",
+        "            //<<< _params",
+        "            ",
+        "            if(Text == null)",
+        "                context.Value = -1;",
+        "                ",
+        "            context.Value = (int)Text.Length;    ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ae79cbf8-c91b-4361-a029-a86b6f6a7f0a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "083e85b9-66c5-4977-98d4-3aa64c3a30ae"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "083e85b9-66c5-4977-98d4-3aa64c3a30ae",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "caa1eb10-9606-41a2-8273-932a26bafc53"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "Name": "RenderMesh",
+  "_id": "cc108b2c-3adb-429c-85e8-af8336681ba5",
+  "Namespace": "lib.3d.mesh",
+  "Description": "Renders geometry with the actual shaders set\r\n",
+  "Inputs": [
+    {
+      "Name": "Mesh",
+      "MetaInstanceID": "db8f11ef-a353-4148-aff8-5fc34e6606cd",
+      "DefaultValue": {
+        "Type": "Mesh",
+        "Value": "Framefield.Core.MeshValue"
+      },
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Out",
+      "MetaInstanceID": "2de6b0b9-e432-48c8-b3a9-a36c0c0568c5",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "fd06df1b-6aa5-4cd9-9f0f-b622726e1b6d",
+      "MetaID": "d74d9d08-0afa-4dba-abc0-ed14adc60054",
+      "Name": "RenderMeshFunc",
+      "Version": "50273768-7b4c-4ea7-a1c8-e35712118047",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.IDd74d9d08_0afa_4dba_abc0_ed14adc60054",
+        "{",
+        "    public class Class_RenderMesh : OperatorPart.Function",
+        "    {",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "//            if (!Changed) ",
+        "//                return;",
+        "            try",
+        "            {",
+        "                var mesh = inputs[0].Eval(context).Mesh;",
+        "                context.Renderer.SetupEffect(context);",
+        "                context.Renderer.Render(mesh, context);",
+        "            }",
+        "            catch (Exception)",
+        "            {",
+        "                //Logger.Error(this,\"error\");",
+        "            }",
+        "",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fd06df1b-6aa5-4cd9-9f0f-b622726e1b6d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2de6b0b9-e432-48c8-b3a9-a36c0c0568c5"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "db8f11ef-a353-4148-aff8-5fc34e6606cd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "fd06df1b-6aa5-4cd9-9f0f-b622726e1b6d"
+    }
+  ]
+}
