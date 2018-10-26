@@ -1,7 +1,7 @@
 {
   "Name": "OrthoCamera",
   "_id": "5930d26b-9936-4208-8420-a1bb261f39da",
-  "Namespace": "lib.3d",
+  "Namespace": "lib.geometry",
   "Description": "Sets a Ortho-Camera for the incoming scene. \r\nWhen selected, you can click into the render-view to fly through the scene with the keys A,S,D,F,E,C and the mouse.\r\nTo change the persective when Render To Images and Post-processing is applied, Lock one of the renderViews to the Camera.\r\n",
   "Inputs": [
     {
@@ -379,7 +379,7 @@
       "MetaInstanceID": "a461e99f-b2b3-40eb-a109-142d2e04ab89",
       "MetaID": "636d58aa-05c8-499c-a11d-d74bc2680874",
       "Name": "OrthoCameraFunc",
-      "Version": "4cf2c900-457a-4726-9f10-1fb1d41d0140",
+      "Version": "5d0f40e6-f596-426b-a7e6-4d2a8e199a08",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -539,6 +539,12 @@
         "            OperatorPart.Connections[13].TraverseWithFunction(null, invalidator);",
         "            var fov = OperatorPart.Connections[13].Eval(context).Value;",
         "            return fov;",
+        "        }",
+        "",
+        "        public Vector2 GetLastNearFarClip()",
+        "        {",
+        "            Logger.Error(this, \"not implemented\");",
+        "            return Vector2.Zero;",
         "        }",
         "",
         "        public Matrix GetLastWorldToCamera() {",

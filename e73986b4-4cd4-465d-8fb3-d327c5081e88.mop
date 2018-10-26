@@ -1,7 +1,7 @@
 {
   "Name": "Camera backup",
   "_id": "e73986b4-4cd4-465d-8fb3-d327c5081e88",
-  "Namespace": "lib.3d",
+  "Namespace": "lib.geometry",
   "Description": "Sets a Camera-Perspective for the incoming scene. \r\nWhen selected, you can click into the render-view to fly through the scene with the keys A,S,D,F,E,C and the mouse.\r\nTo change the persective when Render To Images and Post-processing is applied, Lock one of the renderViews to the Camera.\r\n",
   "Inputs": [
     {
@@ -379,7 +379,7 @@
       "MetaInstanceID": "8ff4933b-db0a-4274-988b-a25874b91ba2",
       "MetaID": "0071188c-92fe-4682-97cd-84dedc37349b",
       "Name": "Camera backupFunc",
-      "Version": "dc098d43-5587-43bc-888b-35e7333c1fd0",
+      "Version": "dcf39d9b-a31b-4af6-9353-dbe63f7ebd6d",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -543,6 +543,12 @@
         "",
         "        public Matrix GetLastWorldToCamera() {",
         "            return _worldToCamera;",
+        "        }",
+        "",
+        "        public Vector2 GetLastNearFarClip()",
+        "        {",
+        "            Logger.Error(this, \"not implemented\");",
+        "            return Vector2.Zero;",
         "        }",
         "",
         "        public Matrix CalculateWorldToCamera(OperatorPartContext context) {",

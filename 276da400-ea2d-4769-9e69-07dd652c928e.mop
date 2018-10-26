@@ -1,0 +1,139 @@
+{
+  "Name": "__CubeMapSphereVisualizer",
+  "_id": "276da400-ea2d-4769-9e69-07dd652c928e",
+  "Namespace": "lib.geometry.helper",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "6ad7530e-57fa-488a-8ad4-b4db9c033e68",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "RenderCubemapInContext",
+      "MetaInstanceID": "89317ee9-21f0-4bca-bef4-494d0c6b2b4f",
+      "MetaID": "4a44689d-8f89-4dea-8c5c-9501002ccaf8",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "5078.54239141239",
+        "PosY": "-1929.33619046055",
+        "Width": "250",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Sphere",
+      "MetaInstanceID": "b4015b75-b8dd-4e4c-961e-52265b0721d6",
+      "MetaID": "a18d300e-150f-4935-817e-2499881f6173",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "5263.39680259881",
+        "PosY": "-1740.60799769544",
+        "Width": "125",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "39d345e9-77a6-4b91-95e7-e5a1f4c6e5fd",
+            "Type": "Float",
+            "Value": [
+              "97.6"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Group",
+      "MetaInstanceID": "947b14f1-c0f3-4e81-a3c7-a97215c15283",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "5076.79010047713",
+        "PosY": "-1859.95704824243",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Transform",
+      "MetaInstanceID": "49d4a08c-ffbf-4bbe-acad-c04314e3bfb6",
+      "MetaID": "5f9364f8-36b4-4c1c-9cc2-5eddfa6774aa",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "5016.38798298367",
+        "PosY": "-1760.35900609676",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "f17aba93-a9f0-4e8e-a0c2-4a1ba9f31aef",
+            "Type": "Float",
+            "Value": [
+              "-42.395"
+            ]
+          },
+          {
+            "ID": "a04dece7-fff4-4a69-acbe-a379933208b6",
+            "Type": "Float",
+            "Value": [
+              "42.395"
+            ]
+          },
+          {
+            "ID": "71962503-ac22-48f4-8097-125d8052962c",
+            "Type": "Float",
+            "Value": [
+              "42.395"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "89317ee9-21f0-4bca-bef4-494d0c6b2b4f",
+      "SourceOpPart": "14d8ab29-88df-457c-a034-b6be23aacf2d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6ad7530e-57fa-488a-8ad4-b4db9c033e68"
+    },
+    {
+      "SourceOp": "947b14f1-c0f3-4e81-a3c7-a97215c15283",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "89317ee9-21f0-4bca-bef4-494d0c6b2b4f",
+      "TargetOpPart": "3252841a-9023-4370-8983-319a1df259d6"
+    },
+    {
+      "SourceOp": "49d4a08c-ffbf-4bbe-acad-c04314e3bfb6",
+      "SourceOpPart": "5f5c7860-3887-4e77-a7f1-6cbaa4c2b064",
+      "TargetOp": "947b14f1-c0f3-4e81-a3c7-a97215c15283",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "b4015b75-b8dd-4e4c-961e-52265b0721d6",
+      "SourceOpPart": "35bdb602-3da9-49a3-b711-5ee0a0639a5e",
+      "TargetOp": "947b14f1-c0f3-4e81-a3c7-a97215c15283",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    },
+    {
+      "SourceOp": "b4015b75-b8dd-4e4c-961e-52265b0721d6",
+      "SourceOpPart": "35bdb602-3da9-49a3-b711-5ee0a0639a5e",
+      "TargetOp": "49d4a08c-ffbf-4bbe-acad-c04314e3bfb6",
+      "TargetOpPart": "a75dcc6c-b978-4c14-88ef-664adbc6be92"
+    }
+  ]
+}
