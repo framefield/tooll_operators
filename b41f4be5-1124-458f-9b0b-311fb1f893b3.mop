@@ -1,0 +1,133 @@
+{
+  "Name": "WrapText",
+  "_id": "b41f4be5-1124-458f-9b0b-311fb1f893b3",
+  "Namespace": "lib.string",
+  "Description": "\t\r\n",
+  "Inputs": [
+    {
+      "Name": "InputString",
+      "MetaInstanceID": "58b99de8-3e1a-4d2f-b817-307cfcfe8007",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MaxLength",
+      "MetaInstanceID": "125a3b1c-6f4e-4ef1-9dfe-66474b66acd8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "60"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "f867a0ee-a36c-4d1d-81ef-c8ae5a513640",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "1220e0a8-c6d2-4bfc-bfea-47b902b6b10d",
+      "MetaID": "5d7c8b19-dc44-461b-aae1-cbd3a659e4bd",
+      "Name": "WrapTextFunc",
+      "Version": "66f4ab93-2a9e-4779-850f-e37e8ecf06f2",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID5d7c8b19_dc44_461b_aae1_cbd3a659e4bd",
+        "{",
+        "    public class Class_WrapText : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            InputString = 0,",
+        "            MaxLength = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var InputString = inputs[(int)InputId.InputString].Eval(context).Text;",
+        "            var MaxLength = inputs[(int)InputId.MaxLength].Eval(context).Value;",
+        "            //<<< _params            ",
+        "            string result = string.Empty;",
+        "            ",
+        "            StringBuilder resultBuider = new StringBuilder();",
+        "            var lineLength = 0;",
+        "            foreach( var word in  InputString.Split(' ')) {",
+        "            ",
+        "                lineLength += word.Length;",
+        "                if(lineLength > MaxLength) {",
+        "                    resultBuider.Append(\"\\n\");",
+        "                    lineLength = 0;",
+        "                }",
+        "                resultBuider.Append(word);",
+        "                resultBuider.Append(\" \");",
+        "            }            ",
+        "            context.Text = resultBuider.ToString();            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1220e0a8-c6d2-4bfc-bfea-47b902b6b10d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f867a0ee-a36c-4d1d-81ef-c8ae5a513640"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "58b99de8-3e1a-4d2f-b817-307cfcfe8007",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1220e0a8-c6d2-4bfc-bfea-47b902b6b10d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "125a3b1c-6f4e-4ef1-9dfe-66474b66acd8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1220e0a8-c6d2-4bfc-bfea-47b902b6b10d"
+    }
+  ]
+}

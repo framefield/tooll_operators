@@ -1,0 +1,175 @@
+{
+  "Name": "__AddParameterCurve",
+  "_id": "5231b658-dadf-4ff2-b716-9740843c2326",
+  "Namespace": "user.pixtur.research",
+  "Description": "Adds two Values. \r\n\r\nIf you want to sum up more values, use the [Sum Values] operator.",
+  "Inputs": [
+    {
+      "Name": "Value1",
+      "MetaInstanceID": "972b9af6-a4d3-47c6-80fb-80f80dd2707f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Value2",
+      "MetaInstanceID": "580154ac-1817-4341-b3eb-d5c2671f3a31",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ParameterCurve",
+      "MetaInstanceID": "1d356a27-0879-460f-b0af-3ad50c9c8bb3",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Sum",
+      "MetaInstanceID": "caddc5c2-e9ea-498e-9cd3-02c74b344ace",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "7de60c53-9bc9-48d4-a789-4a4a86a9b108",
+      "MetaID": "cac86d7b-6fe4-4e15-af72-b7fbd7bf7798",
+      "Name": "__AddParameterCurveFunc",
+      "Version": "7267d22e-a4e6-4561-a3c5-11186877b600",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.IDb03022e3_8b4f_4d33_b749_ef30a03ef098; // CurveProviderFunc",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDcac86d7b_6fe4_4e15_af72_b7fbd7bf7798",
+        "{",
+        "    public class Class___AddParameterCurve : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Value1 = 0,",
+        "            Value2 = 1,",
+        "            ParameterCurve = 2",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            if (Changed)",
+        "            {",
+        "                //>>> _params",
+        "                var Value1 = inputs[(int)InputId.Value1].Eval(context).Value;",
+        "                var Value2 = inputs[(int)InputId.Value2].Eval(context).Value;",
+        "                var ParameterCurve = inputs[(int)InputId.ParameterCurve].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "                //<<< _params",
+        "                ",
+        "                var c = ParameterCurve as Curve.ICurve;",
+        "                if(c != null) {",
+        "                    var v2 = c.GetSampledValue(Value1);",
+        "                    Logger.Info(\"curve value is\"+ v2);",
+        "                }",
+        "                _sum = Value1 + Value2;",
+        "                Changed = false;",
+        "                ",
+        "            }",
+        "            ",
+        "            context.Value = _sum;",
+        "            return context;",
+        "        }",
+        "        float _sum;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [
+    {
+      "Name": "CurveProvider",
+      "MetaInstanceID": "d4d749be-dd75-4256-bbda-70b45201ad2f",
+      "MetaID": "6a030fc7-b200-478e-84a1-dd4825b8d5cc",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "972b9af6-a4d3-47c6-80fb-80f80dd2707f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7de60c53-9bc9-48d4-a789-4a4a86a9b108"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "580154ac-1817-4341-b3eb-d5c2671f3a31",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7de60c53-9bc9-48d4-a789-4a4a86a9b108"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1d356a27-0879-460f-b0af-3ad50c9c8bb3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "7de60c53-9bc9-48d4-a789-4a4a86a9b108"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7de60c53-9bc9-48d4-a789-4a4a86a9b108",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "caddc5c2-e9ea-498e-9cd3-02c74b344ace"
+    }
+  ]
+}

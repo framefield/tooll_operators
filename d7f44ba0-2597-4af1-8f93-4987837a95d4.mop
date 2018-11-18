@@ -1,0 +1,147 @@
+{
+  "Name": "ParameterCurve",
+  "_id": "d7f44ba0-2597-4af1-8f93-4987837a95d4",
+  "Namespace": "lib.math",
+  "Description": "A curve that can be used to provite parameters curves than can be evaluated inside an operator (e.g. for things like SizeOverLifeTime or Distribution)",
+  "Inputs": [
+    {
+      "Name": "U",
+      "MetaInstanceID": "5e69173f-6b61-4164-92d9-90bcff7eabf3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "Float value to be mapped.",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "V",
+      "MetaInstanceID": "47f19cfd-4e0f-45d2-aa2a-ee6509727ea2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "This",
+      "MetaInstanceID": "33de70b6-bb4e-4286-a641-1b77721bf943",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "b9f92e9e-d2b2-4051-bc06-92ed48ad637b",
+      "MetaID": "17e0f404-b8b5-47a4-89f9-f4cac13b8b15",
+      "Name": "ParameterCurveFunc",
+      "Version": "9e97c19c-acdc-4f4a-816f-ac4a00dcb561",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using Framefield.Core.Curve;",
+        "",
+        "namespace Framefield.Core.ID17e0f404_b8b5_47a4_89f9_f4cac13b8b15",
+        "{",
+        "    public class Class_ParameterCurve : Curve.Curve",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            U = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            V = 0,",
+        "            This = 1",
+        "        }",
+        "        //<<< _outputids",
+        "    ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> _params",
+        "            var U = inputs[(int)InputId.U].Eval(context).Value;",
+        "            //<<< _params",
+        "",
+        "            switch((OutputId)outputIdx) {",
+        "                case OutputId.V:",
+        "                    context.Value = (float)GetSampledValue(U);",
+        "                    break;",
+        "                case OutputId.This:",
+        "                    context.Dynamic = this;",
+        "                    break;",
+        "            }",
+        "            ",
+        "            return context;",
+        "        }",
+        "",
+        "        public Class_ParameterCurve() {",
+        "            ChangedEventEnabled = true;",
+        "        }",
+        "",
+        "        private CurveState State",
+        "        {",
+        "            get",
+        "            {",
+        "                try",
+        "                {",
+        "                    return OperatorPart.Parent.GetOperatorPartState(OperatorPart.ID) as CurveState;",
+        "                }",
+        "                catch (Exception ex)",
+        "                {",
+        "                    Logger.Error(this,\"could not get the CurveState for this Curve op: {0}\", ex.Message);",
+        "                }",
+        "                return null;",
+        "            }",
+        "        }",
+        "    }",
+        "",
+        "    //only here so that an operatorpartstate can be found",
+        "    //and created",
+        "    public class CurveState : Curve.CurveState",
+        "    {",
+        "    }",
+        "} ",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5e69173f-6b61-4164-92d9-90bcff7eabf3",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "b9f92e9e-d2b2-4051-bc06-92ed48ad637b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b9f92e9e-d2b2-4051-bc06-92ed48ad637b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "47f19cfd-4e0f-45d2-aa2a-ee6509727ea2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b9f92e9e-d2b2-4051-bc06-92ed48ad637b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "33de70b6-bb4e-4286-a641-1b77721bf943"
+    }
+  ]
+}

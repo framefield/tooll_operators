@@ -1,0 +1,994 @@
+{
+  "Name": "Sky",
+  "_id": "83e5d08d-6ab1-4cb6-b8a2-e934a7276b44",
+  "Namespace": "lib.image.generate",
+  "Description": "Creates a RadialGradient texture.",
+  "Inputs": [
+    {
+      "Name": "Code",
+      "MetaInstanceID": "5808d9dd-5191-44d8-812a-86958fc92ae2",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": [
+          "//>>> _common parameters\r",
+          "float4x4 objectToWorldMatrix;",
+          "float4x4 worldToCameraMatrix;",
+          "float4x4 projMatrix;",
+          "Texture2D txDiffuse;",
+          "float2 RenderTargetSize;",
+          "//<<< _common parameters\r",
+          "\r",
+          "//>>> _parameters\r",
+          "float Radius;",
+          "float Feather;",
+          "float2 Center;",
+          "float2 Stretch;",
+          "float4 Inside;",
+          "float4 Outside;",
+          "float2 Iris;",
+          "float2 IrisShape;",
+          "float GradientBias;",
+          "float2 Resolution;",
+          "float2 SunVector;",
+          "float4 GroundColor;",
+          "float horizonBlur;",
+          "float horizonOffset;",
+          "//<<< _parameters\r",
+          "\r",
+          "//>>> _setup\r",
+          "SamplerState samLinear",
+          "{",
+          "    Filter = MIN_MAG_MIP_LINEAR;",
+          "    AddressU = Clamp;",
+          "    AddressV = Clamp;",
+          "};",
+          "//<<< _setup\r",
+          "\r",
+          "//>>> _declarations\r",
+          "struct VS_IN",
+          "{",
+          "    float4 pos : POSITION;",
+          "    float2 texCoord : TEXCOORD;",
+          "};",
+          "",
+          "struct PS_IN",
+          "{",
+          "    float4 pos : SV_POSITION;",
+          "    float2 texCoord: TEXCOORD0;",
+          "};",
+          "//<<< _declarations\r",
+          "\r",
+          "//>>> _GS\r",
+          "",
+          "//<<< _GS\r",
+          "\r",
+          "//>>> _VS \r",
+          "PS_IN VS( VS_IN input )",
+          "{",
+          "    PS_IN output = (PS_IN)0;",
+          "",
+          "    output.pos = mul(input.pos, worldToCameraMatrix);",
+          "    output.pos = mul(output.pos, projMatrix);",
+          "    output.texCoord = input.texCoord;",
+          "",
+          "    return output;",
+          "}",
+          "//<<< _VS\r",
+          "\r",
+          "//>>> PS\r",
+          "float BiasedValue(float u, float aValue, float aBias, float bValue, float bBias) \r",
+          "{\r",
+          "    float fadeA= (float)pow(   u, pow( 0.5, -aBias));\r",
+          "    float fadeB= (float)pow( 1-u, pow( 0.5, -bBias));\r",
+          "    float v= fadeA * (1 - u) + u * (1-fadeB);\r",
+          "    return aValue+v*(bValue-aValue);\r",
+          "}\r",
+          "\r",
+          "float4 PS(PS_IN input) : SV_Target\r",
+          "{\r",
+          "    float aspectRatio = RenderTargetSize.x/RenderTargetSize.y;\r",
+          "\r",
+          "    float2 p= input.pos/RenderTargetSize - float2(0.5,0.5) + 0.5*float2(-Center.x, Center.y);\r",
+          "    p.x *=  aspectRatio;\r",
+          "    p/=  Stretch;\r",
+          "    \r",
+          "    float2 uv = input.pos/RenderTargetSize;\r",
+          "    \r",
+          "    //float2 sunVec = iMouse.xy/iResolution.y;   \r",
+          "   \r",
+          "    //Mie mask\r",
+          "    //float uy = uv.y;\r",
+          "    uv.y = (0.5-uv.y)*2;\r",
+          "    uv.x = uv.x *3.1415;\r",
+          "    \r",
+          "    float sun = max(1- (1.0 + 10.0 * SunVector.y  + uv.y) * length(uv - SunVector),0.0)\r",
+          "        + 0.3 * pow(1-uv.y,12.0) * (1.6-SunVector.y);\r",
+          "\r",
+          "    //the sauce\r",
+          "    float4 skyColor = float4(lerp(Inside.rgb, Outside.rgb, sun)\r",
+          "              * ((0.5 + 1.0 * pow(SunVector.y,0.4)) * (1.5-uv.y) + pow(sun, 5.2)\r",
+          "              * SunVector.y * (5.0 + 15.0 * SunVector.y)),1.0);\r",
+          "\r",
+          "    \r",
+          "    float ground = clamp( uv.y / horizonBlur + 0.5 + horizonOffset,0,1);\r",
+          "    return lerp(  clamp(skyColor, 0,1), GroundColor, ground);\r",
+          "}\r",
+          "//<<< PS\r",
+          "\r",
+          "//>>> _technique\r",
+          "technique10 Render",
+          "{",
+          "    pass P0",
+          "    {",
+          "        SetGeometryShader( 0 );",
+          "        SetVertexShader( CompileShader( vs_4_0, VS() ) );",
+          "        SetPixelShader( CompileShader( ps_4_0, PS() ) );",
+          "    }",
+          "}",
+          "//<<< _technique\r",
+          ""
+        ]
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Radius",
+      "MetaInstanceID": "b54064f0-60ce-48d4-9e57-a2f06547e71e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.3"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Feather",
+      "MetaInstanceID": "86885bd0-6d55-40c8-817d-bca73549d5be",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.X",
+      "MetaInstanceID": "e0e9805d-af0d-4bdd-ac9e-ef54169a8995",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Center.Y",
+      "MetaInstanceID": "08b68a3a-9a1e-407c-8381-bb8d6ee7fa5c",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Stretch.X",
+      "MetaInstanceID": "743a4625-0aa3-4d14-93f7-3c8990612eac",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Stretch.Y",
+      "MetaInstanceID": "b0999320-dae8-4c94-8336-e0171121df3a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.R",
+      "MetaInstanceID": "fdd2d6ff-7aab-4d0b-83af-93686a5f566e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.G",
+      "MetaInstanceID": "045ccf25-71f6-42cc-87fb-4c9f0543decd",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.B",
+      "MetaInstanceID": "aae4e4fe-e626-4696-96c3-9c5b398826ce",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Inside.A",
+      "MetaInstanceID": "3c536df5-ec14-416b-b553-bccfc6406e2e",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.R",
+      "MetaInstanceID": "1d77bcef-9e00-4062-a2a9-c5ef5660eb46",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.G",
+      "MetaInstanceID": "1e4d40f4-323f-45e0-bbcc-84d27e470c07",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.B",
+      "MetaInstanceID": "f5024f48-e6ab-43d6-b9a1-46f8248b378d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Outside.A",
+      "MetaInstanceID": "a1ea01c5-15b3-4d34-9491-3a929752ced7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Iris.Sides",
+      "MetaInstanceID": "090ef0db-3652-4dad-93f8-61f061a41da7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "6"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Iris.Rotate",
+      "MetaInstanceID": "1497bd44-6d64-4e5a-8e58-45577f923670",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "IrisShape.Strength",
+      "MetaInstanceID": "eb0cb3d4-3528-47da-818b-147ce6bb98fb",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "IrisShape.Warp",
+      "MetaInstanceID": "b52e424c-291c-4ab9-8f7d-dcefc5c0539f",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.688"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GradientBias",
+      "MetaInstanceID": "f85e340c-932b-4cf0-8e4d-c5b8c30a9cd4",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Resolution.Width",
+      "MetaInstanceID": "0310c16c-126f-4d99-889e-79bbfcddbf0d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Resolution.Height",
+      "MetaInstanceID": "3c426828-a4c1-47ef-83e2-ef147d988df2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SunVector.X",
+      "MetaInstanceID": "a98ca916-bdf2-40bd-8a6e-3732e49debc5",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SunVector.Y",
+      "MetaInstanceID": "5224eed3-5c3c-44d2-8adb-c684f3968674",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GroundColor.R",
+      "MetaInstanceID": "e9e6c8b8-5900-4042-9ac7-e182bbe11986",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GroundColor.G",
+      "MetaInstanceID": "ee6db91a-70c4-45cc-a2f2-db6d9e656972",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GroundColor.B",
+      "MetaInstanceID": "6b638139-32d1-4b01-a2f8-cbb6e351b023",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "GroundColor.A",
+      "MetaInstanceID": "2c964525-9d8f-4a59-9740-d504c52d1bc2",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "1",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "horizonBlur",
+      "MetaInstanceID": "a265f0d0-b417-470b-8d91-5e8bd9ff8376",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "horizonOffset",
+      "MetaInstanceID": "d21feae6-140d-459d-98d2-a628f5189a70",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "03590b98-6c26-49ba-b72a-8fa06b3a12e7",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "64e80e60-a289-4afb-a242-765074ec0e83",
+      "MetaID": "1fcee65b-9454-4c5a-9dc5-77bbab7dc9d4",
+      "Name": "SkyFunc",
+      "Version": "60d58829-f6d6-4017-b7f3-a97bd146183b",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID1fcee65b_9454_4c5a_9dc5_77bbab7dc9d4",
+        "{",
+        "    public class Class_Sky : FXImageFunction",
+        "    {",
+        "    ",
+        "        protected override ViewportF GetViewport(OperatorPartContext context)",
+        "        {",
+        "            return _viewport;",
+        "        }",
+        "    ",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Code = 0,",
+        "            Radius = 1,",
+        "            Feather = 2,",
+        "            CenterX = 3,",
+        "            CenterY = 4,",
+        "            StretchX = 5,",
+        "            StretchY = 6,",
+        "            InsideR = 7,",
+        "            InsideG = 8,",
+        "            InsideB = 9,",
+        "            InsideA = 10,",
+        "            OutsideR = 11,",
+        "            OutsideG = 12,",
+        "            OutsideB = 13,",
+        "            OutsideA = 14,",
+        "            IrisSides = 15,",
+        "            IrisRotate = 16,",
+        "            IrisShapeStrength = 17,",
+        "            IrisShapeWarp = 18,",
+        "            GradientBias = 19,",
+        "            ResolutionWidth = 20,",
+        "            ResolutionHeight = 21,",
+        "            SunVectorX = 22,",
+        "            SunVectorY = 23,",
+        "            GroundColorR = 24,",
+        "            GroundColorG = 25,",
+        "            GroundColorB = 26,",
+        "            GroundColorA = 27,",
+        "            horizonBlur = 28,",
+        "            horizonOffset = 29",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
+        "            var Radius = inputs[(int)InputId.Radius].Eval(context).Value;",
+        "            var Feather = inputs[(int)InputId.Feather].Eval(context).Value;",
+        "            var CenterX = inputs[(int)InputId.CenterX].Eval(context).Value;",
+        "            var CenterY = inputs[(int)InputId.CenterY].Eval(context).Value;",
+        "            var Center = new Vector2(CenterX, CenterY);",
+        "            var StretchX = inputs[(int)InputId.StretchX].Eval(context).Value;",
+        "            var StretchY = inputs[(int)InputId.StretchY].Eval(context).Value;",
+        "            var Stretch = new Vector2(StretchX, StretchY);",
+        "            var InsideR = inputs[(int)InputId.InsideR].Eval(context).Value;",
+        "            var InsideG = inputs[(int)InputId.InsideG].Eval(context).Value;",
+        "            var InsideB = inputs[(int)InputId.InsideB].Eval(context).Value;",
+        "            var InsideA = inputs[(int)InputId.InsideA].Eval(context).Value;",
+        "            var Inside = new Color4(InsideR, InsideG, InsideB, InsideA);",
+        "            var OutsideR = inputs[(int)InputId.OutsideR].Eval(context).Value;",
+        "            var OutsideG = inputs[(int)InputId.OutsideG].Eval(context).Value;",
+        "            var OutsideB = inputs[(int)InputId.OutsideB].Eval(context).Value;",
+        "            var OutsideA = inputs[(int)InputId.OutsideA].Eval(context).Value;",
+        "            var Outside = new Color4(OutsideR, OutsideG, OutsideB, OutsideA);",
+        "            var IrisSides = inputs[(int)InputId.IrisSides].Eval(context).Value;",
+        "            var IrisRotate = inputs[(int)InputId.IrisRotate].Eval(context).Value;",
+        "            var Iris = new Vector2(IrisSides, IrisRotate);",
+        "            var IrisShapeStrength = inputs[(int)InputId.IrisShapeStrength].Eval(context).Value;",
+        "            var IrisShapeWarp = inputs[(int)InputId.IrisShapeWarp].Eval(context).Value;",
+        "            var IrisShape = new Vector2(IrisShapeStrength, IrisShapeWarp);",
+        "            var GradientBias = inputs[(int)InputId.GradientBias].Eval(context).Value;",
+        "            var ResolutionWidth = inputs[(int)InputId.ResolutionWidth].Eval(context).Value;",
+        "            var ResolutionHeight = inputs[(int)InputId.ResolutionHeight].Eval(context).Value;",
+        "            var Resolution = new Vector2(ResolutionWidth, ResolutionHeight);",
+        "            var SunVectorX = inputs[(int)InputId.SunVectorX].Eval(context).Value;",
+        "            var SunVectorY = inputs[(int)InputId.SunVectorY].Eval(context).Value;",
+        "            var SunVector = new Vector2(SunVectorX, SunVectorY);",
+        "            var GroundColorR = inputs[(int)InputId.GroundColorR].Eval(context).Value;",
+        "            var GroundColorG = inputs[(int)InputId.GroundColorG].Eval(context).Value;",
+        "            var GroundColorB = inputs[(int)InputId.GroundColorB].Eval(context).Value;",
+        "            var GroundColorA = inputs[(int)InputId.GroundColorA].Eval(context).Value;",
+        "            var GroundColor = new Color4(GroundColorR, GroundColorG, GroundColorB, GroundColorA);",
+        "            var horizonBlur = inputs[(int)InputId.horizonBlur].Eval(context).Value;",
+        "            var horizonOffset = inputs[(int)InputId.horizonOffset].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "            //var oldViewport = context.Viewport;",
+        "            if( (int)ResolutionWidth >= 1 && (int)ResolutionHeight >= 1) {                                ",
+        "                _viewport = new ViewportF( 0,0, ResolutionWidth, ResolutionHeight);",
+        "            }",
+        "            else {",
+        "                _viewport = context.Viewport;",
+        "            }",
+        "            ",
+        "            return PrepareAndEvalOnChange(context, () => {",
+        "            ",
+        "                ClearRenderTarget(context, new SharpDX.Color4(0, 0, 0, 0));",
+        "                ",
+        "",
+        "                //>>> _setup",
+        "                {",
+        "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
+        "                    _effect.GetVariableByName(\"Radius\").AsScalar().Set(Radius);",
+        "                    _effect.GetVariableByName(\"Feather\").AsScalar().Set(Feather);",
+        "                    _effect.GetVariableByName(\"Center\").AsVector().Set(new Vector2(CenterX, CenterY));",
+        "                    _effect.GetVariableByName(\"Stretch\").AsVector().Set(new Vector2(StretchX, StretchY));",
+        "                    _effect.GetVariableByName(\"Inside\").AsVector().Set(new Vector4(InsideR, InsideG, InsideB, InsideA));",
+        "                    _effect.GetVariableByName(\"Outside\").AsVector().Set(new Vector4(OutsideR, OutsideG, OutsideB, OutsideA));",
+        "                    _effect.GetVariableByName(\"Iris\").AsVector().Set(new Vector2(IrisSides, IrisRotate));",
+        "                    _effect.GetVariableByName(\"IrisShape\").AsVector().Set(new Vector2(IrisShapeStrength, IrisShapeWarp));",
+        "                    _effect.GetVariableByName(\"GradientBias\").AsScalar().Set(GradientBias);",
+        "                    _effect.GetVariableByName(\"Resolution\").AsVector().Set(new Vector2(ResolutionWidth, ResolutionHeight));",
+        "                    _effect.GetVariableByName(\"SunVector\").AsVector().Set(new Vector2(SunVectorX, SunVectorY));",
+        "                    _effect.GetVariableByName(\"GroundColor\").AsVector().Set(new Vector4(GroundColorR, GroundColorG, GroundColorB, GroundColorA));",
+        "                    _effect.GetVariableByName(\"horizonBlur\").AsScalar().Set(horizonBlur);",
+        "                    _effect.GetVariableByName(\"horizonOffset\").AsScalar().Set(horizonOffset);",
+        "                //<<< _setup",
+        "                ",
+        "                Render(context);",
+        "",
+        "                //>>> _cleanup",
+        "                }",
+        "                //<<< _cleanup",
+        "            });",
+        "            ",
+        "",
+        "        }",
+        "        ",
+        "        private ViewportF _viewport;",
+        "",
+        "    }",
+        "}",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "64e80e60-a289-4afb-a242-765074ec0e83",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "03590b98-6c26-49ba-b72a-8fa06b3a12e7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5808d9dd-5191-44d8-812a-86958fc92ae2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b54064f0-60ce-48d4-9e57-a2f06547e71e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "86885bd0-6d55-40c8-817d-bca73549d5be",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e0e9805d-af0d-4bdd-ac9e-ef54169a8995",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "08b68a3a-9a1e-407c-8381-bb8d6ee7fa5c",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "743a4625-0aa3-4d14-93f7-3c8990612eac",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b0999320-dae8-4c94-8336-e0171121df3a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "fdd2d6ff-7aab-4d0b-83af-93686a5f566e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "045ccf25-71f6-42cc-87fb-4c9f0543decd",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "aae4e4fe-e626-4696-96c3-9c5b398826ce",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3c536df5-ec14-416b-b553-bccfc6406e2e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1d77bcef-9e00-4062-a2a9-c5ef5660eb46",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1e4d40f4-323f-45e0-bbcc-84d27e470c07",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f5024f48-e6ab-43d6-b9a1-46f8248b378d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a1ea01c5-15b3-4d34-9491-3a929752ced7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "090ef0db-3652-4dad-93f8-61f061a41da7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1497bd44-6d64-4e5a-8e58-45577f923670",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eb0cb3d4-3528-47da-818b-147ce6bb98fb",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b52e424c-291c-4ab9-8f7d-dcefc5c0539f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f85e340c-932b-4cf0-8e4d-c5b8c30a9cd4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "0310c16c-126f-4d99-889e-79bbfcddbf0d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3c426828-a4c1-47ef-83e2-ef147d988df2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a98ca916-bdf2-40bd-8a6e-3732e49debc5",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5224eed3-5c3c-44d2-8adb-c684f3968674",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e9e6c8b8-5900-4042-9ac7-e182bbe11986",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ee6db91a-70c4-45cc-a2f2-db6d9e656972",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6b638139-32d1-4b01-a2f8-cbb6e351b023",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2c964525-9d8f-4a59-9740-d504c52d1bc2",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a265f0d0-b417-470b-8d91-5e8bd9ff8376",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d21feae6-140d-459d-98d2-a628f5189a70",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "64e80e60-a289-4afb-a242-765074ec0e83"
+    }
+  ]
+}

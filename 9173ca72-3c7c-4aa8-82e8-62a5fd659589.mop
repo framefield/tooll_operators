@@ -1,8 +1,8 @@
 {
   "Name": "FlatShader",
   "_id": "9173ca72-3c7c-4aa8-82e8-62a5fd659589",
-  "Namespace": "lib.3d.material",
-  "Description": "",
+  "Namespace": "lib.geometry.material",
+  "Description": " ",
   "Inputs": [
     {
       "Name": "Code",
@@ -14,7 +14,7 @@
           "float4x4 projMatrix;\r",
           "float4x4 textureMatrix;\r",
           "\r",
-          "float4 ColorMul;",
+          "float4 Color;",
           "\r",
           "Texture2D txDiffuse;\r",
           "\r",
@@ -57,7 +57,7 @@
           "\r",
           "float4 PS( PS_IN input ) : SV_Target\r",
           "{\r",
-          "    float4 colr=txDiffuse.Sample(samLinear, input.texCoord) * input.col*ColorMul;\r",
+          "    float4 colr=txDiffuse.Sample(samLinear, input.texCoord) * input.col*Color;\r",
           "    colr.a= clamp(colr.a, 0,1);\r",
           "    return  colr;\r",
           "}\r",
@@ -102,7 +102,7 @@
       "EnumValues": []
     },
     {
-      "Name": "ColorMul.R",
+      "Name": "Color.R",
       "MetaInstanceID": "a9bb8b91-6ab6-46c4-8f74-ed00a131d697",
       "DefaultValue": {
         "Type": "Float",
@@ -119,7 +119,7 @@
       "EnumValues": []
     },
     {
-      "Name": "ColorMul.G",
+      "Name": "Color.G",
       "MetaInstanceID": "d24362ac-1d40-4404-bf64-1e3edd5fea6b",
       "DefaultValue": {
         "Type": "Float",
@@ -136,7 +136,7 @@
       "EnumValues": []
     },
     {
-      "Name": "ColorMul.B",
+      "Name": "Color.B",
       "MetaInstanceID": "758c4f87-351a-4142-96f9-f46181bda5d6",
       "DefaultValue": {
         "Type": "Float",
@@ -153,7 +153,7 @@
       "EnumValues": []
     },
     {
-      "Name": "ColorMul.A",
+      "Name": "Color.A",
       "MetaInstanceID": "1319ea25-a06d-46c5-9df0-d51e5eeb494e",
       "DefaultValue": {
         "Type": "Float",
@@ -208,7 +208,7 @@
       "MetaInstanceID": "55e956c9-2cfa-489b-b154-2bde7331424b",
       "MetaID": "a4570d8d-1922-4bda-9fe6-5f8ccb877ec9",
       "Name": "FlatShaderFunc",
-      "Version": "cd179f44-68ef-4ad5-aa95-aec472dac6af",
+      "Version": "88188eec-61fb-48a7-aa41-0b41d9c066fa",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -239,10 +239,10 @@
         "        {",
         "            Code = 0,",
         "            Scene = 1,",
-        "            ColorMulR = 2,",
-        "            ColorMulG = 3,",
-        "            ColorMulB = 4,",
-        "            ColorMulA = 5,",
+        "            ColorR = 2,",
+        "            ColorG = 3,",
+        "            ColorB = 4,",
+        "            ColorA = 5,",
         "            OverrideAlpha = 6",
         "        }",
         "        //<<< _inputids",
@@ -251,11 +251,11 @@
         "            //>>> _params",
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
         "            var Scene = inputs[(int)InputId.Scene];",
-        "            var ColorMulR = inputs[(int)InputId.ColorMulR].Eval(context).Value;",
-        "            var ColorMulG = inputs[(int)InputId.ColorMulG].Eval(context).Value;",
-        "            var ColorMulB = inputs[(int)InputId.ColorMulB].Eval(context).Value;",
-        "            var ColorMulA = inputs[(int)InputId.ColorMulA].Eval(context).Value;",
-        "            var ColorMul = new Color4(ColorMulR, ColorMulG, ColorMulB, ColorMulA);",
+        "            var ColorR = inputs[(int)InputId.ColorR].Eval(context).Value;",
+        "            var ColorG = inputs[(int)InputId.ColorG].Eval(context).Value;",
+        "            var ColorB = inputs[(int)InputId.ColorB].Eval(context).Value;",
+        "            var ColorA = inputs[(int)InputId.ColorA].Eval(context).Value;",
+        "            var Color = new Color4(ColorR, ColorG, ColorB, ColorA);",
         "            var OverrideAlpha = (int) inputs[(int)InputId.OverrideAlpha].Eval(context).Value;",
         "            //<<< _params",
         "        ",
@@ -275,12 +275,12 @@
         "            context.Objects[OperatorPartContext.MATERIAL_ID] = this;",
         "            if (OverrideAlpha > 0.5f) ",
         "            {",
-        "                ColorMulA *= prevMaterial.Diffuse.Alpha;",
-        "                ColorMul.Alpha = ColorMulA;",
+        "                ColorA *= prevMaterial.Diffuse.Alpha;",
+        "                Color.Alpha = ColorA;",
         "            }",
-        "            Diffuse = ColorMul;",
+        "            Diffuse = Color;",
         "",
-        "            _effect.GetVariableByName(\"ColorMul\").AsVector().Set(new Vector4(ColorMulR, ColorMulG, ColorMulB,ColorMulA)); ",
+        "            _effect.GetVariableByName(\"Color\").AsVector().Set(new Vector4(ColorR, ColorG, ColorB,ColorA)); ",
         "",
         "            Scene.Eval(context);",
         "            context.Objects[OperatorPartContext.MATERIAL_ID] = prevMaterial;",

@@ -1,7 +1,7 @@
 {
   "Name": "MultiIris",
   "_id": "b334f2f7-62e4-43b9-84ea-cea091307077",
-  "Namespace": "lib.3d.generate",
+  "Namespace": "lib.geometry.generate",
   "Description": "Creates instances of a geometry aligned to position of the first PointLight above the operator.",
   "Inputs": [
     {
@@ -493,7 +493,7 @@
       "MetaInstanceID": "7e703e8c-d5b8-4de5-b84d-658468940b26",
       "MetaID": "1ab8493b-717f-4f24-b9d5-831030d1f069",
       "Name": "MultiIrisFunc",
-      "Version": "058885a3-4ab2-440e-8847-26f10015a5fd",
+      "Version": "4ee48e21-e7e3-46d9-8e8d-198c71132fcf",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -574,7 +574,7 @@
         "            var TextureCellsRows = inputs[(int)InputId.TextureCellsRows].Eval(context).Value;",
         "            var TextureCells = new Vector2(TextureCellsColumns, TextureCellsRows);",
         "            var RandomSeed = inputs[(int)InputId.RandomSeed].Eval(context).Value;",
-        "            var ImageAtlas = inputs[(int)InputId.ImageAtlas].Eval(context).Image; if (ImageAtlas == null) return context;",
+        "            var ImageAtlas = inputs[(int)InputId.ImageAtlas].Eval(context).Image; // Needs to be checked for null!",
         "            var StretchValue = inputs[(int)InputId.StretchValue].Eval(context).Value;",
         "            var StretchRandom = inputs[(int)InputId.StretchRandom].Eval(context).Value;",
         "            var OffsetX = inputs[(int)InputId.OffsetX].Eval(context).Value;",

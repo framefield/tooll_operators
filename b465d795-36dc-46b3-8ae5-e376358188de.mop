@@ -161,7 +161,7 @@
       "MetaInstanceID": "6afd393e-b9f6-433a-add1-cda4b26d00dc",
       "MetaID": "d44d9bdd-09a4-4c73-8ad2-9a8e37fb4933",
       "Name": "DepthToColorFunc",
-      "Version": "b131ca0e-2138-4e93-9418-9b4027710776",
+      "Version": "3801a318-6ec9-47de-ba60-36eb5b9eec9f",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -194,7 +194,7 @@
         "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
         "            //>>> _params",
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
-        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; if (Image == null) return context;",
+        "            var Image = inputs[(int)InputId.Image].Eval(context).Image; // Needs to be checked for null!",
         "            var RangeMin = inputs[(int)InputId.RangeMin].Eval(context).Value;",
         "            var RangeMax = inputs[(int)InputId.RangeMax].Eval(context).Value;",
         "            var Range = new Vector2(RangeMin, RangeMax);",

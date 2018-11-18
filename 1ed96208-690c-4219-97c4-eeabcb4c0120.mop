@@ -1,0 +1,179 @@
+{
+  "Name": "LFO",
+  "_id": "1ed96208-690c-4219-97c4-eeabcb4c0120",
+  "Namespace": "lib.time",
+  "Description": "This is basically idential to...\r\n\r\n[Sin]\r\n[Time]\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "Range.Min",
+      "MetaInstanceID": "85906e9b-ac30-48ae-9356-28968fab5dc0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "-1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Range.Max",
+      "MetaInstanceID": "8d0a0898-efa8-4f2e-9a52-218e1d65a65a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Frequency",
+      "MetaInstanceID": "026dcbff-c00e-430d-811a-f7120bc1991d",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Phase",
+      "MetaInstanceID": "7d396a25-c485-4d46-ad56-aebcf64dfec7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "29ba6431-5221-48a6-b795-68160f2704ad",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3fd831ce-7a22-4e5f-be64-776382c63795",
+      "MetaID": "5c94132e-6dd5-4f39-874c-26b1f8577288",
+      "Name": "LFOFunc",
+      "Version": "538ae9d4-1b75-45ce-a624-d87afb38f19f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "//using System.Math;",
+        "",
+        "namespace Framefield.Core.ID5c94132e_6dd5_4f39_874c_26b1f8577288",
+        "{",
+        "    public class Class_LFO : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            RangeMin = 0,",
+        "            RangeMax = 1,",
+        "            Frequency = 2,",
+        "            Phase = 3",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            ",
+        "            //>>> _params",
+        "            var RangeMin = inputs[(int)InputId.RangeMin].Eval(context).Value;",
+        "            var RangeMax = inputs[(int)InputId.RangeMax].Eval(context).Value;",
+        "            var Range = new Vector2(RangeMin, RangeMax);",
+        "            var Frequency = inputs[(int)InputId.Frequency].Eval(context).Value;",
+        "            var Phase = inputs[(int)InputId.Phase].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "",
+        "            context.Value = Utilities.Lerp(",
+        "                                        RangeMin, ",
+        "                                        RangeMax,",
+        "                                        (float) (",
+        "                                        Math.Sin(context.Time * Frequency * Math.PI ",
+        "                                               + (Phase * Math.PI/ 180) *1 ) / 2f + 0.5f));",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3fd831ce-7a22-4e5f-be64-776382c63795",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29ba6431-5221-48a6-b795-68160f2704ad"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "85906e9b-ac30-48ae-9356-28968fab5dc0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3fd831ce-7a22-4e5f-be64-776382c63795"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8d0a0898-efa8-4f2e-9a52-218e1d65a65a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3fd831ce-7a22-4e5f-be64-776382c63795"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "026dcbff-c00e-430d-811a-f7120bc1991d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3fd831ce-7a22-4e5f-be64-776382c63795"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "7d396a25-c485-4d46-ad56-aebcf64dfec7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3fd831ce-7a22-4e5f-be64-776382c63795"
+    }
+  ]
+}

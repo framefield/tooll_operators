@@ -1,0 +1,141 @@
+{
+  "Name": "TestRandomSoundtrack",
+  "_id": "2ec87eb2-9fe2-4f14-857a-4c74717c4913",
+  "Namespace": "user.pixtur.experimental",
+  "Description": "",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "2b2a85b5-0408-4082-8d3b-d076602993b7",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "Group",
+      "MetaInstanceID": "10584aee-a4d7-420f-8430-f6d7291d8c66",
+      "MetaID": "46e0d20b-9ecc-42bc-ad5a-faeaf23e62f1",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4879.14523938354",
+        "PosY": "-2071.08171295329",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "GetValue",
+      "MetaInstanceID": "55bdedd2-820a-429d-81c9-ca55b8e14c54",
+      "MetaID": "b27b23d8-64db-4027-9e0f-2dd24e784ead",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4890.53623080928",
+        "PosY": "-1954.14215361304",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "1c4037a7-3618-4b66-80bc-800b2b1b3866",
+            "Type": "Text",
+            "Value": [
+              "_RandomSoundtrackIndex"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "ValueToString",
+      "MetaInstanceID": "abed6c39-cc97-4ed2-ae83-8042571e3782",
+      "MetaID": "f4bdf94a-edc1-46f5-8670-5549e097e6db",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4879.14523938354",
+        "PosY": "-2021.08171295329",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9fc24226-ce64-4107-8230-ca8c7b73a65d",
+            "Type": "Text",
+            "Value": [
+              "Random Soundtrack: {0}"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Text",
+      "MetaInstanceID": "ba30a42c-bd37-4375-9667-a2a622286704",
+      "MetaID": "45d21f0c-7341-4448-bc64-ac494916e4ce",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "4879.14523938354",
+        "PosY": "-2046.08171295329",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "25b66fc7-cc39-4ca8-8554-f4e6e9e4bfbc",
+            "Type": "Float",
+            "Value": [
+              "0.0502"
+            ]
+          },
+          {
+            "ID": "ebf665af-a916-49ca-9b9b-dbaf62db49d5",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          },
+          {
+            "ID": "54d945fa-536f-47f0-a4f6-d136e67072f7",
+            "Type": "Float",
+            "Value": [
+              "1"
+            ]
+          }
+        ],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "10584aee-a4d7-420f-8430-f6d7291d8c66",
+      "SourceOpPart": "6d090348-b67e-4203-acba-43611af0395d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2b2a85b5-0408-4082-8d3b-d076602993b7"
+    },
+    {
+      "SourceOp": "55bdedd2-820a-429d-81c9-ca55b8e14c54",
+      "SourceOpPart": "978f4979-ac0c-4424-9304-3785cb6a7ae4",
+      "TargetOp": "abed6c39-cc97-4ed2-ae83-8042571e3782",
+      "TargetOpPart": "8232f28d-c11a-492b-9dca-a394437a094e"
+    },
+    {
+      "SourceOp": "abed6c39-cc97-4ed2-ae83-8042571e3782",
+      "SourceOpPart": "e2435b32-87ff-43f9-ac3e-8aa88c751611",
+      "TargetOp": "ba30a42c-bd37-4375-9667-a2a622286704",
+      "TargetOpPart": "f5acd9de-809a-4cca-99c0-4aa3ecb0651a"
+    },
+    {
+      "SourceOp": "ba30a42c-bd37-4375-9667-a2a622286704",
+      "SourceOpPart": "be6eba3a-90cd-4820-b5c5-0a65b2a77cb7",
+      "TargetOp": "10584aee-a4d7-420f-8430-f6d7291d8c66",
+      "TargetOpPart": "739993cc-ce22-4070-8914-da6008c79357"
+    }
+  ]
+}

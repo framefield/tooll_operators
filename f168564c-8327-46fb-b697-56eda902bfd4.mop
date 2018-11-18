@@ -21,12 +21,13 @@
           "//>>> _parameters\r",
           "Texture2D Image;",
           "Texture2D Mask;",
+          "float MaskMode;",
           "//<<< _parameters\r",
           " \r",
           "//>>> setup\r",
           "SamplerState samNearest\r",
           "{\r",
-          "    Filter = MIN_MAG_MIP_LINEAR;\r",
+          "    Filter = MIN_MAG_MIP_POINT;\r",
           "    AddressU = Clamp;\r",
           "    AddressV = Clamp;\r",
           "};\r",
@@ -72,12 +73,26 @@
           "{\r",
           "    float4 t0 = Image.Sample(samNearest, input.texCoord); \r",
           "    float4 t1 = Mask.Sample(samNearest, input.texCoord);    \r",
+          "    \r",
+          "    float a = 1;\r",
+          "    if(MaskMode < 0.5) {\r",
+          "        a= t1.a;\r",
+          "    }\r",
+          "    else if (MaskMode < 1.5) {\r",
+          "        a= (1- t1.a);\r",
+          "    }\r",
+          "    else if (MaskMode < 2.5) {\r",
+          "        a=  (t1.r + t1.g + t1.b) * 0.3333;\r",
+          "    }\r",
+          "    else {\r",
+          "        a=  1 - (t1.r + t1.g + t1.b) * 0.3333;        \r",
+          "    }\r",
           "\r",
           "    //float a = t0.a + t1.a - t0.a*t1.a;\r",
           "    //float3 rgb = (1.0 - t1.a)*t0.rgb + t1.a*t1.rgb;   \r",
+          "    return float4(t0.rgb, clamp( t0.a * a, 0, 1));\r",
           "    \r",
           "    \r",
-          "    return float4(t0.rgb, t0.a * t1.a);\r",
           "\r",
           "}\r",
           "//<<< PS\r",
@@ -139,6 +154,40 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "MaskMode",
+      "MetaInstanceID": "c62e8903-09a3-48d4-a67c-0250e25e81c5",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Alpha",
+          "Value": "0"
+        },
+        {
+          "Name": "AlphaInverted",
+          "Value": "1"
+        },
+        {
+          "Name": "Gray",
+          "Value": "2"
+        },
+        {
+          "Name": "GrayInverted",
+          "Value": "4"
+        }
+      ]
     }
   ],
   "Outputs": [
@@ -153,7 +202,7 @@
       "MetaInstanceID": "431a886e-3af5-4a03-bd59-fffd83d91654",
       "MetaID": "47b822ac-6a57-4ab6-b459-7d3407b02df9",
       "Name": "MultiplyAlphaFunc",
-      "Version": "547a04b7-359c-45e6-810a-8ec1346c0eca",
+      "Version": "7d8f0228-f37a-4494-a462-15a5843600f6",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -169,14 +218,15 @@
         "",
         "namespace Framefield.Core.ID47b822ac_6a57_4ab6_b459_7d3407b02df9",
         "{",
-        "    public class Class_SetAlphaFromImage : FXImageFunction",
+        "    public class Class_MultiplyAlpha : FXImageFunction",
         "    {",
         "        //>>> _inputids",
         "        private enum InputId",
         "        {",
         "            Code = 0,",
         "            Image = 1,",
-        "            Mask = 2",
+        "            Mask = 2,",
+        "            MaskMode = 3",
         "        }",
         "        //<<< _inputids",
         "",
@@ -186,6 +236,7 @@
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
         "            var Image = inputs[(int)InputId.Image].Eval(context).Image; // Needs to be checked for null!",
         "            var Mask = inputs[(int)InputId.Mask].Eval(context).Image; // Needs to be checked for null!",
+        "            var MaskMode = (int) inputs[(int)InputId.MaskMode].Eval(context).Value;",
         "            //<<< _params",
         "",
         "            return PrepareAndEvalOnChange(context, () => {",
@@ -198,6 +249,7 @@
         "                    _effect.GetVariableByName(\"RenderTargetSize\").AsVector().Set(new Vector2(_usedViewport.Width, _usedViewport.Height));",
         "                    _effect.GetVariableByName(\"Image\").AsShaderResource().SetResource(ImageView);",
         "                    _effect.GetVariableByName(\"Mask\").AsShaderResource().SetResource(MaskView);",
+        "                    _effect.GetVariableByName(\"MaskMode\").AsScalar().Set(MaskMode);",
         "                //<<< _setup",
         "",
         "                Render(context);",
@@ -239,6 +291,12 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "8fc02e00-a121-4ce7-9685-5b8f190060b1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "431a886e-3af5-4a03-bd59-fffd83d91654"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c62e8903-09a3-48d4-a67c-0250e25e81c5",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "431a886e-3af5-4a03-bd59-fffd83d91654"
     }

@@ -27,6 +27,7 @@
           "float Radius;",
           "float3 SizeScatter;",
           "float2 OffsetContent;",
+          "float SizeScatterSeed;",
           "//<<< _parameters\r",
           "\r",
           "//>>> setup\r",
@@ -91,10 +92,10 @@
           "    //float d = length( input.pos/RenderTargetSize - float2(0.5,0.5) + Center);\r",
           "    float fraction = fmod(angle / (2*PI) * Repeat , 1) ;\r",
           "    \r",
-          "    float4 rand= NoiseImage.Sample(samLinear, float2( angle*Distribution.y * 0.001 + Distribution.z*0.01 ,0)); \r",
+          "    float4 rand= NoiseImage.Sample(samLinear, float2( angle*Distribution.y * 0.001 + Distribution.z*0.01 , SizeScatterSeed * 0.0 % 1)); \r",
           "    fraction += rand * Distribution.x;\r",
           "    \r",
-          "    float rand2= NoiseImage.Sample(samLinear, float2( angle*SizeScatter.y * 0.001 + SizeScatter.z*0.01, 2)); \r",
+          "    float rand2= NoiseImage.Sample(samLinear, float2( angle*SizeScatter.y * 0.001 + SizeScatter.z*0.01, (SizeScatterSeed * 0.01 + 0.2) % 1)); \r",
           "    \r",
           "    float4 cCenter=  Image1.Sample(samLinear,   float2( fraction          ,  d + rand2 * SizeScatter.x) + OffsetContent); \r",
           "    //return cCenter1;\r",
@@ -389,6 +390,23 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "SizeScatterSeed",
+      "MetaInstanceID": "275dd2a8-df1e-4648-85f8-1933a4109982",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -403,7 +421,7 @@
       "MetaInstanceID": "f335a527-7ff7-4b88-bbfb-409842824d3d",
       "MetaID": "84d87d78-6573-422f-bc06-6369d0c6e9b1",
       "Name": "StarDistortFunc",
-      "Version": "cea653e1-ce85-40d8-8ef7-6a305330b51e",
+      "Version": "add00439-dd20-4389-976b-4d3dcfb9370c",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -438,7 +456,8 @@
         "            SizeScatterFrequency = 11,",
         "            SizeScatterPhase = 12,",
         "            OffsetContentX = 13,",
-        "            OffsetContentY = 14",
+        "            OffsetContentY = 14,",
+        "            SizeScatterSeed = 15",
         "        }",
         "        //<<< _inputids",
         "",
@@ -463,6 +482,7 @@
         "            var OffsetContentX = inputs[(int)InputId.OffsetContentX].Eval(context).Value;",
         "            var OffsetContentY = inputs[(int)InputId.OffsetContentY].Eval(context).Value;",
         "            var OffsetContent = new Vector2(OffsetContentX, OffsetContentY);",
+        "            var SizeScatterSeed = inputs[(int)InputId.SizeScatterSeed].Eval(context).Value;",
         "            //<<< _params",
         "",
         "            return PrepareAndEvalOnChange(context, () => {",
@@ -481,6 +501,7 @@
         "                    _effect.GetVariableByName(\"Radius\").AsScalar().Set(Radius);",
         "                    _effect.GetVariableByName(\"SizeScatter\").AsVector().Set(new Vector3(SizeScatterStrength, SizeScatterFrequency, SizeScatterPhase));",
         "                    _effect.GetVariableByName(\"OffsetContent\").AsVector().Set(new Vector2(OffsetContentX, OffsetContentY));",
+        "                    _effect.GetVariableByName(\"SizeScatterSeed\").AsScalar().Set(SizeScatterSeed);",
         "                //<<< _setup",
         "",
         "                Render(context);",
@@ -596,6 +617,12 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "06f95c7d-5e88-4a37-8ef5-63167f341726",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "f335a527-7ff7-4b88-bbfb-409842824d3d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "275dd2a8-df1e-4648-85f8-1933a4109982",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "f335a527-7ff7-4b88-bbfb-409842824d3d"
     }

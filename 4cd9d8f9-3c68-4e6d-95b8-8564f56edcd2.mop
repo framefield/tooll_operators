@@ -1,0 +1,132 @@
+{
+  "Name": "MatchRegEx",
+  "_id": "4cd9d8f9-3c68-4e6d-95b8-8564f56edcd2",
+  "Namespace": "lib.string",
+  "Description": "Uses RegularExpressions to match and return a string.\r\n",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "874acc86-2edd-4e96-93ed-7d70de96f2fe",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MatchPattern",
+      "MetaInstanceID": "8baf93b1-881e-4566-828b-c431d9910460",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": "(.*)"
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "6716febe-5eb0-485d-a096-70f1dbd5f14d",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "48251894-5b6a-444f-a98d-a3401312efca",
+      "MetaID": "ff860684-c11e-4afc-83f2-4d89345dc4f1",
+      "Name": "MatchRegExFunc",
+      "Version": "a1ad24ea-2188-4e75-92c0-c8584df8222f",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "using System.Text.RegularExpressions;",
+        "",
+        "namespace Framefield.Core.IDff860684_c11e_4afc_83f2_4d89345dc4f1",
+        "{",
+        "    public class Class_MatchRegext : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0,",
+        "            MatchPattern = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            var MatchPattern = inputs[(int)InputId.MatchPattern].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            if (String.IsNullOrEmpty(String) || String.IsNullOrEmpty(MatchPattern) ) {",
+        "                context.Text = String.Empty;",
+        "                return context;",
+        "            }",
+        "            string result = string.Empty;",
+        "            ",
+        "            var m = Regex.Match(String, MatchPattern);",
+        "            if(m.Success) {",
+        "            context.Text = m.Groups[1].Value;",
+        "            }             ",
+        "            else {",
+        "                context.Text = \"\";",
+        "            }",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "48251894-5b6a-444f-a98d-a3401312efca",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6716febe-5eb0-485d-a096-70f1dbd5f14d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "874acc86-2edd-4e96-93ed-7d70de96f2fe",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "48251894-5b6a-444f-a98d-a3401312efca"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "8baf93b1-881e-4566-828b-c431d9910460",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "48251894-5b6a-444f-a98d-a3401312efca"
+    }
+  ]
+}

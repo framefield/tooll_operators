@@ -1,7 +1,7 @@
 {
-  "Name": "DisplaceMesh",
+  "Name": "NoiseDisplaceMesh",
   "_id": "10720840-7a01-4a5d-a30f-f51c6674f665",
-  "Namespace": "lib.3d.mesh",
+  "Namespace": "lib.mesh.modify",
   "Description": "GPU-based noise deformer derived from Scatter. It transforms vertices randomly.\r\n\r\nNeeds a RGBANoise as 2nd input\r\n\r\n[NoiseDistort____________]\r\n[BackMesh]  [SetResolution]\r\n[Transform]  [RGBANoise]\r\n[Rectangle]\r\n\r\n\t",
   "Inputs": [
     {
@@ -129,6 +129,23 @@
       "EnumValues": []
     },
     {
+      "Name": "Mesh",
+      "MetaInstanceID": "16057200-567f-4d2b-b8de-819471e04391",
+      "DefaultValue": {
+        "Type": "Mesh",
+        "Value": "Framefield.Core.MeshValue"
+      },
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
       "Name": "Center.X",
       "MetaInstanceID": "2d78471b-0caa-49b7-a666-063ae65f4103",
       "DefaultValue": {
@@ -214,23 +231,6 @@
       "EnumValues": []
     },
     {
-      "Name": "NoiseTexture",
-      "MetaInstanceID": "1f3b536f-77d3-4865-acea-d48a5553b240",
-      "DefaultValue": {
-        "Type": "Image",
-        "Value": "Framefield.Core.Image"
-      },
-      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
-      "IsMultiInput": "False",
-      "Relevance": "Required",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "NoiseAmountXYZ.Width",
       "MetaInstanceID": "9c8f071d-2c89-4fde-9a29-5154e5dc54ee",
       "DefaultValue": {
@@ -282,23 +282,6 @@
       "EnumValues": []
     },
     {
-      "Name": "Mesh",
-      "MetaInstanceID": "16057200-567f-4d2b-b8de-819471e04391",
-      "DefaultValue": {
-        "Type": "Mesh",
-        "Value": "Framefield.Core.MeshValue"
-      },
-      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
-      "IsMultiInput": "False",
-      "Relevance": "Required",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "Facetize",
       "MetaInstanceID": "891b791d-a210-4a02-b857-d53481920450",
       "DefaultValue": {
@@ -320,7 +303,7 @@
       "MetaInstanceID": "3283da43-82d2-4e58-a803-0ef03de9bac9",
       "DefaultValue": {
         "Type": "Float",
-        "Value": "0"
+        "Value": "1"
       },
       "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
       "IsMultiInput": "False",
@@ -328,6 +311,23 @@
       "Description": "",
       "Min": "-10000",
       "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "NoiseTexture",
+      "MetaInstanceID": "1f3b536f-77d3-4865-acea-d48a5553b240",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
@@ -344,8 +344,8 @@
     {
       "MetaInstanceID": "e61b91ed-aade-4094-8efe-fe448e02bbb7",
       "MetaID": "1d8fcded-0b60-4428-8bc8-60253a29ec45",
-      "Name": "DisplaceMeshFunc",
-      "Version": "063cf5ed-013c-4f85-b7e5-be156cbaf1d0",
+      "Name": "NoiseDisplaceMeshFunc",
+      "Version": "33aff755-021f-44ae-bda5-fbf11eac1d01",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -365,7 +365,7 @@
         "",
         "namespace Framefield.Core.ID1d8fcded_0b60_4428_8bc8_60253a29ec45",
         "{",
-        "    public class Class_DisplaceMesh : FXSourceCodeFunction, IFXSceneSourceCode",
+        "    public class Class_NoiseDisplaceMesh : FXSourceCodeFunction, IFXSceneSourceCode",
         "    {",
         "        //>>> _inputids",
         "        private enum InputId",
@@ -386,7 +386,7 @@
         "        }",
         "        //<<< _inputids",
         "",
-        "        public Class_DisplaceMesh()",
+        "        public Class_NoiseDisplaceMesh()",
         "        {",
         "        }",
         "",

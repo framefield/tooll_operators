@@ -72,6 +72,7 @@
           "float4 PS( PS_IN input ) : SV_Target\r",
           "{    \r",
           "    float4 c=Image.Sample(samNearest, input.texCoord);\r",
+          "    float a = c.a;\r",
           "    c.rgb = clamp( c.rgb, 0.000001,1000);\r",
           "\r",
           "    // Saturation\r",
@@ -97,7 +98,8 @@
           "    //c.rgb = lerp( float3(gray2, gray2,gray2), c.rgb, PostSaturate); \r",
           "    //c.rgb = clamp(c.rgb, 0.000001,1000);\r",
           "        \r",
-          "    c.a = 1;\r",
+          "    //c.a = 1;\r",
+          "    c.a = a;\r",
           "    \r",
           "    return c;\r",
           "}\r",
@@ -174,7 +176,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -191,7 +193,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -208,7 +210,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -225,7 +227,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -242,7 +244,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -259,7 +261,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -276,7 +278,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -293,7 +295,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.003",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -310,7 +312,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.001",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -327,7 +329,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.001",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -344,7 +346,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.001",
       "ScaleType": "Linear",
       "EnumValues": []
     },
@@ -361,7 +363,7 @@
       "Description": "",
       "Min": "0",
       "Max": "1",
-      "Scale": "0.01",
+      "Scale": "0.001",
       "ScaleType": "Linear",
       "EnumValues": []
     }

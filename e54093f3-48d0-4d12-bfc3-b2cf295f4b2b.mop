@@ -1,7 +1,7 @@
 {
   "Name": "NoiseDistortMesh",
   "_id": "e54093f3-48d0-4d12-bfc3-b2cf295f4b2b",
-  "Namespace": "lib.3d.mesh",
+  "Namespace": "lib.mesh.modify",
   "Description": "GPU-based noise deformer derived from Scatter. It transforms vertices randomly.\r\n\r\nNeeds a RGBANoise as 2nd input\r\n\r\n[NoiseDistort____________]\r\n[BackMesh]  [SetResolution]\r\n[Transform]  [RGBANoise]\r\n[Rectangle]\r\n\r\n\t",
   "Inputs": [
     {
@@ -68,19 +68,19 @@
           "    pn = p + input[0].normal * ScaleNormals;\r",
           "    dn = offsetAtPoint( pn );\r",
           "    input[0].pos.xyz = p + offsetAtPoint( p );    \r",
-          "    input[0].normal=  (pn + dn - input[0].pos);\r",
+          "    input[0].normal=  normalize(pn + dn - input[0].pos);\r",
           "\r",
           "    p = input[1].pos;\r",
           "    pn = p + input[1].normal * ScaleNormals;\r",
           "    dn = offsetAtPoint( pn );\r",
           "    input[1].pos.xyz = p + offsetAtPoint( p );    \r",
-          "    input[1].normal=  (pn + dn - input[1].pos);\r",
+          "    input[1].normal=  normalize(pn + dn - input[1].pos);\r",
           "\r",
           "    p = input[2].pos;\r",
           "    pn = p + input[2].normal * ScaleNormals;\r",
           "    dn = offsetAtPoint( pn );\r",
           "    input[2].pos.xyz = p + offsetAtPoint( p );    \r",
-          "    input[2].normal=  (pn + dn - input[2].pos);\r",
+          "    input[2].normal=  normalize(pn + dn - input[2].pos);\r",
           "\r",
           "    if( abs(Facetize) > 0.001) {\r",
           "        float3 n = normalize( input[0].normal + input[1].normal + input[2].normal);\r",
@@ -118,6 +118,40 @@
       "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
       "IsMultiInput": "False",
       "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Mesh",
+      "MetaInstanceID": "f885a9e5-1054-45f3-90ea-6c80f36d3134",
+      "DefaultValue": {
+        "Type": "Mesh",
+        "Value": "Framefield.Core.MeshValue"
+      },
+      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "NoiseTexture",
+      "MetaInstanceID": "cb7034fc-f145-4ad7-99bd-d86e2a2f16f1",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
       "Description": "",
       "Min": "-100000",
       "Max": "100000",
@@ -211,23 +245,6 @@
       "EnumValues": []
     },
     {
-      "Name": "NoiseTexture",
-      "MetaInstanceID": "cb7034fc-f145-4ad7-99bd-d86e2a2f16f1",
-      "DefaultValue": {
-        "Type": "Image",
-        "Value": "Framefield.Core.Image"
-      },
-      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
-      "IsMultiInput": "False",
-      "Relevance": "Required",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "NoiseAmountXYZ.Width",
       "MetaInstanceID": "68bbaa44-dff1-4a68-a661-5917c7b2f16d",
       "DefaultValue": {
@@ -279,23 +296,6 @@
       "EnumValues": []
     },
     {
-      "Name": "Mesh",
-      "MetaInstanceID": "f885a9e5-1054-45f3-90ea-6c80f36d3134",
-      "DefaultValue": {
-        "Type": "Mesh",
-        "Value": "Framefield.Core.MeshValue"
-      },
-      "MetaID": "cc257632-61ce-4950-acf1-8a25fa3e2206",
-      "IsMultiInput": "False",
-      "Relevance": "Required",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "Facetize",
       "MetaInstanceID": "0f616321-4d74-479f-86c7-481c71b5563b",
       "DefaultValue": {
@@ -342,7 +342,7 @@
       "MetaInstanceID": "edc213e1-c5e3-4e91-b907-88d5edaa1638",
       "MetaID": "ab9cdf63-1f39-4bc1-88db-dd03995ba7d0",
       "Name": "NoiseDistortMeshFunc",
-      "Version": "88fd6f0b-ac5f-4f4f-a9be-f215711183f8",
+      "Version": "01179dc1-5644-43ef-a5a6-efecd136be4f",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -440,8 +440,10 @@
         "            var ScaleNormals = inputs[(int)InputId.ScaleNormals].Eval(context).Value;",
         "            //<<< _params",
         "",
-        "            if (NoiseTexture == null)",
+        "            if (NoiseTexture == null) {",
+        "                Logger.Info(this, \"\" + this + \" requires valid noiseTexture\");",
         "                return;",
+        "            }",
         "            ",
         "            //Logger.Info(this, \"collect meshes\");",
         "//            Scene.Func.Changed = false;",

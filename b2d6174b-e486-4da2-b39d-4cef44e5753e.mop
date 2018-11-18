@@ -1,0 +1,148 @@
+{
+  "Name": "FallBackImage",
+  "_id": "b2d6174b-e486-4da2-b39d-4cef44e5753e",
+  "Namespace": "lib.image.helpers",
+  "Description": "Only uses the 2nd input, if the first one is null. ",
+  "Inputs": [
+    {
+      "Name": "TestImage",
+      "MetaInstanceID": "80d19a9e-91b4-412c-931c-2bb02ff4e6c6",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Relevant",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ImageFallback",
+      "MetaInstanceID": "3f2dceab-a8db-4af7-83db-17141f35831a",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "d76a133c-0038-4799-bc8a-57a23dd2ffab",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "71d903e4-782a-4a5f-aa86-0fc0c33a09b4",
+      "MetaID": "02b57651-5e54-4a4c-ac9b-b303f11fe18c",
+      "Name": "FallBackImageFunc",
+      "Version": "7caa2454-7948-49e9-a412-20a2aeb3ebf5",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID02b57651_5e54_4a4c_ac9b_b303f11fe18c",
+        "{",
+        "    public class Class_FallBackImage : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            TestImage = 0,",
+        "            ImageFallback = 1",
+        "        }",
+        "        //<<< _inputids",
+        "    ",
+        "        private bool BuildRenderTarget(OperatorPartContext context, int width, int height) {",
+        "            var resourceChanged = ResourceManager.ValidateRenderTargetResource(ref _renderTargetResource, OperatorPart, context.D3DDevice,",
+        "                                                                               width, height);",
+        "            if (resourceChanged) {",
+        "                Utilities.DisposeObj(ref _renderTargetView);",
+        "                _renderTargetView = new RenderTargetView(context.D3DDevice, _renderTargetResource.Texture);",
+        "            }",
+        "            return resourceChanged;",
+        "        }",
+        "",
+        "        public override void Dispose() {",
+        "            ResourceManager.Dispose(_renderTargetResource);",
+        "            Utilities.DisposeObj(ref _renderTargetView);",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            var previousTexture = context.Image;",
+        "            context.Image =null;",
+        "",
+        "            var TestImage = inputs[(int)InputId.TestImage].Eval(context).Image; ",
+        "                        ",
+        "            //Logger.Info(this, TestImage.Description.Height.ToString());",
+        "            var testImageIsInvalid = TestImage == null  || inputs[(int)InputId.TestImage].Connections.Count() == 0;",
+        "            if(testImageIsInvalid) {",
+        "                var ImageFallback = inputs[(int)InputId.ImageFallback].Eval(context).Image;",
+        "                context.Image = ImageFallback;                ",
+        "            }",
+        "            else {",
+        "                context.Image = TestImage;                                            ",
+        "            }",
+        "            ",
+        "            return context;",
+        "        }",
+        "",
+        "        Resource _renderTargetResource;",
+        "        RenderTargetView _renderTargetView;",
+        "    }",
+        "",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "71d903e4-782a-4a5f-aa86-0fc0c33a09b4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "d76a133c-0038-4799-bc8a-57a23dd2ffab"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "80d19a9e-91b4-412c-931c-2bb02ff4e6c6",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "71d903e4-782a-4a5f-aa86-0fc0c33a09b4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3f2dceab-a8db-4af7-83db-17141f35831a",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "71d903e4-782a-4a5f-aa86-0fc0c33a09b4"
+    }
+  ]
+}

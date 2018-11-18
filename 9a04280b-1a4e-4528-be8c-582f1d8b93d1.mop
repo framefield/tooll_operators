@@ -1,0 +1,186 @@
+{
+  "Name": "RecordValueCurve",
+  "_id": "9a04280b-1a4e-4528-be8c-582f1d8b93d1",
+  "Namespace": "lib.basic.curve",
+  "Description": "Records the input value over global time for the given duration. This can be usefull for plotting the curve with [CurveGeometry]",
+  "Inputs": [
+    {
+      "Name": "U",
+      "MetaInstanceID": "75d75d9d-2d16-4345-b1e6-7da23cd1aba9",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Duration",
+      "MetaInstanceID": "49bd4cf7-5ac0-46f0-9dd6-6f08bb841448",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1000"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "V",
+      "MetaInstanceID": "0c8ad319-663f-443e-9f95-045e72ea63f8",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "This",
+      "MetaInstanceID": "cce753e4-a81e-460d-a6fa-66ba8db9b5a8",
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "29876906-1400-4590-acc1-50006057ebd7",
+      "MetaID": "1d70fe72-5457-4885-996c-58227cee40b8",
+      "Name": "RecordValueCurveFunc",
+      "Version": "dbe049ef-12ff-4ea3-b7cf-541f9ed24ac7",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "using Framefield.Core.IDb03022e3_8b4f_4d33_b749_ef30a03ef098; // CurveProviderFunc",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID1d70fe72_5457_4885_996c_58227cee40b8",
+        "{",
+        "    public class Class_RecordValueCurve : OperatorPart.Function, ICurveProvider",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            U = 0,",
+        "            Duration = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            This = 0,",
+        "            V = 1",
+        "        }",
+        "        //<<< _outputids",
+        "        ",
+        "        public List<Vector4> GetPoints() ",
+        "        {",
+        "            var r = new List<Vector4>();",
+        "            for(int i = 0; i < _count; i++ ){",
+        "                var p = Utilities.PerlinNoise3(i,1,4); // _controlPoints.ToList();",
+        "                r.Add( new Vector4(p.X, p.Y, p.Z, 1));",
+        "            }",
+        "            return r;",
+        "        }",
+        "        ",
+        "        ",
+        "        int _count;",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //>>> _params",
+        "            var U = inputs[(int)InputId.U].Eval(context).Value;",
+        "            var Duration = inputs[(int)InputId.Duration].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "                        ",
+        "            var p = Utilities.PerlinNoise3(U);",
+        "            switch( (int) outputIdx) {",
+        "                case (int)OutputId.V: context.Value= p.X; break;",
+        "                //case (int)OutputId.Y: context.Value= p.Y; break;",
+        "                //case (int)OutputId.Z: context.Value= p.Z; break;",
+        "                case (int)OutputId.This: context.Dynamic= this; break;",
+        "            }",
+        "                   ",
+        "            //_count = (int)Count;                   ",
+        "            return context;",
+        "        }",
+        "",
+        "        public Vector4 SampleAt(double u) ",
+        "        {",
+        "            var p = Utilities.PerlinNoise3((float)u, 1, 2);",
+        "            //return new Vector4(p.X, p.Y, p.Z, 1);",
+        "            return new Vector4((float)u, p.Z, p.X, 1);",
+        "        }",
+        "",
+        "        private double _lastTime;",
+        "    }        ",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [
+    {
+      "Name": "CurveProvider",
+      "MetaInstanceID": "fa7ce36f-2533-4497-aa31-86774871ef12",
+      "MetaID": "6a030fc7-b200-478e-84a1-dd4825b8d5cc",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "100",
+        "PosY": "100",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "75d75d9d-2d16-4345-b1e6-7da23cd1aba9",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29876906-1400-4590-acc1-50006057ebd7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "49bd4cf7-5ac0-46f0-9dd6-6f08bb841448",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "29876906-1400-4590-acc1-50006057ebd7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "29876906-1400-4590-acc1-50006057ebd7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "cce753e4-a81e-460d-a6fa-66ba8db9b5a8"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "29876906-1400-4590-acc1-50006057ebd7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0c8ad319-663f-443e-9f95-045e72ea63f8"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "Name": "GetCameraPosition",
+  "_id": "2696e0a5-373f-4d85-984c-8803743530c5",
+  "Namespace": "lib.geometry.helper",
+  "Description": "Returns the world space position of a [Camera]",
+  "Inputs": [
+    {
+      "Name": "Camera",
+      "MetaInstanceID": "132fc803-bb7a-4400-993a-7415dd63be1e",
+      "DefaultValue": {
+        "Type": "Dynamic",
+        "Value": "Framefield.Core.Dynamic"
+      },
+      "MetaID": "9701d534-b3ff-4889-a250-84aece4a7d76",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "x",
+      "MetaInstanceID": "53645672-c6d7-4fb6-af0e-8f7d6ee56ed9",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "y",
+      "MetaInstanceID": "6c58dcb5-3c6f-45cb-a5cd-683a6b2a94eb",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "z",
+      "MetaInstanceID": "406f9bd7-9fec-432a-8a0f-4030caa085b3",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "3909964a-83ec-4996-94d8-637d6a707811",
+      "MetaID": "eeefa5a3-dc82-4c33-b232-0de4aacd5512",
+      "Name": "GetCameraPositionFunc",
+      "Version": "4b3714b8-59c2-414c-9076-583f3b029859",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.IDeeefa5a3_dc82_4c33_b232_0de4aacd5512",
+        "{",
+        "    public class Class_GetCameraPosition : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Camera = 0",
+        "        }",
+        "        //<<< _inputids",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            x = 0,",
+        "            y = 1,",
+        "            z = 2",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var Camera = inputs[(int)InputId.Camera].Eval(context).Dynamic;  // Needs to be checked for null!",
+        "            //<<< _params",
+        "            ",
+        "            if(Camera == null)",
+        "                return context;",
+        "            ",
+        "            Framefield.Core.OperatorPartTraits.ICameraProvider camProvider = Camera.This as Framefield.Core.OperatorPartTraits.ICameraProvider;",
+        "            if (camProvider == null)",
+        "            {",
+        "                Logger.Error(this, \"camera not defined\");",
+        "                return context;",
+        "            }",
+        "",
+        "            ",
+        "            var position =  camProvider.GetLastPosition();",
+        "            ",
+        "            switch(outputIdx) {",
+        "                case (int)OutputId.x: ",
+        "                    context.Value = position.X;",
+        "                    break;",
+        "            ",
+        "                case (int)OutputId.y: ",
+        "                    context.Value = position.Y;",
+        "                    break;",
+        "            ",
+        "                case (int)OutputId.z: ",
+        "                    context.Value = position.Z;",
+        "                    break;                ",
+        "            }",
+        "           ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "132fc803-bb7a-4400-993a-7415dd63be1e",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3909964a-83ec-4996-94d8-637d6a707811"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3909964a-83ec-4996-94d8-637d6a707811",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "53645672-c6d7-4fb6-af0e-8f7d6ee56ed9"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3909964a-83ec-4996-94d8-637d6a707811",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "6c58dcb5-3c6f-45cb-a5cd-683a6b2a94eb"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "3909964a-83ec-4996-94d8-637d6a707811",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "406f9bd7-9fec-432a-8a0f-4030caa085b3"
+    }
+  ]
+}

@@ -105,6 +105,9 @@
           "        case 5:\r",
           "            rgb = abs(tA.rgb - tB.rgb) * tB.a + tB.rgb * (1.0 - tB.a);\r",
           "            break;        \r",
+          "        case 6:\r",
+          "            rgb = tA.rgb;\r",
+          "            break;\r",
           "    }\r",
           "    \r",
           "    switch( (int)AlphaMode) {\r",
@@ -112,7 +115,7 @@
           "            a = tA.a;\r",
           "            break;\r",
           "        case 2:\r",
-          "            a = tB.a;\r",
+          "            a = tA.a * tB.a;\r",
           "            break;\r",
           "            \r",
           "        case  3:\r",
@@ -222,6 +225,10 @@
         {
           "Name": "Difference",
           "Value": "5"
+        },
+        {
+          "Name": "OnlyA",
+          "Value": "6"
         }
       ]
     },
@@ -272,7 +279,7 @@
       "MetaInstanceID": "0361546c-cc78-4e2c-a49b-6d8d12b57129",
       "MetaID": "719e0132-6622-4aba-8c92-8eb8e417529e",
       "Name": "BlendImagesFunc",
-      "Version": "e5a00aaf-db2a-4a3e-824d-ca0f398c5a98",
+      "Version": "6df5cb0a-5cad-4ba9-bf75-68c12ddf80a4",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [

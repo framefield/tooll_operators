@@ -1,7 +1,7 @@
 {
   "Name": "KeyPressed",
   "_id": "4213b9e0-a420-410c-ba04-987ee5bb0f01",
-  "Namespace": "lib.basic",
+  "Namespace": "lib.io",
   "Description": "Returns 1 if a specific key is pressing otherwise 0.\r\nSome examples for key-codes:\r\n1,2,3,A,B,C\r\nRight, Left, Up, Down\r\nEnter,Escape\r\nControlKey,ShiftKey\r\nBack,Space\r\n\r\nNOTE: This operator use to be called [KeyInput] but has been renamed.\r\n",
   "Inputs": [
     {
@@ -34,7 +34,7 @@
       "MetaInstanceID": "6532f698-8bcc-4a38-87c4-1613ecfa1d58",
       "MetaID": "30208404-fe00-4501-ab13-dd00dfeb0fd3",
       "Name": "KeyPressedFunc",
-      "Version": "212a4e82-b4f8-4da4-9846-2b1874d82326",
+      "Version": "af893c58-60b3-4bca-9637-0ef07fc2ea21",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -53,7 +53,7 @@
         "",
         "namespace Framefield.Core.ID30208404_fe00_4501_ab13_dd00dfeb0fd3",
         "{",
-        "    public class Class_KeyInput : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IAsyncDependend",
+        "    public class Class_KeyPressed : OperatorPart.Function, Framefield.Core.OperatorPartTraits.IAsyncDependend",
         "    {",
         "        public bool AsyncChanged { get { return _asyncChanged; } }",
         "",
@@ -64,7 +64,7 @@
         "        }",
         "        //<<< _inputids ",
         "",
-        "        public Class_KeyInput()",
+        "        public Class_KeyPressed()",
         "        {",
         "            Input.Keyboard.KeyPressedEvent += HandleKeyboardKeyPressedEvent;",
         "            Input.Keyboard.KeyReleasedEvent += HandleKeyboardKeyReleasedEvent;",

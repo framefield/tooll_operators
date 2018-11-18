@@ -1,0 +1,657 @@
+{
+  "Name": "SoundtrackPeaks",
+  "_id": "41424096-3026-4a6d-9a29-cd8fb036f7b4",
+  "Namespace": "lib.io",
+  "Description": "This is a helper op that tries to detect significant peaks in the high or bass audio frequencies of the current project.\r\nThe location of the audio-data is derived from \"config/projectsettings.json\"\r\n\"soundtrack.path\" : \"...\"\r\n\r\nThe respective fft-values are computed when dragging mp3 files to the timeline.\r\n\r\nIt's really helpful to connect a [PlotCurve] operator to understand how the audio-levels look like.\r\n\r\nNote that this operator has many outputs\r\n",
+  "Inputs": [
+    {
+      "Name": "BeatTimeMode",
+      "MetaInstanceID": "a9bf5cae-8b2c-42a5-b14b-a0d39181aaca",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": [
+        {
+          "Name": "Peaks",
+          "Value": "1"
+        },
+        {
+          "Name": "Flashes",
+          "Value": "2"
+        },
+        {
+          "Name": "Time since peak",
+          "Value": "3"
+        },
+        {
+          "Name": "Time to peak",
+          "Value": "4"
+        },
+        {
+          "Name": "FlashesWithIntensity",
+          "Value": "5"
+        }
+      ]
+    },
+    {
+      "Name": "ThresholdForHighs",
+      "MetaInstanceID": "738b5856-14ce-481b-9dee-5301a83decb3",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.002",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "ThresholdForBass",
+      "MetaInstanceID": "9936077f-f078-46a2-aab2-5b335f09907b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.5"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "10000",
+      "Scale": "0.002",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SmoothLevels",
+      "MetaInstanceID": "a358d70e-af56-4fc1-aaf4-47238cacca87",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "2",
+      "Max": "100",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "FlashDecay",
+      "MetaInstanceID": "5be43e64-485e-4f8a-8cda-06246ab88055",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "10"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "TimeShift",
+      "MetaInstanceID": "e3130291-6494-46f4-b505-0f48709c1f38",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.01",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "MinTimeBetweenPeaks",
+      "MetaInstanceID": "6f58ef76-732b-4c83-94fb-e8697fbfb376",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0.05"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0.01",
+      "Max": "1",
+      "Scale": "0.001",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Level",
+      "MetaInstanceID": "24e31040-4d3f-409b-94e0-304f1fa0deab",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "BassIndex",
+      "MetaInstanceID": "0d8cff30-c9ab-4b43-a4a8-b706b53e6782",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "BassTime",
+      "MetaInstanceID": "a15bf8ed-3fbd-4998-8a3e-1e15eb826222",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "HighIndex",
+      "MetaInstanceID": "53296f7c-27f1-4747-ae56-746d0d770a78",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "HighTime",
+      "MetaInstanceID": "a8ccabb4-afde-4d26-87c5-85e610f4d3a9",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [],
+  "Operators": [
+    {
+      "Name": "SoundLevels",
+      "MetaInstanceID": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "MetaID": "dabd848f-0bdc-4e7e-9ed5-e81ca82bbd71",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6163.1816732893",
+        "PosY": "-1854.70951607639",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "beb62e36-6eff-4f94-b715-2eea4ddefd31",
+            "Type": "Float",
+            "Value": [
+              "6.799999"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "AppendSuffix",
+      "MetaInstanceID": "6bbbe393-e935-4444-94cc-10cb948c8262",
+      "MetaID": "b9f9bfff-febb-48f2-9324-4b1b09aba414",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6154.07507107637",
+        "PosY": "-1767.22419667397",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9fa5c508-6fb2-4309-be9a-426cc0bf0580",
+            "Type": "Text",
+            "Value": [
+              ".highlevels.json"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SoundLevels",
+      "MetaInstanceID": "e82fa7b8-77b8-44da-b2df-677aa8758a13",
+      "MetaID": "dabd848f-0bdc-4e7e-9ed5-e81ca82bbd71",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6590.52604591093",
+        "PosY": "-1853.91198969175",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "67007deb-0bd3-4ae3-a8c9-70e3613f4fd0",
+            "Type": "Float",
+            "Value": [
+              "1.652"
+            ]
+          },
+          {
+            "ID": "900926bc-d744-49b2-96f1-bd2b371c5085",
+            "Type": "Float",
+            "Value": [
+              "5"
+            ]
+          },
+          {
+            "ID": "56ac6cbb-4918-4574-890d-fcbd0b70a74a",
+            "Type": "Float",
+            "Value": [
+              "8.73"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "AppendSuffix",
+      "MetaInstanceID": "701f631d-affe-4669-bb2b-151b7aa23b73",
+      "MetaID": "b9f9bfff-febb-48f2-9324-4b1b09aba414",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6592.61569247989",
+        "PosY": "-1768.29271175299",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9fa5c508-6fb2-4309-be9a-426cc0bf0580",
+            "Type": "Text",
+            "Value": [
+              ".levels.json"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "MatchRegEx",
+      "MetaInstanceID": "233a5e45-0e49-4956-90d6-76106ec2baec",
+      "MetaID": "4cd9d8f9-3c68-4e6d-95b8-8564f56edcd2",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6309.20864578171",
+        "PosY": "-1547.97676148812",
+        "Width": "200",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "8baf93b1-881e-4566-828b-c431d9910460",
+            "Type": "Text",
+            "Value": [
+              "Soundtrack.Path\": \"(.*)\""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "AppendSuffix",
+      "MetaInstanceID": "e321f169-8379-4752-b76b-418d5d2e382a",
+      "MetaID": "b9f9bfff-febb-48f2-9324-4b1b09aba414",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6800.34418698976",
+        "PosY": "-1742.58507238321",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "9fa5c508-6fb2-4309-be9a-426cc0bf0580",
+            "Type": "Text",
+            "Value": [
+              ".lowlevels.json"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "SoundLevels",
+      "MetaInstanceID": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "MetaID": "dabd848f-0bdc-4e7e-9ed5-e81ca82bbd71",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6818.66665700681",
+        "PosY": "-1832.07793575558",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "beb62e36-6eff-4f94-b715-2eea4ddefd31",
+            "Type": "Float",
+            "Value": [
+              "20"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "LoadText",
+      "MetaInstanceID": "e327d0a4-0899-4f35-9ee8-2485212e7620",
+      "MetaID": "c0ba48c7-4c33-4fe8-9b0f-2962f3a01bd3",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6309.20864578171",
+        "PosY": "-1522.97676148812",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "608dd979-35d3-4127-ba70-81043cc59903",
+            "Type": "Text",
+            "Value": [
+              "config/projectsettings.json"
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Annotation",
+      "MetaInstanceID": "a1f5f03e-e189-4c32-9728-1cf60d9963d8",
+      "MetaID": "e65cc223-c1cf-4b68-9d79-d6356e6546a4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6253.48551595557",
+        "PosY": "-1619.43849833615",
+        "Width": "300",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "0768e1c1-2976-4903-a842-a79a2f551ed7",
+            "Type": "Float",
+            "Value": [
+              "150"
+            ]
+          },
+          {
+            "ID": "74914e5e-d398-4d1e-ac1a-b49cc52b7a6f",
+            "Type": "Text",
+            "Value": [
+              "Get sound-filepath from settings-file",
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Annotation",
+      "MetaInstanceID": "811146b7-f3cd-4777-82bb-9692bdd64da9",
+      "MetaID": "e65cc223-c1cf-4b68-9d79-d6356e6546a4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6733.991038218",
+        "PosY": "-1882.07793575558",
+        "Width": "231.814053875746",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "0768e1c1-2976-4903-a842-a79a2f551ed7",
+            "Type": "Float",
+            "Value": [
+              "184.9943"
+            ]
+          },
+          {
+            "ID": "74914e5e-d398-4d1e-ac1a-b49cc52b7a6f",
+            "Type": "Text",
+            "Value": [
+              "Low Frequencies",
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Annotation",
+      "MetaInstanceID": "63152ee1-b406-4d56-991e-34fb8a03fc5a",
+      "MetaID": "e65cc223-c1cf-4b68-9d79-d6356e6546a4",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6127.33915697853",
+        "PosY": "-1890.87087137041",
+        "Width": "207.147553787051",
+        "Visible": "False",
+        "Disabled": "False",
+        "Inputs": [
+          {
+            "ID": "0768e1c1-2976-4903-a842-a79a2f551ed7",
+            "Type": "Float",
+            "Value": [
+              "193.7136"
+            ]
+          },
+          {
+            "ID": "74914e5e-d398-4d1e-ac1a-b49cc52b7a6f",
+            "Type": "Text",
+            "Value": [
+              "High Frequencies",
+              ""
+            ]
+          }
+        ],
+        "States": []
+      }
+    },
+    {
+      "Name": "Time",
+      "MetaInstanceID": "7d32b69d-39a2-4640-955a-8599de2d6aff",
+      "MetaID": "253e302b-8141-4d17-96ee-42af092dbf59",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6840.44437250694",
+        "PosY": "-1378.2474384711",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    },
+    {
+      "Name": "Add",
+      "MetaInstanceID": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "MetaID": "90e6a3b1-7a53-4799-b12e-35cd7c94fb67",
+      "OperatorProperties": {
+        "Name": "",
+        "PosX": "6729.58760299598",
+        "PosY": "-1404.87962964549",
+        "Width": "100",
+        "Visible": "True",
+        "Disabled": "False",
+        "Inputs": [],
+        "States": []
+      }
+    }
+  ],
+  "Connections": [
+    {
+      "SourceOp": "e327d0a4-0899-4f35-9ee8-2485212e7620",
+      "SourceOpPart": "96a57ec9-d243-4436-881e-60045fc07c1e",
+      "TargetOp": "233a5e45-0e49-4956-90d6-76106ec2baec",
+      "TargetOpPart": "874acc86-2edd-4e96-93ed-7d70de96f2fe"
+    },
+    {
+      "SourceOp": "233a5e45-0e49-4956-90d6-76106ec2baec",
+      "SourceOpPart": "6716febe-5eb0-485d-a096-70f1dbd5f14d",
+      "TargetOp": "6bbbe393-e935-4444-94cc-10cb948c8262",
+      "TargetOpPart": "b48abb58-5518-40cc-a07a-b4427b120bb8"
+    },
+    {
+      "SourceOp": "233a5e45-0e49-4956-90d6-76106ec2baec",
+      "SourceOpPart": "6716febe-5eb0-485d-a096-70f1dbd5f14d",
+      "TargetOp": "e321f169-8379-4752-b76b-418d5d2e382a",
+      "TargetOpPart": "b48abb58-5518-40cc-a07a-b4427b120bb8"
+    },
+    {
+      "SourceOp": "e321f169-8379-4752-b76b-418d5d2e382a",
+      "SourceOpPart": "3b3d639b-9878-48e4-ac5f-085508f1f43b",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "aa727f3b-6c60-401e-a397-b8ccf64478db"
+    },
+    {
+      "SourceOp": "6bbbe393-e935-4444-94cc-10cb948c8262",
+      "SourceOpPart": "3b3d639b-9878-48e4-ac5f-085508f1f43b",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "aa727f3b-6c60-401e-a397-b8ccf64478db"
+    },
+    {
+      "SourceOp": "701f631d-affe-4669-bb2b-151b7aa23b73",
+      "SourceOpPart": "3b3d639b-9878-48e4-ac5f-085508f1f43b",
+      "TargetOp": "e82fa7b8-77b8-44da-b2df-677aa8758a13",
+      "TargetOpPart": "aa727f3b-6c60-401e-a397-b8ccf64478db"
+    },
+    {
+      "SourceOp": "233a5e45-0e49-4956-90d6-76106ec2baec",
+      "SourceOpPart": "6716febe-5eb0-485d-a096-70f1dbd5f14d",
+      "TargetOp": "701f631d-affe-4669-bb2b-151b7aa23b73",
+      "TargetOpPart": "b48abb58-5518-40cc-a07a-b4427b120bb8"
+    },
+    {
+      "SourceOp": "e82fa7b8-77b8-44da-b2df-677aa8758a13",
+      "SourceOpPart": "e746cbb0-8c01-41b3-a6d4-268e59e65876",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "24e31040-4d3f-409b-94e0-304f1fa0deab"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a9bf5cae-8b2c-42a5-b14b-a0d39181aaca",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "900926bc-d744-49b2-96f1-bd2b371c5085"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a9bf5cae-8b2c-42a5-b14b-a0d39181aaca",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "900926bc-d744-49b2-96f1-bd2b371c5085"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "738b5856-14ce-481b-9dee-5301a83decb3",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "67007deb-0bd3-4ae3-a8c9-70e3613f4fd0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9936077f-f078-46a2-aab2-5b335f09907b",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "67007deb-0bd3-4ae3-a8c9-70e3613f4fd0"
+    },
+    {
+      "SourceOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "SourceOpPart": "eb06d1ab-e931-47ea-a9c8-9591e3154f21",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "53296f7c-27f1-4747-ae56-746d0d770a78"
+    },
+    {
+      "SourceOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "SourceOpPart": "d945eb99-c63b-4514-8d0b-de3e6461e4c7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a8ccabb4-afde-4d26-87c5-85e610f4d3a9"
+    },
+    {
+      "SourceOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "SourceOpPart": "eb06d1ab-e931-47ea-a9c8-9591e3154f21",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0d8cff30-c9ab-4b43-a4a8-b706b53e6782"
+    },
+    {
+      "SourceOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "SourceOpPart": "d945eb99-c63b-4514-8d0b-de3e6461e4c7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a15bf8ed-3fbd-4998-8a3e-1e15eb826222"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a358d70e-af56-4fc1-aaf4-47238cacca87",
+      "TargetOp": "e82fa7b8-77b8-44da-b2df-677aa8758a13",
+      "TargetOpPart": "beb62e36-6eff-4f94-b715-2eea4ddefd31"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5be43e64-485e-4f8a-8cda-06246ab88055",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "56ac6cbb-4918-4574-890d-fcbd0b70a74a"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5be43e64-485e-4f8a-8cda-06246ab88055",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "56ac6cbb-4918-4574-890d-fcbd0b70a74a"
+    },
+    {
+      "SourceOp": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "SourceOpPart": "0792c63b-adf5-4880-a5e7-bb6b60e139da",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "11e6bf48-1e64-40b9-a554-c1094df281fc"
+    },
+    {
+      "SourceOp": "7d32b69d-39a2-4640-955a-8599de2d6aff",
+      "SourceOpPart": "fccdfff4-07c3-4c5c-9b4c-9a62c7ad7d66",
+      "TargetOp": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "TargetOpPart": "19159331-0274-42c6-b32f-3f6e38073769"
+    },
+    {
+      "SourceOp": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "SourceOpPart": "0792c63b-adf5-4880-a5e7-bb6b60e139da",
+      "TargetOp": "e82fa7b8-77b8-44da-b2df-677aa8758a13",
+      "TargetOpPart": "11e6bf48-1e64-40b9-a554-c1094df281fc"
+    },
+    {
+      "SourceOp": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "SourceOpPart": "0792c63b-adf5-4880-a5e7-bb6b60e139da",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "11e6bf48-1e64-40b9-a554-c1094df281fc"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "e3130291-6494-46f4-b505-0f48709c1f38",
+      "TargetOp": "54a70ddd-9f1d-45ff-8619-6276a3440c4c",
+      "TargetOpPart": "5ca98249-3d6a-42f7-81aa-1cf02ba374e0"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6f58ef76-732b-4c83-94fb-e8697fbfb376",
+      "TargetOp": "cab6f4a1-a46b-4868-9d4d-a763db94c784",
+      "TargetOpPart": "24a08179-abb4-4d0a-8478-ee3880fd39a7"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "6f58ef76-732b-4c83-94fb-e8697fbfb376",
+      "TargetOp": "37e7de9d-5aaa-45d1-9a1c-a216dcba20d9",
+      "TargetOpPart": "24a08179-abb4-4d0a-8478-ee3880fd39a7"
+    }
+  ]
+}

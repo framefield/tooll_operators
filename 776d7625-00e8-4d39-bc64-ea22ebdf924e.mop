@@ -1,0 +1,132 @@
+{
+  "Name": "GetCurrentCamPosition",
+  "_id": "776d7625-00e8-4d39-bc64-ea22ebdf924e",
+  "Namespace": "lib.geometry.helper",
+  "Description": "Returns the world space position of a [Camera] above this operator",
+  "Inputs": [],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "c38fcd00-de2a-43da-87d8-f25af40b3cd4",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    },
+    {
+      "Name": "x",
+      "MetaInstanceID": "ee8d1df6-4832-4e54-8b02-c71f2c1d0b4f",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "y",
+      "MetaInstanceID": "2fb69703-d6e9-4529-b50d-96b848c0846e",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    },
+    {
+      "Name": "z",
+      "MetaInstanceID": "dd0c193e-bd51-4948-90aa-f0598ff2b6cf",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "727346b6-38a7-4aa1-a98c-e2249a9bef29",
+      "MetaID": "6b9fd238-bd65-4717-9bb9-d38612ce9f1b",
+      "Name": "GetCurrentCamPositionFunc",
+      "Version": "14417af9-a95c-4809-89b8-26e3c53fa01d",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "namespace Framefield.Core.ID6b9fd238_bd65_4717_9bb9_d38612ce9f1b",
+        "{",
+        "    public class Class_GetCurrentCamPosition : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "        }",
+        "        //<<< _inputids",
+        "        //>>> _outputids",
+        "        private enum OutputId",
+        "        {",
+        "            Scene = 0,",
+        "            x = 1,",
+        "            y = 2,",
+        "            z = 3",
+        "        }",
+        "        //<<< _outputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            ",
+        "            //<<< _params",
+        "            ",
+        "            switch(outputIdx) {",
+        "                case (int)OutputId.Scene:",
+        "                    var m = context.WorldToCamera;",
+        "                    m.Invert();",
+        "                    _lastPosition = m.Row4;            ",
+        "                    break;",
+        "                    ",
+        "                case (int)OutputId.x: ",
+        "                    context.Value = _lastPosition.X;",
+        "                    break;",
+        "            ",
+        "                case (int)OutputId.y: ",
+        "                    context.Value = _lastPosition.Y;",
+        "                    break;",
+        "            ",
+        "                case (int)OutputId.z: ",
+        "                    context.Value = _lastPosition.Z;",
+        "                    break;                ",
+        "            }",
+        "           ",
+        "            return context;",
+        "        }",
+        "        ",
+        "        private Vector4 _lastPosition;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "727346b6-38a7-4aa1-a98c-e2249a9bef29",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c38fcd00-de2a-43da-87d8-f25af40b3cd4"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "727346b6-38a7-4aa1-a98c-e2249a9bef29",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "ee8d1df6-4832-4e54-8b02-c71f2c1d0b4f"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "727346b6-38a7-4aa1-a98c-e2249a9bef29",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "2fb69703-d6e9-4529-b50d-96b848c0846e"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "727346b6-38a7-4aa1-a98c-e2249a9bef29",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "dd0c193e-bd51-4948-90aa-f0598ff2b6cf"
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "Name": "SimpleIK",
+  "_id": "5258e7bc-8c85-4a73-a6c3-269ff44c3332",
+  "Namespace": "lib.geometry.modify",
+  "Description": "Rotates two objects like bones of an elbow",
+  "Inputs": [
+    {
+      "Name": "Position.X",
+      "MetaInstanceID": "799a33d4-501c-47c7-9c7c-45810dcbe479",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Y",
+      "MetaInstanceID": "42210624-bf4d-449a-8d82-2134324fbe71",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Position.Z",
+      "MetaInstanceID": "ff83d2d4-79fd-4a2f-b9e0-bc11834b97b8",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.02",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Rotate",
+      "MetaInstanceID": "257eddc4-fdc4-4439-ac02-a0638485d995",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Length.A",
+      "MetaInstanceID": "1684cc0e-da52-49a9-9fcf-55c9026b1d45",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Length.B",
+      "MetaInstanceID": "4a7e2f2e-16b4-44db-abc5-ec13d8936ae7",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SceneA",
+      "MetaInstanceID": "bece0f61-c928-4afe-9aa0-9e2c856ccdef",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "SceneB",
+      "MetaInstanceID": "092ee715-49c3-4ad4-896d-ac825db62bf4",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "SceneTransformOut",
+      "MetaInstanceID": "588e0b9b-15fe-4e6e-9fd2-47f6b26e2742",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "a1e7805c-5e23-4723-8cd9-8140fadf2239",
+      "MetaID": "51d5d2c1-f2bb-42d4-9a04-6349cb43b6b9",
+      "Name": "SimpleIKFunc",
+      "Version": "3dcf3702-b393-4e02-98c9-a1b69471e471",
+      "Type": "Scene",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System.Collections.Generic;",
+        "using SharpDX;",
+        "using Framefield.Core.OperatorPartTraits;",
+        "using System;",
+        "",
+        "namespace Framefield.Core.ID51d5d2c1_f2bb_42d4_9a04_6349cb43b6b9",
+        "{",
+        "    public class Class_SimpleIK : OperatorPart.Function, ISceneTransform",
+        "    {",
+        "        // ISceneTransform",
+        "        public Matrix Transform",
+        "        {",
+        "            get",
+        "            {",
+        "                //UpdateTransform(new OperatorPartContext(), OperatorPart.Connections);",
+        "                return _transform;",
+        "            }",
+        "        }",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            //var SceneInput = inputs[0];",
+        "",
+        "            if (!Changed)",
+        "                return context;",
+        "                ",
+        "            // >>> _params",
+        "            var PositionX = inputs[(int)InputId.PositionX].Eval(context).Value;",
+        "            var PositionY = inputs[(int)InputId.PositionY].Eval(context).Value;",
+        "            var PositionZ = inputs[(int)InputId.PositionZ].Eval(context).Value;",
+        "            var Position = new Vector3(PositionX, PositionY, PositionZ);",
+        "            var Rotate = inputs[(int)InputId.Rotate].Eval(context).Value;",
+        "            var LengthA = inputs[(int)InputId.LengthA].Eval(context).Value;",
+        "            var LengthB = inputs[(int)InputId.LengthB].Eval(context).Value;",
+        "            var Length = new Vector2(LengthA, LengthB);",
+        "            var SceneA = inputs[(int)InputId.SceneA];",
+        "            var SceneB = inputs[(int)InputId.SceneB];",
+        "            // <<< _params",
+        "",
+        "            Vector3 scale, position;",
+        "            Quaternion rotation;",
+        "            context.ObjectTWorld.Decompose(out scale, out rotation, out position);",
+        "",
+        "            var transform = GetLookAtMatrix( Vector3.Zero, Position);",
+        "            _transform = transform;",
+        "",
+        "",
+        "            ",
+        "            ",
+        "            //UpdateTransform(context, inputs);",
+        "            var prevTransform = context.ObjectTWorld;",
+        "",
+        "            context.ObjectTWorld = _transform * prevTransform;",
+        "            SceneA.Eval(context);",
+        "            //context.ObjectTWorld = prevTransform;",
+        "",
+        "",
+        "            var moveB = Matrix.Translation( new Vector3(1,0,0));",
+        "            ",
+        "            //var t2= ",
+        "            ",
+        "            //context.ObjectTWorld = GetLookAtMatrix( Position )  * moveB;            ",
+        "            ",
+        "            SceneA.Eval(context);",
+        "            context.ObjectTWorld = prevTransform;",
+        "",
+        "",
+        "            return context;",
+        "        }",
+        "        ",
+        "        // >>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            PositionX = 0,",
+        "            PositionY = 1,",
+        "            PositionZ = 2,",
+        "            Rotate = 3,",
+        "            LengthA = 4,",
+        "            LengthB = 5,",
+        "            SceneA = 6,",
+        "            SceneB = 7",
+        "        }",
+        "        // <<< _inputids",
+        "",
+        "        Matrix GetLookAtMatrix( Vector3 position, Vector3 target) {",
+        "            var transform = Matrix.Identity;",
+        "            var t = position - target;",
+        "            if (t.Length() > 0)",
+        "            {",
+        "                var dir = -t;",
+        "                dir.Normalize();",
+        "                var helperDir = new Vector3(0, 1, 0);",
+        "                //if (Math.Abs(dir.Y) < 0.1 && Math.Abs(dir.Z) < 0.1)",
+        "                //    helperDir = new Vector3(1, 0, 1);",
+        "                    ",
+        "                var xAxis = Vector3.Cross(dir, helperDir);                ",
+        "                xAxis.Normalize();",
+        "                ",
+        "                var yAxis = Vector3.Cross(xAxis, dir);",
+        "                yAxis.Normalize();",
+        "                ",
+        "                var m = Matrix.Identity;",
+        "                m.Row1 = new Vector4(yAxis, 0);",
+        "                m.Row2 = new Vector4(xAxis, 0);",
+        "                m.Row3 = new Vector4(dir, 0);",
+        "                transform *= m;",
+        "            }",
+        "            return transform;",
+        "        }",
+        "        ",
+        "        ",
+        "",
+        "        private Matrix _transform;",
+        "    }",
+        "}",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "799a33d4-501c-47c7-9c7c-45810dcbe479",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "42210624-bf4d-449a-8d82-2134324fbe71",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "ff83d2d4-79fd-4a2f-b9e0-bc11834b97b8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "257eddc4-fdc4-4439-ac02-a0638485d995",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1684cc0e-da52-49a9-9fcf-55c9026b1d45",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "4a7e2f2e-16b4-44db-abc5-ec13d8936ae7",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bece0f61-c928-4afe-9aa0-9e2c856ccdef",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "092ee715-49c3-4ad4-896d-ac825db62bf4",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "a1e7805c-5e23-4723-8cd9-8140fadf2239",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "588e0b9b-15fe-4e6e-9fd2-47f6b26e2742"
+    }
+  ]
+}

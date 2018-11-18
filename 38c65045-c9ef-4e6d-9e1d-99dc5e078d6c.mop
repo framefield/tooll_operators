@@ -1,7 +1,7 @@
 {
-  "Name": "MeshSupplier",
+  "Name": "MeshToScene (Obsolete)",
   "_id": "38c65045-c9ef-4e6d-9e1d-99dc5e078d6c",
-  "Namespace": "user.cynic",
+  "Namespace": "lib.mesh.modify",
   "Description": "For compability gets a mesh as input and implementes the IMeshSupplier interface so it can be used with ops still awaiting this interface.",
   "Inputs": [
     {
@@ -33,8 +33,8 @@
     {
       "MetaInstanceID": "99efb66e-e7d0-4471-a6a6-8acbb314f40b",
       "MetaID": "d9201da9-669b-4ab5-9a79-25efbb6a1929",
-      "Name": "MeshSupplierFunc",
-      "Version": "d87ca8cb-b85b-451a-bb80-733632adea16",
+      "Name": "MeshToScene (Obsolete)Func",
+      "Version": "5f099e15-bc7c-4d45-a66a-bf551996ba68",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -46,7 +46,7 @@
         "",
         "namespace Framefield.Core.IDd9201da9_669b_4ab5_9a79_25efbb6a1929",
         "{",
-        "    public class Class_MeshToScene : OperatorPart.Function,",
+        "    public class Class_MeshToScene__Obsolete_ : OperatorPart.Function,",
         "                                     Framefield.Core.OperatorPartTraits.IMeshSupplier",
         "    {",
         "        // IMeshSupplier",
@@ -54,8 +54,6 @@
         "        {",
         "            UpdateMesh(new OperatorPartContext(), OperatorPart.Connections);",
         "            meshes.Add(_mesh);",
-        "            if (_mesh != null)",
-        "                Logger.Info(\"added mesh with: {0} triangles\", _mesh.NumTriangles);",
         "        }",
         "",
         "        public override void Dispose()",
@@ -66,13 +64,11 @@
         "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
         "        {",
         "            UpdateMesh(context, inputs);",
-        "",
         "            return context;",
         "        }",
         "",
         "        private void UpdateMesh(OperatorPartContext context, IList<OperatorPart> inputs)",
         "        {",
-        "        Logger.Info(\"mesh != null: {0}\", _mesh != null);",
         "            if (_mesh != null && !Changed)",
         "                return;",
         "",

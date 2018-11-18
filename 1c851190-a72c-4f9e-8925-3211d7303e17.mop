@@ -1,0 +1,123 @@
+{
+  "Name": "Animate",
+  "_id": "1c851190-a72c-4f9e-8925-3211d7303e17",
+  "Namespace": "lib.time",
+  "Description": "This is basically idential to...\r\n\r\n[Multiply]\r\n[Time]\r\n\r\n",
+  "Inputs": [
+    {
+      "Name": "Speed",
+      "MetaInstanceID": "f060d80d-be3d-4089-a634-f1811a4b8b86",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "1"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Offset",
+      "MetaInstanceID": "1baf076a-c70a-48e0-afe6-824710aeee70",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Output",
+      "MetaInstanceID": "0b14b2a3-653a-4864-acef-cd0ef6d7f4d2",
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "da6f31f6-6a21-4db7-9cfb-09cf8dd17db1",
+      "MetaID": "92f4f20f-b1a5-4b6c-9924-c868ecfe1b5a",
+      "Name": "AnimateFunc",
+      "Version": "ff90863f-88d3-4ee5-b3ae-be5dfb76e7d6",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "//using System.Math;",
+        "",
+        "namespace Framefield.Core.ID92f4f20f_b1a5_4b6c_9924_c868ecfe1b5a",
+        "{",
+        "    public class Class_Ramp : OperatorPart.Function, Framefield.Core.OperatorPartTraits.ITimeAccessor",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Speed = 0,",
+        "            Offset = 1",
+        "        }",
+        "        //<<< _inputids",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) ",
+        "        {",
+        "            ",
+        "            //>>> _params",
+        "            var Speed = inputs[(int)InputId.Speed].Eval(context).Value;",
+        "            var Offset = inputs[(int)InputId.Offset].Eval(context).Value;",
+        "            //<<< _params",
+        "            ",
+        "",
+        "            context.Value = context.Time * Speed + Offset;",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "da6f31f6-6a21-4db7-9cfb-09cf8dd17db1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "0b14b2a3-653a-4864-acef-cd0ef6d7f4d2"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "f060d80d-be3d-4089-a634-f1811a4b8b86",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "da6f31f6-6a21-4db7-9cfb-09cf8dd17db1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "1baf076a-c70a-48e0-afe6-824710aeee70",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "da6f31f6-6a21-4db7-9cfb-09cf8dd17db1"
+    }
+  ]
+}

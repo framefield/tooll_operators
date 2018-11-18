@@ -1,0 +1,138 @@
+{
+  "Name": "ScaleResolution",
+  "_id": "c87c1916-d763-45ef-a1d3-2a348d002f4b",
+  "Namespace": "user.cynic",
+  "Description": "Overrides the requested resolution of Image operators in the subtree below. \r\n",
+  "Inputs": [
+    {
+      "Name": "Div.X",
+      "MetaInstanceID": "db73d903-a7fc-4a0b-9340-edaf8f7ea2c0",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Div.Y",
+      "MetaInstanceID": "bf98badd-5cad-4e98-a265-9b968dfb128b",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "2"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "1",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Input",
+      "MetaInstanceID": "c61324f3-6a7b-487c-b5e4-a34225359234",
+      "DefaultValue": {
+        "Type": "Generic",
+        "Value": "Framefield.Core.Generic"
+      },
+      "MetaID": "9f831cf2-a1ec-41f4-ba80-cced9736af6b",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Image",
+      "MetaInstanceID": "760e669f-af94-4c3e-b911-64cbee089aeb",
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "5e024757-6a45-433e-857d-403d13fffb6d",
+      "MetaID": "91a11db9-7e51-45bd-b352-40929020675f",
+      "Name": "ScaleResolutionFunc",
+      "Version": "265794be-6b29-427e-bd33-e70107bd4b71",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.DXGI;",
+        "",
+        "namespace Framefield.Core.ID91a11db9_7e51_45bd_b352_40929020675f",
+        "{",
+        "    public class Class_ScaleResolution : OperatorPart.Function",
+        "    {",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            var Scene = inputs[2];",
+        "",
+        "            int DivX = (int) inputs[0].Eval(context).Value;",
+        "            int DivY = (int) inputs[1].Eval(context).Value;",
+        "",
+        "            var oldViewport = context.Viewport;",
+        "            context.Viewport = new ViewportF(0, 0, oldViewport.Width/DivX, oldViewport.Height/DivY);",
+        "            Logger.Info(this, \"Scale Viewport from {0}/{1} to {2}/{3}.\", oldViewport.Width, oldViewport.Height, context.Viewport.Width, context.Viewport.Height);",
+        "            Scene.Eval(context);",
+        "            context.Viewport = oldViewport;",
+        "",
+        "            return context;",
+        "        }",
+        "",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "5e024757-6a45-433e-857d-403d13fffb6d",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "760e669f-af94-4c3e-b911-64cbee089aeb"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "db73d903-a7fc-4a0b-9340-edaf8f7ea2c0",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5e024757-6a45-433e-857d-403d13fffb6d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "bf98badd-5cad-4e98-a265-9b968dfb128b",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5e024757-6a45-433e-857d-403d13fffb6d"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c61324f3-6a7b-487c-b5e4-a34225359234",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "5e024757-6a45-433e-857d-403d13fffb6d"
+    }
+  ]
+}

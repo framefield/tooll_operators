@@ -1,0 +1,167 @@
+{
+  "Name": "SetSkySphere",
+  "_id": "a8d3939b-3a29-4f3f-b642-79a190d37aa0",
+  "Namespace": "lib.geometry.modify",
+  "Description": "Loads an image and sets it to texture stage 0.",
+  "Inputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "2d690350-be02-4363-9a20-150e0dcf0809",
+      "DefaultValue": {
+        "Type": "Scene",
+        "Value": "Framefield.Core.Scene"
+      },
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Image",
+      "MetaInstanceID": "d954add7-26cf-4fe2-86bc-bcb3fffbe980",
+      "DefaultValue": {
+        "Type": "Image",
+        "Value": "Framefield.Core.Image"
+      },
+      "MetaID": "9848060d-fd84-45b0-b658-d0d531c61dab",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Intensity",
+      "MetaInstanceID": "eaf5d9d8-f49d-4392-8eb6-f436d9cf9568",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-10000",
+      "Max": "10000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Scene",
+      "MetaInstanceID": "1b6e8847-63dd-4148-afec-49607da11823",
+      "MetaID": "79122951-7bc4-4c68-b085-866eab828248"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "54add77b-82f6-4079-a023-9e6ffb0c3ab1",
+      "MetaID": "7919fb73-4f65-481a-95d2-210fdc9faa1e",
+      "Name": "SetSkySphereFunc",
+      "Version": "fd795e78-8d1e-48e1-97b4-965a8b2b8928",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "",
+        "namespace Framefield.Core.ID7919fb73_4f65_481a_95d2_210fdc9faa1e",
+        "{",
+        "    public class Class_SetSkySphere : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            Scene = 0,",
+        "            Image = 1,",
+        "            Intensity = 2",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "        public override void Dispose()",
+        "        {",
+        "            Utilities.DisposeObj(ref _texture);",
+        "        }",
+        "        ",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx)",
+        "        {",
+        "            //>>> __params",
+        "            var Scene = inputs[(int)InputId.Scene];",
+        "            var ImageInput = inputs[(int)InputId.Image];",
+        "            var Intensity = inputs[(int)InputId.Intensity].Eval(context).Value;",
+        "            //<<< __params",
+        "",
+        "            if (ImageInput.Func.Changed)",
+        "            {",
+        "                var Image = ImageInput.Eval(context).Image;",
+        "                Dispose();",
+        "                if (Image != null)",
+        "                {",
+        "                    _texture = new ShaderResourceView(context.D3DDevice, Image);",
+        "                }",
+        "                ImageInput.Func.Changed = false;",
+        "            }",
+        "",
+        "            var prevTexture0 = context.SkySphereSRV;",
+        "            if (_texture != null)",
+        "                context.SkySphereSRV = _texture;",
+        "",
+        "",
+        "            // FIXME: Intensity needs to be added to context",
+        "            Scene.Eval(context);",
+        "",
+        "            context.SkySphereSRV = prevTexture0;",
+        "            return context;",
+        "        }",
+        "",
+        "        ShaderResourceView _texture = null;",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "54add77b-82f6-4079-a023-9e6ffb0c3ab1",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "1b6e8847-63dd-4148-afec-49607da11823"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "2d690350-be02-4363-9a20-150e0dcf0809",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54add77b-82f6-4079-a023-9e6ffb0c3ab1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "d954add7-26cf-4fe2-86bc-bcb3fffbe980",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54add77b-82f6-4079-a023-9e6ffb0c3ab1"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "eaf5d9d8-f49d-4392-8eb6-f436d9cf9568",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "54add77b-82f6-4079-a023-9e6ffb0c3ab1"
+    }
+  ]
+}

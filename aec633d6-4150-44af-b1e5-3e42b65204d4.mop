@@ -1,8 +1,8 @@
 {
-  "Name": "CubeMapper",
+  "Name": "SetCubeTexture",
   "_id": "aec633d6-4150-44af-b1e5-3e42b65204d4",
-  "Namespace": "lib.3d.material",
-  "Description": "",
+  "Namespace": "lib.geometry.material",
+  "Description": "It also allows to preview mipmap levels",
   "Inputs": [
     {
       "Name": "Code",
@@ -14,6 +14,7 @@
           "float4x4 objectToWorldMatrix;\r",
           "float4x4 projMatrix;\r",
           "float4x4 textureMatrix;\r",
+          "float MipLevel;\r",
           "\r",
           "Texture2D txDiffuse;\r",
           "TextureCube CubeMap;\r",
@@ -59,7 +60,7 @@
           "\r",
           "float4 PS( PS_IN input ) : SV_Target\r",
           "{\r",
-          "    return CubeMap.Sample(samLinear, normalize(input.normal))*input.col;\r",
+          "    return CubeMap.SampleLevel(samLinear, normalize(input.normal), MipLevel)*input.col;\r",
           "}\r",
           "\r",
           "technique10 Render\r",
@@ -117,6 +118,23 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
+    },
+    {
+      "Name": "MipLevel",
+      "MetaInstanceID": "08a10140-faec-4d2e-909f-e10d9f39f15a",
+      "DefaultValue": {
+        "Type": "Float",
+        "Value": "0"
+      },
+      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "0",
+      "Max": "16",
+      "Scale": "1",
+      "ScaleType": "Linear",
+      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -130,8 +148,8 @@
     {
       "MetaInstanceID": "edfd87d5-f071-4e5f-9a93-253cf3b69a33",
       "MetaID": "0e49b045-1a1a-453f-941f-29bb86c7793e",
-      "Name": "CubeMapperFunc",
-      "Version": "517fb990-af05-4d8e-876e-ca0e42f8450e",
+      "Name": "SetCubeTextureFunc",
+      "Version": "45280868-f5ce-4515-9f2b-4a6ed76965c5",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -148,7 +166,7 @@
         "",
         "namespace Framefield.Core.ID0e49b045_1a1a_453f_941f_29bb86c7793e",
         "{",
-        "    public class Class_CubeMapper : FXSourceCodeFunction, IFXSceneSourceCode",
+        "    public class Class_SetCubeTexture : FXSourceCodeFunction, IFXSceneSourceCode",
         "    {",
         "",
         "        class Renderer : BaseRenderer",
@@ -165,7 +183,8 @@
         "        {",
         "            Code = 0,",
         "            Scene = 1,",
-        "            CubeMap = 2",
+        "            CubeMap = 2,",
+        "            MipLevel = 3",
         "        }",
         "        //<<< _inputids",
         "",
@@ -176,6 +195,7 @@
         "            var Code = inputs[(int)InputId.Code].Eval(context).Text;",
         "            var Scene = inputs[(int)InputId.Scene];",
         "            var CubeMap = inputs[(int)InputId.CubeMap].Eval(context).Image; // Needs to be checked for null!",
+        "            var MipLevel = inputs[(int)InputId.MipLevel].Eval(context).Value;",
         "            //<<< _params",
         "",
         "            if (_firstEval)",
@@ -189,7 +209,7 @@
         "            using (var CubeMapView = new ShaderResourceView(context.D3DDevice, CubeMap))",
         "            {",
         "                _effect.GetVariableByName(\"CubeMap\").AsShaderResource().SetResource(CubeMapView);",
-        "",
+        "                _effect.GetVariableByName(\"MipLevel\").AsScalar().Set(MipLevel);",
         "                using (new PropertyStasher<OperatorPartContext>(context, \"Effect\", \"Renderer\"))",
         "                {",
         "                    context.Effect = _effect;",
@@ -234,6 +254,12 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "5a42be40-93c0-4a0d-9bf8-000ad6f0610f",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "edfd87d5-f071-4e5f-9a93-253cf3b69a33"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "08a10140-faec-4d2e-909f-e10d9f39f15a",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "edfd87d5-f071-4e5f-9a93-253cf3b69a33"
     }

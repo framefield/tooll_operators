@@ -54,23 +54,6 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
-    },
-    {
-      "Name": "Ticks",
-      "MetaInstanceID": "7e4dbc0d-3e89-4f4f-859b-f1a51100fde3",
-      "DefaultValue": {
-        "Type": "Text",
-        "Value": "1000"
-      },
-      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -100,7 +83,7 @@
       "MetaInstanceID": "aa2d0e50-92f8-4041-8b8b-941f81158a37",
       "MetaID": "66640b3f-0c38-4c34-94e7-67f3e45c3010",
       "Name": "BeatCounterFunc",
-      "Version": "0d203f31-466a-4f34-ae3b-7982bb1647c8",
+      "Version": "e01fd46d-943c-45f0-86ab-8b66b1f96e1a",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -123,8 +106,7 @@
         "        {",
         "            BPM = 0,",
         "            Offset = 1,",
-        "            Bars = 2,",
-        "            Ticks = 3",
+        "            Bars = 2",
         "        }",
         "        //<<< _inputids",
         "        ",
@@ -144,7 +126,6 @@
         "            var BPM = inputs[(int)InputId.BPM].Eval(context).Value;",
         "            var Offset = inputs[(int)InputId.Offset].Eval(context).Value;",
         "            var Bars = inputs[(int)InputId.Bars].Eval(context).Value;",
-        "            var Ticks = inputs[(int)InputId.Ticks].Eval(context).Text;",
         "            //<<< _params",
         "            ",
         "            switch (outputIdx)",
@@ -202,12 +183,6 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "88814b71-4d7c-4a36-b529-50d5d160ba4b",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "7e4dbc0d-3e89-4f4f-859b-f1a51100fde3",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "aa2d0e50-92f8-4041-8b8b-941f81158a37"
     },

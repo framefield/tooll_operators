@@ -2,7 +2,7 @@
   "Name": "SmoothValue",
   "_id": "589257b2-35b2-4ca1-ad82-29e645010287",
   "Namespace": "lib.math.helper",
-  "Description": "When triggered, freezes the incoming value. This can be used for building things like StopWatches.\r\n",
+  "Description": "Interpolates the incoming value. \r\n\r\nWARNING: This Operators depends on framerate and does not allow reverse playback.\r\n",
   "Inputs": [
     {
       "Name": "Value",
@@ -85,7 +85,7 @@
       "MetaInstanceID": "54b56c95-c5ab-4b8b-9885-375bf33870ee",
       "MetaID": "f3365080-ed24-457b-9022-491a9e46fafe",
       "Name": "SmoothValueFunc",
-      "Version": "7c1db783-9fb7-4e9c-8fee-098fed6ac26e",
+      "Version": "452d1a6d-2e74-4555-afb4-2d2f4d9b7ae3",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -122,9 +122,10 @@
         "            var Precision = inputs[(int)InputId.Precision].Eval(context).Value;",
         "            //<<< _params",
         "            ",
-        "            if (SetHardTrigger != 0)",
+        "            if (SetHardTrigger > 0.5f)",
         "            {",
         "                _targetValue = Value;",
+        "                _smoothInterpolator.SetValue(Value);",
         "            }",
         "            _smoothInterpolator.Acceleration = Acceleration;",
         "            _smoothInterpolator.Precision = Precision;",

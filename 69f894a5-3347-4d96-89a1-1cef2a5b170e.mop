@@ -1,7 +1,7 @@
 {
   "Name": "BeatTrigger",
   "_id": "69f894a5-3347-4d96-89a1-1cef2a5b170e",
-  "Namespace": "lib.math.timing",
+  "Namespace": "lib.time",
   "Description": "",
   "Inputs": [
     {
@@ -54,23 +54,6 @@
       "Scale": "0.1",
       "ScaleType": "Linear",
       "EnumValues": []
-    },
-    {
-      "Name": "Ticks",
-      "MetaInstanceID": "ed685a9a-9ad0-4107-82d1-05508f20e262",
-      "DefaultValue": {
-        "Type": "Text",
-        "Value": "1000"
-      },
-      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
     }
   ],
   "Outputs": [
@@ -100,7 +83,7 @@
       "MetaInstanceID": "8277d2d9-137d-40d8-91f4-976a851f0e05",
       "MetaID": "83e71e09-4788-4149-a5b5-ab983e25ddd6",
       "Name": "BeatTriggerFunc",
-      "Version": "f3cdcc02-3060-44b3-934f-05afd94ec9ee",
+      "Version": "0958df1d-a004-4967-8bf3-fe7747222950",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -123,8 +106,7 @@
         "        {",
         "            BPM = 0,",
         "            Offset = 1,",
-        "            Bars = 2,",
-        "            Ticks = 3",
+        "            Bars = 2",
         "        }",
         "        //<<< _inputids",
         "        ",
@@ -144,7 +126,6 @@
         "            var BPM = inputs[(int)InputId.BPM].Eval(context).Value;",
         "            var Offset = inputs[(int)InputId.Offset].Eval(context).Value;",
         "            var Bars = inputs[(int)InputId.Bars].Eval(context).Value;",
-        "            var Ticks = inputs[(int)InputId.Ticks].Eval(context).Text;",
         "            //<<< _params",
         "            ",
         "            var time = context.GlobalTime - Offset;",
@@ -204,12 +185,6 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "c8a30d89-f77a-4bf6-b9c1-f239e41e830f",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "8277d2d9-137d-40d8-91f4-976a851f0e05"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "ed685a9a-9ad0-4107-82d1-05508f20e262",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "8277d2d9-137d-40d8-91f4-976a851f0e05"
     },

@@ -1,7 +1,7 @@
 {
   "Name": "TextFragment",
   "_id": "3fc25e84-6ef9-4619-98b6-47a9e58fce54",
-  "Namespace": "lib.text",
+  "Namespace": "lib.string",
   "Description": "Returns a fraction of a string. This can be ever characters, words, lines or sentences. This is useful for implementing things like typewrites and such. ",
   "Inputs": [
     {
@@ -107,7 +107,7 @@
       "MetaInstanceID": "a4304a82-86d9-4c4a-b622-84d4b02b6f17",
       "MetaID": "987cf347-5d85-4b83-b971-041b7337c895",
       "Name": "TextFragmentFunc",
-      "Version": "44b1b1ef-176e-49f9-9327-8266d823770d",
+      "Version": "36ab74a4-e9ee-44d5-8f49-7bd536b6cd8e",
       "Type": "Dynamic",
       "IsMultiInput": "True",
       "Script": [
@@ -238,7 +238,7 @@
         "        private string GetFragment(int startFragment, int fragmentCount)",
         "        {",
         "            var d = \"\";",
-        "            if(fragmentCount <= 0)",
+        "            if(fragmentCount <= 0 || _numberOfChunks == 0)",
         "                return \"\";",
         "",
         "            var sb = new StringBuilder();",

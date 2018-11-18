@@ -1,7 +1,7 @@
 {
   "Name": "PhongShader",
   "_id": "274c7da9-c728-4a9d-b5a3-dadb06e2715b",
-  "Namespace": "lib.3d.material",
+  "Namespace": "lib.geometry.material",
   "Description": "",
   "Inputs": [
     {
@@ -115,7 +115,7 @@
           "    output.fogFragCoord = abs(output.pos.z / input.pos.w);",
           "    output.pos = mul(output.pos, projMatrix);",
           "    output.texCoord = mul(float4(input.texCoord, 0, 1), textureMatrix).xy;",
-          "    output.fragPosToCamPos = normalize(mul(cameraToObjectMatrix[3], objectToWorldMatrix) - output.posInWorld);",
+          "    output.fragPosToCamPos = normalize((mul(cameraToObjectMatrix[3], objectToWorldMatrix) - output.posInWorld).xyz);",
           "    output.vertexColor = input.col;",
           "      ",
           "    return output;",
@@ -124,7 +124,7 @@
           "\r",
           "float4 calcLightSource(float3 fragPosInWorld, int lightIdx, float3 cameraVector, float3 norm, float4 baseColor)\r",
           "{\r",
-          "    float3 lightVector = pointLights[lightIdx].position - fragPosInWorld;\r",
+          "    float3 lightVector = pointLights[lightIdx].position.xyz - fragPosInWorld;\r",
           "    float dist = length(lightVector);\r",
           "    lightVector = normalize(lightVector);\r",
           "    float nxDir = max(0.0, dot(norm, lightVector));\r",
@@ -159,9 +159,9 @@
           "    float4 color = float4(0, 0, 0, 1);\r",
           "    uint numPointLights, pointLightSize;\r",
           "    pointLights.GetDimensions(numPointLights, pointLightSize);\r",
-          "    for (int lightIdx = 0; lightIdx < numPointLights; ++lightIdx)\r",
+          "    for (uint lightIdx = 0; lightIdx < numPointLights; ++lightIdx)\r",
           "    {\r",
-          "        color += calcLightSource(input.posInWorld, lightIdx, input.fragPosToCamPos, norm, baseColor);\r",
+          "        color += calcLightSource(input.posInWorld.xyz, lightIdx, input.fragPosToCamPos, norm, baseColor);\r",
           "    }\r",
           "    color += materialEmission*baseColor;\r",
           "\r",

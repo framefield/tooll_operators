@@ -1,7 +1,7 @@
 {
   "Name": "WireFrameShader",
   "_id": "cf898d05-a7b7-4ef5-89f9-e7051d032fce",
-  "Namespace": "lib.3d.material",
+  "Namespace": "lib.geometry.material",
   "Description": "",
   "Inputs": [
     {
@@ -121,7 +121,7 @@
           "    output.fogFragCoord = abs(output.pos.z / input.pos.w);",
           "    output.pos = mul(output.pos, projMatrix);",
           "    output.texCoord = mul(float4(input.texCoord, 0, 1), textureMatrix).xy;",
-          "    output.fragPosToCamPos = normalize(mul(cameraToObjectMatrix[3], objectToWorldMatrix) - output.posInWorld);",
+          "    output.fragPosToCamPos = normalize(mul(cameraToObjectMatrix[3], objectToWorldMatrix) - output.posInWorld).rgb;",
           "    output.vertexColor = input.col;",
           "      ",
           "    return output;",

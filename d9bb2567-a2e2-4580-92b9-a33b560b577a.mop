@@ -22,36 +22,6 @@
       "EnumValues": []
     },
     {
-      "Name": "UVMode",
-      "MetaInstanceID": "7bf18725-3e85-4bdc-827d-45bfe9a0a276",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "1"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": [
-        {
-          "Name": "Time",
-          "Value": "0"
-        },
-        {
-          "Name": "Length",
-          "Value": "1"
-        },
-        {
-          "Name": "External",
-          "Value": "2"
-        }
-      ]
-    },
-    {
       "Name": "Width",
       "MetaInstanceID": "974b92ea-770a-46e0-b529-31917c80ed90",
       "DefaultValue": {
@@ -188,23 +158,6 @@
       "EnumValues": []
     },
     {
-      "Name": "Twist",
-      "MetaInstanceID": "ae17831e-bc99-4906-ad84-544669187aa6",
-      "DefaultValue": {
-        "Type": "Float",
-        "Value": "0"
-      },
-      "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
-      "IsMultiInput": "False",
-      "Relevance": "Optional",
-      "Description": "",
-      "Min": "-100000",
-      "Max": "100000",
-      "Scale": "0.1",
-      "ScaleType": "Linear",
-      "EnumValues": []
-    },
-    {
       "Name": "Range.Start",
       "MetaInstanceID": "1d880755-a9e2-4486-82a5-0f96ca7c557b",
       "DefaultValue": {
@@ -226,7 +179,7 @@
       "MetaInstanceID": "c9c55c4c-cad1-42c4-8afd-471ecfd1a008",
       "DefaultValue": {
         "Type": "Float",
-        "Value": "0"
+        "Value": "100"
       },
       "MetaID": "3f76dee3-3897-44ac-82d6-25ce9f53a506",
       "IsMultiInput": "False",
@@ -268,7 +221,7 @@
       "MetaInstanceID": "968df7d0-e254-47cf-b1ae-c730cbfb8724",
       "MetaID": "adcaf21d-fa1b-4fa6-a4d7-b525554d95e4",
       "Name": "CurveGeometryFunc",
-      "Version": "bb92b55d-0c38-421c-981f-76fe27c45508",
+      "Version": "76fcdd3c-8ff8-4e10-a028-2a8aafabb609",
       "Type": "Scene",
       "IsMultiInput": "True",
       "Script": [
@@ -294,19 +247,17 @@
         "        private enum InputId",
         "        {",
         "            Steps = 0,",
-        "            UVMode = 1,",
-        "            Width = 2,",
-        "            UpVectorX = 3,",
-        "            UpVectorY = 4,",
-        "            UpVectorZ = 5,",
-        "            ColorR = 6,",
-        "            ColorG = 7,",
-        "            ColorB = 8,",
-        "            ColorA = 9,",
-        "            Twist = 10,",
-        "            RangeStart = 11,",
-        "            RangeEnd = 12,",
-        "            Curve = 13",
+        "            Width = 1,",
+        "            UpVectorX = 2,",
+        "            UpVectorY = 3,",
+        "            UpVectorZ = 4,",
+        "            ColorR = 5,",
+        "            ColorG = 6,",
+        "            ColorB = 7,",
+        "            ColorA = 8,",
+        "            RangeStart = 9,",
+        "            RangeEnd = 10,",
+        "            Curve = 11",
         "        }",
         "        //<<< _inputids",
         "",
@@ -334,7 +285,6 @@
         "",
         "            //>>> _params",
         "            var Steps = inputs[(int)InputId.Steps].Eval(context).Value;",
-        "            var UVMode = (int) inputs[(int)InputId.UVMode].Eval(context).Value;",
         "            var Width = inputs[(int)InputId.Width].Eval(context).Value;",
         "            var UpVectorX = inputs[(int)InputId.UpVectorX].Eval(context).Value;",
         "            var UpVectorY = inputs[(int)InputId.UpVectorY].Eval(context).Value;",
@@ -345,7 +295,6 @@
         "            var ColorB = inputs[(int)InputId.ColorB].Eval(context).Value;",
         "            var ColorA = inputs[(int)InputId.ColorA].Eval(context).Value;",
         "            var Color = new Color4(ColorR, ColorG, ColorB, ColorA);",
-        "            var Twist = inputs[(int)InputId.Twist].Eval(context).Value;",
         "            var RangeStart = inputs[(int)InputId.RangeStart].Eval(context).Value;",
         "            var RangeEnd = inputs[(int)InputId.RangeEnd].Eval(context).Value;",
         "            var Range = new Vector2(RangeStart, RangeEnd);",
@@ -418,14 +367,15 @@
         "    ",
         "                    float uShift = _paintedLength;",
         "                    ",
-        "                    var lastPointOnCurve = _curve.SampleAt(0); ",
+        "                    var lastPointOnCurve = _curve.SampleAt(RangeStart); ",
         "                    var lastP0 = new Vector4( lastPointOnCurve.X, lastPointOnCurve.Y + Width * lastPointOnCurve.W, lastPointOnCurve.Z, 1 );                    ",
         "                    var lastP1 = new Vector4( lastPointOnCurve.X, lastPointOnCurve.Y - Width * lastPointOnCurve.W, lastPointOnCurve.Z, 1 );                    ",
         "                    ",
         "                    for (int i = 0; i < _steps - 1; ++i) ",
         "                    {",
         "                        ",
-        "                        var samplePos = i / (double)_steps * (_numControlPoints -2) * 3 ;",
+        "                        //var samplePos = i / (double)_steps * (_numControlPoints -2) * 3 ;",
+        "                        var samplePos = (float)i/_steps * (RangeEnd-RangeStart) + RangeStart;",
         "                        var nextPointOnCurve = _curve.SampleAt(samplePos);",
         "                        var nextP0 = new Vector4( nextPointOnCurve.X, nextPointOnCurve.Y + Width * nextPointOnCurve.W, nextPointOnCurve.Z, 1 );                    ",
         "                        var nextP1 = new Vector4( nextPointOnCurve.X, nextPointOnCurve.Y - Width * nextPointOnCurve.W, nextPointOnCurve.Z, 1 );                                            ",
@@ -533,12 +483,6 @@
     },
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "7bf18725-3e85-4bdc-827d-45bfe9a0a276",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "968df7d0-e254-47cf-b1ae-c730cbfb8724"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "974b92ea-770a-46e0-b529-31917c80ed90",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "968df7d0-e254-47cf-b1ae-c730cbfb8724"
@@ -582,12 +526,6 @@
     {
       "SourceOp": "00000000-0000-0000-0000-000000000000",
       "SourceOpPart": "df72400a-19f3-43e6-8dfc-2040419ab29a",
-      "TargetOp": "00000000-0000-0000-0000-000000000000",
-      "TargetOpPart": "968df7d0-e254-47cf-b1ae-c730cbfb8724"
-    },
-    {
-      "SourceOp": "00000000-0000-0000-0000-000000000000",
-      "SourceOpPart": "ae17831e-bc99-4906-ad84-544669187aa6",
       "TargetOp": "00000000-0000-0000-0000-000000000000",
       "TargetOpPart": "968df7d0-e254-47cf-b1ae-c730cbfb8724"
     },

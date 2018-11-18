@@ -1,0 +1,120 @@
+{
+  "Name": "AppendSuffix",
+  "_id": "b9f9bfff-febb-48f2-9324-4b1b09aba414",
+  "Namespace": "lib.string",
+  "Description": "Appends a string at the end of another string. This is handy short-cut for [Concat].\r\n",
+  "Inputs": [
+    {
+      "Name": "String",
+      "MetaInstanceID": "b48abb58-5518-40cc-a07a-b4427b120bb8",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Required",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    },
+    {
+      "Name": "Suffix",
+      "MetaInstanceID": "9fa5c508-6fb2-4309-be9a-426cc0bf0580",
+      "DefaultValue": {
+        "Type": "Text",
+        "Value": ""
+      },
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d",
+      "IsMultiInput": "False",
+      "Relevance": "Optional",
+      "Description": "",
+      "Min": "-100000",
+      "Max": "100000",
+      "Scale": "0.1",
+      "ScaleType": "Linear",
+      "EnumValues": []
+    }
+  ],
+  "Outputs": [
+    {
+      "Name": "Uppercase",
+      "MetaInstanceID": "3b3d639b-9878-48e4-ac5f-085508f1f43b",
+      "MetaID": "c522a66e-3260-4692-b3e3-79fd0361fa3d"
+    }
+  ],
+  "OperatorParts": [
+    {
+      "MetaInstanceID": "c4a47f5c-fcf5-448b-8a61-409150764f88",
+      "MetaID": "02d9d5d1-7a61-4a45-a1f4-936c9f4a6000",
+      "Name": "AppendSuffixFunc",
+      "Version": "3fea8d59-0c21-4f4e-b972-3e2061854c64",
+      "Type": "Float",
+      "IsMultiInput": "True",
+      "Script": [
+        "//>>> _using",
+        "using System;",
+        "using System.Collections.Generic;",
+        "using System.Linq;",
+        "using System.Text;",
+        "using SharpDX;",
+        "using SharpDX.Direct3D11;",
+        "using SharpDX.Windows;",
+        "//<<< _using",
+        "",
+        "",
+        "namespace Framefield.Core.ID02d9d5d1_7a61_4a45_a1f4_936c9f4a6000",
+        "{",
+        "    public class Class_AppendString : OperatorPart.Function",
+        "    {",
+        "        //>>> _inputids",
+        "        private enum InputId",
+        "        {",
+        "            String = 0,",
+        "            Suffix = 1",
+        "        }",
+        "        //<<< _inputids",
+        "",
+        "",
+        "        public override OperatorPartContext Eval(OperatorPartContext context, List<OperatorPart> inputs, int outputIdx) {",
+        "            //>>> _params",
+        "            var String = inputs[(int)InputId.String].Eval(context).Text;",
+        "            var Suffix = inputs[(int)InputId.Suffix].Eval(context).Text;",
+        "            //<<< _params            ",
+        "            ",
+        "            context.Text = String + Suffix;            ",
+        "            return context;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        ""
+      ],
+      "AdditionalAssemblies": []
+    }
+  ],
+  "Operators": [],
+  "Connections": [
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "c4a47f5c-fcf5-448b-8a61-409150764f88",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "3b3d639b-9878-48e4-ac5f-085508f1f43b"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "b48abb58-5518-40cc-a07a-b4427b120bb8",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c4a47f5c-fcf5-448b-8a61-409150764f88"
+    },
+    {
+      "SourceOp": "00000000-0000-0000-0000-000000000000",
+      "SourceOpPart": "9fa5c508-6fb2-4309-be9a-426cc0bf0580",
+      "TargetOp": "00000000-0000-0000-0000-000000000000",
+      "TargetOpPart": "c4a47f5c-fcf5-448b-8a61-409150764f88"
+    }
+  ]
+}

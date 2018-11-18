@@ -201,7 +201,7 @@
       "MetaInstanceID": "8a1bd457-9c04-43cf-98f3-249732ce0862",
       "MetaID": "7f63c4ac-74c8-4e23-a04d-6c75a9fac787",
       "Name": "DetectEdgesFunc",
-      "Version": "d274db32-d553-419e-884b-b5c27d5ac0fd",
+      "Version": "f55611be-7fb6-48ef-b506-c8bf57fd35f0",
       "Type": "Float",
       "IsMultiInput": "True",
       "Script": [
@@ -239,6 +239,9 @@
         "            var SampleRadius = inputs[(int)InputId.SampleRadius].Eval(context).Value;",
         "            var Contrast = inputs[(int)InputId.Contrast].Eval(context).Value;",
         "            //<<< _params",
+        "            ",
+        "            if(Image == null)",
+        "                return context;",
         "",
         "",
         "            return PrepareAndEvalOnChange(context, () => {",
